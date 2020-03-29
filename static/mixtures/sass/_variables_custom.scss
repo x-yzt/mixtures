@@ -1,0 +1,27 @@
+/* 
+    Custom variables for Mixtures.info
+
+    This file is not part of the Materialize framework and needs to
+    be imported in materialize.scss after "components/variables", eg:
+        ...
+        @import "components/variables";
+        @import "variables_custom";
+        ...
+*/
+
+
+$primary-color: color("amber", "darken-2");
+$secondary-color: color("purple", "base");
+
+$navbar-font-color: color("shades", "black");
+
+
+// Following allows palette access in HTML classes
+
+.primary-color {
+    background-color: $primary-color !important;
+}
+
+.primary-color-text {
+    color: $primary-color !important;
+}

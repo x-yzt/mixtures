@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mixtures.info{% block title %}, site dédié aux combinaisons de substances psychoactives{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="{% static 'mixtures/css/materialize.css' %}">
+        <link rel="stylesheet" href="{% static 'mixtures/css/base.css' %}">
+    </head>
+    
+    <body>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper container">
+                    <a href="/" class="brand-logo valign-wrapper">
+                        <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+                    </a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="{% url 'main' %}">Combinaisons</a></li>
+                        <li><a href="">Substances</a></li>
+                        <li><a href="">API</a></li>
+                        <li><a href="">À propos</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'main' %}">Combinaisons</a></li>
+            <li><a href="">Substances</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="">À propos</a></li>
+        </ul>
+        
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+        
+        <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
+        <script>M.AutoInit();</script>
+    </body>
+</html>

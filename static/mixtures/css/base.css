@@ -1,0 +1,10 @@
+.brand-logo img {
+    margin: 6px;
+    height: 44px;
+}
+
+@media only screen and (min-width: 601px) {
+    .brand-logo img {
+       height: 52px;
+    }
+}
