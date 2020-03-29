@@ -1,0 +1,1 @@
+sass --no-source-map ./static/mixtures/sass:./static/mixtures/css --style compressed
