@@ -1,3 +1,5 @@
+/* Header logo */
+
 .brand-logo img {
     margin: 6px;
     height: 44px;
@@ -7,4 +9,29 @@
     .brand-logo img {
        height: 52px;
     }
+}
+
+
+/* Sticky footer */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+
+/* Typo */
+
+a {
+    font-weight: 600;
+}
+
+h5 i {
+    position: relative;
+    top: .16rem;
 }

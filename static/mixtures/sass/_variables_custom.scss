@@ -10,10 +10,28 @@
 */
 
 
-$primary-color: color("amber", "darken-2");
+// Palette
+
+$primary-color: color("amber", "darken-1");
 $secondary-color: color("purple", "base");
 
+$primary-color-dark: color("amber", "darken-2");
+
+$link-color: color("purple", "darken-2");
+
+
+// Components color
+
+$footer-copyright-bg-color: $primary-color-dark;
+
 $navbar-font-color: color("shades", "black");
+$footer-font-color: color("shades", "black");
+$footer-copyright-font-color: color("shades", "black");
+
+
+// Typo
+
+$h1-fontsize: 3.2rem;
 
 
 // Following allows palette access in HTML classes
