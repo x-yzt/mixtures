@@ -13,7 +13,7 @@ class Drug(Model):
     description = TextField(default='', blank=True, verbose_name="description")
     _aliases = TextField(default='', blank=True, verbose_name="dénominations", help_text="Un alias par ligne. Insensible à la casse.")
     interactants = ManyToManyField('self', symmetrical=False, through='Interaction', verbose_name="interactants")
-    category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='substances', verbose_name="catégorie")
+    category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
 
 
     def __str__(self):
@@ -34,7 +34,7 @@ class Drug(Model):
 
 
     def get_absolute_url(self):
-        return reverse('substance', kwargs={'slug': self.slug})
+        return reverse('drug', kwargs={'slug': self.slug})
 
 
     class Meta:
@@ -134,22 +134,22 @@ class SymetricalRelationModel(Model):
 class Interaction(SymetricalRelationModel):
 
     added = DateTimeField(auto_now_add=True, verbose_name="ajouté")
-    from_substance = ForeignKey('Drug', CASCADE, related_name='from_interaction+', verbose_name="première substance")
-    to_substance = ForeignKey('Drug', CASCADE, related_name='to_interaction+', verbose_name="seconde substance")
+    from_drug = ForeignKey('Drug', CASCADE, related_name='from_interaction+', verbose_name="première substance")
+    to_drug = ForeignKey('Drug', CASCADE, related_name='to_interaction+', verbose_name="seconde substance")
     risk = IntegerField(choices=RISK, default=RISK_UNKNOWN, verbose_name="risques")
     pharmaco = IntegerField(choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN, verbose_name="pharmacologie")
     risk_description = TextField(default='', blank=True, verbose_name="description des risques")
     effect_description = TextField(default='', blank=True, verbose_name="description des effets")
 
-    symetrical_fields = ('from_substance', 'to_substance')
+    symetrical_fields = ('from_drug', 'to_drug')
 
 
     def __str__(self):
-        return f"{self.from_substance.name} + {self.to_substance.name}"
+        return f"{self.from_drug.name} + {self.to_drug.name}"
 
 
     class Meta:
-        unique_together = ('from_substance', 'to_substance')
+        unique_together = ('from_drug', 'to_drug')
         verbose_name = "interaction"
 
 

@@ -9,18 +9,18 @@ admin.site.index_title = "Bienvenue dans l'administration de Mixtures.info"
 
 class InteractionInline(admin.StackedInline):
     model = Interaction
-    fk_name = 'from_substance'
+    fk_name = 'from_drug'
 
     fieldsets = (
         (None, {
-            'fields': (('to_substance', 'risk', 'pharmaco'),)
+            'fields': (('to_drug', 'risk', 'pharmaco'),)
         }),
         ('Descriptions', {
             'classes': ('collapse',),
             'fields': (('risk_description', 'effect_description'),),
         }),
     )
-    autocomplete_fields = ('to_substance',)
+    autocomplete_fields = ('to_drug',)
 
 
 @admin.register(Drug)
@@ -43,21 +43,21 @@ class DrugAdmin(admin.ModelAdmin):
 class InteractionAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'risk', 'pharmaco')
     list_filter = (
-        'from_substance', 'to_substance',
+        'from_drug', 'to_drug',
         'risk', 'pharmaco'
     )
     date_hierarchy = 'added'
     search_fields = (
-        'from_substance', 'to_substance',
+        'from_drug', 'to_drug',
         'risk_description', 'effect_description'
     )
 
     fields = (
-        ('from_substance', 'to_substance'),
+        ('from_drug', 'to_drug'),
         ('risk', 'risk_description'),
         ('pharmaco', 'effect_description')
     )
-    autocomplete_fields = ('from_substance', 'to_substance')
+    autocomplete_fields = ('from_drug', 'to_drug')
     radio_fields = {
         'risk': admin.VERTICAL,
         'pharmaco': admin.VERTICAL
