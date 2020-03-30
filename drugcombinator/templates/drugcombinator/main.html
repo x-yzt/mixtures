@@ -2,6 +2,20 @@
 
 {% block content %}
     <div class="row">
-        <h1>Combinaisons</h1>
+        <h1>Combinaisons de substances psychoactives</h1>
+        {% for drug in drugs %}
+            <a class="waves-effect waves-light btn-large">{{drug.name}}</a>
+        {% endfor %}
+        <div class="input-field col l8 offset-l2 m12">
+            <select multiple id="drugs">
+                <option value="" disabled selected>Sélectionnez une substance</option>
+                {% for categ in categories %}
+                    <optgroup label="team 1">
+                        {% for drug in categ.drugs %}
+                        <option value="1">{{drug.name}}</option>
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
     </div>
 {% endblock %}
