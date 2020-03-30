@@ -7,6 +7,7 @@ from drugcombinator.models import Drug, Category
 def main(request):
 
     drugs = Drug.objects.all()
+    common_drugs = drugs.filter(common=True)
     uncategorized_drugs = drugs.filter(category=None)
     categories = Category.objects.all()
     return render(request, 'drugcombinator/main.html', locals())

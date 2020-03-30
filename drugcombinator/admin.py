@@ -25,15 +25,28 @@ class InteractionInline(admin.StackedInline):
 
 @admin.register(Drug)
 class DrugAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'slug', 'aliases')
-    list_filter = ('category',)
+    list_display = ('__str__', 'slug', 'aliases', 'common')
+    list_filter = ('category', 'common')
     date_hierarchy = 'added'
     search_fields = ('name', 'slug', '_aliases')
 
-    fields = (
-        ('name', 'slug', 'category'),
-        '_aliases',
-        'description'
+    fieldsets = (
+        (None, {
+            'fields': (
+                ('name', 'slug'),
+            )
+        }),
+        ("Informations de base", {
+            'fields': (
+                ('common', 'category'),
+                '_aliases'
+            ),
+        }),
+        ("Informations détaillées", {
+            'fields': (
+                ('description',)
+            ),
+        }),
     )
     prepopulated_fields = {'slug': ('name',)}
     inlines = (InteractionInline,)

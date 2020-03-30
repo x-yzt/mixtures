@@ -3,9 +3,13 @@
 {% block content %}
     <div class="row">
         <h1>Combinaisons de substances psychoactives</h1>
-        {% for drug in drugs %}
+        {% for drug in common_drugs %}
             <a class="waves-effect waves-light btn">{{ drug }}</a>
         {% endfor %}
+
+        <h2>Vous ne trouvez pas ce que vous cherchez ?</h2>
+        <p>Seules les substances les plus courantes sont répertoriées ci-dessus. Une liste plus étendue de substances est disponible ci-dessous.</p>
+
         <div class="input-field col l8 offset-l2 m12">
             <select multiple id="drugs">
                 <option value="" disabled>Sélectionnez des substances</option>

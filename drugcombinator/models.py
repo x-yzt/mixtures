@@ -1,6 +1,7 @@
 from django.db.models import (Model, DateTimeField, CharField,
         ForeignKey, CASCADE, SET_NULL, SlugField, TextField, 
-        ManyToManyField, IntegerField, PositiveIntegerField, Max)
+        ManyToManyField, IntegerField, PositiveIntegerField,
+        BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
 
@@ -14,7 +15,7 @@ class Drug(Model):
     _aliases = TextField(default='', blank=True, verbose_name="dénominations", help_text="Un alias par ligne. Insensible à la casse.")
     interactants = ManyToManyField('self', symmetrical=False, through='Interaction', verbose_name="interactants")
     category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
-
+    common = BooleanField(default=True, verbose_name="commune", help_text="Les substances communes sont affichées sous forme de boutons dans l'app.")
 
     def __str__(self):
         return self.name
@@ -39,6 +40,7 @@ class Drug(Model):
 
     class Meta:
         verbose_name = "substance"
+        ordering = ('name',)
 
 
 PHARMACOLOGY_UNKNOWN = 0
