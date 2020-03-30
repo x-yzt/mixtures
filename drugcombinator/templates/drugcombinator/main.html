@@ -4,17 +4,25 @@
     <div class="row">
         <h1>Combinaisons de substances psychoactives</h1>
         {% for drug in drugs %}
-            <a class="waves-effect waves-light btn-large">{{drug.name}}</a>
+            <a class="waves-effect waves-light btn">{{ drug }}</a>
         {% endfor %}
         <div class="input-field col l8 offset-l2 m12">
             <select multiple id="drugs">
-                <option value="" disabled selected>Sélectionnez une substance</option>
+                <option value="" disabled>Sélectionnez des substances</option>
                 {% for categ in categories %}
-                    <optgroup label="team 1">
-                        {% for drug in categ.drugs %}
-                        <option value="1">{{drug.name}}</option>
+                    <optgroup label="{{ categ }}">
+                        {% for drug in categ.drugs.all %}
+                            <option value="{{ drug.id }}">{{ drug.name }}</option>
+                        {% endfor %}
                     </optgroup>
                 {% endfor %}
+                {% if uncategorized_drugs %}
+                    <optgroup label="Autres">
+                        {% for drug in uncategorized_drugs %}
+                            <option value="{{ drug.id }}">{{ drug.name }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endif %}
             </select>
         </div>
     </div>
