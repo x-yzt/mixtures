@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
 from drugcombinator.models import Drug, Category
+from drugcombinator.forms import CombinatorForm
 
 
 def main(request):
@@ -10,4 +11,7 @@ def main(request):
     common_drugs = drugs.filter(common=True)
     uncategorized_drugs = drugs.filter(category=None)
     categories = Category.objects.all()
+
+    combinator_form = CombinatorForm()
+
     return render(request, 'drugcombinator/main.html', locals())
