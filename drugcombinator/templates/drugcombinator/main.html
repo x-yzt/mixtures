@@ -1,35 +1,51 @@
 {% extends 'mixtures/base.html' %}
 
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <h1>Combinaisons de substances psychoactives</h1>
+        <h2>Synergies et risques liés aux interactions entre drogues</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="row">
         {% for drug in common_drugs %}
-            <a class="waves-effect waves-light btn">{{ drug }}</a>
+            <a id="drug-{{ drug.id }}" class="waves-effect waves-light btn drug">{{ drug }}</a>
         {% endfor %}
 
-        <h2>Vous ne trouvez pas ce que vous cherchez ?</h2>
-        <p>Seules les substances les plus courantes sont répertoriées ci-dessus. Une liste plus étendue de substances est disponible ci-dessous.</p>
+        <h3>Vous ne trouvez pas ce que vous cherchez ?</h3>
 
-        {{ combinator_form }}
+        <form action="" method="post">
+            {% csrf_token %}
 
-        <div class="input-field col l8 offset-l2 m12">
-            <select multiple id="drugs">
-                <option value="" disabled>Sélectionnez des substances</option>
-                {% for categ in categories %}
-                    <optgroup label="{{ categ }}">
-                        {% for drug in categ.drugs.all %}
-                            <option value="{{ drug.id }}">{{ drug.name }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% endfor %}
-                {% if uncategorized_drugs %}
-                    <optgroup label="Autres">
-                        {% for drug in uncategorized_drugs %}
-                            <option value="{{ drug.id }}">{{ drug.name }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% endif %}
-            </select>
-        </div>
+            <div class="row">
+                <div class="col l6 m12 s12">
+                    <p>Seules les drogues les plus courantes sont répertoriées ci-dessus. D'autres substances sont disponibles dans cette liste.</p>
+                </div>
+
+                <div class="col l6 m8 offset-m2 s12">
+                    {{ combinator_form }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="center-align">
+                    <button class="btn-large waves-effect waves-light" type="submit" name="action">Mélanger !
+                        <i class="material-icons right">merge_type</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="divider"></div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'drugcombinator/js/combinator.js' %}"></script>
 {% endblock %}

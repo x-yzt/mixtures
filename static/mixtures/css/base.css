@@ -27,8 +27,12 @@ main {
 
 /* Typo */
 
-a {
+a, button[type="submit"] {
     font-weight: 600;
+}
+
+a.btn {
+    font-weight: inherit;
 }
 
 h5 i {

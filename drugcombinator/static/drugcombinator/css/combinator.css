@@ -1,0 +1,9 @@
+.btn.drug {
+    border: 1px solid #9c27b0;
+}
+
+.btn.drug:not(.selected) {
+    background-color: #FFF;
+    color: #9c27b0;
+    border-color: #9c27b0;
+}

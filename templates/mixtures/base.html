@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="{% static 'mixtures/css/materialize.css' %}">
         <link rel="stylesheet" href="{% static 'mixtures/css/base.css' %}">
+        {% block stylesheets %}{% endblock %}
     </head>
     
     <body>
@@ -66,12 +67,13 @@
             </div>
             <div class="footer-copyright">
                 <div class="container">
-                    <span>Programmé et conçu par <a href="">xyzt_</a></span>
+                    <span>Programmé et conçu par <a href="mailto://xyzt@psychonaut.fr">xyzt_</a></span>
                 </div>
             </div>
         </footer>
         
         <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
+        {% block scripts %}{% endblock %}
         <script>M.AutoInit();</script>
     </body>
 </html>
