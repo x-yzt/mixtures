@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
 {% endblock %}
 
+{% block title %}
+    {{ block.super }}, combinaisons de substances psychoactives
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <h1>Combinaisons de substances psychoactives</h1>
