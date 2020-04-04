@@ -148,7 +148,12 @@ class Interaction(SymetricalRelationModel):
 
     def __str__(self):
         return f"{self.from_drug.name} + {self.to_drug.name}"
+    
 
+    def get_absolute_url(self):
+            return reverse('combine', kwargs={
+                    'slugs': (self.from_drug.slug, self.to_drug.slug)
+            })
 
     class Meta:
         unique_together = ('from_drug', 'to_drug')
