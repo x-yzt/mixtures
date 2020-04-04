@@ -1,0 +1,104 @@
+<div class="row">
+
+    {% if drugs|length != 1 %}
+        <div class="col s12">
+            <h2>{{ interaction }}</h2>
+        </div>
+    {% endif %}
+
+    <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">bubble_chart</i> Synergie pharmacologique</h3>
+        <div class="pharmaco pharmaco-{{ interaction.pharmaco }}">
+            <i class="material-icons medium">
+                {% if interaction.pharmaco == 0 %}
+                    help_outline
+                {% elif interaction.pharmaco == 1 %}
+                    sync_alt
+                {% elif interaction.pharmaco == 2 %}
+                    trending_down
+                {% elif interaction.pharmaco == 3 %}
+                    trending_up
+                {% elif interaction.pharmaco == 4 %}
+                    shuffle
+                {% endif %}
+            </i>
+            <p class="label flow-text">
+                {{ interaction.get_pharmaco_display }}
+            </p>
+        </div>
+        <div class="valign-wrapper">
+            <p>
+                {% if interaction.pharmaco == 0 %}
+                    Aucune donnée n'est disponible concernant la pharmacologie
+                    de ces substances.
+                {% elif interaction.pharmaco == 1 %}
+                    Ces substances n'interagissent pas pharmacologiquement de
+                    manière significative.
+                {% elif interaction.pharmaco == 2 %}
+                    Les actions pharmacologiques de ces substances s'atténuent
+                    entre elles.
+                {% elif interaction.pharmaco == 3 %}
+                    Ces substances ont une synergie pharmacologique augmentant
+                    leurs effets.
+                {% elif interaction.pharmaco == 4 %}
+                    Ces substances ont des interactions pharmacologiques complexes,
+                    augmentant ou diminuant certains de leurs effets.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
+        <div class="risk risk-{{ interaction.risk }}">
+            <i class="material-icons medium">
+                {% if interaction.risk == 0 %}
+                    help_outline
+                {% elif interaction.risk == 1 %}
+                    drag_handle
+                {% elif interaction.risk == 2 %}
+                    warning
+                {% elif interaction.risk == 3 %}
+                    report
+                {% elif interaction.risk == 4 %}
+                    cancel
+                {% endif %}
+            </i>
+            <p class="label flow-text">
+                {{ interaction.get_risk_display }}
+            </p>
+        </div>
+        <div class="valign-wrapper">
+            <p>
+                {% if interaction.risk == 0 %}
+                    Aucune donnée n'est disponible concernant les risques liés à
+                    ces substances.
+                {% elif interaction.risk == 1 %}
+                    La consommation conjointe de ces substances n'augmente pas
+                    significativement les risques encourus par rapport à leur
+                    consommation indépendante.
+                {% elif interaction.risk == 2 %}
+                    Bien que la combinaison de ces substances ne soit pas directement
+                    dangereuse, leurs effets croisés peuvent présenter ou déclencher 
+                    des situations à risque.
+                {% elif interaction.risk == 3 %}
+                    Cette combinaison présente des risques physiques ou psychiques non
+                    négligeables.
+                {% elif interaction.risk == 4 %}
+                    Cette combinaison présente des risques physiques ou psychiques importants.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">flare</i> À propos des effets</h3>
+        <p class="flow-text">{{ interaction.effect_description|default:"Aucune information supplémentaire n'est disponible." }}</p>
+    </div>
+    <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
+        <p class="flow-text">
+            {{ interaction.risk_description|default:"Aucune information supplémentaire n'est disponible." }}
+        </p>
+    </div>
+</div>

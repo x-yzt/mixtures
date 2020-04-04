@@ -35,7 +35,7 @@ a.btn {
     font-weight: inherit;
 }
 
-h5 i {
+h3 i, h5 i {
     position: relative;
     top: .16rem;
 }

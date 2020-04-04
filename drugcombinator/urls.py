@@ -1,7 +1,11 @@
-from django.urls import path, include
+from django.urls import path, include, register_converter
+from drugcombinator.converters import SlugListConverter
 from drugcombinator import views
 
 
+register_converter(SlugListConverter, 'slug_list')
+
 urlpatterns = [
     path('', views.main, name='main'),
+    path('combine/<slug_list:slugs>/', views.combine, name='combine'),
 ]
