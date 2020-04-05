@@ -45,11 +45,11 @@ def combine(request, slugs):
     
     try:
         # Trigger DB query using list()
-        interactions = list(interactions.distinct('sym_id'))
+        interactions = list(interactions.distinct('sym_id').order_by('-risk'))
     
     except NotSupportedError:
         # Fallback if distinct() is not supported by current DB engine
-        interactions = interactions[::2]
+        interactions = interactions.order_by('-risk')[::2]
     
     combination_name = ' + '.join([str(d) for d in drugs])
 
