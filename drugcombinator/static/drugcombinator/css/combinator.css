@@ -1,5 +1,6 @@
 .btn.drug {
     border: 1px solid transparent;
+    margin: 2px 0;
 }
 
 .btn.drug:not(.selected) {
