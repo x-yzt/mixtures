@@ -9,6 +9,11 @@
     border-color: #9c27b0;
 }
 
+.interaction {
+    margin: 20px 0;
+    padding: 0 16px;
+}
+
 .risk, .pharmaco {
     float: left;
     text-align: center;
