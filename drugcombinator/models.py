@@ -143,6 +143,7 @@ class Interaction(SymetricalRelationModel):
     pharmaco = IntegerField(choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN, verbose_name="pharmacologie")
     risk_description = TextField(default='', blank=True, verbose_name="description des risques")
     effect_description = TextField(default='', blank=True, verbose_name="description des effets")
+    notes = TextField(default='', blank=True, verbose_name="notes", help_text="Ce champ n'est visible que sur ce site d'administration et est partagé entre tous les utilisateurs.")
 
     symetrical_fields = ('from_drug', 'to_drug')
 

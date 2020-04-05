@@ -21,6 +21,7 @@ class InteractionInline(admin.StackedInline):
         }),
     )
     autocomplete_fields = ('to_drug',)
+    show_change_link = True
 
 
 @admin.register(Drug)
@@ -68,7 +69,8 @@ class InteractionAdmin(admin.ModelAdmin):
     fields = (
         ('from_drug', 'to_drug'),
         ('risk', 'risk_description'),
-        ('pharmaco', 'effect_description')
+        ('pharmaco', 'effect_description'),
+        'notes'
     )
     autocomplete_fields = ('from_drug', 'to_drug')
     radio_fields = {
