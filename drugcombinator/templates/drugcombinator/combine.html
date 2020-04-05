@@ -14,7 +14,12 @@
 
 {% block content %}
     <div class="row">
-        <h1>{{ combination_name }}</h1>
+        <h1>
+            {% for drug in drugs %}
+                <a href="{{ drug.get_absolute_url }}">{{ drug }}</a>
+                {% if not forloop.last %}+{% endif %}
+            {% endfor %}
+        </h1>
         <div class="divider"></div>
     </div>
 

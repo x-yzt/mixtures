@@ -2,7 +2,11 @@
 
     {% if drugs|length != 2 %}
         <div class="col s12">
-            <h2>{{ interaction }}</h2>
+            <h2>
+                <a href="{{ interaction.from_drug.get_absolute_url }}">{{ interaction.from_drug }}</a>
+                +
+                <a href="{{ interaction.to_drug.get_absolute_url }}">{{ interaction.to_drug }}</a>
+            </h2>
         </div>
     {% endif %}
 
