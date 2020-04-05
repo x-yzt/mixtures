@@ -53,4 +53,7 @@ def combine(request, slugs):
     
     combination_name = ' + '.join([str(d) for d in drugs])
 
+    expected_interactions = len(drugs) * (len(drugs)-1) // 2
+    unknown_interactions = expected_interactions - len(interactions)
+
     return render(request, 'drugcombinator/combine.html', locals())

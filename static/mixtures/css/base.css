@@ -35,6 +35,11 @@ a.btn {
     font-weight: inherit;
 }
 
+p.flow-text i {
+    position: relative;
+    top: .3rem;
+}
+
 h3 i, h5 i {
     position: relative;
     top: .16rem;

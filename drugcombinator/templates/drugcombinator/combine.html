@@ -1,6 +1,8 @@
 {% extends 'mixtures/base.html' %}
 
 {% load static %}
+{% load humanize %}
+
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
@@ -15,6 +17,15 @@
         <h1>{{ combination_name }}</h1>
         <div class="divider"></div>
     </div>
+
+    {% if unknown_interactions and interactions %}
+        <p class="flow-text not-found">
+            <i class="material-icons small left">warning</i>
+            Prudence : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }} interaction{{ unknown_interactions|pluralize }}
+            n'{{ unknown_interactions|pluralize:'a,ont' }} pas été
+            trouvée{{ unknown_interactions|pluralize }} dans notre base de données.
+        </p>
+    {% endif %}
 
     {% for interaction in interactions %}
         {% include 'drugcombinator/interaction.html' %}
