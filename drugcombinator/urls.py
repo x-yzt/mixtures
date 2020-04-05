@@ -7,5 +7,5 @@ register_converter(SlugListConverter, 'slug_list')
 
 urlpatterns = [
     path('', views.main, name='main'),
-    path('combine/<slug_list:slugs>/', views.combine, name='combine'),
+    path('combo/<slug_list:slugs>/', views.combine, name='combine'),
 ]
