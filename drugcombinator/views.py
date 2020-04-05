@@ -49,13 +49,7 @@ def combine(request, slugs):
     
     except NotSupportedError:
         # Fallback if distinct() is not supported by current DB engine
-        inters = []
-        sym_ids = set()
-        for inter in interactions:
-            if inter.sym_id not in sym_ids:
-                inters.append(inter)
-                sym_ids.add(inter.sym_id)
-        interactions = inters
+        interactions = interactions[::2]
     
     combination_name = ' + '.join([str(d) for d in drugs])
 
