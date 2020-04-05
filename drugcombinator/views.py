@@ -57,3 +57,29 @@ def combine(request, slugs):
     unknown_interactions = expected_interactions - len(interactions)
 
     return render(request, 'drugcombinator/combine.html', locals())
+
+
+def drug(request, name):
+
+    name = name.strip().lower()
+
+    try:
+        drug = Drug.objects.get(slug=name)
+    
+    except Drug.DoesNotExist:
+        drugs = Drug.objects.filter(_aliases__contains=name)
+        
+        try:
+            return redirect(drugs[0], permanent=True)
+        
+        except IndexError:
+            raise Http404(
+                    f"La substance {name} n'est pas dans la base de données."
+            )
+    
+    interactions = (Interaction.objects
+            .filter(from_drug=drug)
+            .order_by('-risk')
+    )
+    
+    return render(request, 'drugcombinator/drug.html', locals())

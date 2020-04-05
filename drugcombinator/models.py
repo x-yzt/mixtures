@@ -17,6 +17,7 @@ class Drug(Model):
     category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
     common = BooleanField(default=True, verbose_name="commune", help_text="Les substances communes sont affichées sous forme de boutons dans l'app.")
 
+
     def __str__(self):
         return self.name
     
@@ -35,7 +36,7 @@ class Drug(Model):
 
 
     def get_absolute_url(self):
-        return reverse('drug', kwargs={'slug': self.slug})
+        return reverse('drug', kwargs={'name': self.slug})
 
 
     class Meta:

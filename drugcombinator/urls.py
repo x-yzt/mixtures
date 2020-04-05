@@ -8,4 +8,5 @@ register_converter(SlugListConverter, 'slug_list')
 urlpatterns = [
     path('', views.main, name='main'),
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
+    path('substance/<str:name>/', views.drug, name='drug'),
 ]
