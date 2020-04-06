@@ -40,16 +40,9 @@ def combine(request, slugs):
     interactions = (
             Interaction.objects
             .filter(from_drug__in=drugs, to_drug__in=drugs)
-            .order_by('sym_id')
+            .order_by('-risk', 'sym_id')
+            [::2]
     )
-    
-    try:
-        # Trigger DB query using list()
-        interactions = list(interactions.distinct('sym_id').order_by('-risk'))
-    
-    except NotSupportedError:
-        # Fallback if distinct() is not supported by current DB engine
-        interactions = interactions.order_by('-risk')[::2]
     
     combination_name = ' + '.join([str(d) for d in drugs])
 
