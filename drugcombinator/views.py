@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
-from django.db import NotSupportedError
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm
