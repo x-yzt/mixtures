@@ -104,6 +104,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+# Cache
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+
 # Production settings
 
 if os.environ.get("PROD") == 'TRUE':
@@ -113,6 +122,13 @@ if os.environ.get("PROD") == 'TRUE':
     django_heroku.settings(locals())
 
     DEBUG = False
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'mixtures-app-cache'
+        }
+    }
 
 else:
 

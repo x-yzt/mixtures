@@ -12,5 +12,5 @@ urlpatterns = [
     path('substance/<str:name>/', views.drug, name='drug'),
     path('substances/', views.drug_search, name='drug_search'),
 
-    path('autocomplete.js', views.autocomplete, name='autocomplete')
+    path('autocomplete.js', cache_page(60 * 10)(views.autocomplete), name='autocomplete')
 ]
