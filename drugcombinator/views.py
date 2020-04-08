@@ -53,13 +53,12 @@ def combine(request, slugs):
 
 def drug(request, name):
 
-    name = name.strip().lower()
-
     try:
         drug = Drug.objects.get(slug=name)
     
     except Drug.DoesNotExist:
-        drugs = Drug.objects.filter(_aliases__contains=name)
+        reg = rf'(^|\r|\n){name}(\r|\n|$)'
+        drugs = Drug.objects.filter(_aliases__iregex=reg)
         
         try:
             return redirect(drugs[0], permanent=True)
