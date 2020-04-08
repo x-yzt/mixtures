@@ -93,3 +93,16 @@ def drug(request, name):
     )
     
     return render(request, 'drugcombinator/drug.html', locals())
+
+
+def autocomplete(request):
+
+    drugs = Drug.objects.all()
+    entries = [drug.name for drug in drugs]
+
+    for drug in drugs:
+        for alias in drug.aliases:
+            if not any([normalize(alias) in normalize(entry) for entry in entries]):
+                entries.append(alias)
+    
+    return render(request, 'drugcombinator/autocomplete.js', locals())
