@@ -1,4 +1,5 @@
 from django.urls import path, include, register_converter
+from django.views.decorators.cache import cache_page
 from drugcombinator.converters import SlugListConverter
 from drugcombinator import views
 
@@ -9,4 +10,7 @@ urlpatterns = [
     path('', views.main, name='main'),
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
     path('substance/<str:name>/', views.drug, name='drug'),
+    path('substances/', views.drug_search, name='drug_search'),
+
+    path('autocomplete.js', views.autocomplete, name='autocomplete')
 ]

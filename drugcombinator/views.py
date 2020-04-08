@@ -28,6 +28,25 @@ def main(request):
     return render(request, 'drugcombinator/main.html', locals())
 
 
+def drug_search(request):
+
+    drugs = Drug.objects.all()
+    common_drugs = drugs.filter(common=True)
+
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        
+        if search_form.is_valid():
+            name = search_form.cleaned_data['name_field']
+            
+            return redirect('drug', name=name.lower(), permanent=True)
+
+    else:
+        search_form = SearchForm()
+    
+    return render(request, 'drugcombinator/drug_search.html', locals())
+
+
 def combine(request, slugs):
 
     if len(slugs) < 2:
