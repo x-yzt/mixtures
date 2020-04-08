@@ -3,8 +3,8 @@ from django.http import Http404
 from django.urls import reverse
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
-from drugcombinator.forms import CombinatorForm
-
+from drugcombinator.forms import CombinatorForm, SearchForm
+from drugcombinator.utils import normalize
 
 def main(request):
 
