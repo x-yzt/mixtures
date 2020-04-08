@@ -24,15 +24,16 @@ class Drug(Model):
 
     @property
     def aliases(self):
-        return self._aliases.split('\n')
+        als = self._aliases.split('\n')
+        return [al.strip() for al in als if al]
     aliases.fget.short_description = "Dénominations"
     
     @aliases.setter
     def set_aliases(self, value):
         if isinstance(value, str):
-            self._aliases = value
+            self._aliases = value.strip()
         else:
-            self._aliases = '\n'.join(value)
+            self._aliases = '\n'.join([v.strip() for v in value])
 
 
     def get_absolute_url(self):
