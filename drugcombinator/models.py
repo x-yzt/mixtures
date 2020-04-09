@@ -4,6 +4,7 @@ from django.db.models import (Model, DateTimeField, CharField,
         BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
+from drugcombinator.managers import DrugManager
 
 
 class Drug(Model):
@@ -16,6 +17,8 @@ class Drug(Model):
     interactants = ManyToManyField('self', symmetrical=False, through='Interaction', verbose_name="interactants")
     category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
     common = BooleanField(default=True, verbose_name="commune", help_text="Les substances communes sont affichées sous forme de boutons dans l'app.")
+
+    objects = DrugManager()
 
 
     def __str__(self):

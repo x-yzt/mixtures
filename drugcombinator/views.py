@@ -6,6 +6,7 @@ from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
 from drugcombinator.utils import normalize
 
+
 def main(request):
 
     drugs = Drug.objects.all()
@@ -39,7 +40,7 @@ def drug_search(request):
         if search_form.is_valid():
             name = search_form.cleaned_data['name_field']
             
-            return redirect('drug', name=name.lower(), permanent=True)
+            return redirect('drug', name=name, permanent=True)
 
     else:
         search_form = SearchForm()
@@ -72,23 +73,10 @@ def combine(request, slugs):
 
 def drug(request, name):
 
-    if name != name.lower():
-        return redirect('drug', name.lower(), permanent=True)
+    drug = Drug.objects.get_from_name_or_404(name)
 
-    try:
-        drug = Drug.objects.get(slug=name)
-    
-    except Drug.DoesNotExist:
-        reg = rf'(^|\r|\n){name}(\r|\n|$)'
-        drugs = Drug.objects.filter(_aliases__regex=reg)
-        
-        try:
-            return redirect(drugs[0], permanent=True)
-        
-        except IndexError:
-            raise Http404(
-                    f"La substance {name} n'est pas dans la base de données."
-            )
+    if name != drug.slug:
+        return redirect(drug, permanent=True)
     
     interactions = (Interaction.objects
             .filter(from_drug=drug)
