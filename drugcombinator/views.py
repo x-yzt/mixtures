@@ -39,8 +39,17 @@ def drug_search(request):
         
         if search_form.is_valid():
             name = search_form.cleaned_data['name_field']
+
+            try:
+                drug = Drug.objects.get_from_name(name)
+                return redirect(drug, permanent=True)
             
-            return redirect('drug', name=name, permanent=True)
+            except Drug.DoesNotExist:
+                (search_form
+                    .fields['name_field']
+                    .widget.attrs
+                    .update({'class': 'autocomplete invalid'})
+                )
 
     else:
         search_form = SearchForm()

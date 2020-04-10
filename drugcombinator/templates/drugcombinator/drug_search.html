@@ -2,9 +2,9 @@
 
 {% load static %}
 
-{% comment %} {% block stylesheets %}
+{% block stylesheets %}
     <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
-{% endblock %} {% endcomment %}
+{% endblock %}
 
 {% block title %}
     Rechercher une substance | {{ block.super }}, combinaisons de substances psychoactives
@@ -28,14 +28,16 @@
 
             <div class="row">
                 <div class="input-field col l6 offset-l3 m8 offset-m2 s12">
+                    <i class="material-icons prefix">search</i>
                     {{ search_form }}
+                    <span class="helper-text" data-error="La substance {{ name }} n'a pas été trouvée."></span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="center-align">
-                    <button class="btn-large waves-effect waves-light" type="submit" name="action">Rechercher
-                        <i class="material-icons right">search</i>
+                    <button class="btn-large waves-effect waves-light" type="submit" name="action">Confirmer
+                        <i class="material-icons right">send</i>
                     </button>
                 </div>
             </div>
