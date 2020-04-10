@@ -1,7 +1,6 @@
-from django.db.models import (Model, DateTimeField, CharField,
-        ForeignKey, CASCADE, SET_NULL, SlugField, TextField, 
-        ManyToManyField, IntegerField, PositiveIntegerField,
-        BooleanField, Max)
+from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
+    CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
+    PositiveIntegerField, BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
 from drugcombinator.managers import DrugManager
@@ -10,14 +9,44 @@ from drugcombinator.utils import markdown_allowed
 
 class Drug(Model):
 
-    added = DateTimeField(auto_now_add=True, verbose_name="ajouté")
-    name = CharField(max_length=128, verbose_name="nom")
-    slug = SlugField(unique=True, verbose_name="identifiant")
-    description = TextField(default='', blank=True, verbose_name="description", help_text=markdown_allowed())
-    _aliases = TextField(default='', blank=True, verbose_name="dénominations", help_text="Un alias par ligne. Insensible à la casse.")
-    interactants = ManyToManyField('self', symmetrical=False, through='Interaction', verbose_name="interactants")
-    category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
-    common = BooleanField(default=True, verbose_name="commune", help_text="Les substances communes sont affichées sous forme de boutons dans l'app.")
+    added = DateTimeField(
+        auto_now_add=True,
+        verbose_name="ajouté"
+    )
+    name = CharField(
+        max_length=128,
+        verbose_name="nom"
+    )
+    slug = SlugField(
+        unique=True,
+        verbose_name="identifiant"
+    )
+    description = TextField(
+        default='', blank=True,
+        verbose_name="description",
+        help_text=markdown_allowed()
+    )
+    _aliases = TextField(
+        default='', blank=True,
+        verbose_name="dénominations",
+        help_text="Un alias par ligne. Insensible à la casse."
+    )
+    interactants = ManyToManyField(
+        'self',
+        symmetrical=False, through='Interaction',
+        verbose_name="interactants"
+    )
+    category = ForeignKey(
+        'Category', SET_NULL,
+        null=True, blank=True, related_name='drugs',
+        verbose_name="catégorie"
+    )
+    common = BooleanField(
+        default=True,
+        verbose_name="commune",
+        help_text="Les substances communes sont affichées sous forme " \
+            "de boutons dans l'app."
+    )
 
     objects = DrugManager()
 
@@ -49,40 +78,13 @@ class Drug(Model):
         ordering = ('name',)
 
 
-PHARMACOLOGY_UNKNOWN = 0
-PHARMACOLOGY_NEUTRAL = 1
-PHARMACOLOGY_DECREASE = 2
-PHARMACOLOGY_INCREASE = 3
-PHARMACOLOGY_MIXED = 4
-PHARMACOLOGY = (
-    (PHARMACOLOGY_UNKNOWN, 'Inconnue'),
-    (PHARMACOLOGY_NEUTRAL, 'Neutre'),
-    (PHARMACOLOGY_DECREASE, 'Atténuation'),
-    (PHARMACOLOGY_INCREASE, 'Potentialisation'),
-    (PHARMACOLOGY_MIXED, 'Mixte'),
-)
-
-RISK_UNKNOWN = 0
-RISK_NEUTRAL = 1
-RISK_CAUTION = 2
-RISK_UNSAFE = 3
-RISK_DANGEROUS = 4
-RISK = (
-    (RISK_UNKNOWN, 'Inconnu'),
-    (RISK_NEUTRAL, 'Neutre'),
-    (RISK_CAUTION, 'Vigilance'),
-    (RISK_UNSAFE, 'Risqué'),
-    (RISK_DANGEROUS, 'Dangereux'),
-)
-
-
 class SymetricalRelationModel(Model):
     """
-        This ABC is intended to automatically create, update and delete a copy of
-        each instance with swapped ForeignKeys, describing a reciprocal relation
-        between other objects.
-        Inherited classes need to set a tuple named symetrical_fields containing
-        two of their model fields name, such as:
+        This ABC is intended to automatically create, update and delete
+        a copy of each instance with swapped ForeignKeys, describing a
+        reciprocal relation between other objects.
+        Inherited classes need to set a tuple named symetrical_fields
+        containing two of their model fields name, such as:
         symetrical_fields = ('from_object', 'to_object')
     """
 
@@ -106,7 +108,10 @@ class SymetricalRelationModel(Model):
         elif len(existing_syms) == 1:
             sym.pk = existing_syms[0].pk
         else:
-            raise OperationalError(f"Object has more than one symetrical ({len(existing_syms)} found)")
+            raise OperationalError(
+                "Object has more than one symetrical " \
+                f"({len(existing_syms)} found)"
+            )
 
         fields_names = sym.symetrical_fields
         assert len(fields_names) == 2
@@ -126,12 +131,22 @@ class SymetricalRelationModel(Model):
 
 
     def get_existing_syms(self):
-        return type(self).objects.filter(sym_id=self.sym_id).exclude(pk=self.pk)
+        
+        return (
+            type(self).object
+                .filter(sym_id=self.sym_id)
+                .exclude(pk=self.pk)
+        )
 
 
     @classmethod
     def get_max_sym_id(cls):
-        return cls.objects.all().aggregate(largest=Max('sym_id'))['largest'] or 0
+
+        return (
+            cls.objects.all()
+                .aggregate(largest=Max('sym_id'))['largest']
+            or 0
+        )
 
 
     class Meta:
@@ -140,15 +155,72 @@ class SymetricalRelationModel(Model):
 
 
 class Interaction(SymetricalRelationModel):
+    
+    PHARMACOLOGY_UNKNOWN = 0
+    PHARMACOLOGY_NEUTRAL = 1
+    PHARMACOLOGY_DECREASE = 2
+    PHARMACOLOGY_INCREASE = 3
+    PHARMACOLOGY_MIXED = 4
+    PHARMACOLOGY = (
+        (PHARMACOLOGY_UNKNOWN, "Inconnue"),
+        (PHARMACOLOGY_NEUTRAL, "Neutre"),
+        (PHARMACOLOGY_DECREASE, "Atténuation"),
+        (PHARMACOLOGY_INCREASE, "Potentialisation"),
+        (PHARMACOLOGY_MIXED, "Mixte")
+    )
 
-    added = DateTimeField(auto_now_add=True, verbose_name="ajouté")
-    from_drug = ForeignKey('Drug', CASCADE, related_name='from_interaction+', verbose_name="première substance")
-    to_drug = ForeignKey('Drug', CASCADE, related_name='to_interaction+', verbose_name="seconde substance")
-    risk = IntegerField(choices=RISK, default=RISK_UNKNOWN, verbose_name="risques")
-    pharmaco = IntegerField(choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN, verbose_name="pharmacologie")
-    risk_description = TextField(default='', blank=True, verbose_name="description des risques", help_text=markdown_allowed())
-    effect_description = TextField(default='', blank=True, verbose_name="description des effets", help_text=markdown_allowed())
-    notes = TextField(default='', blank=True, verbose_name="notes", help_text="Ce champ n'est visible que sur ce site d'administration et est partagé entre tous les utilisateurs.")
+    RISK_UNKNOWN = 0
+    RISK_NEUTRAL = 1
+    RISK_CAUTION = 2
+    RISK_UNSAFE = 3
+    RISK_DANGEROUS = 4
+    RISK = (
+        (RISK_UNKNOWN, "Inconnu"),
+        (RISK_NEUTRAL, "Neutre"),
+        (RISK_CAUTION, "Vigilance"),
+        (RISK_UNSAFE, "Risqué"),
+        (RISK_DANGEROUS, "Dangereux")
+    )
+
+    added = DateTimeField(
+        auto_now_add=True,
+        verbose_name="ajouté"
+    )
+    from_drug = ForeignKey(
+        'Drug', CASCADE,
+        related_name='from_interaction+',
+        verbose_name="première substance"
+    )
+    to_drug = ForeignKey(
+        'Drug', CASCADE,
+        related_name='to_interaction+',
+        verbose_name="seconde substance"
+    )
+    risk = IntegerField(
+        choices=RISK, default=RISK_UNKNOWN,
+        verbose_name="risques"
+    )
+    pharmaco = IntegerField(
+        choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN,
+        verbose_name="pharmacologie"
+    )
+    risk_description = TextField(
+        default='', blank=True,
+        verbose_name="description des risques",
+        help_text=markdown_allowed()
+    )
+    effect_description = TextField(
+        default='', blank=True,
+        verbose_name="description des effets",
+        help_text=markdown_allowed()
+    )
+    notes = TextField(
+        default='', blank=True,
+        verbose_name="notes",
+        help_text="Ce champ n'est visible que sur ce site " \
+            "d'administration et est partagé entre tous les " \
+            "utilisateurs."
+    )
 
     symetrical_fields = ('from_drug', 'to_drug')
 
@@ -162,6 +234,7 @@ class Interaction(SymetricalRelationModel):
                     'slugs': (self.from_drug.slug, self.to_drug.slug)
             })
 
+
     class Meta:
         unique_together = ('from_drug', 'to_drug')
         verbose_name = "interaction"
@@ -169,10 +242,22 @@ class Interaction(SymetricalRelationModel):
 
 class Category(Model):
 
-    added = DateTimeField(auto_now_add=True, verbose_name="ajouté")
-    name = CharField(max_length=128, verbose_name="nom")
-    slug = SlugField(unique=True, verbose_name="identifiant")
-    description = TextField(default='', blank=True, verbose_name="description")
+    added = DateTimeField(
+        auto_now_add=True,
+        verbose_name="ajouté"
+    )
+    name = CharField(
+        max_length=128,
+        verbose_name="nom"
+    )
+    slug = SlugField(
+        unique=True,
+        verbose_name="identifiant"
+    )
+    description = TextField(
+        default='', blank=True,
+        verbose_name="description"
+    )
 
 
     def __str__(self):

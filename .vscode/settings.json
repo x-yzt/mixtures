@@ -2,4 +2,5 @@
     "files.associations": {
         "*.html": "django-html"
     },
+    "editor.rulers": [72, 79]
 }
