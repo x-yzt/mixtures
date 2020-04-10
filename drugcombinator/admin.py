@@ -52,6 +52,13 @@ class DrugAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     inlines = (InteractionInline,)
 
+    def get_inline_instances(self, request, obj=None):
+        # Hide inlines in popup windows. More info:
+        # https://stackoverflow.com/a/56890626/7021223
+        if '_to_field' in request.GET and '_popup' in request.GET:
+            return []
+        return super().get_inline_instances(request, obj=None)
+
 
 @admin.register(Interaction)
 class InteractionAdmin(admin.ModelAdmin):
