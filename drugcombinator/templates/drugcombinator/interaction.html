@@ -1,3 +1,5 @@
+{% load markdown_deux_tags %}
+
 <div class="row card interaction">
 
     {% if drugs|length != 2 %}
@@ -97,12 +99,12 @@
 
     <div class="col s12 m12 l6">
         <h3><i class="material-icons small">flare</i> À propos des effets</h3>
-        <p class="flow-text">{{ interaction.effect_description|default:"Aucune information supplémentaire n'est disponible." }}</p>
+        <p class="flow-text">{{ interaction.effect_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
     </div>
     <div class="col s12 m12 l6">
         <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
         <p class="flow-text">
-            {{ interaction.risk_description|default:"Aucune information supplémentaire n'est disponible." }}
+            {{ interaction.risk_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}
         </p>
     </div>
 </div>

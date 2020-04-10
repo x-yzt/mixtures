@@ -5,6 +5,7 @@ from django.db.models import (Model, DateTimeField, CharField,
 from django.db import OperationalError
 from django.urls import reverse
 from drugcombinator.managers import DrugManager
+from drugcombinator.utils import markdown_allowed
 
 
 class Drug(Model):
@@ -12,7 +13,7 @@ class Drug(Model):
     added = DateTimeField(auto_now_add=True, verbose_name="ajouté")
     name = CharField(max_length=128, verbose_name="nom")
     slug = SlugField(unique=True, verbose_name="identifiant")
-    description = TextField(default='', blank=True, verbose_name="description")
+    description = TextField(default='', blank=True, verbose_name="description", help_text=markdown_allowed())
     _aliases = TextField(default='', blank=True, verbose_name="dénominations", help_text="Un alias par ligne. Insensible à la casse.")
     interactants = ManyToManyField('self', symmetrical=False, through='Interaction', verbose_name="interactants")
     category = ForeignKey('Category', SET_NULL, null=True, blank=True, related_name='drugs', verbose_name="catégorie")
@@ -145,8 +146,8 @@ class Interaction(SymetricalRelationModel):
     to_drug = ForeignKey('Drug', CASCADE, related_name='to_interaction+', verbose_name="seconde substance")
     risk = IntegerField(choices=RISK, default=RISK_UNKNOWN, verbose_name="risques")
     pharmaco = IntegerField(choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN, verbose_name="pharmacologie")
-    risk_description = TextField(default='', blank=True, verbose_name="description des risques")
-    effect_description = TextField(default='', blank=True, verbose_name="description des effets")
+    risk_description = TextField(default='', blank=True, verbose_name="description des risques", help_text=markdown_allowed())
+    effect_description = TextField(default='', blank=True, verbose_name="description des effets", help_text=markdown_allowed())
     notes = TextField(default='', blank=True, verbose_name="notes", help_text="Ce champ n'est visible que sur ce site d'administration et est partagé entre tous les utilisateurs.")
 
     symetrical_fields = ('from_drug', 'to_drug')

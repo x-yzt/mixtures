@@ -2,7 +2,7 @@
 
 {% load static %}
 {% load humanize %}
-
+{% load markdown_deux_tags %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
@@ -20,7 +20,7 @@
 
     <div class="row">
         <h2><i class="material-icons small">info</i> À propos</h2>
-        <p class="flow-text">{{ drug.description|default:"Aucune information supplémentaire n'est disponible." }}</p>
+        <p class="flow-text">{{ drug.description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
     </div>
 
     <div class="row">

@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'markdown_deux',
     'drugcombinator.apps.DrugcombinatorConfig'
 ]
 
@@ -53,6 +54,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mixtures.wsgi.application'
+
+
+# Markdown preprocessor
+
+MARKDOWN_DEUX_STYLES = {
+    'default': {
+        'extras': {
+            'code-friendly': None,
+            'demote-headers': 3,
+            'target-blank-links': None
+        },
+        'safe_mode': 'escape'
+    }
+}
 
 
 # Database
