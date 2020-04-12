@@ -24,6 +24,12 @@ main {
     flex: 1 0 auto;
 }
 
+/* Content width */
+
+main > .container {
+    max-width: 960px;
+}
+
 
 /* Typo */
 

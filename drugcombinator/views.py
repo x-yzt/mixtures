@@ -95,6 +95,14 @@ def drug(request, name):
     return render(request, 'drugcombinator/drug.html', locals())
 
 
+def docs(request):
+
+    drugs_count = Drug.objects.all().count()
+    interactions_count = Interaction.objects.all().count()
+
+    return render(request, 'drugcombinator/docs.html', locals())
+
+
 def autocomplete(request):
 
     drugs = Drug.objects.all()

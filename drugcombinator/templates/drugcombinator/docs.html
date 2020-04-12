@@ -1,0 +1,25 @@
+{% extends 'mixtures/base.html' %}
+
+{% block title %}
+    Documentation de l'API {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>Documentation de l'API Mixtures.info</h1>
+    </div>
+
+    <div class="row">
+        <p class="flow-text">
+            Cette page est destinée aux développeuses et développeurs désirant intégrer les données
+            de Mixtures.info dans une application tierce. Notre base de données contient
+            {{ drugs_count }} substances liées par {{ interactions_count }} interactions,
+            disponibles au format JSON par le biais d'un service HTTP (presque) RESTful.
+        </p>
+
+        <p class="flow-text center-align">
+            <i class="material-icons large">code</i><br/>
+            L'API est encore en construction, et sera disponible prochainement.
+        </p>
+    </div>
+{% endblock %}
