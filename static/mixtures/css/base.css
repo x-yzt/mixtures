@@ -12,6 +12,18 @@
 }
 
 
+/* Sidenav logo */
+
+.sidenav .logo {
+    text-align: center;
+}
+
+.sidenav .logo img {
+    width: 110px;
+    margin: 22px;
+}
+
+
 /* Sticky footer */
 
 body {

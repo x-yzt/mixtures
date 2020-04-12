@@ -22,7 +22,7 @@
                         <a href="/" class="brand-logo valign-wrapper">
                             <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
                         </a>
-                        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
                             <i class="material-icons">menu</i>
                         </a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -35,11 +35,24 @@
                 </nav>
             </div>
 
-            <ul class="sidenav" id="mobile-demo">
-                <li><a href="{% url 'main' %}">Combinaisons</a></li>
-                <li><a href="{% url 'drug_search' %}">Substances</a></li>
-                <li><a href="{% url 'docs' %}">API</a></li>
-                <li><a href="{% url 'about' %}">À propos</a></li>
+            <ul class="sidenav" id="mobile-nav">
+                <li class="logo">
+                    <img src="{% static 'mixtures/img/icon.svg' %}">
+                </li>
+                <li><div class="divider"></div></li>
+                <li><a class="waves-effect" href="{% url 'main' %}">
+                    <i class="material-icons">merge_type</i>Combinaisons
+                </a></li>
+                <li><a class="waves-effect" href="{% url 'drug_search' %}">
+                    <i class="material-icons">bubble_chart</i>Substances
+                </a></li>
+                <li><div class="divider"></div></li>
+                <li><a class="waves-effect" href="{% url 'docs' %}">
+                    <i class="material-icons">code</i>API
+                </a></li>
+                <li><a class="waves-effect" href="{% url 'about' %}">
+                    <i class="material-icons">help_outline</i>À propos
+                </a></li>
             </ul>
         </header>
         
