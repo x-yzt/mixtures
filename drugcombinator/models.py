@@ -133,7 +133,7 @@ class SymetricalRelationModel(Model):
     def get_existing_syms(self):
         
         return (
-            type(self).object
+            type(self).objects
                 .filter(sym_id=self.sym_id)
                 .exclude(pk=self.pk)
         )
