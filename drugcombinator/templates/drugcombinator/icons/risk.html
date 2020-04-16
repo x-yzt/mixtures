@@ -1,0 +1,13 @@
+<i class="material-icons {{ class }}">
+    {% if interaction.risk == 1 %}
+        drag_handle
+    {% elif interaction.risk == 2 %}
+        warning
+    {% elif interaction.risk == 3 %}
+        report
+    {% elif interaction.risk == 4 %}
+        cancel
+    {% else %}
+        help_outline
+    {% endif %}
+</i>

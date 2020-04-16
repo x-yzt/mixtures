@@ -14,20 +14,8 @@
 
     <div class="col s12 m12 l6">
         <h3><i class="material-icons small">bubble_chart</i> Synergie pharmacologique</h3>
-        <div class="pharmaco pharmaco-{{ interaction.pharmaco }}">
-            <i class="material-icons medium">
-                {% if interaction.pharmaco == 0 %}
-                    help_outline
-                {% elif interaction.pharmaco == 1 %}
-                    sync_alt
-                {% elif interaction.pharmaco == 2 %}
-                    trending_down
-                {% elif interaction.pharmaco == 3 %}
-                    trending_up
-                {% elif interaction.pharmaco == 4 %}
-                    shuffle
-                {% endif %}
-            </i>
+        <div class="pharmaco pharmaco-{{ interaction.pharmaco }}">            
+            {% include 'drugcombinator/icons/pharmaco.html' with class='medium' %}
             <p class="label flow-text">
                 {{ interaction.get_pharmaco_display }}
             </p>
@@ -57,19 +45,7 @@
     <div class="col s12 m12 l6">
         <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
         <div class="risk risk-{{ interaction.risk }}">
-            <i class="material-icons medium">
-                {% if interaction.risk == 0 %}
-                    help_outline
-                {% elif interaction.risk == 1 %}
-                    drag_handle
-                {% elif interaction.risk == 2 %}
-                    warning
-                {% elif interaction.risk == 3 %}
-                    report
-                {% elif interaction.risk == 4 %}
-                    cancel
-                {% endif %}
-            </i>
+            {% include 'drugcombinator/icons/risk.html' with class='medium' %}
             <p class="label flow-text">
                 {{ interaction.get_risk_display }}
             </p>
