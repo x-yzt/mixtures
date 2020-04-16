@@ -99,12 +99,16 @@ def drug(request, name):
 # @count_queries
 def combine_chart(request):
     
-    drugs = Drug.objects.all()
+    drugs = (Drug.objects
+        .filter(common=True)
+        .order_by('category__name', 'name')
+    )
     categories = (Category.objects
         .filter(drugs__in=drugs)
         .distinct()
         .prefetch_related('drugs')
         .annotate(num_drugs=Count('drugs', drugs__in=drugs))
+        .order_by('name')
     )
     interactions = (Interaction.objects
         .filter(from_drug__in=drugs, to_drug__in=drugs)
