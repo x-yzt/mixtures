@@ -13,6 +13,7 @@ urlpatterns = [
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
     path('substance/<str:name>/', views.drug, name='drug'),
     path('substances/', views.drug_search, name='drug_search'),
+    path('table/', views.combine_chart, name='combine_chart'),
     path('docs/', views.docs, name='docs'),
 
     path('autocomplete.js', cache(views.autocomplete), name='autocomplete')

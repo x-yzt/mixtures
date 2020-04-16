@@ -1,10 +1,11 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
-from drugcombinator.utils import normalize
+from drugcombinator.utils import normalize, count_queries
 
 
 def main(request):
@@ -93,6 +94,34 @@ def drug(request, name):
     )
     
     return render(request, 'drugcombinator/drug.html', locals())
+
+
+# @count_queries
+def combine_chart(request):
+    
+    drugs = Drug.objects.all()
+    categories = (Category.objects
+        .filter(drugs__in=drugs)
+        .distinct()
+        .prefetch_related('drugs')
+        .annotate(num_drugs=Count('drugs', drugs__in=drugs))
+    )
+    interactions = (Interaction.objects
+        .filter(from_drug__in=drugs, to_drug__in=drugs)
+        .prefetch_related('from_drug', 'to_drug')
+    )
+
+    chart_data = {drug: {} for drug in drugs}
+    for inter in interactions:
+        chart_data[inter.from_drug][inter.to_drug] = inter
+
+    header_data = []
+    for categ in categories:
+        header_data.append(categ)
+        header_data += [None] * (categ.num_drugs - 1)
+    header_data.append("Autres")
+    
+    return render(request, 'drugcombinator/combine_chart.html', locals())
 
 
 def docs(request):

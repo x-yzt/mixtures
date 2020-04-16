@@ -1,4 +1,6 @@
+from django.db import connection, reset_queries
 import unicodedata as ud
+import functools
 
 
 def normalize(string):
@@ -21,4 +23,23 @@ def markdown_allowed(verbose=True):
         f"La syntaxe <a href=\"{help_link}\">markdown</a> est autorisée."
         + verbose * " Les paragraphes sont séparés par deux retours à la ligne."
     )
-    
+
+
+def count_queries(func):
+    """
+        Simple debug decorator printing how many DB queries a function
+        performs each time it is called.
+    """
+
+    @functools.wraps(func)
+    def inner_func(*args, **kwargs):
+
+        reset_queries()        
+        queries = len(connection.queries)
+        result = func(*args, **kwargs)
+        queries = len(connection.queries) - queries
+
+        print(f"Function {func.__name__} made {queries} DB queries.")
+        return result
+
+    return inner_func

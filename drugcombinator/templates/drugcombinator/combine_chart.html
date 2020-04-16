@@ -1,0 +1,96 @@
+{% load collections %}
+
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #000;
+            padding: 0
+        }
+
+        td div, th div {
+            padding: 10px 10px;
+        }
+
+        th div, td div.drug {
+            font-weight: 600;
+        }
+
+        td {
+            background: #DDD;
+        }
+
+        .risk-1 { background: #6DE }
+        .risk-2 { background: #FD2 }
+        .risk-3 { background: #F82 }
+        .risk-4 { background: #F33 }
+
+        .risk-3, .risk-4 { color: #FFF }
+    </style>
+</head>
+
+<html>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" rowspan="2"></th>
+                    {% for _ in drugs %}
+                        {% with categ=header_data|get:forloop.counter0 %}
+                            {% if categ %}
+                                <th colspan="{{ categ.num_drugs }}">
+                                    <div>{{ categ }}</div>
+                                </th>
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for drug in drugs %}
+                        <th>
+                            <div>{{ drug }}</div>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for drug_1 in drugs %}
+                    <tr>
+                        {% with categ=header_data|get:forloop.counter0 %}
+                            {% if categ %}
+                                <th scope="row" rowspan="{{ categ.num_drugs }}">
+                                    <div>{{ categ }}</div>
+                                </th>
+                            {% endif %}
+                        {% endwith %}
+
+                        <th scope="row">
+                            <div>{{ drug_1 }}</div>
+                        </th>
+                        {% for drug_2 in drugs %}
+                            <td>
+                                {% if drug_1 == drug_2 %}
+                                    <div class="drug">{{ drug_1 }}</div>
+                                {% else %}
+                                    {% with interaction=chart_data|get:drug_1|get:drug_2 %}
+                                        <div class="risk-{{ interaction.risk }}">
+                                            {% include 'drugcombinator/icons/risk.html' %}
+                                        </div>
+                                    {% endwith %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
