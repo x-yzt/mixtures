@@ -1,42 +1,43 @@
 {% load collections %}
 
-<!doctype html>
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        td, th {
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid #000;
-            padding: 0
-        }
-
-        td div, th div {
-            padding: 10px 10px;
-        }
-
-        th div, td div.drug {
-            font-weight: 600;
-        }
-
-        td {
-            background: #DDD;
-        }
-
-        .risk-1 { background: #6DE }
-        .risk-2 { background: #FD2 }
-        .risk-3 { background: #F82 }
-        .risk-4 { background: #F33 }
-
-        .risk-3, .risk-4 { color: #FFF }
-    </style>
-</head>
+<!doctype HTML>
 
 <html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            td, th {
+                text-align: center;
+                vertical-align: middle;
+                border: 1px solid #000;
+                padding: 0
+            }
+
+            td div, th div {
+                padding: 10px 10px;
+            }
+
+            th div, td div.drug {
+                font-weight: 600;
+            }
+
+            td {
+                background: #DDD;
+            }
+
+            .risk-1 { background: #6DE }
+            .risk-2 { background: #FD2 }
+            .risk-3 { background: #F82 }
+            .risk-4 { background: #F33 }
+
+            .risk-3, .risk-4 { color: #FFF }
+        </style>
+    </head>
+
     <body>
         <table>
             <thead>
