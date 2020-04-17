@@ -1,3 +1,4 @@
+from itertools import chain
 from django.db.models import Count, F
 from django.shortcuts import render, redirect
 from django.http import Http404
@@ -119,11 +120,17 @@ def combine_chart(request):
     for inter in interactions:
         chart_data[inter.from_drug][inter.to_drug] = inter
 
+    uncategorized = drugs.filter(category__isnull=True).count()
+    null_categs = []
+    if uncategorized:
+        categ = Category(name="Autres")
+        categ.num_drugs = uncategorized
+        null_categs.append(categ)
+
     header_data = []
-    for categ in categories:
+    for categ in chain(categories, null_categs):
         header_data.append(categ)
         header_data += [None] * (categ.num_drugs - 1)
-    header_data.append("Autres")
     
     return render(request, 'drugcombinator/combine_chart.html', locals())
 
