@@ -146,4 +146,7 @@ def autocomplete(request):
             if not any([normalize(alias) in normalize(entry) for entry in entries]):
                 entries.append(alias)
     
-    return render(request, 'drugcombinator/autocomplete.js', locals())
+    return render(
+        request, 'drugcombinator/autocomplete.js', locals(),
+        content_type='text/javascript'
+    )
