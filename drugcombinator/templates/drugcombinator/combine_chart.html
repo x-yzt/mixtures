@@ -1,3 +1,4 @@
+{% load static %}
 {% load collections %}
 
 <!doctype HTML>
@@ -6,27 +7,55 @@
     <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Trebuchet MS', sans-serif;
+                font-size: 11pt;
+            }
+
+            h1 {
+                color: #9c27b0;
+                text-align: center;
+            }
+
             table {
                 border-collapse: collapse;
+                border: 2px solid #FFF;
+                background: #FFF;
             }
 
             td, th {
                 text-align: center;
                 vertical-align: middle;
-                border: 1px solid #000;
-                padding: 0
+                border: 2px solid #FFF;
+                padding: 0;
+                border-radius: 7px;
             }
 
-            td div, th div {
-                padding: 10px 10px;
+            thead tr:first-of-type > th:first-child {
+                background: #ffb300;
             }
 
-            th div, td div.drug {
-                font-weight: 600;
+            th div {
+                padding: 6px 8px;
+            }
+
+            th {
+                color: #FFF;
+                background-color: #9c27b0;
+                font-weight: normal;
             }
 
             td {
                 background: #DDD;
+            }
+
+            td .material-icons {
+                font-size: 1.3rem;
+                vertical-align: middle;
             }
 
             .risk-1 { background: #6DE }
@@ -39,59 +68,66 @@
     </head>
 
     <body>
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2" rowspan="2"></th>
-                    {% for _ in drugs %}
-                        {% with categ=header_data|get:forloop.counter0 %}
-                            {% if categ %}
-                                <th colspan="{{ categ.num_drugs }}">
-                                    <div>{{ categ }}</div>
-                                </th>
-                            {% endif %}
-                        {% endwith %}
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for drug in drugs %}
-                        <th>
-                            <div>{{ drug }}</div>
-                        </th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            
-            <tbody>
-                {% for drug_1 in drugs %}
+        {% spaceless %}
+            <h1>Tableau de combinaison des psychoactifs</h1>
+            <table>
+                <thead>
                     <tr>
-                        {% with categ=header_data|get:forloop.counter0 %}
-                            {% if categ %}
-                                <th scope="row" rowspan="{{ categ.num_drugs }}">
-                                    <div>{{ categ }}</div>
-                                </th>
-                            {% endif %}
-                        {% endwith %}
-
-                        <th scope="row">
-                            <div>{{ drug_1 }}</div>
+                        <th colspan="2" rowspan="2">
+                            <img src="{% static 'mixtures/img/logo.svg' %}"/>
                         </th>
-                        {% for drug_2 in drugs %}
-                            <td>
-                                {% if drug_1 == drug_2 %}
-                                    <div class="drug">{{ drug_1 }}</div>
-                                {% else %}
-                                    {% with interaction=chart_data|get:drug_1|get:drug_2 %}
-                                        <div class="risk-{{ interaction.risk }}">
-                                            {% include 'drugcombinator/icons/pharmaco.html' %}
-                                        </div>
-                                    {% endwith %}
+                        {% for _ in drugs %}
+                            {% with categ=header_data|get:forloop.counter0 %}
+                                {% if categ %}
+                                    <th colspan="{{ categ.num_drugs }}">
+                                        <div>{{ categ }}</div>
+                                    </th>
                                 {% endif %}
-                            </td>
+                            {% endwith %}
                         {% endfor %}
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    <tr>
+                        {% for drug in drugs %}
+                            <th>
+                                <div>{{ drug }}</div>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for drug_1 in drugs %}
+                        <tr>
+                            {% with categ=header_data|get:forloop.counter0 %}
+                                {% if categ %}
+                                    <th scope="row" rowspan="{{ categ.num_drugs }}">
+                                        <div>{{ categ }}</div>
+                                    </th>
+                                {% endif %}
+                            {% endwith %}
+
+                            <th scope="row">
+                                <div>{{ drug_1 }}</div>
+                            </th>
+                            {% for drug_2 in drugs %}
+                                {% if drug_1 == drug_2 %}
+                                    <th>
+                                        <div>{{ drug_1 }}</div>
+                                    </th>
+                                {% else %}
+                                        {% with interaction=chart_data|get:drug_1|get:drug_2 %}
+                                        <td class="risk-{{ interaction.risk }}">
+                                            <div>
+                                                {% include 'drugcombinator/icons/pharmaco.html' %}
+                                            </div>
+                                        </td>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endspaceless %}
     </body>
 </html>
