@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, F
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
@@ -101,7 +101,7 @@ def combine_chart(request):
     
     drugs = (Drug.objects
         .filter(common=True)
-        .order_by('category__name', 'name')
+        .order_by(F('category__name').asc(nulls_last=True), 'name')
     )
     categories = (Category.objects
         .filter(drugs__in=drugs)
