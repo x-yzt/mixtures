@@ -47,20 +47,25 @@
 
 .synergy-1 i { color: #6DE }
 .synergy-2 i { color: #27F }
-.synergy-3 i { color: #F44 }
+.synergy-3 i { color: #DF1F67 }
 .synergy-4 i { color: #81E }
+.synergy-5 i { color: #FF76D6 }
 
 .synergy-1 .label { background: #6DE }
 .synergy-2 .label { background: #27F }
-.synergy-3 .label { background: #F44 }
+.synergy-3 .label { background: #DF1F67 }
 .synergy-4 .label { background: #81E }
+.synergy-5 .label { background: #FF76D6 }
 
 .synergy-2, .synergy-3 .label, .synergy-4 .label { color: #FFF }
 
+@font-face {
+    font-family: 'Combinator-Icons';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../font/combinator.woff') format('woff');
+}
 
-.pharmaco-1 .label { background: #6DE }
-.pharmaco-2 .label { background: #27F }
-.pharmaco-3 .label { background: #F44 }
-.pharmaco-4 .label { background: #81E }
-
-.pharmaco-2, .pharmaco-3 .label, .pharmaco-4 .label { color: #FFF }
+.combinator-icons {
+    font-family: 'Combinator-Icons';
+}
