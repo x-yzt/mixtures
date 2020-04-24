@@ -161,9 +161,11 @@ class Interaction(SymetricalRelationModel):
     SYNERGY_DECREASE = 2
     SYNERGY_INCREASE = 3
     SYNERGY_MIXED = 4
+    SYNERGY_ADDITIVE = 5
     SYNERGY = (
         (SYNERGY_UNKNOWN, "Inconnue"),
         (SYNERGY_NEUTRAL, "Neutre"),
+        (SYNERGY_ADDITIVE, "Addition"),
         (SYNERGY_DECREASE, "Atténuation"),
         (SYNERGY_INCREASE, "Potentialisation"),
         (SYNERGY_MIXED, "Mixte")
