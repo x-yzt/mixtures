@@ -1,11 +1,11 @@
 <i class="material-icons {{ class }}">
-    {% if interaction.pharmaco == 1 %}
+    {% if interaction.synergy == 1 %}
         sync_alt
-    {% elif interaction.pharmaco == 2 %}
+    {% elif interaction.synergy == 2 %}
         trending_down
-    {% elif interaction.pharmaco == 3 %}
+    {% elif interaction.synergy == 3 %}
         trending_up
-    {% elif interaction.pharmaco == 4 %}
+    {% elif interaction.synergy == 4 %}
         shuffle
     {% else %}
         help_outline

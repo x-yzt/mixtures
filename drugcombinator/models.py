@@ -156,17 +156,17 @@ class SymetricalRelationModel(Model):
 
 class Interaction(SymetricalRelationModel):
     
-    PHARMACOLOGY_UNKNOWN = 0
-    PHARMACOLOGY_NEUTRAL = 1
-    PHARMACOLOGY_DECREASE = 2
-    PHARMACOLOGY_INCREASE = 3
-    PHARMACOLOGY_MIXED = 4
-    PHARMACOLOGY = (
-        (PHARMACOLOGY_UNKNOWN, "Inconnue"),
-        (PHARMACOLOGY_NEUTRAL, "Neutre"),
-        (PHARMACOLOGY_DECREASE, "Atténuation"),
-        (PHARMACOLOGY_INCREASE, "Potentialisation"),
-        (PHARMACOLOGY_MIXED, "Mixte")
+    SYNERGY_UNKNOWN = 0
+    SYNERGY_NEUTRAL = 1
+    SYNERGY_DECREASE = 2
+    SYNERGY_INCREASE = 3
+    SYNERGY_MIXED = 4
+    SYNERGY = (
+        (SYNERGY_UNKNOWN, "Inconnue"),
+        (SYNERGY_NEUTRAL, "Neutre"),
+        (SYNERGY_DECREASE, "Atténuation"),
+        (SYNERGY_INCREASE, "Potentialisation"),
+        (SYNERGY_MIXED, "Mixte")
     )
 
     RISK_UNKNOWN = 0
@@ -200,9 +200,9 @@ class Interaction(SymetricalRelationModel):
         choices=RISK, default=RISK_UNKNOWN,
         verbose_name="risques"
     )
-    pharmaco = IntegerField(
-        choices=PHARMACOLOGY, default=PHARMACOLOGY_UNKNOWN,
-        verbose_name="pharmacologie"
+    synergy = IntegerField(
+        choices=SYNERGY, default=SYNERGY_UNKNOWN,
+        verbose_name="synergie"
     )
     risk_description = TextField(
         default='', blank=True,

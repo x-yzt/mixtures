@@ -13,29 +13,29 @@
     {% endif %}
 
     <div class="col s12 m12 l6">
-        <h3><i class="material-icons small">bubble_chart</i> Synergie pharmacologique</h3>
-        <div class="pharmaco pharmaco-{{ interaction.pharmaco }}">            
-            {% include 'drugcombinator/icons/pharmaco.html' with class='medium' %}
+        <h3><i class="material-icons small">bubble_chart</i> Synergie</h3>
+        <div class="synergy synergy-{{ interaction.synergy }}">            
+            {% include 'drugcombinator/icons/synergy.html' with class='medium' %}
             <p class="label flow-text">
-                {{ interaction.get_pharmaco_display }}
+                {{ interaction.get_synergy_display }}
             </p>
         </div>
         <div class="valign-wrapper">
             <p>
-                {% if interaction.pharmaco == 0 %}
-                    Aucune donnée n'est disponible concernant la pharmacologie
+                {% if interaction.synergy == 0 %}
+                    Aucune donnée n'est disponible concernant la synergie
                     de ces substances.
-                {% elif interaction.pharmaco == 1 %}
-                    Ces substances n'interagissent pas pharmacologiquement de
+                {% elif interaction.synergy == 1 %}
+                    Ces substances n'interagissent pas de
                     manière significative.
-                {% elif interaction.pharmaco == 2 %}
-                    Les actions pharmacologiques de ces substances s'atténuent
+                {% elif interaction.synergy == 2 %}
+                    Les actions de ces substances s'atténuent
                     entre elles.
-                {% elif interaction.pharmaco == 3 %}
-                    Ces substances ont une synergie pharmacologique augmentant
+                {% elif interaction.synergy == 3 %}
+                    Ces substances ont une synergie augmentant
                     leurs effets.
-                {% elif interaction.pharmaco == 4 %}
-                    Ces substances ont des interactions pharmacologiques complexes,
+                {% elif interaction.synergy == 4 %}
+                    Ces substances ont des interactions complexes,
                     augmentant ou diminuant certains de leurs effets.
                 {% endif %}
             </p>

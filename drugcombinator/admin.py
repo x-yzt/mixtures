@@ -13,7 +13,7 @@ class InteractionInline(admin.StackedInline):
 
     fieldsets = (
         (None, {
-            'fields': (('to_drug', 'risk', 'pharmaco'),)
+            'fields': (('to_drug', 'risk', 'synergy'),)
         }),
         ('Descriptions', {
             'classes': ('collapse',),
@@ -62,10 +62,10 @@ class DrugAdmin(admin.ModelAdmin):
 
 @admin.register(Interaction)
 class InteractionAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'risk', 'pharmaco')
+    list_display = ('__str__', 'risk', 'synergy')
     list_filter = (
         'from_drug', 'to_drug',
-        'risk', 'pharmaco'
+        'risk', 'synergy'
     )
     date_hierarchy = 'added'
     search_fields = (
@@ -76,13 +76,13 @@ class InteractionAdmin(admin.ModelAdmin):
     fields = (
         ('from_drug', 'to_drug'),
         ('risk', 'risk_description'),
-        ('pharmaco', 'effect_description'),
+        ('synergy', 'effect_description'),
         'notes'
     )
     autocomplete_fields = ('from_drug', 'to_drug')
     radio_fields = {
         'risk': admin.VERTICAL,
-        'pharmaco': admin.VERTICAL
+        'synergy': admin.VERTICAL
     }
 
     def delete_queryset(self, request, queryset):

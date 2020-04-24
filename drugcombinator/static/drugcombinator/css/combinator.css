@@ -16,17 +16,17 @@
 
 .not-found { color: #F82 }
 
-.risk, .pharmaco {
+.risk, .synergy {
     float: left;
     text-align: center;
     margin-right: 16px;
 }
 
-.risk i, .pharmaco i {
+.risk i, .synergy i {
     color: #DDD;
 }
 
-.risk .label, .pharmaco .label {
+.risk .label, .synergy .label {
     padding: 0 8px;
     border-radius: 4px;
     margin: 0;
@@ -45,10 +45,18 @@
 
 .risk-3 .label, .risk-4 .label { color: #FFF }
 
-.pharmaco-1 i { color: #6DE }
-.pharmaco-2 i { color: #27F }
-.pharmaco-3 i { color: #F44 }
-.pharmaco-4 i { color: #81E }
+.synergy-1 i { color: #6DE }
+.synergy-2 i { color: #27F }
+.synergy-3 i { color: #F44 }
+.synergy-4 i { color: #81E }
+
+.synergy-1 .label { background: #6DE }
+.synergy-2 .label { background: #27F }
+.synergy-3 .label { background: #F44 }
+.synergy-4 .label { background: #81E }
+
+.synergy-2, .synergy-3 .label, .synergy-4 .label { color: #FFF }
+
 
 .pharmaco-1 .label { background: #6DE }
 .pharmaco-2 .label { background: #27F }
