@@ -69,7 +69,7 @@ class InteractionAdmin(admin.ModelAdmin):
     )
     date_hierarchy = 'added'
     search_fields = (
-        'from_drug', 'to_drug',
+        'from_drug__name', 'from_drug___aliases',
         'risk_description', 'effect_description'
     )
 
