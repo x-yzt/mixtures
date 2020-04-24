@@ -25,6 +25,7 @@
                 border-collapse: collapse;
                 border: 2px solid #FFF;
                 background: #FFF;
+                margin: auto;
             }
 
             td, th {
@@ -129,7 +130,7 @@
                                         {% with interaction=chart_data|get:drug_1|get:drug_2 %}
                                         <td class="risk-{{ interaction.risk }}">
                                             <div>
-                                                {% include 'drugcombinator/icons/pharmaco.html' %}
+                                                {% include 'drugcombinator/icons/synergy.html' %}
                                             </div>
                                         </td>
                                     {% endwith %}

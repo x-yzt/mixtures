@@ -1,13 +1,17 @@
-{% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
-    <i class="material-icons {{ class }}">sync_alt</i>
-{% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
-    <i class="material-icons combinator-icons {{ class }}">add</i>
-{% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
-    <i class="material-icons {{ class }}">trending_down</i>
-{% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
-    <i class="material-icons {{ class }}">trending_up</i>
-{% elif interaction.synergy == interaction.SYNERGY_MIXED %}
-    <i class="material-icons {{ class }}">shuffle</i>
+{% if interaction %}
+    {% if interaction.synergy == Interaction.SYNERGY_NEUTRAL %}
+        <i class="material-icons {{ class }}">sync_alt</i>
+    {% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
+        <i class="material-icons combinator-icons {{ class }}">add</i>
+    {% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
+        <i class="material-icons {{ class }}">trending_down</i>
+    {% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
+        <i class="material-icons {{ class }}">trending_up</i>
+    {% elif interaction.synergy == interaction.SYNERGY_MIXED %}
+        <i class="material-icons {{ class }}">shuffle</i>
+    {% else %}
+        <i class="material-icons {{ class }}">help_outline</i>
+    {% endif %}
 {% else %}
     <i class="material-icons {{ class }}">help_outline</i>
 {% endif %}
