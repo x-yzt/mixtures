@@ -13,7 +13,7 @@ class InteractionInline(admin.StackedInline):
 
     fieldsets = (
         (None, {
-            'fields': (('to_drug', 'risk', 'synergy'),)
+            'fields': (('to_drug', 'risk', 'synergy', 'is_draft'),)
         }),
         ('Descriptions', {
             'classes': ('collapse',),
@@ -21,6 +21,7 @@ class InteractionInline(admin.StackedInline):
         }),
     )
     autocomplete_fields = ('to_drug',)
+    extra = 1
     show_change_link = True
 
 
@@ -62,11 +63,8 @@ class DrugAdmin(admin.ModelAdmin):
 
 @admin.register(Interaction)
 class InteractionAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'risk', 'synergy')
-    list_filter = (
-        'from_drug', 'to_drug',
-        'risk', 'synergy'
-    )
+    list_display = ('__str__', 'is_draft', 'risk', 'synergy')
+    list_filter = ('is_draft', 'risk', 'synergy', 'from_drug')
     date_hierarchy = 'added'
     search_fields = (
         'from_drug__name', 'from_drug___aliases',
@@ -74,7 +72,7 @@ class InteractionAdmin(admin.ModelAdmin):
     )
 
     fields = (
-        ('from_drug', 'to_drug'),
+        ('from_drug', 'to_drug', 'is_draft'),
         ('risk', 'risk_description'),
         ('synergy', 'effect_description'),
         'notes'

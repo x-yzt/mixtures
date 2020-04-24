@@ -223,6 +223,12 @@ class Interaction(SymetricalRelationModel):
             "d'administration et est partagé entre tous les " \
             "utilisateurs."
     )
+    is_draft = BooleanField(
+        default=True,
+        verbose_name="brouillon",
+        help_text="En cas de travail en cours, de données incertaines" \
+            " ou incomplètes."
+    )
 
     symetrical_fields = ('from_drug', 'to_drug')
 
