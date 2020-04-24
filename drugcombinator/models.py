@@ -190,12 +190,12 @@ class Interaction(SymetricalRelationModel):
     )
     from_drug = ForeignKey(
         'Drug', CASCADE,
-        related_name='from_interaction+',
+        related_name='interactions',
         verbose_name="première substance"
     )
     to_drug = ForeignKey(
         'Drug', CASCADE,
-        related_name='to_interaction+',
+        related_name='+',
         verbose_name="seconde substance"
     )
     risk = IntegerField(
@@ -232,9 +232,9 @@ class Interaction(SymetricalRelationModel):
     
 
     def get_absolute_url(self):
-            return reverse('combine', kwargs={
-                    'slugs': (self.from_drug.slug, self.to_drug.slug)
-            })
+        return reverse('combine', kwargs={
+            'slugs': (self.from_drug.slug, self.to_drug.slug)
+        })
 
 
     class Meta:
