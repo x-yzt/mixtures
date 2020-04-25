@@ -72,11 +72,22 @@
 
   <div class="col s12 m12 l6">
     <h3><i class="material-icons small">flare</i> À propos des effets</h3>
-    <p class="flow-text">{{ interaction.effect_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
+    
+    {% if interaction.effect_description %}
+      {{ interaction.effect_description|markdown}}
+    {% else %}
+      <p>Aucune information supplémentaire n'est disponible.</p>
+    {% endif %}
   </div>
+
   <div class="col s12 m12 l6">
     <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
-    <p class="flow-text">{{ interaction.risk_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
+
+    {% if interaction.risk_description %}
+      {{ interaction.risk_description|markdown}}
+    {% else %}
+      <p>Aucune information supplémentaire n'est disponible.</p>
+    {% endif %}
   </div>
 
   <div style="clear: both"></div>
