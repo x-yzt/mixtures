@@ -26,12 +26,6 @@
     max-height: 400px;
 }
 
-@media only screen and (min-width: 601px) {
-    .interaction-content.hidden {
-        max-height: unset;
-    }
-}
-
 .draft-modal {
     display: flex;
     position: absolute;
@@ -42,13 +36,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 22px;
+    padding: 10px;
     background: #FFF;
     transition: all ease-in-out .2s;
 }
 
-.draft-modal P.flow-text {
+.draft-modal p.flow-text {
     text-align: center;
+}
+
+@media only screen and (min-width: 601px) {
+    .interaction-content.hidden {
+        max-height: unset;
+    }
+    
+    .draft-modal {
+        padding: 22px;
+    }
 }
 
 .risk, .synergy {
