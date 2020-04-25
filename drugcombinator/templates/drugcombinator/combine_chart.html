@@ -28,9 +28,11 @@
                 margin: auto;
             }
 
+            td, th, tr, div {
+                height: 100%;
+            }
+
             td, th {
-                text-align: center;
-                vertical-align: middle;
                 border: 2px solid #FFF;
                 padding: 0;
                 border-radius: 7px;
@@ -38,6 +40,12 @@
 
             thead tr:first-of-type > th:first-child {
                 background: #ffb300;
+            }
+
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             th div {
@@ -56,7 +64,6 @@
 
             td .material-icons {
                 font-size: 1.3rem;
-                vertical-align: middle;
             }
 
             .risk-1 { background: #6DE }
@@ -65,6 +72,16 @@
             .risk-4 { background: #F33 }
 
             .risk-3, .risk-4 { color: #FFF }
+
+            .draft {
+                background: repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 6px,
+                    transparent 6px,
+                    transparent 12px
+                );
+            }
 
             @font-face {
                 font-family: 'Combinator-Icons';
@@ -129,7 +146,9 @@
                                 {% else %}
                                         {% with interaction=chart_data|get:drug_1|get:drug_2 %}
                                         <td class="risk-{{ interaction.risk }}">
-                                            <div>
+                                            <div 
+                                                {% if interaction.is_draft %}class="draft"{% endif %}
+                                            >
                                                 {% include 'drugcombinator/icons/synergy.html' %}
                                             </div>
                                         </td>
