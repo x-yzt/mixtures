@@ -134,7 +134,7 @@ if os.environ.get("PROD") == 'TRUE':
 
     print("Production settings found, overriding dev settings.")    
     
-    django_heroku.settings(locals())
+    django_heroku.settings(locals(), logging=False)
 
     DEBUG = False
 
@@ -142,6 +142,18 @@ if os.environ.get("PROD") == 'TRUE':
         'default': {
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
             'LOCATION': 'mixtures-app-cache'
+        }
+    }
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {'console': {'class': 'logging.StreamHandler'}},
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR')
+            }
         }
     }
 
