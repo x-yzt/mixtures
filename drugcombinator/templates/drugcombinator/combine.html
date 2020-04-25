@@ -3,44 +3,42 @@
 {% load static %}
 {% load humanize %}
 
-
 {% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
+  <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
 {% endblock %}
 
 {% block title %}
-    {{ combination_name }} | Combinaison {{ block.super }}
+  {{ combination_name }} | Combinaison {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <h1>
-            {% for drug in drugs %}
-                <a href="{{ drug.get_absolute_url }}">{{ drug }}</a>
-                {% if not forloop.last %}+{% endif %}
-            {% endfor %}
-        </h1>
-        <div class="divider"></div>
-    </div>
+  <div class="row">
+    <h1>
+      {% for drug in drugs %}
+        <a href="{{ drug.get_absolute_url }}">{{ drug }}</a>
+        {% if not forloop.last %}+{% endif %}
+      {% endfor %}
+    </h1>
+    <div class="divider"></div>
+  </div>
 
-    {% if unknown_interactions and interactions %}
-        <p class="flow-text not-found">
-            <i class="material-icons small left">warning</i>
-            Prudence : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }} interaction{{ unknown_interactions|pluralize }}
-            n'{{ unknown_interactions|pluralize:'a,ont' }} pas été
-            trouvée{{ unknown_interactions|pluralize }} dans notre base de données.
-        </p>
-    {% endif %}
+  {% if unknown_interactions and interactions %}
+    <p class="flow-text not-found">
+      <i class="material-icons small left">warning</i>
+      Prudence : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }}
+      interaction{{ unknown_interactions|pluralize }} n'{{ unknown_interactions|pluralize:'a,ont' }}
+      pas été trouvée{{ unknown_interactions|pluralize }} dans notre base de données.
+    </p>
+  {% endif %}
 
-    {% for interaction in interactions %}
-        {% include 'drugcombinator/interaction.html' %}
-    {% empty %}
-        <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
-        <p class="flow-text">Ça pourrait être bon signe. Ou pas. Méfiance.</p>
-    {% endfor %}
-    </div>
+  {% for interaction in interactions %}
+    {% include 'drugcombinator/interaction.html' %}
+  {% empty %}
+    <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
+    <p class="flow-text">Ça pourrait être bon signe. Ou pas. Méfiance.</p>
+  {% endfor %}
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
+  <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
 {% endblock %}
