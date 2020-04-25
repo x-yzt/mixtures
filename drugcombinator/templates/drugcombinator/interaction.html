@@ -2,108 +2,98 @@
 
 <div class="row card interaction">
 
-    {% if drugs|length != 2 %}
-        <div class="col s12">
-            <h2>
-                <a href="{{ interaction.from_drug.get_absolute_url }}">
-                    {{ interaction.from_drug }}
-                </a>
-                +
-                <a href="{{ interaction.to_drug.get_absolute_url }}">
-                    {{ interaction.to_drug }}
-                </a>
-            </h2>
-        </div>
-    {% endif %}
-
-    <div class="interaction-content {% if interaction.is_draft %}hidden{% endif %}">
-        <div class="col s12 m12 l6">
-            <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
-            <div class="synergy synergy-{{ interaction.synergy }}">            
-                {% include 'drugcombinator/icons/synergy.html' with class='medium' %}
-                <p class="label flow-text">
-                    {{ interaction.get_synergy_display }}
-                </p>
-            </div>
-            <div class="valign-wrapper">
-                <p>
-                    {% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
-                        Ces substances n'interagissent pas de manière significative. Leurs effets
-                        ressentis se superposent.
-                    {% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
-                        Ces substances n'interagissent pas de manière significative, mais provoquent des
-                        effets similaires. Leurs effets ressentis s'ajoutent.
-                    {% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
-                        La prise combinée de ces substances à tendance à atténuer leurs effets
-                        ressentis.
-                    {% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
-                        La combinaison de ces substances démultiplie ou modifie fortement leurs effets.
-                    {% elif interaction.synergy == interaction.SYNERGY_MIXED %}
-                        Ces substances interagissent de manière complexe. Leur adjonction augmente
-                        certains de leurs effets ressentis et en atténue d'autres.
-                    {% else %}
-                        Aucune donnée n'est disponible concernant la synergie
-                        de ces substances.
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-
-        <div class="col s12 m12 l6">
-            <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
-            <div class="risk risk-{{ interaction.risk }}">
-                {% include 'drugcombinator/icons/risk.html' with class='medium' %}
-                <p class="label flow-text">
-                    {{ interaction.get_risk_display }}
-                </p>
-            </div>
-            <div class="valign-wrapper">
-                <p>
-                    {% if interaction.risk == 0 %}
-                        Aucune donnée n'est disponible concernant les risques liés à
-                        ces substances.
-                    {% elif interaction.risk == 1 %}
-                        La consommation conjointe de ces substances n'augmente pas
-                        significativement les risques encourus par rapport à leur
-                        consommation indépendante.
-                    {% elif interaction.risk == 2 %}
-                        Bien que la combinaison de ces substances ne soit pas directement
-                        dangereuse, leurs effets croisés peuvent présenter ou déclencher 
-                        des situations à risque.
-                    {% elif interaction.risk == 3 %}
-                        Cette combinaison présente des risques physiques ou psychiques non
-                        négligeables.
-                    {% elif interaction.risk == 4 %}
-                        Cette combinaison présente des risques physiques ou psychiques importants.
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-
-        <div class="col s12 m12 l6">
-            <h3><i class="material-icons small">flare</i> À propos des effets</h3>
-            <p class="flow-text">{{ interaction.effect_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
-        </div>
-        <div class="col s12 m12 l6">
-            <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
-            <p class="flow-text">
-                {{ interaction.risk_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}
-            </p>
-        </div>
-
-        <div style="clear: both"></div>
-
-        {% if interaction.is_draft %}
-            <div class="draft-modal valign-wrapper">
-                <i class="material-icons large">rowing</i>
-                <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
-                <p>Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
-                retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
-                vous pouvez toutefois afficher son contenu.</p>
-                <a class="waves-effect waves-light btn draft-modal-reveal">
-                    <i class="material-icons left">visibility</i>Je fais attention, promis
-                </a>
-            </div>
-        {% endif %}
+  {% if drugs|length != 2 %}
+    <div class="col s12">
+      <h2>
+        <a href="{{ interaction.from_drug.get_absolute_url }}">{{ interaction.from_drug }}</a>
+        +
+        <a href="{{ interaction.to_drug.get_absolute_url }}">{{ interaction.to_drug }}</a>
+      </h2>
     </div>
+  {% endif %}
+
+  <div class="interaction-content {% if interaction.is_draft %}hidden{% endif %}">
+    <div class="col s12 m12 l6">
+      <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
+      
+      <div class="synergy synergy-{{ interaction.synergy }}">            
+        {% include 'drugcombinator/icons/synergy.html' with class='medium' %}
+        <p class="label flow-text">{{ interaction.get_synergy_display }}</p>
+      </div>
+      
+      <div class="valign-wrapper">
+        <p>
+          {% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
+            Ces substances n'interagissent pas de manière significative. Leurs effets ressentis se
+            superposent.
+          {% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
+            Ces substances n'interagissent pas de manière significative, mais provoquent des effets
+            similaires. Leurs effets ressentis s'ajoutent.
+          {% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
+            La prise combinée de ces substances à tendance à atténuer leurs effets ressentis.
+          {% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
+            La combinaison de ces substances démultiplie ou modifie fortement leurs effets.
+          {% elif interaction.synergy == interaction.SYNERGY_MIXED %}
+            Ces substances interagissent de manière complexe. Leur adjonction augmente certains de
+            leurs effets ressentis et en atténue d'autres.
+          {% else %}
+            Aucune donnée n'est disponible concernant la synergie de ces substances.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <div class="col s12 m12 l6">
+      <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
+
+      <div class="risk risk-{{ interaction.risk }}">
+          {% include 'drugcombinator/icons/risk.html' with class='medium' %}
+          <p class="label flow-text">{{ interaction.get_risk_display }}</p>
+      </div>
+
+      <div class="valign-wrapper">
+        <p>
+          {% if interaction.risk == 0 %}
+            Aucune donnée n'est disponible concernant les risques liés à ces substances.
+          {% elif interaction.risk == 1 %}
+            La consommation conjointe de ces substances n'augmente pas significativement les risques
+            encourus par rapport à leur consommation indépendante.
+          {% elif interaction.risk == 2 %}
+            Bien que la combinaison de ces substances ne soit pas directement dangereuse, leurs
+            effets croisés peuvent présenter ou déclencher des situations à risque.
+          {% elif interaction.risk == 3 %}
+            Cette combinaison présente des risques physiques ou psychiques non négligeables.
+          {% elif interaction.risk == 4 %}
+            Cette combinaison présente des risques physiques ou psychiques importants.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">flare</i> À propos des effets</h3>
+    <p class="flow-text">{{ interaction.effect_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
+  </div>
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
+    <p class="flow-text">{{ interaction.risk_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
+  </div>
+
+  <div style="clear: both"></div>
+
+  {% if interaction.is_draft %}
+    <div class="draft-modal valign-wrapper">
+      <i class="material-icons large">rowing</i>
+      <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
+      <p>
+        Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
+        retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
+        vous pouvez toutefois afficher son contenu.
+      </p>
+      <a class="waves-effect waves-light btn draft-modal-reveal">
+        <i class="material-icons left">visibility</i>Je fais attention, promis
+      </a>
+    </div>
+    {% endif %}
+  </div>
 </div>

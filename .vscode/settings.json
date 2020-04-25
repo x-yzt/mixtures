@@ -1,6 +1,11 @@
 {
     "files.associations": {
-        "*.html": "django-html"
+        "*.html": "django-html",
     },
-    "editor.rulers": [72, 79, 100]
+    "editor.rulers": [72, 79],
+
+    "[django-html]": {
+        "editor.tabSize": 2,
+        "editor.rulers": [100],
+    },
 }
