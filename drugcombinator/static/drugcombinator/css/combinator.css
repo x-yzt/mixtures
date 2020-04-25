@@ -16,6 +16,21 @@
 
 .not-found { color: #F82 }
 
+.draft-modal {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    background: inherit;
+    transition: opacity ease-in-out .2s;
+}
+
 .risk, .synergy {
     float: left;
     text-align: center;

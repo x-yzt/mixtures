@@ -5,9 +5,13 @@
     {% if drugs|length != 2 %}
         <div class="col s12">
             <h2>
-                <a href="{{ interaction.from_drug.get_absolute_url }}">{{ interaction.from_drug }}</a>
+                <a href="{{ interaction.from_drug.get_absolute_url }}">
+                    {{ interaction.from_drug }}
+                </a>
                 +
-                <a href="{{ interaction.to_drug.get_absolute_url }}">{{ interaction.to_drug }}</a>
+                <a href="{{ interaction.to_drug.get_absolute_url }}">
+                    {{ interaction.to_drug }}
+                </a>
             </h2>
         </div>
     {% endif %}
@@ -84,5 +88,16 @@
         <p class="flow-text">
             {{ interaction.risk_description|markdown|default:"Aucune information supplémentaire n'est disponible." }}
         </p>
+    </div>
+
+    <div class="draft-modal valign-wrapper">
+        <i class="material-icons large">rowing</i>
+        <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
+        <p>Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
+        retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
+        vous pouvez toutefois afficher son contenu.</p>
+        <a class="waves-effect waves-light btn draft-modal-reveal">
+            <i class="material-icons left">visibility</i>Je fais attention, promis
+        </a>
     </div>
 </div>
