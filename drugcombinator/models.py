@@ -274,3 +274,42 @@ class Category(Model):
 
     class Meta:
         verbose_name = "catégorie"
+
+
+class Note(Model):
+
+    added = DateTimeField(
+        auto_now_add=True,
+        verbose_name="ajouté"
+    )
+    modified = DateTimeField(
+        auto_now=True,
+        verbose_name="modifié"
+    )
+    title = CharField(
+        max_length=128, default="Note sans titre",
+        verbose_name="titre"
+    )
+    content = TextField(
+        default='', blank=True,
+        verbose_name="contenu",
+        help_text="Les notes ne sont visibles que sur ce site " \
+            "d'administration et sont partagées entre tous les " \
+            "utilisateurs."
+    )
+    related_drugs = ManyToManyField(
+        'Drug',
+        related_name='notes', blank=True,
+        verbose_name="substances concernées",
+        help_text="Si cette note concerne des substances " \
+            "particulières, vous pouvez optionellement les spécifier " \
+            "ici."
+    )
+
+
+    def __str__(self):
+        return self.title
+
+
+    class Meta:
+        verbose_name = "note"

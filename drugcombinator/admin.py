@@ -1,5 +1,5 @@
 from django.contrib import admin
-from drugcombinator.models import Drug, Interaction, Category
+from drugcombinator.models import Drug, Interaction, Category, Note
 
 
 admin.site.site_header = "Mixtures.info"
@@ -100,3 +100,17 @@ class CategoryAdmin(admin.ModelAdmin):
         'description'
     )
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Note)
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('__str__',)
+    list_filter = ('related_drugs',)
+    date_hierarchy = 'modified'
+    search_fields = ('title', 'content')
+
+    fields = (
+        ('title', 'related_drugs'),
+        'content'
+    )
+    autocomplete_fields = ('related_drugs',)
