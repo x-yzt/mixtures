@@ -24,6 +24,7 @@
 
 .interaction-content.hidden {
     max-height: 400px;
+    min-height: 300px;
 }
 
 .draft-modal {
@@ -36,7 +37,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 0 10px;
     background: #FFF;
     transition: all ease-in-out .2s;
 }
