@@ -4,161 +4,159 @@
 <!doctype HTML>
 
 <html>
-    <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <style>
-            * {
-                box-sizing: border-box;
-            }
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+      * {
+          box-sizing: border-box;
+      }
 
-            body {
-                font-family: 'Trebuchet MS', sans-serif;
-                font-size: 11pt;
-            }
+      body {
+          font-family: 'Trebuchet MS', sans-serif;
+          font-size: 11pt;
+      }
 
-            h1 {
-                color: #9c27b0;
-                text-align: center;
-            }
+      h1 {
+          color: #9c27b0;
+          text-align: center;
+      }
 
-            table {
-                border-collapse: collapse;
-                border: 2px solid #FFF;
-                background: #FFF;
-                margin: auto;
-            }
+      table {
+          border-collapse: collapse;
+          border: 2px solid #FFF;
+          background: #FFF;
+          margin: auto;
+      }
 
-            td, th, tr, div {
-                height: 100%;
-            }
+      td, th, tr, div {
+          height: 100%;
+      }
 
-            td, th {
-                border: 2px solid #FFF;
-                padding: 0;
-                border-radius: 7px;
-            }
+      td, th {
+          border: 2px solid #FFF;
+          padding: 0;
+          border-radius: 7px;
+      }
 
-            thead tr:first-of-type > th:first-child {
-                background: #ffb300;
-            }
+      thead tr:first-of-type > th:first-child {
+          background: #ffb300;
+      }
 
-            div {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+      div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
 
-            th div {
-                padding: 6px 8px;
-            }
+      th div {
+          padding: 6px 8px;
+      }
 
-            th {
-                color: #FFF;
-                background-color: #9c27b0;
-                font-weight: normal;
-            }
+      th {
+          color: #FFF;
+          background-color: #9c27b0;
+          font-weight: normal;
+      }
 
-            td {
-                background: #DDD;
-            }
+      td {
+          background: #DDD;
+      }
 
-            td .material-icons {
-                font-size: 1.3rem;
-            }
+      td .material-icons {
+          font-size: 1.3rem;
+      }
 
-            .risk-1 { background: #6DE }
-            .risk-2 { background: #FD2 }
-            .risk-3 { background: #F82 }
-            .risk-4 { background: #F33 }
+      .risk-1 { background: #6DE }
+      .risk-2 { background: #FD2 }
+      .risk-3 { background: #F82 }
+      .risk-4 { background: #F33 }
 
-            .risk-3, .risk-4 { color: #FFF }
+      .risk-3, .risk-4 { color: #FFF }
 
-            .draft {
-                background: repeating-linear-gradient(
-                    45deg,
-                    rgba(0, 0, 0, 0.15),
-                    rgba(0, 0, 0, 0.15) 6px,
-                    transparent 6px,
-                    transparent 12px
-                );
-            }
+      .draft {
+          background: repeating-linear-gradient(
+              45deg,
+              rgba(0, 0, 0, 0.15),
+              rgba(0, 0, 0, 0.15) 6px,
+              transparent 6px,
+              transparent 12px
+          );
+      }
 
-            @font-face {
-                font-family: 'Combinator-Icons';
-                font-style: normal;
-                font-weight: normal;
-                src: url("{% static 'drugcombinator/font/combinator.woff'%}") format('woff');
-            }
+      @font-face {
+          font-family: 'Combinator-Icons';
+          font-style: normal;
+          font-weight: normal;
+          src: url("{% static 'drugcombinator/font/combinator.woff'%}") format('woff');
+      }
 
-            .combinator-icons {
-                font-family: 'Combinator-Icons';
-            }
-        </style>
-    </head>
+      .combinator-icons {
+          font-family: 'Combinator-Icons';
+      }
+    </style>
+  </head>
 
-    <body>
-        {% spaceless %}
-            <h1>Tableau de combinaison des psychoactifs</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2" rowspan="2">
-                            <img src="{% static 'mixtures/img/logo.svg' %}"/>
-                        </th>
-                        {% for _ in drugs %}
-                            {% with categ=header_data|get:forloop.counter0 %}
-                                {% if categ %}
-                                    <th colspan="{{ categ.num_drugs }}">
-                                        <div>{{ categ }}</div>
-                                    </th>
-                                {% endif %}
-                            {% endwith %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        {% for drug in drugs %}
-                            <th>
-                                <div>{{ drug }}</div>
-                            </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {% for drug_1 in drugs %}
-                        <tr>
-                            {% with categ=header_data|get:forloop.counter0 %}
-                                {% if categ %}
-                                    <th scope="row" rowspan="{{ categ.num_drugs }}">
-                                        <div>{{ categ }}</div>
-                                    </th>
-                                {% endif %}
-                            {% endwith %}
+  <body>
+    {% spaceless %}
+      <h1>Tableau de combinaison des psychoactifs</h1>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2" rowspan="2">
+              <img src="{% static 'mixtures/img/logo.svg' %}"/>
+            </th>
+            {% for _ in drugs %}
+              {% with categ=header_data|get:forloop.counter0 %}
+                {% if categ %}
+                  <th colspan="{{ categ.num_drugs }}">
+                    <div>{{ categ }}</div>
+                  </th>
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
+          </tr>
+          <tr>
+            {% for drug in drugs %}
+              <th>
+                <div>{{ drug }}</div>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+              
+        <tbody>
+          {% for drug_1 in drugs %}
+            <tr>
+              {% with categ=header_data|get:forloop.counter0 %}
+                {% if categ %}
+                  <th scope="row" rowspan="{{ categ.num_drugs }}">
+                    <div>{{ categ }}</div>
+                  </th>
+                {% endif %}
+              {% endwith %}
 
-                            <th scope="row">
-                                <div>{{ drug_1 }}</div>
-                            </th>
-                            {% for drug_2 in drugs %}
-                                {% if drug_1 == drug_2 %}
-                                    <th>
-                                        <div>{{ drug_1 }}</div>
-                                    </th>
-                                {% else %}
-                                        {% with interaction=chart_data|get:drug_1|get:drug_2 %}
-                                        <td class="risk-{{ interaction.risk }}">
-                                            <div 
-                                                {% if interaction.is_draft %}class="draft"{% endif %}
-                                            >
-                                                {% include 'drugcombinator/icons/synergy.html' %}
-                                            </div>
-                                        </td>
-                                    {% endwith %}
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endspaceless %}
-    </body>
+              <th scope="row">
+                <div>{{ drug_1 }}</div>
+              </th>
+              {% for drug_2 in drugs %}
+                {% if drug_1 == drug_2 %}
+                  <th>
+                    <div>{{ drug_1 }}</div>
+                  </th>
+                {% else %}
+                  {% with interaction=chart_data|get:drug_1|get:drug_2 %}
+                    <td class="risk-{{ interaction.risk }}">
+                      <div {% if interaction.is_draft %}class="draft"{% endif %}>
+                        {% include 'drugcombinator/icons/synergy.html' %}
+                      </div>
+                    </td>
+                  {% endwith %}
+                {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endspaceless %}
+  </body>
 </html>
