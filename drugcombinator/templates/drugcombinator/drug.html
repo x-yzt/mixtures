@@ -5,33 +5,37 @@
 {% load markdown_deux_tags %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
+  <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
 {% endblock %}
 
 {% block title %}
-    {{ drug }} | Substance {{ block.super }}
+  {{ drug }} | Substance {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <h1>Substance : {{ drug }}</h1>
-        <div class="divider"></div>
-    </div>
+  <div class="row">
+    <h1>Substance : {{ drug }}</h1>
+    <div class="divider"></div>
+  </div>
 
-    <div class="row">
-        <h2><i class="material-icons small">info</i> À propos</h2>
-        <p class="flow-text">{{ drug.description|markdown|default:"Aucune information supplémentaire n'est disponible." }}</p>
-    </div>
+  <div class="row">
+    <h2><i class="material-icons small">info</i> À propos</h2>
+    {% if drug.description %}
+      {{ drug.description|markdown }}
+    {% else %}
+      <p>Aucune information supplémentaire n'est disponible.</p>
+    {% endif %}
+  </div>
 
-    <div class="row">
-        {% for interaction in interactions %}
-            {% include 'drugcombinator/interaction.html' %}
-        {% empty %}
-            <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
-        {% endfor %}
-    </div>
+  <div class="row">
+    {% for interaction in interactions %}
+      {% include 'drugcombinator/interaction.html' %}
+    {% empty %}
+      <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
+    {% endfor %}
+  </div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
+  <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
 {% endblock %}

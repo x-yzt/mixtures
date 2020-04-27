@@ -2,93 +2,99 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{% block title %}Mixtures.info{% endblock %}</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}" />
-        <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="{% static 'mixtures/css/materialize.css' %}">
-        <link rel="stylesheet" href="{% static 'mixtures/css/base.css' %}">
-        {% block stylesheets %}{% endblock %}
-    </head>
+  <head>
+    <title>{% block title %}Mixtures.info{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}"/>
+    <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="{% static 'mixtures/css/materialize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'mixtures/css/base.css' %}"/>
+    {% block stylesheets %}{% endblock %}
+  </head>
     
-    <body>
-        <header>
-            <div class="navbar-fixed">
-                <nav>
-                    <div class="nav-wrapper container">
-                        <a href="/" class="brand-logo valign-wrapper">
-                            <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
-                        </a>
-                        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
-                            <i class="material-icons">menu</i>
-                        </a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="{% url 'main' %}">Combinaisons</a></li>
-                            <li><a href="{% url 'drug_search' %}">Substances</a></li>
-                            <li><a href="{% url 'docs' %}">API</a></li>
-                            <li><a href="{% url 'about' %}">À propos</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+  <body>
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper container">
+            <a href="/" class="brand-logo valign-wrapper">
+              <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+            </a>
 
-            <ul class="sidenav" id="mobile-nav">
-                <li class="logo">
-                    <img src="{% static 'mixtures/img/icon.svg' %}">
-                </li>
-                <li><div class="divider"></div></li>
-                <li><a class="waves-effect" href="{% url 'main' %}">
-                    <i class="material-icons">merge_type</i>Combinaisons
-                </a></li>
-                <li><a class="waves-effect" href="{% url 'drug_search' %}">
-                    <i class="material-icons">bubble_chart</i>Substances
-                </a></li>
-                <li><div class="divider"></div></li>
-                <li><a class="waves-effect" href="{% url 'docs' %}">
-                    <i class="material-icons">code</i>API
-                </a></li>
-                <li><a class="waves-effect" href="{% url 'about' %}">
-                    <i class="material-icons">help_outline</i>À propos
-                </a></li>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+              <i class="material-icons">menu</i>
+            </a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="{% url 'main' %}">Combinaisons</a></li>
+              <li><a href="{% url 'drug_search' %}">Substances</a></li>
+              <li><a href="{% url 'docs' %}">API</a></li>
+              <li><a href="{% url 'about' %}">À propos</a></li>
             </ul>
-        </header>
-        
-        <main>
-            <div class="container">
-                {% block content %}{% endblock %}
-            </div>
-        </main>
+          </div>
+        </nav>
+      </div>
 
-        <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5><i class="material-icons">help_outline</i>Mixtures.info</h5>
-                        <p>Cette application vise à la réduction des risques liés à la consommation de drogues, et est proposée à fins informatives uniquement.</p>
-                        <p>La consommation de substances psychoactives comporte des risques. Effectuez systématiquement des recherches complémentaires avant d'en consommer.</p>
-                    </div>
-                    <div class="col l5 offset-l1 s12">
-                        <h5><i class="material-icons">link</i>Liens utiles</h5>
-                        <ul>
-                            <li><a href="https://www.psychonaut.fr">Psychonaut</a>, forum francophone sur les psychoactifs et le psychonautisme</li>
-                            <li><a href="https://psychonautwiki.org">PsychonautWiki</a>, encyclopédie des psychoactifs libre et anglophone</li>
-                            <li><a href="https://github.com/x-yzt/mixtures">Code source</a> de cette application</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    <span>Programmé et conçu par <a href="mailto://xyzt@psychonaut.fr">xyzt_</a></span>
-                </div>
-            </div>
-        </footer>
-        
-        <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
-        {% block scripts %}{% endblock %}
-        <script>M.AutoInit();</script>
-    </body>
+      <ul class="sidenav" id="mobile-nav">
+        <li class="logo">
+          <img src="{% static 'mixtures/img/icon.svg' %}">
+        </li>
+
+        <li><div class="divider"></div></li>
+
+        <li><a class="waves-effect" href="{% url 'main' %}">
+          <i class="material-icons">merge_type</i>Combinaisons
+        </a></li>
+        <li><a class="waves-effect" href="{% url 'drug_search' %}">
+          <i class="material-icons">bubble_chart</i>Substances
+        </a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="waves-effect" href="{% url 'docs' %}">
+          <i class="material-icons">code</i>API
+        </a></li>
+        <li><a class="waves-effect" href="{% url 'about' %}">
+          <i class="material-icons">help_outline</i>À propos
+        </a></li>
+      </ul>
+    </header>
+      
+    <main>
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5><i class="material-icons">help_outline</i>Mixtures.info</h5>
+            <p>Cette application vise à la réduction des risques liés à la consommation de drogues, et est proposée à fins informatives uniquement.</p>
+            <p>La consommation de substances psychoactives comporte des risques. Effectuez systématiquement des recherches complémentaires avant d'en consommer.</p>
+          </div>
+
+          <div class="col l5 offset-l1 s12">
+            <h5><i class="material-icons">link</i>Liens utiles</h5>
+            <ul>
+              <li><a href="https://www.psychonaut.fr">Psychonaut</a>, forum francophone sur les psychoactifs et le psychonautisme</li>
+              <li><a href="https://psychonautwiki.org">PsychonautWiki</a>, encyclopédie des psychoactifs libre et anglophone</li>
+              <li><a href="https://github.com/x-yzt/mixtures">Code source</a> de cette application</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-copyright">
+        <div class="container">
+          <span>Programmé et conçu par <a href="mailto://xyzt@psychonaut.fr">xyzt_</a></span>
+        </div>
+      </div>
+    </footer>
+    
+    <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
+    {% block scripts %}{% endblock %}
+    <script>M.AutoInit();</script>
+  </body>
 </html>
