@@ -78,11 +78,23 @@ class InteractionAdmin(admin.ModelAdmin):
         'risk_description', 'effect_description'
     )
 
-    fields = (
-        ('from_drug', 'to_drug', 'is_draft'),
-        ('risk', 'risk_description'),
-        ('synergy', 'effect_description'),
-        ('notes', 'related_notes')
+    fieldsets = (
+        (None, {
+            'fields': (
+                ('from_drug', 'to_drug', 'is_draft'),
+            )
+        }),
+        ("Données d'interaction", {
+            'fields': (
+                ('risk', 'risk_description'),
+                ('synergy', 'effect_description'),
+            ),
+        }),
+        ("Notes", {
+            'fields': (
+                ('notes', 'related_notes'),
+            ),
+        }),
     )
     autocomplete_fields = ('from_drug', 'to_drug')
     readonly_fields = ('related_notes',)
