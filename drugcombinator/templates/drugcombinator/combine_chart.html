@@ -146,7 +146,7 @@
                     {% with interaction=chart_data|get:drug_row|get:drug_col %}
                       <td class="risk-{{ interaction.risk }}">
                         <div {% if interaction.is_draft %}class="draft"{% endif %}>
-                          {% include 'drugcombinator/icons/synergy.html' %}
+                          {% include 'drugcombinator/combine_info/synergy_icon.html' %}
                         </div>
                       </td>
                     {% endwith %}

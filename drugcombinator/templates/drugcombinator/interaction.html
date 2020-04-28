@@ -17,28 +17,13 @@
       <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
       
       <div class="synergy synergy-{{ interaction.synergy }}">            
-        {% include 'drugcombinator/icons/synergy.html' with class='medium' %}
+        {% include 'drugcombinator/combine_info/synergy_icon.html' with class='medium' %}
         <p class="label flow-text">{{ interaction.get_synergy_display }}</p>
       </div>
       
       <div class="valign-wrapper">
         <p>
-          {% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
-            Ces substances n'interagissent pas de manière significative. Leurs effets ressentis se
-            superposent.
-          {% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
-            Ces substances n'interagissent pas de manière significative, mais provoquent des effets
-            similaires. Leurs effets ressentis s'ajoutent.
-          {% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
-            La prise combinée de ces substances à tendance à atténuer leurs effets ressentis.
-          {% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
-            La combinaison de ces substances démultiplie ou modifie fortement leurs effets.
-          {% elif interaction.synergy == interaction.SYNERGY_MIXED %}
-            Ces substances interagissent de manière complexe. Leur adjonction augmente certains de
-            leurs effets ressentis et en atténue d'autres.
-          {% else %}
-            Aucune donnée n'est disponible concernant la synergie de ces substances.
-          {% endif %}
+          {% include 'drugcombinator/combine_info/synergy_text.html' %}
         </p>
       </div>
     </div>
@@ -47,25 +32,13 @@
       <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
 
       <div class="risk risk-{{ interaction.risk }}">
-          {% include 'drugcombinator/icons/risk.html' with class='medium' %}
+          {% include 'drugcombinator/combine_info/risk_icon.html' with class='medium' %}
           <p class="label flow-text">{{ interaction.get_risk_display }}</p>
       </div>
 
       <div class="valign-wrapper">
         <p>
-          {% if interaction.risk == interaction.RISK_NEUTRAL %}
-            La consommation conjointe de ces substances n'augmente pas significativement les risques
-            encourus par rapport à leur consommation indépendante.
-          {% elif interaction.risk == interaction.RISK_CAUTION %}
-            Bien que la combinaison de ces substances ne soit pas directement dangereuse, leurs
-            effets croisés peuvent présenter ou déclencher des situations à risque.
-          {% elif interaction.risk == interaction.RISK_UNSAFE %}
-            Cette combinaison présente des risques physiques ou psychiques non négligeables.
-          {% elif interaction.risk == interaction.RISK_DANGEROUS %}
-            Cette combinaison présente des risques physiques ou psychiques importants.
-          {% else %}
-            Aucune donnée n'est disponible concernant les risques liés à ces substances.
-          {% endif %}
+          {% include 'drugcombinator/combine_info/risk_text.html' %}
         </p>
       </div>
     </div>

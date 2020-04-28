@@ -1,0 +1,16 @@
+{% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
+  Ces substances n'interagissent pas de manière significative. Leurs effets ressentis se
+  superposent.
+{% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
+  Ces substances n'interagissent pas de manière significative, mais provoquent des effets
+  similaires. Leurs effets ressentis s'ajoutent.
+{% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
+  La prise combinée de ces substances à tendance à atténuer leurs effets ressentis.
+{% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
+  La combinaison de ces substances démultiplie ou modifie fortement leurs effets.
+{% elif interaction.synergy == interaction.SYNERGY_MIXED %}
+  Ces substances interagissent de manière complexe. Leur adjonction augmente certains de
+  leurs effets ressentis et en atténue d'autres.
+{% else %}
+  Aucune donnée n'est disponible concernant la synergie de ces substances.
+{% endif %}
