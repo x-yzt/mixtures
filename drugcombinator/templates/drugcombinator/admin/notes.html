@@ -13,7 +13,8 @@
     <ol>
       {% for note in drug.notes.all %}
         <li><b>
-          <a href="{% url 'admin:drugcombinator_note_change' note.pk %}">
+          <a class="related-widget-wrapper-link"
+              href="{% url 'admin:drugcombinator_note_change' note.pk %}?_popup=1">
             {{ note }}
           </a>
         </b></li>
