@@ -1,4 +1,6 @@
 from django.db import connection, reset_queries
+from django.template import RequestContext
+from django.shortcuts import render
 import unicodedata as ud
 import functools
 
@@ -43,3 +45,12 @@ def count_queries(func):
         return result
 
     return inner_func
+
+
+def render_rc(request, context=None, *args, **kwargs):
+    """
+        Equivalent of the django.shortcut.render shortcut function, but
+        using RequestContext.
+    """
+    context = RequestContext(request, context)
+    return render(request, context, *args, **kwargs)

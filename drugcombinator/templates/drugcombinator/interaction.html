@@ -9,6 +9,14 @@
         +
         <a href="{{ interaction.to_drug.get_absolute_url }}">{{ interaction.to_drug }}</a>
       </h2>
+
+      {% if perms.drugcombinator.change_interaction %}
+        <a class="btn btn-floating waves-effect waves-light"
+          href="{% url 'admin:drugcombinator_interaction_change' interaction.pk %}"
+        >
+          <i class="material-icons">edit</i>
+        </a>
+      {% endif %}
     </div>
   {% endif %}
 

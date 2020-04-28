@@ -6,7 +6,7 @@ from django.urls import reverse
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
-from drugcombinator.utils import normalize, count_queries
+from drugcombinator.utils import normalize, count_queries, render_rc
 
 
 def main(request):
@@ -79,7 +79,7 @@ def combine(request, slugs):
     expected_interactions = len(drugs) * (len(drugs)-1) // 2
     unknown_interactions = expected_interactions - len(interactions)
 
-    return render(request, 'drugcombinator/combine.html', locals())
+    return render_rc(request, 'drugcombinator/combine.html', locals())
 
 
 def drug(request, name):
