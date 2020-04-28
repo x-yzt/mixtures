@@ -242,6 +242,14 @@ class Interaction(SymetricalRelationModel):
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
 
+    @classmethod
+    def get_dummy_risks(cls):
+        return [cls(risk=risk[0]) for risk in cls.RISK]
+
+    @classmethod
+    def get_dummy_synergies(cls):
+        return [cls(synergy=synergy[0]) for synergy in cls.SYNERGY]
+
 
     class Meta:
         unique_together = ('from_drug', 'to_drug')
