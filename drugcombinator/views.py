@@ -110,6 +110,9 @@ def combine_chart(request):
         .prefetch_related('from_drug', 'to_drug')
     )
 
+    dummy_risks = Interaction.get_dummy_risks()
+    dummy_synergies = Interaction.get_dummy_synergies()
+
     chart_data = {drug: {} for drug in drugs}
     for inter in interactions:
         chart_data[inter.from_drug][inter.to_drug] = inter

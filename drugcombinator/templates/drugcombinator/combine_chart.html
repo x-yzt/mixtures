@@ -158,5 +158,17 @@
         </tbody>
       </table>
     {% endspaceless %}
+
+    <div class="legend">
+      {% for interaction in dummy_risks %}
+        {% include 'drugcombinator/combine_info/risk_icon.html' %}
+        {% include 'drugcombinator/combine_info/risk_text.html' %}
+      {% endfor %}
+
+      {% for interaction in dummy_synergies %}
+        {% include 'drugcombinator/combine_info/synergy_icon.html' %}
+        {% include 'drugcombinator/combine_info/synergy_text.html' %}
+      {% endfor %}
+    </div>
   </body>
 </html>
