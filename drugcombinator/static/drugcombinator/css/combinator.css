@@ -39,7 +39,7 @@
     justify-content: center;
     padding: 0 10px;
     background: #FFF;
-    transition: all ease-in-out .2s;
+    transition: all ease-in-out .3s;
 }
 
 .draft-modal p.flow-text {
@@ -84,8 +84,6 @@
 .risk-3 .label { background: #F82 }
 .risk-4 .label { background: #F33 }
 
-.risk-3 .label, .risk-4 .label { color: #FFF }
-
 .synergy-1 i { color: #6DE }
 .synergy-2 i { color: #27F }
 .synergy-3 i { color: #DF1F67 }
@@ -98,7 +96,13 @@
 .synergy-4 .label { background: #81E }
 .synergy-5 .label { background: #FF76D6 }
 
-.synergy-2, .synergy-3 .label, .synergy-4 .label { color: #FFF }
+.risk-3 .label,
+.risk-4 .label,
+.synergy-2 .label,
+.synergy-3 .label,
+.synergy-4 .label { 
+    color: #FFF 
+}
 
 @font-face {
     font-family: 'Combinator-Icons';
