@@ -97,24 +97,23 @@
   </head>
 
   <body>
+    <h1>Tableau de combinaison des psychoactifs</h1>
     {% spaceless %}
-      <h1>Tableau de combinaison des psychoactifs</h1>
       <table>
+      {% regroup drugs by category as grouped_drugs %}
         <thead>
           <tr>
             <th colspan="2" rowspan="2">
               <img src="{% static 'mixtures/img/logo.svg' %}"/>
             </th>
-            {% for _ in drugs %}
-              {% with categ=header_data|get:forloop.counter0 %}
-                {% if categ %}
-                  <th colspan="{{ categ.num_drugs }}">
-                    <div>{{ categ }}</div>
-                  </th>
-                {% endif %}
-              {% endwith %}
+
+            {% for category, categ_drugs in grouped_drugs %}
+              <th colspan="{{ categ_drugs|length }}">
+                <div>{{ category|default:"Autres" }}</div>
+              </th>
             {% endfor %}
           </tr>
+
           <tr>
             {% for drug in drugs %}
               <th>
@@ -125,35 +124,36 @@
         </thead>
               
         <tbody>
-          {% for drug_1 in drugs %}
-            <tr>
-              {% with categ=header_data|get:forloop.counter0 %}
-                {% if categ %}
-                  <th scope="row" rowspan="{{ categ.num_drugs }}">
-                    <div>{{ categ }}</div>
+          {% for category, categ_drugs in grouped_drugs %}
+            {% for drug_row in categ_drugs %}
+              <tr>
+                {% ifchanged category %}
+                  <th scope="row" rowspan="{{ categ_drugs|length }}">
+                    <div>{{ category|default:"Autres" }}</div>
                   </th>
-                {% endif %}
-              {% endwith %}
+                {% endifchanged %}
 
-              <th scope="row">
-                <div>{{ drug_1 }}</div>
-              </th>
-              {% for drug_2 in drugs %}
-                {% if drug_1 == drug_2 %}
-                  <th>
-                    <div>{{ drug_1 }}</div>
-                  </th>
-                {% else %}
-                  {% with interaction=chart_data|get:drug_1|get:drug_2 %}
-                    <td class="risk-{{ interaction.risk }}">
-                      <div {% if interaction.is_draft %}class="draft"{% endif %}>
-                        {% include 'drugcombinator/icons/synergy.html' %}
-                      </div>
-                    </td>
-                  {% endwith %}
-                {% endif %}
-              {% endfor %}
-            </tr>
+                <th scope="row">
+                  <div>{{ drug_row }}</div>
+                </th>
+
+                {% for drug_col in drugs %}
+                  {% if drug_col is drug_row %}
+                    <th>
+                      <div>{{ drug_col }}</div>
+                    </th>
+                  {% else %}
+                    {% with interaction=chart_data|get:drug_row|get:drug_col %}
+                      <td class="risk-{{ interaction.risk }}">
+                        <div {% if interaction.is_draft %}class="draft"{% endif %}>
+                          {% include 'drugcombinator/icons/synergy.html' %}
+                        </div>
+                      </td>
+                    {% endwith %}
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
           {% endfor %}
         </tbody>
       </table>

@@ -102,14 +102,8 @@ def combine_chart(request):
     
     drugs = (Drug.objects
         .filter(common=True)
+        .prefetch_related('category')
         .order_by(F('category__name').asc(nulls_last=True), 'name')
-    )
-    categories = (Category.objects
-        .filter(drugs__in=drugs)
-        .distinct()
-        .prefetch_related('drugs')
-        .annotate(num_drugs=Count('drugs', drugs__in=drugs))
-        .order_by('name')
     )
     interactions = (Interaction.objects
         .filter(from_drug__in=drugs, to_drug__in=drugs)
@@ -120,18 +114,6 @@ def combine_chart(request):
     for inter in interactions:
         chart_data[inter.from_drug][inter.to_drug] = inter
 
-    uncategorized = drugs.filter(category__isnull=True).count()
-    null_categs = []
-    if uncategorized:
-        categ = Category(name="Autres")
-        categ.num_drugs = uncategorized
-        null_categs.append(categ)
-
-    header_data = []
-    for categ in chain(categories, null_categs):
-        header_data.append(categ)
-        header_data += [None] * (categ.num_drugs - 1)
-    
     return render(request, 'drugcombinator/combine_chart.html', locals())
 
 
