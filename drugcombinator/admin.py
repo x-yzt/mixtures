@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.template.loader import render_to_string
 from drugcombinator.models import Drug, Interaction, Category, Note
 
 
@@ -46,12 +47,18 @@ class DrugAdmin(admin.ModelAdmin):
         }),
         ("Informations détaillées", {
             'fields': (
-                ('description',)
+                (('description', 'related_notes'),)
             ),
         }),
     )
+    readonly_fields = ('related_notes',)
     prepopulated_fields = {'slug': ('name',)}
     inlines = (InteractionInline,)
+
+    def related_notes(self, obj):
+        data = {'drugs': (obj,)}
+        return render_to_string('drugcombinator/admin/notes.html', data)
+    related_notes.short_description = "Notes liées"
 
     def get_inline_instances(self, request, obj=None):
         # Hide inlines in popup windows. More info:
@@ -75,13 +82,19 @@ class InteractionAdmin(admin.ModelAdmin):
         ('from_drug', 'to_drug', 'is_draft'),
         ('risk', 'risk_description'),
         ('synergy', 'effect_description'),
-        'notes'
+        ('notes', 'related_notes')
     )
     autocomplete_fields = ('from_drug', 'to_drug')
+    readonly_fields = ('related_notes',)
     radio_fields = {
         'risk': admin.VERTICAL,
         'synergy': admin.VERTICAL
     }
+
+    def related_notes(self, obj):
+        data = {'drugs': (obj.from_drug, obj.to_drug)}
+        return render_to_string('drugcombinator/admin/notes.html', data)
+    related_notes.short_description = "Notes liées"
 
     def delete_queryset(self, request, queryset):
         # Tweak to call model delete() when using bulk deletion

@@ -1,0 +1,23 @@
+{% load admin_urls %}
+{% load humanize %}
+
+{% for drug in drugs %}
+  {% with count=drug.notes.count %}
+    {% if count %}
+      {{ count|apnumber|capfirst }}{{ count|pluralize:'e,' }} note{{ count|pluralize }}
+      liée{{ count|pluralize }} à la substance {{ drug }} {{ count|pluralize:'est,sont' }}
+      disponible{{ count|pluralize }}.
+    {% else %}
+      Aucune note n'est liée à la substance {{ drug }}.
+    {% endif %}
+    <ol>
+      {% for note in drug.notes.all %}
+        <li><b>
+          <a href="{% url 'admin:drugcombinator_note_change' note.pk %}">
+            {{ note }}
+          </a>
+        </b></li>
+      {% endfor %}
+    </ol>
+  {% endwith %}
+{% endfor %}
