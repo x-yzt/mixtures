@@ -22,6 +22,7 @@ class InteractionInline(admin.StackedInline):
         }),
     )
     autocomplete_fields = ('to_drug',)
+    classes = ('collapse',)
     extra = 1
     show_change_link = True
 
