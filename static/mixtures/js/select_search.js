@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
     document.querySelectorAll('select[searchable]').forEach(elem => {
         const select = elem.M_FormSelect;
-        const options = select.dropdownOptions.querySelectorAll('li');
+        const options = select.dropdownOptions.querySelectorAll('li:not(.optgroup)');
 
         // Add search box to dropdown
         const placeholderText = select.el.getAttribute('searchable');
