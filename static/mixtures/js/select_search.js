@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', event => {
 
         // Function to give keyboard focus to the search input field
         function focusSearchBox() {
-            searchBox.firstElementChild.focus();
+            searchBox.firstElementChild.focus({
+                preventScroll: true
+            });
         }
 
         select.dropdown.options.autoFocus = false;
