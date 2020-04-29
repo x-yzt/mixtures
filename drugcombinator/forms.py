@@ -7,6 +7,9 @@ from drugcombinator.fields import GroupedModelMultipleChoiceField
 class CombinatorForm(forms.Form):
 
     drugs_field = GroupedModelMultipleChoiceField(
+        widget=forms.SelectMultiple(attrs={
+            'searchable': "Rechercher dans cette liste"
+        }),
         queryset=Drug.objects.order_by('category__name', 'name'),
         choices_groupby='category',
         label="Drogues à combiner"

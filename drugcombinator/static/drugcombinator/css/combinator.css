@@ -9,6 +9,10 @@
     border-color: #9c27b0;
 }
 
+.multiple-select-dropdown li:first-of-type {
+    display: none;
+}
+
 .interaction {
     margin: 20px 0;
     padding: 0 16px;
