@@ -39,10 +39,12 @@ document.addEventListener('DOMContentLoaded', event => {
 
         select.dropdown.options.autoFocus = false;
 
-        select.input.addEventListener('click', focusSearchBox);
-        options.forEach(option => {
-            option.addEventListener('click', focusSearchBox);
-        });
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            select.input.addEventListener('click', focusSearchBox);
+            options.forEach(option => {
+                option.addEventListener('click', focusSearchBox);
+            });
+        }
         searchBox.addEventListener('keyup', filterOptions);
     });
 });
