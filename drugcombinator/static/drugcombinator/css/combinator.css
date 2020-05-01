@@ -13,6 +13,10 @@
     display: none;
 }
 
+.row.no-margin {
+    margin: 0;
+}
+
 .interaction {
     margin: 20px 0;
     padding: 0 16px;

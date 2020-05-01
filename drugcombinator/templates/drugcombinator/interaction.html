@@ -21,71 +21,75 @@
   {% endif %}
 
   <div class="interaction-content {% if interaction.is_draft %}hidden{% endif %}">
-    <div class="col s12 m12 l6">
-      <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
-      
-      <div class="synergy synergy-{{ interaction.synergy }}">            
-        {% include 'drugcombinator/combine_info/synergy_icon.html' with class='medium' %}
-        <p class="label flow-text">{{ interaction.get_synergy_display }}</p>
+    <div class="row no-margin">
+      <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
+        
+        <div class="synergy synergy-{{ interaction.synergy }}">            
+          {% include 'drugcombinator/combine_info/synergy_icon.html' with class='medium' %}
+          <p class="label flow-text">{{ interaction.get_synergy_display }}</p>
+        </div>
+        
+        <div class="valign-wrapper">
+          <p>
+            {% include 'drugcombinator/combine_info/synergy_text.html' %}
+          </p>
+        </div>
       </div>
-      
-      <div class="valign-wrapper">
+
+      <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
+
+        <div class="risk risk-{{ interaction.risk }}">
+            {% include 'drugcombinator/combine_info/risk_icon.html' with class='medium' %}
+            <p class="label flow-text">{{ interaction.get_risk_display }}</p>
+        </div>
+
+        <div class="valign-wrapper">
+          <p>
+            {% include 'drugcombinator/combine_info/risk_text.html' %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin">
+      <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">flare</i> À propos des effets</h3>
+        
+        {% if interaction.effect_description %}
+          {{ interaction.effect_description|markdown}}
+        {% else %}
+          <p>Aucune information supplémentaire n'est disponible.</p>
+        {% endif %}
+      </div>
+
+      <div class="col s12 m12 l6">
+        <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
+
+        {% if interaction.risk_description %}
+          {{ interaction.risk_description|markdown}}
+        {% else %}
+          <p>Aucune information supplémentaire n'est disponible.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div style="clear: both"></div>
+
+    {% if interaction.is_draft %}
+      <div class="draft-modal valign-wrapper">
+        <i class="material-icons large">rowing</i>
+        <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
         <p>
-          {% include 'drugcombinator/combine_info/synergy_text.html' %}
+          Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
+          retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
+          vous pouvez toutefois afficher son contenu.
         </p>
+        <a class="waves-effect waves-light btn draft-modal-reveal">
+          <i class="material-icons left">visibility</i>Je fais attention, promis
+        </a>
       </div>
-    </div>
-
-    <div class="col s12 m12 l6">
-      <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
-
-      <div class="risk risk-{{ interaction.risk }}">
-          {% include 'drugcombinator/combine_info/risk_icon.html' with class='medium' %}
-          <p class="label flow-text">{{ interaction.get_risk_display }}</p>
-      </div>
-
-      <div class="valign-wrapper">
-        <p>
-          {% include 'drugcombinator/combine_info/risk_text.html' %}
-        </p>
-      </div>
-    </div>
-
-  <div class="col s12 m12 l6">
-    <h3><i class="material-icons small">flare</i> À propos des effets</h3>
-    
-    {% if interaction.effect_description %}
-      {{ interaction.effect_description|markdown}}
-    {% else %}
-      <p>Aucune information supplémentaire n'est disponible.</p>
-    {% endif %}
-  </div>
-
-  <div class="col s12 m12 l6">
-    <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
-
-    {% if interaction.risk_description %}
-      {{ interaction.risk_description|markdown}}
-    {% else %}
-      <p>Aucune information supplémentaire n'est disponible.</p>
-    {% endif %}
-  </div>
-
-  <div style="clear: both"></div>
-
-  {% if interaction.is_draft %}
-    <div class="draft-modal valign-wrapper">
-      <i class="material-icons large">rowing</i>
-      <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
-      <p>
-        Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
-        retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
-        vous pouvez toutefois afficher son contenu.
-      </p>
-      <a class="waves-effect waves-light btn draft-modal-reveal">
-        <i class="material-icons left">visibility</i>Je fais attention, promis
-      </a>
-    </div>
     {% endif %}
   </div>
 </div>
