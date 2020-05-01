@@ -8,6 +8,15 @@ admin.site.site_title = "Administration de Mixtures.info"
 admin.site.index_title = "Bienvenue dans l'administration de Mixtures.info"
 
 
+def set_draft_status(status:bool):
+    def action(self, request, queryset):
+        # Iterate queryset objects to trigger model on_save()
+        for obj in queryset:
+            obj.is_draft=status
+            obj.save()
+    return action
+
+
 class InteractionInline(admin.StackedInline):
     model = Interaction
     fk_name = 'from_drug'
@@ -78,6 +87,7 @@ class InteractionAdmin(admin.ModelAdmin):
         'from_drug__name', 'from_drug___aliases',
         'risk_description', 'effect_description'
     )
+    actions = ('set_draft', 'set_published')
 
     fieldsets = (
         (None, {
@@ -108,6 +118,14 @@ class InteractionAdmin(admin.ModelAdmin):
         data = {'drugs': (obj.from_drug, obj.to_drug)}
         return render_to_string('drugcombinator/admin/notes.html', data)
     related_notes.short_description = "Notes liées"
+    
+    set_draft = set_draft_status(True)
+    set_draft.short_description = "Marquer les interactions " \
+        "sélectionnées comme brouillons"
+
+    set_published = set_draft_status(False)
+    set_published.short_description = "Marquer les interactions " \
+        "sélectionnées comme publiés"
 
     def delete_queryset(self, request, queryset):
         # Tweak to call model delete() when using bulk deletion
