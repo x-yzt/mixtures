@@ -70,7 +70,7 @@ def combine(request, slugs):
     interactions = (
             Interaction.objects
             .filter(from_drug__in=drugs, to_drug__in=drugs)
-            .order_by('-risk', 'sym_id')
+            .order_by('is_draft', '-risk', 'sym_id')
             [::2]
     )
     
@@ -90,8 +90,8 @@ def drug(request, name):
         return redirect(drug, permanent=True)
     
     interactions = (Interaction.objects
-            .filter(from_drug=drug)
-            .order_by('-risk')
+        .filter(from_drug=drug)
+        .order_by('is_draft', '-risk')
     )
     
     return render(request, 'drugcombinator/drug.html', locals())
