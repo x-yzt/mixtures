@@ -26,6 +26,22 @@ class Drug(Model):
         verbose_name="description",
         help_text=markdown_allowed()
     )
+    risks = TextField(
+        default='', blank=True,
+        verbose_name="risques généraux",
+        help_text="Risques spécifiques à la combinaison de cette " \
+            "substance qui ne dépendent pas d'une interaction " \
+            "particulière.<br/>"
+            + markdown_allowed()
+    )
+    effects = TextField(
+        default='', blank=True,
+        verbose_name="effets généraux",
+        help_text="Effets spécifiques à la combinaison de cette " \
+            "substance qui ne dépendent pas d'une interaction " \
+            "particulière.<br/>"
+            + markdown_allowed()
+    )
     _aliases = TextField(
         default='', blank=True,
         verbose_name="dénominations",

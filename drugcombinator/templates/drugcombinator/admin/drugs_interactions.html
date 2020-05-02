@@ -1,0 +1,12 @@
+{% load collections %}
+
+{% for drug in drugs %}
+  {% with data=drug|attr:data_type %}
+    {% if data %}
+      <p>Données d'interaction de la substance {{ drug }}:</p>
+      <blockquote>{{ data }}</blockquote>
+    {% else %}
+      <p>Pas de données d'interaction pour la substance {{ drug }}.</p>
+    {% endif %}
+  {% endwith %}
+{% endfor %}

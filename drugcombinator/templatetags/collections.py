@@ -9,3 +9,8 @@ def get(obj, key):
         return obj[key]
     except (KeyError, IndexError):
         return None
+
+
+@register.filter
+def attr(obj, attr_name):
+    return getattr(obj, attr_name, None)
