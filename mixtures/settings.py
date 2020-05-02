@@ -62,7 +62,9 @@ MARKDOWN_DEUX_STYLES = {
     'default': {
         'extras': {
             'code-friendly': None,
+            'cuddled-lists': None,
             'demote-headers': 3,
+            'html-classes': {'ul': 'browser-default'},
             'target-blank-links': None
         },
         'safe_mode': 'escape'
