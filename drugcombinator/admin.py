@@ -155,7 +155,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
         return render_to_string(
             'drugcombinator/admin/drugs_interactions.html',
             {
-                'drugs': (obj.from_drug, obj.to_drug),
+                'drugs': obj.interactants,
                 'data_type': 'risks'
             }
         )
@@ -165,15 +165,17 @@ class InteractionAdmin(HelpTextsModelAdmin):
         return render_to_string(
             'drugcombinator/admin/drugs_interactions.html',
             {
-                'drugs': (obj.from_drug, obj.to_drug),
+                'drugs': obj.interactants,
                 'data_type': 'effects'
             }
         )
     drugs_effects.short_description = "Effets liés aux substances"
 
     def related_notes(self, obj):
-        data = {'drugs': (obj.from_drug, obj.to_drug)}
-        return render_to_string('drugcombinator/admin/notes.html', data)
+        return render_to_string(
+            'drugcombinator/admin/notes.html',
+            {'drugs': obj.interactants}
+        )
     related_notes.short_description = "Notes liées"
     
     set_draft = set_draft_status(True)
