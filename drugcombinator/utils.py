@@ -1,6 +1,7 @@
 from django.db import connection, reset_queries
 import unicodedata as ud
 import functools
+from time import time
 
 
 def normalize(string):
@@ -28,7 +29,7 @@ def markdown_allowed(verbose=True):
 def count_queries(func):
     """
         Simple debug decorator printing how many DB queries a function
-        performs each time it is called.
+        performs and wich time it took each time it is called.
     """
 
     @functools.wraps(func)
@@ -36,10 +37,15 @@ def count_queries(func):
 
         reset_queries()        
         queries = len(connection.queries)
+        t = time()
         result = func(*args, **kwargs)
         queries = len(connection.queries) - queries
+        t = 1000 * (time() - t)
 
-        print(f"Function {func.__name__} made {queries} DB queries.")
+        print(
+            f"Function {func.__name__} made {queries} DB queries and "
+            f"took {t}ms."
+        )
         return result
 
     return inner_func
