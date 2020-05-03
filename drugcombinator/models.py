@@ -257,6 +257,10 @@ class Interaction(SymetricalRelationModel):
         return reverse('combine', kwargs={
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
+    
+    @property
+    def interactants(self):
+        return (self.from_drug, self.to_drug)
 
     @classmethod
     def get_dummy_risks(cls):

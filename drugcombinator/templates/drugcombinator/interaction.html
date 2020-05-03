@@ -58,6 +58,11 @@
         <h3><i class="material-icons small">flare</i> À propos des effets</h3>
         
         {% if interaction.effect_description %}
+          {% for interactant in interaction.interactants %}
+            {% if drug != interactant %}
+              {{ interactant.effects|markdown}}
+            {% endif %}
+          {% endfor %}
           {{ interaction.effect_description|markdown}}
         {% else %}
           <p>Aucune information supplémentaire n'est disponible.</p>
@@ -68,6 +73,11 @@
         <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
 
         {% if interaction.risk_description %}
+          {% for interactant in interaction.interactants %}
+            {% if drug != interactant %}
+              {{ interactant.risks|markdown}}
+            {% endif %}
+          {% endfor %}
           {{ interaction.risk_description|markdown}}
         {% else %}
           <p>Aucune information supplémentaire n'est disponible.</p>

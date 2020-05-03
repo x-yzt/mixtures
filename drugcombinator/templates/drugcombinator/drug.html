@@ -28,6 +28,14 @@
   </div>
 
   <div class="row">
+    {% if drug.risks or drug.effects %}
+      <h2><i class="material-icons small">warning</i> Avertissements</h2>
+      {{ drug.risks|markdown }}
+      {{ drug.effects|markdown }}
+    {% endif %}
+  </div>
+
+  <div class="row">
     {% for interaction in interactions %}
       {% include 'drugcombinator/interaction.html' %}
     {% empty %}
