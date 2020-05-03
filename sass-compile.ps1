@@ -1,1 +1,4 @@
-sass --no-source-map ./static/mixtures/sass:./static/mixtures/css --style compressed
+sass `
+  --no-source-map `
+  --style compressed `
+  ./static/mixtures/sass/dist/materialize.scss:./static/mixtures/css/materialize.min.css

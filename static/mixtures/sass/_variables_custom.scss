@@ -5,7 +5,7 @@
     be imported in materialize.scss after "components/variables", eg:
         ...
         @import "components/variables";
-        @import "variables_custom";
+        @import "../variables_custom";
         ...
 */
 
