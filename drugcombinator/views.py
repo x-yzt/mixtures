@@ -62,15 +62,12 @@ def drug_search(request):
 def combine(request, slugs):
 
     if len(slugs) < 2:
-        raise Http400(
-                "Au moins deux substances sont nécéssaires."
-        )
+        raise Http400("Au moins deux substances sont nécessaires.")
 
     drugs = Drug.objects.filter(slug__in=slugs)
     interactions = (
             Interaction.objects
-            .filter(from_drug__in=drugs, to_drug__in=drugs)
-            .prefetch_related('from_drug', 'to_drug')
+            .between(drugs, prefetch=True)
             .order_by('is_draft', '-risk', 'sym_id')
             [::2]
     )
@@ -107,10 +104,7 @@ def combine_chart(request):
         .prefetch_related('category')
         .order_by(F('category__name').asc(nulls_last=True), 'name')
     )
-    interactions = (Interaction.objects
-        .filter(from_drug__in=drugs, to_drug__in=drugs)
-        .prefetch_related('from_drug', 'to_drug')
-    )
+    interactions = Interaction.objects.between(drugs, prefetch=True)
 
     dummy_risks = Interaction.get_dummy_risks()
     dummy_synergies = Interaction.get_dummy_synergies()

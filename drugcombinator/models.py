@@ -3,7 +3,7 @@ from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     PositiveIntegerField, BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
-from drugcombinator.managers import DrugManager
+from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
 
 
@@ -247,6 +247,7 @@ class Interaction(SymetricalRelationModel):
     )
 
     symetrical_fields = ('from_drug', 'to_drug')
+    objects = InteractionManager()
 
 
     def __str__(self):

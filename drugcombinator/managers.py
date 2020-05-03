@@ -41,3 +41,17 @@ class DrugManager(Manager):
             return self.get_from_name(name)
         except self.model.DoesNotExist:
             raise Http404(f"Unable to find drug {name}.")
+
+
+class InteractionManager(Manager):
+
+    def between(self, drugs, prefetch=False):
+        """
+            Return all interactions linking a set of drugs.
+            If prefetch is set to True, related Drug instances will be
+            prefetched.
+        """
+        qs = self.filter(from_drug__in=drugs, to_drug__in=drugs)
+        if prefetch:
+            return qs.prefetch_related('from_drug', 'to_drug')
+        return qs
