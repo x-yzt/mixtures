@@ -3,6 +3,7 @@ from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     PositiveIntegerField, BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
+from operator import attrgetter
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
 
@@ -187,10 +188,24 @@ class Interaction(Model):
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
     
+
     @property
     def interactants(self):
         return (self.from_drug, self.to_drug)
+    
+    @interactants.setter
+    def interactants(self, interactants):
+        interactants = sorted(interactants, key=attrgetter('name'))
+        self.from_drug, self.to_drug = interactants
 
+
+    def save(self, *args, **kwargs):
+        # Calling this property setter explicitely will reorder the
+        # interactants correctly if needed
+        self.interactants = self.interactants
+        super().save(*args, **kwargs)
+
+    
     @classmethod
     def get_dummy_risks(cls):
         return [cls(risk=risk[0]) for risk in cls.RISK]
