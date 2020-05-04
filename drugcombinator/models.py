@@ -73,10 +73,7 @@ class Drug(Model):
 
     @property
     def interactions(self):
-        return (
-            self.objects.interactions_from
-            | self.objects.interactions_to
-        )
+        return self.interactions_from.all() | self.interactions_to.all()
     
 
     @property
