@@ -1,1 +1,3 @@
 materialize.css linguist-generated
+components/* linguist-vendored
+components/forms/* linguist-vendored
