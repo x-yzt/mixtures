@@ -1,7 +1,7 @@
-Django==2.2.10
+Django==3.0.6
 django-heroku==0.3.1
 django-markdown-deux==1.0.5
 gunicorn==20.0.4
 git+git://github.com/x-yzt/python-markdown2@master#egg=markdown2
-psycopg2==2.8.4
+psycopg2==2.8.5
 whitenoise==5.0.1
