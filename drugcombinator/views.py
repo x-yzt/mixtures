@@ -86,8 +86,7 @@ def drug(request, name):
     if name != drug.slug:
         return redirect(drug, permanent=True)
     
-    interactions = (Interaction.objects
-        .filter(from_drug=drug)
+    interactions = (drug.interactions
         .prefetch_related('from_drug', 'to_drug')
         .order_by('is_draft', '-risk')
     )
@@ -111,6 +110,7 @@ def combine_chart(request):
     chart_data = {drug: {} for drug in drugs}
     for inter in interactions:
         chart_data[inter.from_drug][inter.to_drug] = inter
+        chart_data[inter.to_drug][inter.from_drug] = inter
 
     return render(request, 'drugcombinator/combine_chart.html', locals())
 
