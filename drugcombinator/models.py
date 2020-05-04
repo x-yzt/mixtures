@@ -199,10 +199,14 @@ class Interaction(Model):
         self.from_drug, self.to_drug = interactants
 
 
-    def save(self, *args, **kwargs):
-        # Calling this property setter explicitely will reorder the
-        # interactants correctly if needed
+    def sort_interactants(self):
+        # The interactants property setter will handle interactants
+        # reordering
         self.interactants = self.interactants
+
+
+    def save(self, *args, **kwargs):
+        self.sort_interactants()        
         super().save(*args, **kwargs)
 
     
