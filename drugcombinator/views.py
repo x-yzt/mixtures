@@ -68,8 +68,7 @@ def combine(request, slugs):
     interactions = (
             Interaction.objects
             .between(drugs, prefetch=True)
-            .order_by('is_draft', '-risk', 'sym_id')
-            [::2]
+            .order_by('is_draft', '-risk')
     )
     
     combination_name = ' + '.join([str(d) for d in drugs])
