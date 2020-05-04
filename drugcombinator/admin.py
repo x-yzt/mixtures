@@ -112,7 +112,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
         'to_drug__name', 'to_drug___aliases',
         'risk_description', 'effect_description'
     )
-    actions = ('set_draft', 'set_published')
+    actions = ('set_draft', 'set_published', 'reorder_interactants')
 
     fieldsets = (
         (None, {
@@ -183,6 +183,12 @@ class InteractionAdmin(HelpTextsModelAdmin):
     set_published = set_draft_status(False)
     set_published.short_description = "Marquer les interactions " \
         "sélectionnées comme publiés"
+
+    def reorder_interactants(self, request, queryset):
+        for interaction in queryset:
+            interaction.save()
+    reorder_interactants.short_description = "Réorganiser les " \
+        "substances liées aux interactions sélectionnées"
 
 
 @admin.register(Category)
