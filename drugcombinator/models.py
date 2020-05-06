@@ -1,6 +1,7 @@
 from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
-    PositiveIntegerField, BooleanField, Max, CheckConstraint, F, Q)
+    PositiveIntegerField, BooleanField, Max, CheckConstraint, F, Q,
+    UniqueConstraint)
 from django.db import OperationalError
 from django.urls import reverse
 from operator import attrgetter
@@ -225,8 +226,11 @@ class Interaction(Model):
                 check=~Q(from_drug=F('to_drug')),
                 name='interactants_inequals'
             ),
+            UniqueConstraint(
+                fields=('from_drug', 'to_drug'),
+                name='interactants_unique_together'
+            )
         )
-        unique_together = ('from_drug', 'to_drug')
         verbose_name = "interaction"
 
 
