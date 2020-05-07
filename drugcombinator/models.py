@@ -3,6 +3,7 @@ from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     PositiveIntegerField, BooleanField, Max)
 from django.db import OperationalError
 from django.urls import reverse
+from django.template.loader import render_to_string
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
 
@@ -258,6 +259,12 @@ class Interaction(SymetricalRelationModel):
         return reverse('combine', kwargs={
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
+    
+    def get_contrib_email_body(self):
+        return render_to_string(
+            'drugcombinator/mail/contrib_body.txt',
+            {'interaction': self}
+        )
     
     @property
     def interactants(self):
