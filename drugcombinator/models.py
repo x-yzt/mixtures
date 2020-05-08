@@ -1,9 +1,11 @@
 from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
-    PositiveIntegerField, BooleanField, Max)
+    PositiveIntegerField, BooleanField, Max, CheckConstraint, F, Q,
+    UniqueConstraint)
 from django.db import OperationalError
 from django.urls import reverse
 from django.template.loader import render_to_string
+from operator import attrgetter
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
 
@@ -50,7 +52,7 @@ class Drug(Model):
     )
     interactants = ManyToManyField(
         'self',
-        symmetrical=False, through='Interaction',
+        symmetrical=True, through='Interaction',
         verbose_name="interactants"
     )
     category = ForeignKey(
@@ -70,6 +72,11 @@ class Drug(Model):
 
     def __str__(self):
         return self.name
+    
+
+    @property
+    def interactions(self):
+        return self.interactions_from.all() | self.interactions_to.all()
     
 
     @property
@@ -95,83 +102,7 @@ class Drug(Model):
         ordering = ('name',)
 
 
-class SymetricalRelationModel(Model):
-    """
-        This ABC is intended to automatically create, update and delete
-        a copy of each instance with swapped ForeignKeys, describing a
-        reciprocal relation between other objects.
-        Inherited classes need to set a tuple named symetrical_fields
-        containing two of their model fields name, such as:
-        symetrical_fields = ('from_object', 'to_object')
-    """
-
-    sym_id = PositiveIntegerField(default=0, editable=False)
-    symetrical_fields = ()
-
-
-    def save(self, *args, **kwargs):
-
-        if not self.sym_id: # Not saved to the database yet
-            max_id = type(self).get_max_sym_id()
-            self.sym_id = max_id + 1
-        
-        super(SymetricalRelationModel, self).save(*args, **kwargs)
-
-        sym = self
-        existing_syms = self.get_existing_syms()
-
-        if not existing_syms:
-            sym.pk = None
-        elif len(existing_syms) == 1:
-            sym.pk = existing_syms[0].pk
-        else:
-            raise OperationalError(
-                "Object has more than one symetrical " \
-                f"({len(existing_syms)} found)"
-            )
-
-        fields_names = sym.symetrical_fields
-        assert len(fields_names) == 2
-        fields = [getattr(self, name) for name in fields_names]
-        setattr(self, fields_names[0], fields[1])
-        setattr(self, fields_names[1], fields[0])
-
-        super(SymetricalRelationModel, sym).save(*args, **kwargs)
-    
-
-    def delete(self, *args, **kwargs):
-
-        for sym in self.get_existing_syms():
-            super(SymetricalRelationModel, sym).delete(*args, **kwargs)
-        
-        super(SymetricalRelationModel, self).delete(*args, **kwargs)
-
-
-    def get_existing_syms(self):
-        
-        return (
-            type(self).objects
-                .filter(sym_id=self.sym_id)
-                .exclude(pk=self.pk)
-        )
-
-
-    @classmethod
-    def get_max_sym_id(cls):
-
-        return (
-            cls.objects.all()
-                .aggregate(largest=Max('sym_id'))['largest']
-            or 0
-        )
-
-
-    class Meta:
-        abstract = True
-        ordering = ('sym_id',)
-
-
-class Interaction(SymetricalRelationModel):
+class Interaction(Model):
     
     SYNERGY_UNKNOWN = 0
     SYNERGY_NEUTRAL = 1
@@ -207,12 +138,12 @@ class Interaction(SymetricalRelationModel):
     )
     from_drug = ForeignKey(
         'Drug', CASCADE,
-        related_name='interactions',
+        related_name='interactions_from',
         verbose_name="première substance"
     )
     to_drug = ForeignKey(
         'Drug', CASCADE,
-        related_name='+',
+        related_name='interactions_to',
         verbose_name="seconde substance"
     )
     risk = IntegerField(
@@ -247,7 +178,6 @@ class Interaction(SymetricalRelationModel):
             " ou incomplètes."
     )
 
-    symetrical_fields = ('from_drug', 'to_drug')
     objects = InteractionManager()
 
 
@@ -260,16 +190,35 @@ class Interaction(SymetricalRelationModel):
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
     
+
     def get_contrib_email_body(self):
         return render_to_string(
             'drugcombinator/mail/contrib_body.txt',
             {'interaction': self}
         )
     
+
     @property
     def interactants(self):
         return (self.from_drug, self.to_drug)
+    
+    @interactants.setter
+    def interactants(self, interactants):
+        interactants = sorted(interactants, key=attrgetter('name'))
+        self.from_drug, self.to_drug = interactants
 
+
+    def sort_interactants(self):
+        # The interactants property setter will handle interactants
+        # reordering
+        self.interactants = self.interactants
+
+
+    def save(self, *args, **kwargs):
+        self.sort_interactants()        
+        super().save(*args, **kwargs)
+
+    
     @classmethod
     def get_dummy_risks(cls):
         return [cls(risk=risk[0]) for risk in cls.RISK]
@@ -280,7 +229,16 @@ class Interaction(SymetricalRelationModel):
 
 
     class Meta:
-        unique_together = ('from_drug', 'to_drug')
+        constraints = (
+            CheckConstraint(
+                check=~Q(from_drug=F('to_drug')),
+                name='interactants_inequals'
+            ),
+            UniqueConstraint(
+                fields=('from_drug', 'to_drug'),
+                name='interactants_unique_together'
+            )
+        )
         verbose_name = "interaction"
 
 

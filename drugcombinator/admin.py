@@ -10,10 +10,7 @@ admin.site.index_title = "Bienvenue dans l'administration de Mixtures.info"
 
 def set_draft_status(status:bool):
     def action(self, request, queryset):
-        # Iterate queryset objects to trigger model on_save()
-        for obj in queryset:
-            obj.is_draft=status
-            obj.save()
+        queryset.update(is_draft=status)
     return action
 
 
@@ -108,13 +105,14 @@ class DrugAdmin(admin.ModelAdmin):
 @admin.register(Interaction)
 class InteractionAdmin(HelpTextsModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
-    list_filter = ('is_draft', 'risk', 'synergy', 'from_drug')
+    list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'added'
     search_fields = (
         'from_drug__name', 'from_drug___aliases',
+        'to_drug__name', 'to_drug___aliases',
         'risk_description', 'effect_description'
     )
-    actions = ('set_draft', 'set_published')
+    actions = ('set_draft', 'set_published', 'reorder_interactants')
 
     fieldsets = (
         (None, {
@@ -186,10 +184,11 @@ class InteractionAdmin(HelpTextsModelAdmin):
     set_published.short_description = "Marquer les interactions " \
         "sélectionnées comme publiés"
 
-    def delete_queryset(self, request, queryset):
-        # Tweak to call model delete() when using bulk deletion
-        for obj in queryset:
-            obj.delete()
+    def reorder_interactants(self, request, queryset):
+        for interaction in queryset:
+            interaction.save()
+    reorder_interactants.short_description = "Réorganiser les " \
+        "substances liées aux interactions sélectionnées"
 
 
 @admin.register(Category)
