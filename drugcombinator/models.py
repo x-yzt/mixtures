@@ -1,7 +1,7 @@
 from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
     PositiveIntegerField, BooleanField, Max, CheckConstraint, F, Q,
-    UniqueConstraint)
+    UniqueConstraint, IntegerChoices)
 from django.db import OperationalError
 from django.urls import reverse
 from django.template.loader import render_to_string
@@ -103,34 +103,25 @@ class Drug(Model):
 
 
 class Interaction(Model):
-    
-    SYNERGY_UNKNOWN = 0
-    SYNERGY_NEUTRAL = 1
-    SYNERGY_DECREASE = 2
-    SYNERGY_INCREASE = 3
-    SYNERGY_MIXED = 4
-    SYNERGY_ADDITIVE = 5
-    SYNERGY = (
-        (SYNERGY_UNKNOWN, "Inconnue"),
-        (SYNERGY_NEUTRAL, "Neutre"),
-        (SYNERGY_ADDITIVE, "Addition"),
-        (SYNERGY_DECREASE, "Atténuation"),
-        (SYNERGY_INCREASE, "Potentialisation"),
-        (SYNERGY_MIXED, "Mixte")
-    )
 
-    RISK_UNKNOWN = 0
-    RISK_NEUTRAL = 1
-    RISK_CAUTION = 2
-    RISK_UNSAFE = 3
-    RISK_DANGEROUS = 4
-    RISK = (
-        (RISK_UNKNOWN, "Inconnu"),
-        (RISK_NEUTRAL, "Neutre"),
-        (RISK_CAUTION, "Vigilance"),
-        (RISK_UNSAFE, "Risqué"),
-        (RISK_DANGEROUS, "Dangereux")
-    )
+    class Synergy(IntegerChoices):
+
+        UNKNOWN = (0, "Inconnue")
+        NEUTRAL = (1, "Neutre")
+        ADDITIVE = (5, "Addition")
+        DECREASE = (2, "Atténuation")
+        INCREASE = (3, "Potentialisation")
+        MIXED = (4, "Mixte")
+
+
+    class Risk(IntegerChoices):
+
+        UNKNOWN = (0, "Inconnu")
+        NEUTRAL = (1, "Neutre")
+        CAUTION = (2, "Vigilance")
+        UNSAFE = (3, "Risqué")
+        DANGEROUS = (4, "Dangereux")
+
 
     added = DateTimeField(
         auto_now_add=True,
@@ -147,11 +138,11 @@ class Interaction(Model):
         verbose_name="seconde substance"
     )
     risk = IntegerField(
-        choices=RISK, default=RISK_UNKNOWN,
+        choices=Risk.choices, default=Risk.UNKNOWN,
         verbose_name="risques"
     )
     synergy = IntegerField(
-        choices=SYNERGY, default=SYNERGY_UNKNOWN,
+        choices=Synergy.choices, default=Synergy.UNKNOWN,
         verbose_name="synergie"
     )
     risk_description = TextField(
@@ -221,11 +212,11 @@ class Interaction(Model):
     
     @classmethod
     def get_dummy_risks(cls):
-        return [cls(risk=risk[0]) for risk in cls.RISK]
+        return [cls(risk=risk) for risk in cls.Risk.values]
 
     @classmethod
     def get_dummy_synergies(cls):
-        return [cls(synergy=synergy[0]) for synergy in cls.SYNERGY]
+        return [cls(synergy=synergy) for synergy in cls.Synergy.values]
 
 
     class Meta:
