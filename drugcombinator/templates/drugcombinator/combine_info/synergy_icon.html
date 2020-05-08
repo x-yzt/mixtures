@@ -1,13 +1,13 @@
 {% if interaction %}
-  {% if interaction.synergy == interaction.SYNERGY_NEUTRAL %}
+  {% if interaction.synergy == interaction.Synergy.NEUTRAL %}
     <i class="material-icons {{ class }}">sync_alt</i>
-  {% elif interaction.synergy == interaction.SYNERGY_ADDITIVE %}
+  {% elif interaction.synergy == interaction.Synergy.ADDITIVE %}
     <i class="material-icons combinator-icons {{ class }}">add</i>
-  {% elif interaction.synergy == interaction.SYNERGY_DECREASE %}
+  {% elif interaction.synergy == interaction.Synergy.DECREASE %}
     <i class="material-icons {{ class }}">trending_down</i>
-  {% elif interaction.synergy == interaction.SYNERGY_INCREASE %}
+  {% elif interaction.synergy == interaction.Synergy.INCREASE %}
     <i class="material-icons {{ class }}">trending_up</i>
-  {% elif interaction.synergy == interaction.SYNERGY_MIXED %}
+  {% elif interaction.synergy == interaction.Synergy.MIXED %}
     <i class="material-icons {{ class }}">shuffle</i>
   {% else %}
     <i class="material-icons {{ class }}">help_outline</i>

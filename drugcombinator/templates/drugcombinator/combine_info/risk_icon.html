@@ -1,11 +1,11 @@
 <i class="material-icons {{ class }}">
-  {% if interaction.risk == 1 %}
+  {% if interaction.risk == interaction.Risk.NEUTRAL %}
     drag_handle
-  {% elif interaction.risk == 2 %}
+  {% elif interaction.risk == interaction.Risk.CAUTION %}
     warning
-  {% elif interaction.risk == 3 %}
+  {% elif interaction.risk == interaction.Risk.UNSAFE %}
     report
-  {% elif interaction.risk == 4 %}
+  {% elif interaction.risk == interaction.Risk.DANGEROUS %}
     cancel
   {% else %}
     help_outline
