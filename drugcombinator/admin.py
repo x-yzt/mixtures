@@ -202,7 +202,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
 
     class Media:
         css = {
-            'all': ('mixtures/css/admin.css',),
+            'all': ('mixtures/css/admin/forms.css',),
         }
 
 
