@@ -37,7 +37,10 @@ class InteractionInline(admin.StackedInline):
     fieldsets = (
         (None, {
             'classes': ('vertical-label',),
-            'fields': (('to_drug', 'risk', 'synergy', 'is_draft'),)
+            'fields': ((
+                'to_drug', 'risk', 'risk_reliability', 'synergy',
+                'effects_reliability', 'is_draft'
+            ),)
         }),
         ('Descriptions', {
             'classes': ('collapse',),
