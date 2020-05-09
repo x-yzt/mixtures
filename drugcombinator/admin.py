@@ -36,6 +36,7 @@ class InteractionInline(admin.StackedInline):
 
     fieldsets = (
         (None, {
+            'classes': ('vertical-label',),
             'fields': (('to_drug', 'risk', 'synergy', 'is_draft'),)
         }),
         ('Descriptions', {
@@ -47,6 +48,12 @@ class InteractionInline(admin.StackedInline):
     classes = ('collapse',)
     extra = 1
     show_change_link = True
+
+
+    class Media:
+        css = {
+            'all': ('mixtures/css/admin/forms.css',),
+        }
 
 
 @admin.register(Drug)
