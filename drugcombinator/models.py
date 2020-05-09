@@ -125,10 +125,10 @@ class Interaction(Model):
 
     class Reliability(IntegerChoices):
 
-        UNKNOWN = (0, "Non évalué")
+        UNKNOWN = (0, "Non évaluée")
         HYPOTHETICAL = (1, "Théorique")
-        INFERRED = (2, "Supposé")
-        PROVEN = (3, "Avéré")
+        INFERRED = (2, "Supposée")
+        PROVEN = (3, "Avérée")
 
 
     added = DateTimeField(
