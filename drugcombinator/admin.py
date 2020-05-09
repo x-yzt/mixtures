@@ -131,6 +131,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
                     'effect_description', 'drugs_effects'
                 ),
             ),
+            'classes': ('vertical-label',)
         }),
         ("Notes", {
             'fields': (
@@ -197,6 +198,12 @@ class InteractionAdmin(HelpTextsModelAdmin):
             interaction.save()
     reorder_interactants.short_description = "Réorganiser les " \
         "substances liées aux interactions sélectionnées"
+
+
+    class Media:
+        css = {
+            'all': ('mixtures/css/admin.css',),
+        }
 
 
 @admin.register(Category)
