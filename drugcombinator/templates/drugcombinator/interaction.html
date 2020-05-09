@@ -39,6 +39,9 @@
         <div class="valign-wrapper">
           <p>
             {% include 'drugcombinator/combine_info/synergy_text.html' %}
+            {% if interaction.synergy != interaction.Synergy.UNKNOWN %}
+              <br/><em>Fiabilité : {{ interaction.get_effects_reliability_display|lower }}.</em>
+            {% endif %}
           </p>
         </div>
       </div>
@@ -54,6 +57,9 @@
         <div class="valign-wrapper">
           <p>
             {% include 'drugcombinator/combine_info/risk_text.html' %}
+            {% if interaction.risk != interaction.Risk.UNKNOWN %}
+              <br/><em>Fiabilité : {{ interaction.get_risk_reliability_display|lower }}.</em>
+            {% endif %}
           </p>
         </div>
       </div>
