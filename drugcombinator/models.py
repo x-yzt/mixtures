@@ -123,6 +123,14 @@ class Interaction(Model):
         DANGEROUS = (4, "Dangereux")
 
 
+    class Reliability(IntegerChoices):
+
+        UNKNOWN = (0, "Non évalué")
+        HYPOTHETICAL = (1, "Théorique")
+        INFERRED = (2, "Supposé")
+        PROVEN = (3, "Avéré")
+
+
     added = DateTimeField(
         auto_now_add=True,
         verbose_name="ajouté"
@@ -144,6 +152,14 @@ class Interaction(Model):
     synergy = IntegerField(
         choices=Synergy.choices, default=Synergy.UNKNOWN,
         verbose_name="synergie"
+    )
+    risk_reliability = IntegerField(
+        choices=Reliability.choices, default=Reliability.UNKNOWN,
+        verbose_name="fiabilité des risques"
+    )
+    effects_reliability = IntegerField(
+        choices=Reliability.choices, default=Reliability.UNKNOWN,
+        verbose_name="fiabilité de la synergie et des effets"
     )
     risk_description = TextField(
         default='', blank=True,

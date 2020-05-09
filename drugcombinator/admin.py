@@ -122,8 +122,14 @@ class InteractionAdmin(HelpTextsModelAdmin):
         }),
         ("Données d'interaction", {
             'fields': (
-                ('risk', 'risk_description', 'drugs_risks'),
-                ('synergy', 'effect_description', 'drugs_effects'),
+                (
+                    'risk', 'risk_reliability', 'risk_description',
+                    'drugs_risks'
+                ),
+                (
+                    'synergy', 'effects_reliability',
+                    'effect_description', 'drugs_effects'
+                ),
             ),
         }),
         ("Notes", {
@@ -146,7 +152,9 @@ class InteractionAdmin(HelpTextsModelAdmin):
     readonly_fields = ('drugs_risks', 'drugs_effects', 'related_notes')
     radio_fields = {
         'risk': admin.VERTICAL,
-        'synergy': admin.VERTICAL
+        'synergy': admin.VERTICAL,
+        'risk_reliability': admin.VERTICAL,
+        'effects_reliability': admin.VERTICAL
     }
 
     def drugs_risks(self, obj):
