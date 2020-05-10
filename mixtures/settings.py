@@ -121,6 +121,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+
 # Cache
 
 CACHES = {
@@ -146,6 +147,8 @@ if os.environ.get("PROD") == 'TRUE':
             'LOCATION': 'mixtures-app-cache'
         }
     }
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     LOGGING = {
         'version': 1,
