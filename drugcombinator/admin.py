@@ -15,6 +15,22 @@ def set_draft_status(status:bool):
     return action
 
 
+class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
+    """
+        Modified SimpleHistoryAdmin that allows viewing changed fields
+        in history list.
+    """
+
+    history_list_display = ('modified_fields',)
+
+    def modified_fields(self, obj):
+        fields = []
+        prev = obj.prev_record
+        if prev:
+            fields = obj.diff_against(prev).changed_fields
+        return ', '.join(fields) or "Aucune modification"
+
+
 class HelpTextsModelAdmin(admin.ModelAdmin):
     """
         ABC allowing to override model fields help_texts. Adding help
@@ -61,7 +77,7 @@ class InteractionInline(admin.StackedInline):
 
 
 @admin.register(Drug)
-class DrugAdmin(SimpleHistoryAdmin):
+class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
     date_hierarchy = 'last_modified'
@@ -114,7 +130,7 @@ class DrugAdmin(SimpleHistoryAdmin):
 
 
 @admin.register(Interaction)
-class InteractionAdmin(SimpleHistoryAdmin, HelpTextsModelAdmin):
+class InteractionAdmin(ChangedFieldsHistoryAdmin, HelpTextsModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'last_modified'
