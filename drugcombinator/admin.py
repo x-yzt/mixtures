@@ -63,7 +63,7 @@ class InteractionInline(admin.StackedInline):
 class DrugAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = ('name', 'slug', '_aliases')
 
     fieldsets = (
@@ -116,7 +116,7 @@ class DrugAdmin(admin.ModelAdmin):
 class InteractionAdmin(HelpTextsModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = (
         'from_drug__name', 'from_drug___aliases',
         'to_drug__name', 'to_drug___aliases',
@@ -219,7 +219,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slug')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = ('name', 'slug', 'description')
 
     fields = (
@@ -233,7 +233,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class NoteAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
     list_filter = ('related_drugs',)
-    date_hierarchy = 'modified'
+    date_hierarchy = 'last_modified'
     search_fields = ('title', 'content')
 
     fields = (
