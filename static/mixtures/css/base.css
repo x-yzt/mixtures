@@ -62,3 +62,8 @@ h3 i, h5 i {
     position: relative;
     top: .16rem;
 }
+
+::selection {
+    background: #FFB300;
+    color: #000;
+}
