@@ -5,17 +5,25 @@ from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
 from django.db import OperationalError
 from django.urls import reverse
 from django.template.loader import render_to_string
+from simple_history.models import HistoricalRecords
 from operator import attrgetter
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
 
 
-class Drug(Model):
+class LastModifiedModel(Model):
 
-    added = DateTimeField(
-        auto_now_add=True,
-        verbose_name="ajouté"
+    last_modified = DateTimeField(
+        auto_now=True,
+        verbose_name="dernière modification"
     )
+
+    class Meta:
+        abstract = True
+
+
+class Drug(LastModifiedModel):
+    
     name = CharField(
         max_length=128,
         verbose_name="nom"
@@ -67,6 +75,7 @@ class Drug(Model):
             "de boutons dans l'app."
     )
 
+    history = HistoricalRecords()
     objects = DrugManager()
 
 
@@ -102,7 +111,7 @@ class Drug(Model):
         ordering = ('name',)
 
 
-class Interaction(Model):
+class Interaction(LastModifiedModel):
 
     class Synergy(IntegerChoices):
 
@@ -131,10 +140,6 @@ class Interaction(Model):
         PROVEN = (3, "Avérée")
 
 
-    added = DateTimeField(
-        auto_now_add=True,
-        verbose_name="ajouté"
-    )
     from_drug = ForeignKey(
         'Drug', CASCADE,
         related_name='interactions_from',
@@ -185,6 +190,7 @@ class Interaction(Model):
             " ou incomplètes."
     )
 
+    history = HistoricalRecords()
     objects = InteractionManager()
 
 
@@ -249,12 +255,8 @@ class Interaction(Model):
         verbose_name = "interaction"
 
 
-class Category(Model):
+class Category(LastModifiedModel):
 
-    added = DateTimeField(
-        auto_now_add=True,
-        verbose_name="ajouté"
-    )
     name = CharField(
         max_length=128,
         verbose_name="nom"
@@ -277,16 +279,8 @@ class Category(Model):
         verbose_name = "catégorie"
 
 
-class Note(Model):
+class Note(LastModifiedModel):
 
-    added = DateTimeField(
-        auto_now_add=True,
-        verbose_name="ajouté"
-    )
-    modified = DateTimeField(
-        auto_now=True,
-        verbose_name="modifié"
-    )
     title = CharField(
         max_length=128, default="Note sans titre",
         verbose_name="titre"

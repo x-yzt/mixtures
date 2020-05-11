@@ -1,4 +1,5 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from django.template.loader import render_to_string
 from drugcombinator.models import Drug, Interaction, Category, Note
 
@@ -12,6 +13,22 @@ def set_draft_status(status:bool):
     def action(self, request, queryset):
         queryset.update(is_draft=status)
     return action
+
+
+class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
+    """
+        Modified SimpleHistoryAdmin that allows viewing changed fields
+        in history list.
+    """
+
+    history_list_display = ('modified_fields',)
+
+    def modified_fields(self, obj):
+        fields = []
+        prev = obj.prev_record
+        if prev:
+            fields = obj.diff_against(prev).changed_fields
+        return ', '.join(fields) or "Aucune modification"
 
 
 class HelpTextsModelAdmin(admin.ModelAdmin):
@@ -60,10 +77,10 @@ class InteractionInline(admin.StackedInline):
 
 
 @admin.register(Drug)
-class DrugAdmin(admin.ModelAdmin):
+class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = ('name', 'slug', '_aliases')
 
     fieldsets = (
@@ -113,10 +130,10 @@ class DrugAdmin(admin.ModelAdmin):
 
 
 @admin.register(Interaction)
-class InteractionAdmin(HelpTextsModelAdmin):
+class InteractionAdmin(ChangedFieldsHistoryAdmin, HelpTextsModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = (
         'from_drug__name', 'from_drug___aliases',
         'to_drug__name', 'to_drug___aliases',
@@ -219,7 +236,7 @@ class InteractionAdmin(HelpTextsModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slug')
-    date_hierarchy = 'added'
+    date_hierarchy = 'last_modified'
     search_fields = ('name', 'slug', 'description')
 
     fields = (
@@ -233,7 +250,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class NoteAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
     list_filter = ('related_drugs',)
-    date_hierarchy = 'modified'
+    date_hierarchy = 'last_modified'
     search_fields = ('title', 'content')
 
     fields = (
