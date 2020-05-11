@@ -5,6 +5,7 @@ from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
 from django.db import OperationalError
 from django.urls import reverse
 from django.template.loader import render_to_string
+from simple_history.models import HistoricalRecords
 from operator import attrgetter
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
@@ -74,6 +75,7 @@ class Drug(LastModifiedModel):
             "de boutons dans l'app."
     )
 
+    history = HistoricalRecords()
     objects = DrugManager()
 
 
@@ -188,6 +190,7 @@ class Interaction(LastModifiedModel):
             " ou incomplètes."
     )
 
+    history = HistoricalRecords()
     objects = InteractionManager()
 
 

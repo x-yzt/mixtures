@@ -1,4 +1,5 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from django.template.loader import render_to_string
 from drugcombinator.models import Drug, Interaction, Category, Note
 
@@ -60,7 +61,7 @@ class InteractionInline(admin.StackedInline):
 
 
 @admin.register(Drug)
-class DrugAdmin(admin.ModelAdmin):
+class DrugAdmin(SimpleHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
     date_hierarchy = 'last_modified'
@@ -113,7 +114,7 @@ class DrugAdmin(admin.ModelAdmin):
 
 
 @admin.register(Interaction)
-class InteractionAdmin(HelpTextsModelAdmin):
+class InteractionAdmin(SimpleHistoryAdmin, HelpTextsModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'last_modified'
