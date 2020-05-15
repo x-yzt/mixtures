@@ -7,3 +7,6 @@ msgstr ""
 # Needed for displaying custom history list fields correctly
 msgid "modified_fields"
 msgstr "Champs modifiés"
+
+msgid "is_draft"
+msgstr "Brouillon"

@@ -141,6 +141,10 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, HelpTextsModelAdmin):
     )
     actions = ('set_draft', 'set_published', 'reorder_interactants')
 
+    history_list_display = (
+        ChangedFieldsHistoryAdmin.history_list_display + ('is_draft',)
+    )
+
     fieldsets = (
         (None, {
             'fields': (
