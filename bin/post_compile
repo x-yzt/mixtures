@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -eo pipefail
 
 # The post_compile hook is run by heroku-buildpack-python
