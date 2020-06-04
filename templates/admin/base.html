@@ -4,5 +4,11 @@
 
 {% block extrastyle %}
   {{ block.super }}
-  <link href="{% static 'mixtures/css/admin/base.css '%}" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'mixtures/css/admin/base.css' %}"/>
+{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}"/>
+  <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}%"/>
 {% endblock %}
