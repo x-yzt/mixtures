@@ -1,10 +1,13 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <title>{% block title %}Mixtures.info{% endblock %}</title>
     <meta charset="utf-8">
+    <meta name="description" content="Mixtures.info est une application de réduction des risques,
+      dédiée aux synergies et risques liés aux interactions entre drogues.">
+    <meta property="og:image" contenu="{% static 'mixtures/img/logo.svg' %}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}"/>
     <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}"/>
@@ -39,7 +42,7 @@
 
       <ul class="sidenav" id="mobile-nav">
         <li class="logo">
-          <img src="{% static 'mixtures/img/icon.svg' %}">
+          <img src="{% static 'mixtures/img/icon.svg' %}" alt="Logo Mixtures.info"/>
         </li>
 
         <li><div class="divider"></div></li>
