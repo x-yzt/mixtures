@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
 {% endblock %}
 
+{% block description %}
+  Risques et effets de la combinaison de la substance {{ drugs }} avec d'autres psychoactifs.
+  Mixtures.info, synergies et risques liés aux interactions entre drogues.
+{% endblock %}
+
 {% block title %}
   {{ drug }} | Substance {{ block.super }}
 {% endblock %}
