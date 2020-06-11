@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: {{ request.build_absolute_uri|cut:'robots.txt' }}sitemap.xml
