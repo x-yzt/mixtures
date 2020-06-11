@@ -1,6 +1,6 @@
 {% load markdown_deux_tags %}
 {% load collections %}
-{% load mails %}
+{% load strings %}
 
 <div class="row card interaction">
 
@@ -19,7 +19,7 @@
       {% url 'admin:drugcombinator_interaction_change' interaction.pk %}
     {% else %}
       {% with subject='Contribution : '|cat:interaction %}
-        {% mailto 'contact@mixtures.info' subject interaction.get_contrib_email_body|stripspaces %}
+        {% mailto 'contact@mixtures.info' subject interaction.get_contrib_email_body|formatspaces %}
       {% endwith %}
     {% endif %}
   ">

@@ -9,13 +9,30 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 @stringfilter
-def stripspaces(text):
+def formatspaces(text):
 
     replacements = {
         r'^[\t ]+': '', # Remove leading spaces
         r'[\t ]+$': '', # Remove trailing spaces
         r'(\S)\n(\S)': r'\1 \2', # Replace single newlines with spaces
         r'\n{2,}': '\n\n' # Cap sucessive newlines
+    }
+    text = text.strip()
+    for pat, repl in replacements.items():
+        text = re.sub(pat, repl, text, re.A, re.M)
+    
+    return text
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def stripspaces(text):
+
+    replacements = {
+        r'^[\t ]+': '', # Remove leading spaces
+        r'[\t ]+$': '', # Remove trailing spaces
+        r'\n': ' ', # Replace newlines with spaces
+        r'(\s){2,}': r'\1' # Merge consecutive spaces
     }
     text = text.strip()
     for pat, repl in replacements.items():
