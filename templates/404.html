@@ -1,0 +1,23 @@
+{% extends 'mixtures/base.html' %}
+
+{% block title %}
+  Page introuvable | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="row center-align">
+    <h1>Erreur 404 : Page introuvable.</h1>
+  </div>
+  <div class="row center-align">
+    <h2>
+      <i class="material-icons large">self_improvement</i><br/>
+      Il n'y a rien ici.
+    </h2>
+  </div>
+  <div class="row">
+    <p class="flow-text">
+      Vous pouvez <a href="{% url 'main' %}">retourner sur la page d'accueil</a>. Ou bien peut-être
+      préférez-vous <a href="{% url 'drug_search' %}">rechercher une substance</a> ?
+    </p>
+  </div>
+{% endblock %}
