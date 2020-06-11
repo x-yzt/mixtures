@@ -1,12 +1,17 @@
 {% load static %}
+{% load strings %}
 
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <title>{% block title %}Mixtures.info{% endblock %}</title>
     <meta charset="utf-8">
-    <meta name="description" content="Mixtures.info est une application de réduction des risques,
-      dédiée aux synergies et risques liés aux interactions entre drogues.">
+    <meta name="description" content=
+      {% filter stripspaces %}"{% block description %}
+        Mixtures.info est une application de réduction des risques, dédiée aux synergies et risques
+        liés aux interactions entre drogues.
+      {% endblock %}"{% endfilter %}
+    >
     <meta property="og:image" contenu="{% static 'mixtures/img/logo.svg' %}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}"/>

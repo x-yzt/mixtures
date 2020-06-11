@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load humanize %}
+{% load collections %}
 
 {% block stylesheets %}
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.css' %}">
@@ -9,6 +10,10 @@
 
 {% block title %}
   {{ combination_name }} | Combinaison {{ block.super }}
+{% endblock %}
+
+{% block description %}
+  Risques et effets de la combinaison entre les substances {{ drugs|humanlist }}.
 {% endblock %}
 
 {% block content %}
