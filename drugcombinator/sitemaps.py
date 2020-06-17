@@ -38,7 +38,8 @@ pages_sitemap = StaticSitemap(
         'about': {}
     },
     priority = 0.5,
-    changefreq = 'daily'
+    changefreq = 'daily',
+    protocol = 'https'
 )
 
 drugs_sitemap = GenericSitemap(
@@ -47,7 +48,8 @@ drugs_sitemap = GenericSitemap(
         'date_field': 'last_modified',
     },
     priority = 0.8,
-    changefreq = 'daily'
+    changefreq = 'daily',
+    protocol = 'https'
 )
 
 interactions_sitemap = GenericSitemap(
@@ -56,7 +58,8 @@ interactions_sitemap = GenericSitemap(
         'date_field': 'last_modified',
     },
     priority = 0.9,
-    changefreq = 'daily'
+    changefreq = 'daily',
+    protocol = 'https'
 )
 
 SITEMAPS = {
