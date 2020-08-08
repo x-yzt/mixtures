@@ -25,7 +25,7 @@ class Portal(Model):
 
 
     def get_absolute_url(self):
-        return reverse('portal', kwargs={'drug': self.drug.name})
+        return reverse('portal', kwargs={'drug': self.drug.slug})
     
 
     class Meta:
