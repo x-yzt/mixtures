@@ -38,14 +38,3 @@ $footer-copyright-font-color: $em-font-color;
 $h1-fontsize: 3.3rem;
 $h2-fontsize: 2.7rem;
 $h3-fontsize: 2.2rem;
-
-
-// Following allows palette access in HTML classes
-
-.primary-color {
-    background-color: $primary-color !important;
-}
-
-.primary-color-text {
-    color: $primary-color !important;
-}
