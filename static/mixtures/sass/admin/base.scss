@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/* Load color palette from Materialize customizations */
+
+@import "../vendor/components/color-variables";
+@import "../vendor/components/color-classes";
+@import "../variables_custom";
+
+
+/* Variables */
+
+$em-font-color: color("shades", "black");
+
+
+/* Fixes */
+
+.inlinechangelink {
+  margin: 0 10px;
+}
+
+
+/* Colors */
+
+#header, .module h2, .module caption, .inline-group h2 {
+  background: $primary-color;
+  color: $em-font-color;
+}
+
+div.breadcrumbs {
+  background: $primary-color-dark;
+  color: $em-font-color;
+}
+
+a {
+  #branding h1 &, &.section, div.breadcrumbs &, .login #header h1 & {
+    &:link, &:visited {
+      color: $em-font-color;
+    }
+  }
+  &, #header & {
+    &:link, &:visited {
+      color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+  &:focus, &:hover {
+    color: $secondary-color-dark;
+  }
+  #user-tools &, div.breadcrumbs & {
+    &:focus, &:hover {
+      color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+}
+
+.button,
+a.button,
+.submit-row input,
+input[type="submit"],
+input[type="button"] {
+  background-color: $secondary-color-light;
+}
+
+.button, input[type="submit"], input[type="button"] {
+  &.default, &:active, &:focus, &:hover {
+    background-color: $secondary-color;
+  }
+}
+
+.object-tools a {
+  &:link, &:visited {
+     background-color: $secondary-color;
+  }
+}
+
+.button.default, input[type="submit"].default, .object-tools a {
+  &:active, &:focus, &:hover {
+    background-color: $secondary-color-dark;
+  }
+}
+
+.select2-container--admin-autocomplete
+.select2-results__option--highlighted[aria-selected] {
+  background-color: $secondary-color !important;
+}
+
+fieldset {
+  &, &.collapsed {
+    .collapse-toggle {
+      color: $secondary-color !important;
+    }
+  }
+}

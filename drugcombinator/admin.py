@@ -72,7 +72,7 @@ class InteractionInline(admin.StackedInline):
 
     class Media:
         css = {
-            'all': ('mixtures/css/admin/forms.css',),
+            'all': ('mixtures/css/admin/forms.min.css',),
         }
 
 
@@ -233,7 +233,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, HelpTextsModelAdmin):
 
     class Media:
         css = {
-            'all': ('mixtures/css/admin/forms.css',),
+            'all': ('mixtures/css/admin/forms.min.css',),
         }
 
 

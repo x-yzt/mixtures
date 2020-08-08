@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+
+.vertical-label label {
+  &, .inline-group & {
+    float: none;
+    width: unset;
+  }
+}
+
+form .vertical-label {
+  div.help, textarea + div.help, label + div.readonly {
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
