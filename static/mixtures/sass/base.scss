@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* Load color palette from Materialize customizations */
+
+@import "vendor/components/color-variables";
+@import "variables_custom";
+
+
+/* Logos */
+
+.brand-logo img {
+  margin: 6px;
+  height: 44px;
+  @media only screen and (min-width: 601px) {
+    height: 52px;
+  }
+}
+
+.sidenav .logo {
+  text-align: center;
+  img {
+    width: 110px;
+    margin: 22px;
+  }
+}
+
+
+/* Sticky footer */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+
+/* Content width */
+
+main > .container {
+  max-width: 960px;
+}
+
+
+/* Typo */
+
+a, button[type="submit"] {
+  font-weight: 600;
+}
+
+a.btn {
+  font-weight: inherit;
+}
+
+p.flow-text i {
+  position: relative;
+  top: .3rem;
+}
+
+h3, h5 {
+  i {
+    position: relative;
+    top: .16rem;
+  }
+}
+
+::selection {
+  background: $primary-color;
+  color: $em-font-color;
+}
