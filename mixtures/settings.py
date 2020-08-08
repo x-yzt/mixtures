@@ -24,7 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'simple_history',
     'markdown_deux',
-    'drugcombinator.apps.DrugcombinatorConfig'
+    'drugcombinator.apps.DrugcombinatorConfig',
+    'drugportals.apps.DrugportalsConfig',
 ]
 
 MIDDLEWARE = [
