@@ -1,7 +1,6 @@
 from django.db.models import (Model, CASCADE, CharField, DateTimeField,
     OneToOneField)
 from django.urls import reverse
-from drugcombinator.models import Drug
 
 
 class Portal(Model):
@@ -11,7 +10,7 @@ class Portal(Model):
         verbose_name = "nom"
     )
     drug = OneToOneField(
-        'Drug', CASCADE,
+        'drugcombinator.Drug', CASCADE,
         related_name = 'portal',
         verbose_name = "substance"
     )
@@ -28,6 +27,6 @@ class Portal(Model):
     def get_absolute_url(self):
         return reverse('portal', kwargs={'drug': self.drug.name})
     
-    
+
     class Meta:
         verbose_name = "portail"
