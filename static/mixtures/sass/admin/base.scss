@@ -1,9 +1,6 @@
-@charset "UTF-8";
-
 /* Load color palette from Materialize customizations */
 
-@import "../vendor/components/color-variables";
-@import "../variables_custom";
+@use "variables_custom" as *;
 
 
 /* Fixes */
@@ -17,18 +14,18 @@
 
 #header, .module h2, .module caption, .inline-group h2 {
   background: $primary-color;
-  color: $em-font-color;
+  color: color("shades", "black");
 }
 
 div.breadcrumbs {
   background: $primary-color-dark;
-  color: $em-font-color;
+  color: color("shades", "black");
 }
 
 a {
   #branding h1 &, &.section, div.breadcrumbs &, .login #header h1 & {
     &:link, &:visited {
-      color: $em-font-color;
+      color: color("shades", "black");
     }
   }
   &, #header & {

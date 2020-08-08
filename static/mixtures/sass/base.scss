@@ -1,9 +1,6 @@
-@charset "UTF-8";
-
 /* Load color palette from Materialize customizations */
 
-@import "vendor/components/color-variables";
-@import "variables_custom";
+@use "variables_custom" as *;
 
 
 /* Logos */
@@ -69,5 +66,5 @@ h3, h5 {
 
 ::selection {
   background: $primary-color;
-  color: $em-font-color;
+  color: color("shades", "black");
 }
