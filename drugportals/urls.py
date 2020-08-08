@@ -3,5 +3,5 @@ from drugportals import views
 
 
 urlpatterns = [
-    path('<str:name>/', views.portal, name='portal'),
+    path('<str:drug>/', views.portal, name='portal'),
 ]

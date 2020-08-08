@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def portal(request, name):
+def portal(request, drug):
     pass
