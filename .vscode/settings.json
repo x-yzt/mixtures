@@ -8,4 +8,8 @@
         "editor.tabSize": 2,
         "editor.rulers": [100],
     },
+
+    "[scss]": {
+        "editor.tabSize": 2,
+    },
 }
