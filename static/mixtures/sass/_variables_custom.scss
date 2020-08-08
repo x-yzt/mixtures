@@ -19,6 +19,8 @@ $primary-color-dark: color("amber", "darken-2");
 $secondary-color-light: color("purple", "lighten-1");
 $secondary-color-dark: color("purple", "darken-2");
 
+$em-font-color: color("shades", "black");
+
 $link-color: color("purple", "darken-2");
 
 
@@ -26,9 +28,9 @@ $link-color: color("purple", "darken-2");
 
 $footer-copyright-bg-color: $primary-color-dark;
 
-$navbar-font-color: color("shades", "black");
-$footer-font-color: color("shades", "black");
-$footer-copyright-font-color: color("shades", "black");
+$navbar-font-color: $em-font-color;
+$footer-font-color: $em-font-color;
+$footer-copyright-font-color: $em-font-color;
 
 
 // Typo
