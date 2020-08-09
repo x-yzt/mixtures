@@ -97,9 +97,9 @@ class Drug(LastModifiedModel):
     def all_interactants(self):
         return (
             self.interactants.all()
-            | Drug.objects
-                .filter(interactions_from__in=self.interactions)
-                .exclude(pk=self.pk)
+            | Drug.objects.filter(
+                interactions_from__in=self.interactions_to.all()
+            )
         )
     
 
