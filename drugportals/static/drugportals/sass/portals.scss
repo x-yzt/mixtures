@@ -1,0 +1,67 @@
+@use 'sass:color';
+@use '_mixins' as *;
+
+
+$bck-color: #1E2334;
+$text-color: #FFF;
+$primary-color: #7400B8;
+$secondary-color: #4EA8DE;
+$tertiary-color: #80FFDB;
+
+
+$bck-color-light: color.scale($bck-color, $lightness: 10%);
+// $bck-color-lighter: color.scale($bck-color, $lightness: 20%);
+
+$text-gradient: $primary-color, $secondary-color, $tertiary-color;
+
+
+/* Colors */
+
+body {
+  background: $bck-color;
+  color: $text-color;
+}
+
+nav {
+  background: $bck-color-light;
+  @include border-gradient(bottom, 4px, $text-gradient);
+}
+
+.page-footer {
+  background: gradient($primary-color, $secondary-color);
+  color: $text-color;
+  .footer-copyright {
+    background: $bck-color-light;
+    color: inherit;
+  }
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+@for $i from 1 to 3 {
+  h#{$i} {
+    @include text-gradient($text-gradient);
+  }
+}
+
+a {
+  &:link, &:visited {
+    color: $tertiary-color;
+  }
+}
+
+.btn {
+  background: $primary-color;
+  border-radius: 20px;
+  &:hover, &:focus {
+    background: $secondary-color;
+  }
+}
+
+::selection {
+  background: $primary-color;
+  color: $text-color;
+}

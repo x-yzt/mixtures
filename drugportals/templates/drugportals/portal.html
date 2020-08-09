@@ -1,0 +1,23 @@
+{% extends 'mixtures/base.html' %}
+
+{% load static %}
+{% load markdown_deux_tags %}
+
+{% block title %}{{ portal.name }} - {{ block.super}}{% endblock %}
+
+{% block description %}
+{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static 'drugportals/css/portals.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ portal.name }}</h1>
+  <p>{{ portal.drug.description|markdown }}</p>
+
+  <h2>Interactions avec d'autres substances</h2>
+  {% for drug in portal.drug.interactants.all %}
+    <a id="drug-{{ drug.id }}" class="waves-effect waves-light btn">{{ drug }}</a>
+  {% endfor %}
+{% endblock %}
