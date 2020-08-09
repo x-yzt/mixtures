@@ -86,6 +86,21 @@ class Drug(LastModifiedModel):
     @property
     def interactions(self):
         return self.interactions_from.all() | self.interactions_to.all()
+
+
+    # In Django 3.1.0, the Drug.interactants field accessor only returns
+    # Drug objects from the Interaction.to_drug field, but misses ones
+    # from the Interaction.from_drug field. This property is a
+    # workaround, as this limitation may be removed at framework level
+    # one day.
+    @property
+    def all_interactants(self):
+        return (
+            self.interactants.all()
+            | Drug.objects
+                .filter(interactions_from__in=self.interactions)
+                .exclude(pk=self.pk)
+        )
     
 
     @property
