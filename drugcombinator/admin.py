@@ -32,23 +32,45 @@ class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
         return ', '.join(fields) or "Aucune modification"
 
 
-class HelpTextsModelAdmin(admin.ModelAdmin):
+class CustomizableModelAdmin(admin.ModelAdmin):
     """
-        ABC allowing to override model fields help_texts. Adding help
-        texts to computed / readonly admin fields is also supported.
+        ABC allowing to override model fields help_texts and labels.
+        Adding help texts to computed or readonly admin fields is also
+        supported.
         
-        Admin classes inheriting this ABC simply needs to define a dict
-        in the form {'field_name': 'help_text_override'}.
+        Admin classes inheriting this ABC simply needs to define two
+        dicts named help_texts and labels.
+
+        Exemple:
+        help_texts = {'field_name': 'help_text_override'}
+        labels = {'field_name': 'label_override'}
     """
 
     help_texts = {}
+    labels = {}
 
     def get_form(self, *args, **kwargs):
         kwargs.update({'help_texts': self.help_texts})
+        kwargs.update({'labels': self.labels})
         return super().get_form(*args, **kwargs)
 
 
-class InteractionInline(admin.StackedInline):
+class CustomizableInlineAdmin(admin.options.InlineModelAdmin):
+    """
+        This ABC works exactly like CustomizableModelAdmin, but allows
+        inlines customizations.
+    """
+
+    help_texts = {}
+    labels = {}
+
+    def get_formset(self, *args, **kwargs):
+        kwargs.update({'help_texts': self.help_texts})
+        kwargs.update({'labels': self.labels})
+        return super().get_formset(*args, **kwargs)
+
+
+class InteractionInline(admin.StackedInline, CustomizableInlineAdmin):
     model = Interaction
     fk_name = 'from_drug'
 
@@ -65,6 +87,10 @@ class InteractionInline(admin.StackedInline):
             'fields': (('risk_description', 'effect_description'),),
         }),
     )
+    labels = {
+        'from_drug': "Autre subtance",
+        'to_drug': "Autre substance"
+    }
     ordering = ('to_drug',)
     autocomplete_fields = ('to_drug',)
     classes = ('collapse',)
@@ -144,7 +170,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
 
 
 @admin.register(Interaction)
-class InteractionAdmin(ChangedFieldsHistoryAdmin, HelpTextsModelAdmin):
+class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'last_modified'
