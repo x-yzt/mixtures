@@ -17,7 +17,7 @@
   <p>{{ portal.drug.description|markdown }}</p>
 
   <h2>Interactions avec d'autres substances</h2>
-  {% for drug in portal.drug.interactants.all %}
-    <a id="drug-{{ drug.id }}" class="waves-effect waves-light btn">{{ drug }}</a>
+  {% for inter in interactions %}
+    <a id="drug-{{ inter.other_drug.id }}" class="waves-effect waves-light btn">{{ inter.other_drug }}</a>
   {% endfor %}
 {% endblock %}
