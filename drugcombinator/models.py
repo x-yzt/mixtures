@@ -85,7 +85,9 @@ class Drug(LastModifiedModel):
 
     @property
     def interactions(self):
-        return self.interactions_from.all() | self.interactions_to.all()
+        return Interaction.objects.filter(
+            Q(from_drug=self) | Q(to_drug=self)
+        )
 
 
     # In Django 3.1.0, the Drug.interactants field accessor only returns
