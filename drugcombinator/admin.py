@@ -7,6 +7,7 @@ from drugcombinator.models import Drug, Interaction, Category, Note
 admin.site.site_header = "Mixtures.info"
 admin.site.site_title = "Administration de Mixtures.info"
 admin.site.index_title = "Bienvenue dans l'administration de Mixtures.info"
+admin.site.enable_nav_sidebar = False
 
 
 def set_draft_status(status:bool):
