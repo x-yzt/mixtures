@@ -4,31 +4,15 @@
 @use "_picto-colors";
 
 
-/* General purpose classes */
-
-.row.no-margin {
-  margin: 0;
-}
-
-.not-found {
-  color: #F82;
-}
-
-
 /* Form elements */
 
 .btn.drug {
   border: 1px solid transparent;
-  margin: 2px 0;
   &:not(.selected) {
     background-color: color("shades", "white");
     color: $secondary-color;
     border-color: $secondary-color;
   }
-}
-
-.multiple-select-dropdown li:first-of-type {
-  display: none;
 }
 
 
