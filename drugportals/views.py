@@ -12,10 +12,16 @@ def portal(request, drug):
     except Portal.DoesNotExist:
         raise Http404("Ce portail n'existe pas.")
 
-    interactions = portal.drug.interactions.prefetch_related('from_drug', 'to_drug')
+    interactions = (
+        portal.drug.interactions
+        .filter(is_draft=False)
+        .prefetch_related('from_drug', 'to_drug')
+    )
     for inter in interactions:
         drugs = list(inter.interactants)
         drugs.remove(portal.drug)
-        inter.other_drug = drugs[0]
+        inter.drug = drugs[0]
+    
+    dummy_risks = Interaction.get_dummy_risks()
     
     return render(request, 'drugportals/portal.html', locals())

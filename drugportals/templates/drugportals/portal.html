@@ -17,7 +17,16 @@
   <p>{{ portal.drug.description|markdown }}</p>
 
   <h2>Interactions avec d'autres substances</h2>
-  {% for inter in interactions %}
-    <a id="drug-{{ inter.other_drug.id }}" class="waves-effect waves-light btn">{{ inter.other_drug }}</a>
+  {% for interaction in interactions %}
+    <a id="drug-{{ interaction.drug.id }}" class="btn waves-effect waves-light">
+      {{ interaction.drug }}
+      {% if interaction.risk != interaction.Risk.NEUTRAL %}
+        {% include 'drugcombinator/combine_info/risk_icon.html' %}
+      {% endif %}
+    </a>
+  {% endfor %}
+
+  {% for interaction in interactions %}
+    {% include 'drugportals/interaction.html' %}
   {% endfor %}
 {% endblock %}
