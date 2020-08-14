@@ -17,17 +17,25 @@
   <p>{{ portal.drug.description|markdown }}</p>
 
   <h2>Interactions avec d'autres substances</h2>
-  {% for interaction in interactions %}
-    <a id="drug-{{ interaction.drug.id }}" class="btn waves-effect waves-light">
-      {{ interaction.drug }}
-      {% if interaction.risk != interaction.Risk.NEUTRAL %}
-        {% include 'drugcombinator/combine_info/risk_icon.html' %}
-      {% endif %}
-    </a>
-  {% endfor %}
+  <div class="drug-selector">
+    {% for interaction in interactions %}
+      <a id="drug-{{ interaction.drug.id }}" class="btn waves-effect waves-light">
+        {{ interaction.drug }}
+        {% if interaction.risk != interaction.Risk.NEUTRAL %}
+          {% include 'drugcombinator/combine_info/risk_icon.html' %}
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
 
   {% for interaction in interactions %}
-    <h2>{{ interaction.drug }}</h2>
-    {% include 'drugcombinator/interaction_content.html' %}
+    <div id="card-{{ interaction.drug.id }}" class="interaction-content">
+      <h2>{{ interaction.drug }}</h2>
+      {% include 'drugcombinator/interaction_content.html' %}
+    </div>
   {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'drugportals/js/selector.js' %}"></script>
 {% endblock %}
