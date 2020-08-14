@@ -1,0 +1,71 @@
+{% load markdown_deux_tags %}
+
+<div class="row no-margin">
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">bubble_chart</i> Tendance synergique</h3>
+    
+    <div class="synergy synergy-{{ interaction.synergy }}">            
+      {% include 'drugcombinator/combine_info/synergy_icon.html' with class='medium' %}
+      <p class="label flow-text">{{ interaction.get_synergy_display }}</p>
+    </div>
+    
+    <div class="valign-wrapper">
+      <p>
+        {% include 'drugcombinator/combine_info/synergy_text.html' %}
+        {% if interaction.synergy != interaction.Synergy.UNKNOWN %}
+          <br/><em>Fiabilité : {{ interaction.get_effects_reliability_display|lower }}.</em>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">error_outline</i> Risque estimé</h3>
+
+    <div class="risk risk-{{ interaction.risk }}">
+        {% include 'drugcombinator/combine_info/risk_icon.html' with class='medium' %}
+        <p class="label flow-text">{{ interaction.get_risk_display }}</p>
+    </div>
+
+    <div class="valign-wrapper">
+      <p>
+        {% include 'drugcombinator/combine_info/risk_text.html' %}
+        {% if interaction.risk != interaction.Risk.UNKNOWN %}
+          <br/><em>Fiabilité : {{ interaction.get_risk_reliability_display|lower }}.</em>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row no-margin">
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">flare</i> À propos des effets</h3>
+    
+    {% if interaction.effect_description %}
+      {% for interactant in interaction.interactants %}
+        {% if drug != interactant %}
+          {{ interactant.effects|markdown}}
+        {% endif %}
+      {% endfor %}
+      {{ interaction.effect_description|markdown}}
+    {% else %}
+      <p>Aucune information supplémentaire n'est disponible.</p>
+    {% endif %}
+  </div>
+
+  <div class="col s12 m12 l6">
+    <h3><i class="material-icons small">menu_book</i> À propos des risques</h3>
+
+    {% if interaction.risk_description %}
+      {% for interactant in interaction.interactants %}
+        {% if drug != interactant %}
+          {{ interactant.risks|markdown}}
+        {% endif %}
+      {% endfor %}
+      {{ interaction.risk_description|markdown}}
+    {% else %}
+      <p>Aucune information supplémentaire n'est disponible.</p>
+    {% endif %}
+  </div>
+</div>
