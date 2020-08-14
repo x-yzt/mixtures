@@ -3,6 +3,8 @@ sass `
   --no-source-map `
   --style compressed `
   --load-path ./static/mixtures/sass `
+  --load-path ./drugcombinator/static/drugcombinator/sass/ `
+  --load-path ./drugportals/static/drugportals/sass/ `
   ./static/mixtures/sass/vendor/materialize.scss:./static/mixtures/css/materialize.min.css  `
   ./static/mixtures/sass/base.scss:./static/mixtures/css/base.min.css `
   ./static/mixtures/sass/admin/base.scss:./static/mixtures/css/admin/base.min.css `
