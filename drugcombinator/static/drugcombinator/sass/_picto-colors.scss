@@ -20,6 +20,7 @@ $syn-colors: #6DE #27F #DF1F67 #81E #FF76D6;
   }
   .label {
     background: $default-color;
+    color: text-color($default-color);
   }
 }
 
