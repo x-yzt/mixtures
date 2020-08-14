@@ -27,6 +27,7 @@
   {% endfor %}
 
   {% for interaction in interactions %}
-    {% include 'drugcombinator/interaction.html' %}
+    <h2>{{ interaction.drug }}</h2>
+    {% include 'drugcombinator/interaction_content.html' %}
   {% endfor %}
 {% endblock %}
