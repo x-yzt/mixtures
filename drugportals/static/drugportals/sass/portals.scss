@@ -68,11 +68,8 @@ a {
 .btn {
   background: $primary-color;
   border-radius: 20px;
-  &:hover, &:focus {
+  &:hover, &:focus, &.selected {
     background: $secondary-color;
-  }
-  &.selected {
-    background: $tertiary-color;
   }
   i {
     position: relative;
