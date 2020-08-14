@@ -4,7 +4,8 @@
 
 $bck-color: #1E2334;
 $text-color: #FFF;
-$primary-color: #7400B8;
+// $primary-color: #7400B8;
+$primary-color: #8527BB;
 $secondary-color: #4EA8DE;
 $tertiary-color: #80FFDB;
 
@@ -56,10 +57,16 @@ a {
 .btn {
   background: $primary-color;
   border-radius: 20px;
+  margin: 3px 0;
   &:hover, &:focus {
     background: $secondary-color;
   }
-  margin: 3px 0;
+  i {
+    position: relative;
+    top: 15%;
+    line-height: 1;
+    font-size: x-large;
+  }
 }
 
 ::selection {
