@@ -3,6 +3,8 @@
 @use '_mixins' as *;
 
 
+/* Palette */
+
 $bck-color: #1E2334;
 $text-color: #FFF;
 // $primary-color: #7400B8;
@@ -10,14 +12,13 @@ $primary-color: #8527BB;
 $secondary-color: #4EA8DE;
 $tertiary-color: #80FFDB;
 
-
 $bck-color-light: color.scale($bck-color, $lightness: 10%);
 // $bck-color-lighter: color.scale($bck-color, $lightness: 20%);
 
 $text-gradient: $primary-color, $secondary-color, $tertiary-color;
 
 
-/* Colors */
+/* Main page sections */
 
 body {
   background: $bck-color;
@@ -38,15 +39,16 @@ nav {
   }
 }
 
+
+/* Typography */
+
 h1 {
   font-weight: bold;
   text-align: center;
 }
 
-@for $i from 1 to 3 {
-  h#{$i} {
-    @include text-gradient($text-gradient);
-  }
+h1, h2 {
+  @include text-gradient($text-gradient);
 }
 
 a {
@@ -55,11 +57,22 @@ a {
   }
 }
 
+::selection {
+  background: $primary-color;
+  color: $text-color;
+}
+
+
+/* Forms */
+
 .btn {
   background: $primary-color;
   border-radius: 20px;
   &:hover, &:focus {
     background: $secondary-color;
+  }
+  &.selected {
+    background: $tertiary-color;
   }
   i {
     position: relative;
@@ -67,9 +80,4 @@ a {
     line-height: 1;
     font-size: x-large;
   }
-}
-
-::selection {
-  background: $primary-color;
-  color: $text-color;
 }
