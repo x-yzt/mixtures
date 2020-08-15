@@ -85,7 +85,8 @@
   font-family: 'Combinator-Icons';
   font-style: normal;
   font-weight: normal;
-  src: url('../font/combinator.woff') format('woff');
+  // src: url('../font/combinator.woff') format('woff');
+  src: url('/static/drugcombinator/font/combinator.woff') format('woff');
 }
 
 .combinator-icons {
