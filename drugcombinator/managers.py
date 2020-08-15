@@ -1,4 +1,4 @@
-from django.db.models import Manager
+from django.db.models import QuerySet, Manager
 from drugcombinator.utils import normalize
 from django.http import Http404
 
@@ -43,7 +43,7 @@ class DrugManager(Manager):
             raise Http404(f"Unable to find drug {name}.")
 
 
-class InteractionManager(Manager):
+class InteractionQuerySet(QuerySet):
 
     def between(self, drugs, prefetch=False):
         """
@@ -55,3 +55,14 @@ class InteractionManager(Manager):
         if prefetch:
             return qs.prefetch_related('from_drug', 'to_drug')
         return qs
+
+
+    def order_by_name(self):
+        """
+            Order the queryset by its related drugs names in
+            lexicographic order.
+        """
+        return self.order_by('from_drug__name', 'to_drug__name')
+
+
+InteractionManager = InteractionQuerySet.as_manager
