@@ -57,4 +57,12 @@ class InteractionQuerySet(QuerySet):
         return qs
 
 
+    def order_by_name(self):
+        """
+            Order the queryset by its related drugs names in
+            lexicographic order.
+        """
+        return self.order_by('from_drug__name', 'to_drug__name')
+
+
 InteractionManager = InteractionQuerySet.as_manager
