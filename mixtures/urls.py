@@ -8,6 +8,7 @@ def template(name, *args, **kwargs):
 
 urlpatterns = [
     path('', include('drugcombinator.urls')),
+    path('portail/', include('drugportals.urls')),
     path('a-propos/', template('mixtures/about.html'), name='about'),
     path('robots.txt', template('mixtures/robots.txt', content_type='text/plain')),
     path('admin/', admin.site.urls)

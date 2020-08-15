@@ -40,6 +40,23 @@ main > .container {
   max-width: 960px;
 }
 
+/* Forms */
+
+.btn {
+  margin: 2px 0;
+}
+
+.multiple-select-dropdown li:first-of-type {
+  display: none;
+}
+
+
+/* General purpose styles */
+
+.row.no-margin {
+  margin: 0;
+}
+
 
 /* Typo */
 
@@ -62,6 +79,11 @@ h3, h5 {
     top: .16rem;
   }
 }
+
+.warning {
+  color: $warning-color;
+}
+
 
 ::selection {
   background: $primary-color;

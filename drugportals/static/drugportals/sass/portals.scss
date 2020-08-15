@@ -1,0 +1,80 @@
+@use 'sass:color';
+@use 'combinator';
+@use '_mixins' as *;
+
+
+/* Palette */
+
+$bck-color: #1E2334;
+$text-color: #FFF;
+// $primary-color: #7400B8;
+$primary-color: #8527BB;
+$secondary-color: #4EA8DE;
+$tertiary-color: #80FFDB;
+
+$bck-color-light: color.scale($bck-color, $lightness: 10%);
+// $bck-color-lighter: color.scale($bck-color, $lightness: 20%);
+
+$text-gradient: $primary-color, $secondary-color, $tertiary-color;
+
+
+/* Main page sections */
+
+body {
+  background: $bck-color;
+  color: $text-color;
+}
+
+nav {
+  background: $bck-color-light;
+  @include border-gradient(bottom, 4px, $text-gradient);
+}
+
+.page-footer {
+  background: gradient($primary-color, $secondary-color);
+  color: $text-color;
+  .footer-copyright {
+    background: $bck-color-light;
+    color: inherit;
+  }
+}
+
+
+/* Typography */
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+h1, h2 {
+  @include text-gradient($text-gradient);
+}
+
+a {
+  &:link, &:visited {
+    color: $tertiary-color;
+  }
+}
+
+::selection {
+  background: $primary-color;
+  color: $text-color;
+}
+
+
+/* Forms */
+
+.btn {
+  background: $primary-color;
+  border-radius: 20px;
+  &:hover, &:focus, &.selected {
+    background: $secondary-color;
+  }
+  i {
+    position: relative;
+    top: 15%;
+    line-height: 1;
+    font-size: x-large;
+  }
+}

@@ -1,0 +1,33 @@
+@mixin background-clip($bck-clip) {
+  -webkit-background-clip: $bck-clip;
+  -moz-background-clip: $bck-clip;
+  -o-background-clip: $bck-clip;
+  background-clip: $bck-clip;
+}
+
+@function gradient($colors...) {
+  @return linear-gradient(45deg, $colors...);
+}
+
+@mixin text-gradient($colors...) {
+  color: transparent;
+  background: gradient($colors...);
+  @include background-clip(text);
+}
+
+@mixin border-gradient($pos: bottom, $width: 1px, $colors...) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    @if pos == bottom {
+      bottom: -$width;
+    } @else if pos == top {
+      top: -$width;
+    }
+    left: 0;
+    height: $width;
+    width: 100%;
+    background: gradient($colors...);
+  }
+}
