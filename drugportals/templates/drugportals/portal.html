@@ -3,7 +3,7 @@
 {% load static %}
 {% load markdown_deux_tags %}
 
-{% block title %}{{ portal.name }} - {{ block.super}}{% endblock %}
+{% block title %}{{ portal.name }} - {{ block.super }}{% endblock %}
 
 {% block description %}
 {% endblock %}
@@ -19,7 +19,7 @@
   <h2>Interactions avec d'autres substances</h2>
   <div class="drug-selector">
     {% for interaction in interactions %}
-      <a id="drug-{{ interaction.drug.id }}" class="btn waves-effect waves-light">
+      <a id="drug-{{ interaction.drug.slug }}" class="btn waves-effect waves-light">
         {{ interaction.drug }}
         {% if interaction.risk != interaction.Risk.NEUTRAL %}
           {% include 'drugcombinator/combine_info/risk_icon.html' %}
@@ -29,7 +29,7 @@
   </div>
 
   {% for interaction in interactions %}
-    <div id="card-{{ interaction.drug.id }}" class="interaction-content">
+    <div id="card-{{ interaction.drug.slug }}" class="interaction-content">
       <h2>{{ interaction.drug }}</h2>
       {% include 'drugcombinator/interaction_content.html' %}
     </div>

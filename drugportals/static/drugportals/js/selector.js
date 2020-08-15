@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', event => {
     const interCards = document.querySelectorAll('.interaction-content');
 
     drugsBtns.forEach(drugBtn => {
-        const drugId = drugBtn.id.replace('drug-', '');
+        const drugSlug = drugBtn.id.replace('drug-', '');
 
         drugBtn.addEventListener('click', event => {
             drugsBtns.forEach(drugBtn => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', event => {
             });
             drugBtn.classList.add('selected');
             
-            const interCard = document.getElementById('card-' + drugId);
+            const interCard = document.getElementById('card-' + drugSlug);
             interCards.forEach(interCard => {
                 interCard.style.display = 'none';
             })
