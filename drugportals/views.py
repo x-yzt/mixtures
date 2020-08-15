@@ -16,6 +16,7 @@ def portal(request, drug):
         portal.drug.interactions
         .filter(is_draft=False)
         .prefetch_related('from_drug', 'to_drug')
+        .order_by_name()
     )
     for inter in interactions:
         drugs = list(inter.interactants)
