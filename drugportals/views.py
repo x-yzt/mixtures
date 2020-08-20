@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.http import Http404
 from drugcombinator.models import Interaction
 from drugportals.models import Portal
-from drugcombinator.utils import count_queries
 
-@count_queries
+
 def portal(request, drug):
 
     try:
