@@ -31,9 +31,17 @@
   {% if unknown_interactions and interactions %}
     <p class="flow-text warning">
       <i class="material-icons small left">warning</i>
-      Prudence : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }}
+      Attention : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }}
       interaction{{ unknown_interactions|pluralize }} n'{{ unknown_interactions|pluralize:'a,ont' }}
       pas été trouvée{{ unknown_interactions|pluralize }} dans notre base de données.
+    </p>
+  {% endif %}
+
+  {% if drugs.count > 2 %}
+    <p class="flow-text warning">
+      <i class="material-icons small left">warning</i>
+      Prudence : {{ drugs.count|apnumber }} substances ont été sélectionnées. Mixtures.info délivre
+      uniquement des informations sur les interactions entre deux substances.
     </p>
   {% endif %}
 
