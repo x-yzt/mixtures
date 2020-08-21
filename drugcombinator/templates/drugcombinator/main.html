@@ -14,7 +14,26 @@
   <div class="row">
     <h1>Combinaisons de substances psychoactives</h1>
     <h2>Synergies et risques liés aux interactions entre drogues</h2>
-    <div class="divider"></div>
+    
+    <div class="col s12 l7">
+      <p>Mixtures.info a pour objectif de délivrer des données <b>vérifiables</b> sur les <b>mélanges de drogues</b>. À ce jour, notre base de données est encore très <b>incomplète</b>. Il est possible d'accéder à la totalité de
+      l'application, mais <b>nous vous encourageons plutôt à utiliser
+      {{ portals|pluralize:'notre,nos' }} portail{{ portals|pluralize }}
+      thématique{{ portals|pluralize }}</b>, plus restreint{{ portals|pluralize }} mais achevé{{ portals|pluralize }}.</p>
+    </div>
+    <div class="col s12 l5">
+      <ul>
+        {% for portal in portals %}
+          <li>
+            <a class="waves-effect waves-light btn btn-large" href="{{ portal.get_absolute_url }}">
+              <i class="material-icons left">chevron_right</i>{{ portal }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col s12 divider"></div>
   </div>
 
   <div class="row">

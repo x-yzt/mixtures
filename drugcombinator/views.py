@@ -7,6 +7,7 @@ from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
 from drugcombinator.utils import normalize, count_queries
+from drugportals.models import Portal
 
 
 def main(request):
@@ -15,6 +16,7 @@ def main(request):
     common_drugs = drugs.filter(common=True)
     uncategorized_drugs = drugs.filter(category=None)
     categories = Category.objects.all()
+    portals = Portal.objects.all()
 
     if request.method == 'POST':
         combinator_form = CombinatorForm(request.POST)
