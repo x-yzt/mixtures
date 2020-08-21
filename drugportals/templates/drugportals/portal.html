@@ -13,27 +13,29 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ portal.name }}</h1>
-  <p>{{ portal.drug.description|markdown }}</p>
+  <div class="row">
+    <h1>{{ portal.name }}</h1>
+    <p>{{ portal.drug.description|markdown }}</p>
 
-  <h2>Interactions avec d'autres substances</h2>
-  <div class="drug-selector">
+    <h2>Interactions avec d'autres substances</h2>
+    <div class="drug-selector">
+      {% for interaction in interactions %}
+        <a id="drug-{{ interaction.drug.slug }}" class="btn waves-effect waves-light">
+          {{ interaction.drug }}
+          {% if interaction.risk != interaction.Risk.NEUTRAL %}
+            {% include 'drugcombinator/combine_info/risk_icon.html' %}
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
     {% for interaction in interactions %}
-      <a id="drug-{{ interaction.drug.slug }}" class="btn waves-effect waves-light">
-        {{ interaction.drug }}
-        {% if interaction.risk != interaction.Risk.NEUTRAL %}
-          {% include 'drugcombinator/combine_info/risk_icon.html' %}
-        {% endif %}
-      </a>
+      <div id="card-{{ interaction.drug.slug }}" class="interaction-content">
+        <h2>{{ interaction.drug }}</h2>
+        {% include 'drugcombinator/interaction_content.html' %}
+      </div>
     {% endfor %}
   </div>
-
-  {% for interaction in interactions %}
-    <div id="card-{{ interaction.drug.slug }}" class="interaction-content">
-      <h2>{{ interaction.drug }}</h2>
-      {% include 'drugcombinator/interaction_content.html' %}
-    </div>
-  {% endfor %}
 {% endblock %}
 
 {% block scripts %}
