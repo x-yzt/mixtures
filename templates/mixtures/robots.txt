@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: {{ request.build_absolute_uri|cut:'robots.txt' }}sitemap.xml
+Sitemap: https://{{ request.get_host }}{% url 'django.contrib.sitemaps.views.sitemap' %}
