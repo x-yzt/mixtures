@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="{% static 'drugportals/css/portals.min.css' %}"/>
 {% endblock %}
 
+{% block logo %}
+  <img src="{% static 'drugportals/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+{% endblock %}
+
 {% block content %}
   <div class="row">
     <h1>{{ portal.name }}</h1>

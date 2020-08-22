@@ -28,7 +28,9 @@
         <nav>
           <div class="nav-wrapper container">
             <a href="/" class="brand-logo valign-wrapper">
-              <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+              {% block logo %}
+                <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+              {% endblock %}
             </a>
 
             <a href="#" data-target="mobile-nav" class="sidenav-trigger">
