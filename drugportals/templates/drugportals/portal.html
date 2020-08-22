@@ -16,6 +16,20 @@
   <img src="{% static 'drugportals/img/logo.svg' %}" alt="Logo Mixtures.info"/>
 {% endblock %}
 
+{% block nav-links %}
+  <li><a href="{% url 'main' %}">Projet Mixtures</a></li>
+  <li><a href="{% url 'about' %}">À propos</a></li>
+{% endblock %}
+
+{% block nav-links-mobile %}
+  <li><a class="waves-effect" href="{% url 'main' %}">
+    <i class="material-icons">merge_type</i>Projet Mixtures
+  </a></li>
+  <li><a class="waves-effect" href="{% url 'about' %}">
+    <i class="material-icons">help_outline</i>À propos
+  </a></li>
+{% endblock %}
+
 {% block content %}
   <div class="row">
     <h1>{{ portal.name }}</h1>

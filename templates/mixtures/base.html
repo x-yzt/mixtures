@@ -37,11 +37,13 @@
               <i class="material-icons">menu</i>
             </a>
 
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="{% url 'main' %}">Combinaisons</a></li>
-              <li><a href="{% url 'drug_search' %}">Substances</a></li>
-              <li><a href="{% url 'docs' %}">API</a></li>
-              <li><a href="{% url 'about' %}">À propos</a></li>
+            <ul class="right hide-on-med-and-down">
+              {% block nav-links %}
+                <li><a href="{% url 'main' %}">Combinaisons</a></li>
+                <li><a href="{% url 'drug_search' %}">Substances</a></li>
+                <li><a href="{% url 'docs' %}">API</a></li>
+                <li><a href="{% url 'about' %}">À propos</a></li>
+              {% endblock %}
             </ul>
           </div>
         </nav>
@@ -54,19 +56,21 @@
 
         <li><div class="divider"></div></li>
 
-        <li><a class="waves-effect" href="{% url 'main' %}">
-          <i class="material-icons">merge_type</i>Combinaisons
-        </a></li>
-        <li><a class="waves-effect" href="{% url 'drug_search' %}">
-          <i class="material-icons">bubble_chart</i>Substances
-        </a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="waves-effect" href="{% url 'docs' %}">
-          <i class="material-icons">code</i>API
-        </a></li>
-        <li><a class="waves-effect" href="{% url 'about' %}">
-          <i class="material-icons">help_outline</i>À propos
-        </a></li>
+        {% block nav-links-mobile %}
+          <li><a class="waves-effect" href="{% url 'main' %}">
+            <i class="material-icons">merge_type</i>Combinaisons
+          </a></li>
+          <li><a class="waves-effect" href="{% url 'drug_search' %}">
+            <i class="material-icons">bubble_chart</i>Substances
+          </a></li>
+          <li><div class="divider"></div></li>
+          <li><a class="waves-effect" href="{% url 'docs' %}">
+            <i class="material-icons">code</i>API
+          </a></li>
+          <li><a class="waves-effect" href="{% url 'about' %}">
+            <i class="material-icons">help_outline</i>À propos
+          </a></li>
+        {% endblock %}
       </ul>
     </header>
       
