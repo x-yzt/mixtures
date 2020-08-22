@@ -40,6 +40,17 @@ nav {
 }
 
 
+/* Generic elements */
+
+.card-panel {
+  background: $bck-color-light;
+  border-radius: 10px;
+  img.left {
+    margin-right: 14px;
+  }
+}
+
+
 /* Typography */
 
 h1 {
