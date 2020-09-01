@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.min.css' %}">
 {% endblock %}
 
+{% block rels %}
+  <link rel="canonical" href="{{ drugs.get_absolute_url }}"/>
+{% endblock %}
+
 {% block title %}
   {{ combination_name }} | Combinaison {{ block.super }}
 {% endblock %}

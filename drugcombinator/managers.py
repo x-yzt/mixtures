@@ -1,6 +1,7 @@
 from django.db.models import QuerySet, Manager
-from drugcombinator.utils import normalize
 from django.http import Http404
+from django.urls import reverse
+from drugcombinator.utils import normalize
 
 
 class DrugManager(Manager):
@@ -43,6 +44,16 @@ class DrugManager(Manager):
             raise Http404(f"Unable to find drug {name}.")
 
 
+class DrugQuerySet(QuerySet):
+
+    def get_absolute_url(self):
+        """
+            Return the canonical URL of the combination of this set of drugs.
+        """
+        slugs = self.values_list('slug', flat=True).order_by('slug')
+        return reverse('combine', kwargs={'slugs': slugs})
+
+
 class InteractionQuerySet(QuerySet):
 
     def between(self, drugs, prefetch=False):
@@ -65,4 +76,5 @@ class InteractionQuerySet(QuerySet):
         return self.order_by('from_drug__name', 'to_drug__name')
 
 
+DrugManager = DrugManager.from_queryset(DrugQuerySet)
 InteractionManager = InteractionQuerySet.as_manager
