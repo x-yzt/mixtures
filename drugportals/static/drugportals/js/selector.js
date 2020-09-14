@@ -1,3 +1,7 @@
+const mobileQueryString = '(max-width: 600px)';
+const mobileScrollOffset = 70;
+
+
 document.addEventListener('DOMContentLoaded', event => {
     const hashDrugSlug = window.location.hash.replace('#', '');
     const hashDrugBtn = document.getElementById('drug-' + hashDrugSlug);
@@ -23,7 +27,16 @@ document.addEventListener('DOMContentLoaded', event => {
             reset_selector();            
             drugBtn.classList.add('selected');
             interCard.style.display = 'initial';
-
+            
+            if (window.matchMedia(mobileQueryString).matches) {
+                window.scrollTo({
+                    top: interCard.getBoundingClientRect().top 
+                        + window.scrollY
+                        - mobileScrollOffset,
+                    behavior: 'smooth',
+                });
+            }
+            
             window.history.pushState({}, null, '#' + drugSlug);
         });
     });
