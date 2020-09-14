@@ -55,6 +55,7 @@
     {% for interaction in interactions %}
       <div id="card-{{ interaction.drug.slug }}" class="interaction-content">
         <h2>{{ interaction.drug }}</h2>
+        <p>{{ interaction.drug.description }}</p>
         {% include 'drugcombinator/interaction_content.html' %}
       </div>
     {% endfor %}
