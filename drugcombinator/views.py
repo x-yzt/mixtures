@@ -3,6 +3,7 @@ from django.db.models import Count, F
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
+from django.views.decorators.clickjacking import xframe_options_exempt
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
@@ -96,7 +97,7 @@ def drug(request, name):
     return render(request, 'drugcombinator/drug.html', locals())
 
 
-# @count_queries
+@xframe_options_exempt
 def combine_chart(request):
     
     drugs = (Drug.objects
