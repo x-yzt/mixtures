@@ -29,7 +29,7 @@
           height: 1px; /* Fixes inner elements heights in Chrome */
       }
 
-      td, th, tr, div {
+      td, th, tr, div, a {
           height: 100%;
       }
 
@@ -39,18 +39,38 @@
           border-radius: 7px;
       }
 
+      a {
+          border-radius: 5px;
+      }
+
       thead tr:first-of-type > th:first-child {
           background: #ffb300;
       }
 
-      div {
+      div, a {
           display: flex;
           justify-content: center;
           align-items: center;
       }
 
-      th div {
+      th div, th a {
           padding: 6px 8px;
+      }
+
+      a {
+          color: inherit;
+          text-decoration: inherit;
+          transition: all ease-in-out .1s;
+      }
+
+      a[href] {
+          box-shadow: 0px 0px 0px rgba(0, 0, 0, .8);
+      }
+
+      a[href]:hover, a[href]:focus {
+          background: rgba(0, 0, 0, .1);
+          box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
+          z-index: 10;
       }
 
       th {
@@ -118,7 +138,9 @@
           <tr>
             {% for drug in drugs %}
               <th>
-                <div>{{ drug }}</div>
+                <a href="{{ drug.get_absolute_url }}">
+                  {{ drug }}
+                </a>
               </th>
             {% endfor %}
           </tr>
@@ -135,20 +157,28 @@
                 {% endifchanged %}
 
                 <th scope="row">
-                  <div>{{ drug_row }}</div>
+                  <a href="{{ drug_row.get_absolute_url }}">
+                    {{ drug_row }}
+                  </a>
                 </th>
 
                 {% for drug_col in drugs %}
                   {% if drug_col is drug_row %}
                     <th>
-                      <div>{{ drug_col }}</div>
+                      <a href="{{ drug_col.get_absolute_url }}">
+                        {{ drug_col }}
+                      </a>
                     </th>
                   {% else %}
                     {% with interaction=chart_data|get:drug_row|get:drug_col %}
                       <td class="risk-{{ interaction.risk }}">
-                        <div {% if interaction.is_draft %}class="draft"{% endif %}>
+                        <a class="{% if interaction.is_draft %}draft{% endif %}"
+                          {% if interaction %}
+                            href="{{ interaction.get_absolute_url }}"
+                          {% endif %}
+                        >
                           {% include 'drugcombinator/combine_info/synergy_icon.html' %}
-                        </div>
+                        </a>
                       </td>
                     {% endwith %}
                   {% endif %}
