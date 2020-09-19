@@ -98,10 +98,15 @@ def drug(request, name):
 
 
 @xframe_options_exempt
-def combine_chart(request):
-    
-    drugs = (Drug.objects
-        .filter(common=True)
+def table(request, slugs=None):
+
+    drugs = Drug.objects
+    if slugs:
+        drugs = drugs.filter(slug__in=slugs)
+    else:
+        drugs = drugs.filter(common=True)
+
+    drugs = (drugs
         .prefetch_related('category')
         .order_by(F('category__name').asc(nulls_last=True), 'name')
     )
@@ -115,7 +120,7 @@ def combine_chart(request):
         chart_data[inter.from_drug][inter.to_drug] = inter
         chart_data[inter.to_drug][inter.from_drug] = inter
 
-    return render(request, 'drugcombinator/combine_chart.html', locals())
+    return render(request, 'drugcombinator/table.html', locals())
 
 
 def docs(request):

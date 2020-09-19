@@ -15,7 +15,8 @@ urlpatterns = [
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
     path('substance/<str:name>/', views.drug, name='drug'),
     path('substances/', views.drug_search, name='drug_search'),
-    path('table/', views.combine_chart, name='combine_chart'),
+    path('table/', views.table, name='table'),
+    path('table/<slug_list:slugs>/', views.table, name='table'),
     path('docs/', views.docs, name='docs'),
 
     path('sitemap.xml', sitemap_view, {'sitemaps': SITEMAPS},
