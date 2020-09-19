@@ -100,6 +100,8 @@ def drug(request, name):
 @xframe_options_exempt
 def table(request, slugs=None):
 
+    show_categs = bool(int(request.GET.get('show_categs', '1')))
+    
     drugs = Drug.objects
     if slugs:
         drugs = drugs.filter(slug__in=slugs)

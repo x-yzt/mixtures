@@ -45,6 +45,13 @@
           background: #ffb300;
       }
 
+      thead tr:first-of-type > th:first-child a:hover,
+      thead tr:first-of-type > th:first-child a:focus {
+          background: inherit;
+          box-shadow: inherit;
+      }
+
+
       div, a {
           display: flex;
           justify-content: center;
@@ -123,18 +130,22 @@
       {% regroup drugs by category as grouped_drugs %}
         <thead>
           <tr>
-            <th colspan="2" rowspan="2">
-              <img src="{% static 'mixtures/img/logo.svg' %}"/>
-            </th>
-
-            {% for category, categ_drugs in grouped_drugs %}
-              <th colspan="{{ categ_drugs|length }}">
-                <div>{{ category|default:"Autres" }}</div>
+              <th {% if show_categs %}colspan="2" rowspan="2"{% endif %}>
+                <a href="{% url 'main' %}">
+                  <img src="{% static 'mixtures/img/logo.svg' %}"/>
+                </a>
               </th>
-            {% endfor %}
-          </tr>
 
-          <tr>
+              {% if show_categs %}
+                {% for category, categ_drugs in grouped_drugs %}
+                  <th colspan="{{ categ_drugs|length }}">
+                    <div>{{ category|default:"Autres" }}</div>
+                  </th>
+                {% endfor %}
+              </tr>
+              <tr>
+            {% endif %}
+            
             {% for drug in drugs %}
               <th>
                 <a href="{{ drug.get_absolute_url }}">
@@ -149,11 +160,13 @@
           {% for category, categ_drugs in grouped_drugs %}
             {% for drug_row in categ_drugs %}
               <tr>
-                {% ifchanged category %}
-                  <th scope="row" rowspan="{{ categ_drugs|length }}">
-                    <div>{{ category|default:"Autres" }}</div>
-                  </th>
-                {% endifchanged %}
+                {% if show_categs %}
+                  {% ifchanged category %}
+                    <th scope="row" rowspan="{{ categ_drugs|length }}">
+                      <div>{{ category|default:"Autres" }}</div>
+                    </th>
+                  {% endifchanged %}
+                {% endif %}
 
                 <th scope="row">
                   <a href="{{ drug_row.get_absolute_url }}">
