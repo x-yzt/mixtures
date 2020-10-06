@@ -31,10 +31,10 @@ In order to customize the MaterializeCSS framework, custom SASS
 variables (such as colors) are injected in the main library file. Those
 variables lie in a `_variables-custom.scss` file near to the library.
 
-From time to time, this customisation file is loaded from other SASS
-files unrelated to the MaterializeCSS framework. As the SASS compiler
-expects `_custom-variables.scss` to be in a *load path*, this can make
-the compilation to fail if incorrectly used.
+From time to time, SASS files that lie in a given app are loaded from
+others SASS files which belong to another app. As the SASS compiler
+expects those files to be in a *load path*, this can make the
+compilation to fail.
 
 To prevent this, a ready to use script, `sass-compile.ps1`, passes
 requiered arguments to the Dart SASS compiler. Using another way for
