@@ -101,12 +101,12 @@ def drug(request, name):
 def table(request, slugs=None):
 
     show_categs = bool(int(request.GET.get('show_categs', 1)))
-    show_common = bool(int(request.GET.get('show_common', 1)))
+    only_common = bool(int(request.GET.get('only_common', 1)))
     
     drugs = Drug.objects
     if slugs:
         drugs = drugs.filter(slug__in=slugs)
-    elif show_common:
+    elif only_common:
         drugs = drugs.filter(common=True)
 
     drugs = (drugs
