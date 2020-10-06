@@ -93,3 +93,17 @@ class InteractionModelTestCase(TestCase):
             "fields better. The Drug.all_interactants tweak is maybe " \
             "not needed anymore."
         )
+
+
+    def test_other_interactant(self):
+
+        self.assertIs(
+            self.inter_a_b.other_interactant(self.drug_a),
+            self.drug_b
+        )
+        
+
+    def test_other_interactant_invalid(self):
+
+        with self.assertRaises(ValueError):
+            self.inter_a_b.other_interactant(self.drug_c)

@@ -221,6 +221,11 @@ class Interaction(LastModifiedModel):
         })
     
 
+    def other_interactant(self, drug):
+        index = self.interactants.index(drug)
+        return self.interactants[not index]
+
+
     def get_contrib_email_body(self):
         return render_to_string(
             'drugcombinator/mail/contrib_body.txt',

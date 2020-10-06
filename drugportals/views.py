@@ -18,9 +18,7 @@ def portal(request, drug):
         .order_by_name()
     )
     for inter in interactions:
-        drugs = list(inter.interactants)
-        drugs.remove(portal.drug)
-        inter.drug = drugs[0]
+        inter.drug = inter.other_interactant(portal.drug)
     
     dummy_risks = Interaction.get_dummy_risks()
     
