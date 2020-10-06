@@ -13,7 +13,7 @@ register_converter(SlugListConverter, 'slug_list')
 urlpatterns = [
     path('', views.main, name='main'),
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
-    path('substance/<str:name>/', views.drug, name='drug'),
+    path('substance/<str:name>/', views.DrugView.as_view(), name='drug'),
     path('substances/', views.drug_search, name='drug_search'),
     path('table/', views.table, name='table'),
     path('table/<slug_list:slugs>/', views.table, name='table'),

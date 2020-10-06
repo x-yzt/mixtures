@@ -3,6 +3,8 @@ from django.db.models import Count, F
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
+from django.views import View
+from django.views.generic.base import TemplateResponseMixin
 from django.views.decorators.clickjacking import xframe_options_exempt
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
@@ -82,19 +84,22 @@ def combine(request, slugs):
     return render(request, 'drugcombinator/combine.html', locals())
 
 
-def drug(request, name):
+class DrugView(View, TemplateResponseMixin):
 
-    drug = Drug.objects.get_from_name_or_404(name)
+    template_name = 'drugcombinator/drug.html'
 
-    if name != drug.slug:
-        return redirect(drug, permanent=True)
-    
-    interactions = (drug.interactions
-        .prefetch_related('from_drug', 'to_drug')
-        .order_by('is_draft', '-risk')
-    )
-    
-    return render(request, 'drugcombinator/drug.html', locals())
+    def get(self, request, name):
+        
+        drug = Drug.objects.get_from_name_or_404(name)
+        
+        if name != drug.slug:
+            return redirect(drug, permanent=True)
+        
+        interactions = (drug.interactions
+            .prefetch_related('from_drug', 'to_drug')
+            .order_by('is_draft', '-risk')
+        )
+        return self.render_to_response(locals())
 
 
 @xframe_options_exempt
