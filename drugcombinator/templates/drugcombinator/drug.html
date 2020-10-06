@@ -5,6 +5,7 @@
 {% load markdown_deux_tags %}
 
 {% block stylesheets %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.min.css' %}">
 {% endblock %}
 
@@ -50,5 +51,6 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ block.super }}
   <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
 {% endblock %}

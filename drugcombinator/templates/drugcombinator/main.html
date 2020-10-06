@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block stylesheets %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.min.css' %}">
 {% endblock %}
 
@@ -74,6 +75,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ block.super }}
   <script src="{% static 'drugcombinator/js/combinator.js' %}"></script>
   <script src="{% static 'mixtures/js/select_search.js' %}"></script>
 {% endblock %}

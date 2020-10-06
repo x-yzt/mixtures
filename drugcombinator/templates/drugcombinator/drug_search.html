@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block stylesheets %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static 'drugcombinator/css/combinator.min.css' %}">
 {% endblock %}
 
@@ -50,6 +51,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ block.super }}
   <script src="{% url 'autocomplete' %}"></script>
   <script src="{% static 'drugcombinator/js/search.js' %}"></script>
 {% endblock %}
