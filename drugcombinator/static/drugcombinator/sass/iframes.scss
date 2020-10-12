@@ -111,6 +111,11 @@ h1 {
   color: #9c27b0;
 }
 
+.scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 a {
   color: inherit;
   text-decoration: inherit;

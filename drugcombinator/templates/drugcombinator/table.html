@@ -5,82 +5,84 @@
 
 {% block content %}
   <h1>Tableau de combinaison des psychoactifs</h1>
-  {% spaceless %}
-    <table>
-    {% regroup drugs by category as grouped_drugs %}
-      <thead>
-        <tr>
-            <th {% if show_categs %}colspan="2" rowspan="2"{% endif %}>
-              <a href="{% url 'main' %}">
-                <img src="{% static 'mixtures/img/logo.svg' %}"/>
-              </a>
-            </th>
-
-            {% if show_categs %}
-              {% for category, categ_drugs in grouped_drugs %}
-                <th colspan="{{ categ_drugs|length }}">
-                  <div>{{ category|default:"Autres" }}</div>
-                </th>
-              {% endfor %}
-            </tr>
-            <tr>
-          {% endif %}
-          
-          {% for drug in drugs %}
-            <th>
-              <a href="{{ drug.get_absolute_url }}">
-                {{ drug }}
-              </a>
-            </th>
-          {% endfor %}
-        </tr>
-      </thead>
-            
-      <tbody>
-        {% for category, categ_drugs in grouped_drugs %}
-          {% for drug_row in categ_drugs %}
-            <tr>
-              {% if show_categs %}
-                {% ifchanged category %}
-                  <th scope="row" rowspan="{{ categ_drugs|length }}">
-                    <div>{{ category|default:"Autres" }}</div>
-                  </th>
-                {% endifchanged %}
-              {% endif %}
-
-              <th scope="row">
-                <a href="{{ drug_row.get_absolute_url }}">
-                  {{ drug_row }}
+  <div class="scroll">
+    {% spaceless %}
+      <table>
+      {% regroup drugs by category as grouped_drugs %}
+        <thead>
+          <tr>
+              <th {% if show_categs %}colspan="2" rowspan="2"{% endif %}>
+                <a href="{% url 'main' %}">
+                  <img src="{% static 'mixtures/img/logo.svg' %}"/>
                 </a>
               </th>
 
-              {% for drug_col in drugs %}
-                {% if drug_col is drug_row %}
-                  <th>
-                    <a href="{{ drug_col.get_absolute_url }}">
-                      {{ drug_col }}
-                    </a>
+              {% if show_categs %}
+                {% for category, categ_drugs in grouped_drugs %}
+                  <th colspan="{{ categ_drugs|length }}">
+                    <div>{{ category|default:"Autres" }}</div>
                   </th>
-                {% else %}
-                  {% with interaction=chart_data|get:drug_row|get:drug_col %}
-                    <td class="risk-{{ interaction.risk }}">
-                      <a class="label {% if interaction.is_draft %}draft{% endif %}"
-                        {% if interaction %}
-                          href="{{ interaction.get_absolute_url }}"
-                        {% endif %}
-                      >
-                        {% include 'drugcombinator/combine_info/synergy_icon.html' %}
-                      </a>
-                    </td>
-                  {% endwith %}
+                {% endfor %}
+              </tr>
+              <tr>
+            {% endif %}
+            
+            {% for drug in drugs %}
+              <th>
+                <a href="{{ drug.get_absolute_url }}">
+                  {{ drug }}
+                </a>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+              
+        <tbody>
+          {% for category, categ_drugs in grouped_drugs %}
+            {% for drug_row in categ_drugs %}
+              <tr>
+                {% if show_categs %}
+                  {% ifchanged category %}
+                    <th scope="row" rowspan="{{ categ_drugs|length }}">
+                      <div>{{ category|default:"Autres" }}</div>
+                    </th>
+                  {% endifchanged %}
                 {% endif %}
-              {% endfor %}
-            </tr>
+
+                <th scope="row">
+                  <a href="{{ drug_row.get_absolute_url }}">
+                    {{ drug_row }}
+                  </a>
+                </th>
+
+                {% for drug_col in drugs %}
+                  {% if drug_col is drug_row %}
+                    <th>
+                      <a href="{{ drug_col.get_absolute_url }}">
+                        {{ drug_col }}
+                      </a>
+                    </th>
+                  {% else %}
+                    {% with interaction=chart_data|get:drug_row|get:drug_col %}
+                      <td class="risk-{{ interaction.risk }}">
+                        <a class="label {% if interaction.is_draft %}draft{% endif %}"
+                          {% if interaction %}
+                            href="{{ interaction.get_absolute_url }}"
+                          {% endif %}
+                        >
+                          {% include 'drugcombinator/combine_info/synergy_icon.html' %}
+                        </a>
+                      </td>
+                    {% endwith %}
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
           {% endfor %}
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endspaceless %}
+        </tbody>
+      </table>
+    {% endspaceless %}
+  </div>
 
   {% comment %}
     <div class="legend">
