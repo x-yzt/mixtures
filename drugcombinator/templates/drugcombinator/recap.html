@@ -27,12 +27,5 @@
 {% endblock %}
 
 {% block scripts %}
-  <script>
-    window.addEventListener('load', event => { 
-      parent.postMessage({
-        'height': document.body.scrollHeight,
-        'url': window.location.href
-      }, '*');
-    });
-  </script>
+  <script src="{% static 'drugcombinator/js/iframes.js' %}"></script>
 {% endblock %}
