@@ -122,14 +122,18 @@ a {
   &:hover, &:focus {
     text-decoration: underline;
   }
-  table &[href], .cards & {
+  table &, .cards & {
     color: inherit;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, .8);
-    transition: all ease-in-out .1s;
     &:hover, &:focus {
-      box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
-      z-index: 10;
       text-decoration: inherit;
+    }
+    &[href] {
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+      transition: all ease-in-out .1s;
+      &:hover, &:focus {
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
+        z-index: 10;
+      }
     }
   }
 }
