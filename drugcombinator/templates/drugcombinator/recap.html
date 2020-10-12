@@ -25,3 +25,14 @@
     {% endfor %}
   </div>
 {% endblock %}
+
+{% block scripts %}
+  <script>
+    window.addEventListener('load', event => { 
+      parent.postMessage({
+        'height': document.body.scrollHeight,
+        'url': window.location.href
+      }, '*');
+    });
+  </script>
+{% endblock %}
