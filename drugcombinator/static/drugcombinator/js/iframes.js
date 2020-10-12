@@ -1,6 +1,8 @@
 function sendHeight() {
+    const height = document.documentElement.getBoundingClientRect().height;
+
     parent.postMessage({
-        'height': document.body.scrollHeight,
+        'height': Math.round(height),
         'url': window.location.href
     }, '*');
 }
