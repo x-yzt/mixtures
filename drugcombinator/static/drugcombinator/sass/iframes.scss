@@ -1,3 +1,6 @@
+// Load color palette from Materialize customizations
+@use "custom-variables" as *;
+
 @use 'combinator';
 
 
@@ -81,8 +84,26 @@ table {
 }
 
 body {
+  margin: 0;
   font-family: 'Trebuchet MS', sans-serif;
   font-size: 11pt;
+}
+
+footer {
+  position: sticky;
+  width: 100%;
+  bottom: 0;
+  margin-top: 5px;
+  padding: 10px;
+  background: $primary-color;
+  p {
+    margin: 0;
+    text-align: center;
+    img {
+      height: 30px;
+      vertical-align: middle;
+    }
+  }
 }
 
 h1 {
