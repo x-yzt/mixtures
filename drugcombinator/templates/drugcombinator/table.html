@@ -64,7 +64,7 @@
                     </th>
                   {% else %}
                     {% with interaction=chart_data|get:drug_row|get:drug_col %}
-                      <td class="risk-{{ interaction.risk }}">
+                      <td class="risk risk-{{ interaction.risk }}">
                         <a class="label {% if interaction.is_draft %}draft{% endif %}"
                           {% if interaction %}
                             href="{{ interaction.get_absolute_url }}"

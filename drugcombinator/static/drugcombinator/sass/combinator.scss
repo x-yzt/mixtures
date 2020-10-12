@@ -36,6 +36,17 @@
     max-height: 400px;
     min-height: 300px;
   }
+  
+  .risk, .synergy {
+    float: left;
+    text-align: center;
+    margin-right: 16px;
+    .label {
+      padding: 0 8px;
+      border-radius: 4px;
+      margin: 0;
+    }
+  }
 }
 
 .draft-modal {
@@ -64,20 +75,6 @@
   
   .draft-modal {
     padding: 22px;
-  }
-}
-
-
-/* Risks and synergies */
-
-.risk, .synergy {
-  float: left;
-  text-align: center;
-  margin-right: 16px;
-  .label {
-    padding: 0 8px;
-    border-radius: 4px;
-    margin: 0;
   }
 }
 

@@ -7,7 +7,7 @@
 
   <div class="cards">
     {% for interaction in interactions %}
-      <div class="risk-{{ interaction.risk }}">
+      <div class="risk risk-{{ interaction.risk }}">
         <a class="label" href="{{ interaction.get_absolute_url }}">
           {{ interaction.drug }}
           <br/>
