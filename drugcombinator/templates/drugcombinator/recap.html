@@ -17,3 +17,7 @@
     {% endfor %}
   </div>
 {% endblock %}
+
+{% block full_url %}
+  {{ drug.get_absolute_url }}
+{% endblock %}

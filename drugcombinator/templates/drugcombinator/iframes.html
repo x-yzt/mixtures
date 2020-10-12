@@ -20,7 +20,7 @@
     <p>
       <a href="{% url 'main' %}"><img src="{% static 'mixtures/img/logo.svg' %}"></a>
       <br/>
-      <a href="{{ drug.get_absolute_url }}">Version détaillée sur Mixtures.info</a>
+      <a href="{% block full_url %}{% endblock %}">Version détaillée sur Mixtures.info</a>
     </p>
   </footer>
 {% endblock %}
