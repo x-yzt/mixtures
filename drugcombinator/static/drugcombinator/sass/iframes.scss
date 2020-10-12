@@ -6,12 +6,14 @@
 
 /* Combination table */
 
+$border-color: #FFF;
+
 table {
   margin: auto;
   border-spacing: 2;
-  background: #FFF;
-  border: 2px solid #FFF;
-  height: 1px; /* Fixes inner elements heights in Chrome */
+  background: $border-color;
+  border: 2px solid $border-color;
+  height: 1px; // Fixes inner elements heights in Chrome
 
   td, th, tr, div, a {
     height: 100%;
@@ -26,19 +28,17 @@ table {
   }
 
   th {
-    color: #FFF;
-    background-color: #9c27b0;
+    color: $border-color;
+    background-color: $secondary-color;
     font-weight: normal;
   }
 
-  td {
-    .material-icons {
-      font-size: 1.3rem;
-    }
+  td .material-icons {
+    font-size: 1.3rem;
   }
 
   thead tr:first-of-type > th:first-child {
-    background: #ffb300;
+    background: $primary-color;
     a:hover, a:focus {
       background: inherit;
       box-shadow: inherit;
@@ -107,7 +107,7 @@ footer {
 
 h1 {
   text-align: center;
-  color: #9c27b0;
+  color: $secondary-color;
 }
 
 .scroll {
