@@ -1,41 +1,19 @@
-{% extends 'mixtures/base.html' %}
+{% extends 'drugcombinator/iframes.html' %}
 
 {% load static %}
 
-{% block stylesheets %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="{% static 'drugcombinator/css/iframes.min.css' %}">
-{% endblock %}
+{% block content %}
+  <h1>{{ drug }} : Récapitulatif des interactions</h1>
 
-{% block rels %}
-  <base target="_parent">
-{% endblock %}
-
-{% block body %}
-  <main>
-    <h1>{{ drug }} : Récapitulatif des interactions</h1>
-    <div class="cards">
-      {% for interaction in interactions %}
-        <div class="risk-{{ interaction.risk }}">
-          <a class="label" href="{{ interaction.get_absolute_url }}">
-            {{ interaction.drug }}
-            <br/>
-            {% include 'drugcombinator/combine_info/synergy_icon.html' %}
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  </main>
-
-  <footer>
-    <p>
-      <a href="{% url 'main' %}"><img src="{% static 'mixtures/img/logo.svg' %}"></a>
-      <br/>
-      <a href="{{ drug.get_absolute_url }}">Version détaillée sur Mixtures.info</a>
-    </p>
-  </footer>
-{% endblock %}
-
-{% block scripts %}
-  <script src="{% static 'drugcombinator/js/iframes.js' %}"></script>
+  <div class="cards">
+    {% for interaction in interactions %}
+      <div class="risk-{{ interaction.risk }}">
+        <a class="label" href="{{ interaction.get_absolute_url }}">
+          {{ interaction.drug }}
+          <br/>
+          {% include 'drugcombinator/combine_info/synergy_icon.html' %}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

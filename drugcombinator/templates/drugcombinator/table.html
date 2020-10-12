@@ -1,18 +1,9 @@
-{% extends 'mixtures/base.html' %}
+{% extends 'drugcombinator/iframes.html' %}
 
 {% load static %}
 {% load collections %}
 
-{% block stylesheets %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="{% static 'drugcombinator/css/iframes.min.css' %}">
-{% endblock %}
-
-{% block rels %}
-  <base target="_parent">
-{% endblock %}
-
-{% block body %}
+{% block content %}
   <h1>Tableau de combinaison des psychoactifs</h1>
   {% spaceless %}
     <table>
@@ -104,8 +95,4 @@
       {% endfor %}
     </div>
   {% endcomment %}
-{% endblock %}
-
-{% block scripts %}
-  <script src="{% static 'drugcombinator/js/iframes.js' %}"></script>
 {% endblock %}
