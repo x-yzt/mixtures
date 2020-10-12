@@ -1,0 +1,149 @@
+// Load color palette from Materialize customizations
+@use "custom-variables" as *;
+
+@use 'combinator';
+
+
+/* Combination table */
+
+table {
+  margin: auto;
+  border-spacing: 2;
+  background: #FFF;
+  border: 2px solid #FFF;
+  height: 1px; /* Fixes inner elements heights in Chrome */
+
+  td, th, tr, div, a {
+    height: 100%;
+  }
+
+  td, th, a {
+    border-radius: 7px;
+  }
+
+  td, th {
+    padding: 0;
+  }
+
+  th {
+    color: #FFF;
+    background-color: #9c27b0;
+    font-weight: normal;
+  }
+
+  td {
+    background: #DDD;
+    .material-icons {
+      font-size: 1.3rem;
+    }
+  }
+
+  thead tr:first-of-type > th:first-child {
+    background: #ffb300;
+    a:hover, a:focus {
+      background: inherit;
+      box-shadow: inherit;
+    }
+  }
+
+  div, a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  th div, th a {
+    padding: 6px 8px;
+  }
+}
+
+
+/* Drug recap */
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  
+  a {
+    display: inline-block;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 60px;
+    margin: 3px;
+  }
+}
+
+
+/* Common styles */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 11pt;
+}
+
+footer {
+  position: sticky;
+  width: 100%;
+  bottom: 0;
+  margin-top: 5px;
+  padding: 10px;
+  background: $primary-color;
+  p {
+    margin: 0;
+    text-align: center;
+    img {
+      height: 30px;
+      vertical-align: middle;
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+  color: #9c27b0;
+}
+
+.scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+a {
+  color: $secondary-color;
+  text-decoration: inherit;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+  table &[href], .cards & {
+    color: inherit;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, .8);
+    transition: all ease-in-out .1s;
+    &:hover, &:focus {
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
+      z-index: 10;
+      text-decoration: inherit;
+    }
+  }
+}
+
+[class^="risk"] i {
+  color: inherit;
+}
+
+.draft {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic.base import TemplateResponseMixin
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils.decorators import method_decorator
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
@@ -88,18 +89,46 @@ class DrugView(View, TemplateResponseMixin):
 
     template_name = 'drugcombinator/drug.html'
 
-    def get(self, request, name):
+
+    def get(self, request, **kwargs):
+
+        ctx = self.get_context(request, **kwargs)
         
+        if ctx['name'] != ctx['drug'].slug:
+            return redirect(reverse(
+                request.resolver_match.url_name,
+                kwargs = {'name': ctx['drug'].slug}
+            ), permanent = True)
+        
+        return self.render_to_response(ctx)
+    
+
+    def get_context(self, request, name):
+
         drug = Drug.objects.get_from_name_or_404(name)
-        
-        if name != drug.slug:
-            return redirect(drug, permanent=True)
-        
         interactions = (drug.interactions
             .prefetch_related('from_drug', 'to_drug')
             .order_by('is_draft', '-risk')
         )
-        return self.render_to_response(locals())
+        
+        return locals()
+
+
+@method_decorator(xframe_options_exempt, name='dispatch')
+class RecapView(DrugView):
+
+    template_name = 'drugcombinator/recap.html'
+
+
+    def get_context(self, *args, **kwargs):
+        
+        ctx = super().get_context(*args, **kwargs)
+        ctx['interactions'] = ctx['interactions'].filter(is_draft=False)
+        
+        for inter in ctx['interactions']:
+            inter.drug = inter.other_interactant(ctx['drug'])
+        
+        return ctx
 
 
 @xframe_options_exempt

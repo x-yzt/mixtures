@@ -1,0 +1,30 @@
+{% extends 'mixtures/base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{% static 'drugcombinator/css/iframes.min.css' %}">
+{% endblock %}
+
+{% block rels %}
+  <base target="_parent">
+{% endblock %}
+
+{% block body %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>
+      <a href="{% url 'main' %}"><img src="{% static 'mixtures/img/logo.svg' %}"></a>
+      <br/>
+      <a href="{% block full_url %}{% endblock %}">Version détaillée sur Mixtures.info</a>
+    </p>
+  </footer>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'drugcombinator/js/iframes.js' %}"></script>
+{% endblock %}

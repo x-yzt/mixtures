@@ -15,6 +15,7 @@ urlpatterns = [
     path('combo/<slug_list:slugs>/', views.combine, name='combine'),
     path('substance/<str:name>/', views.DrugView.as_view(), name='drug'),
     path('substances/', views.drug_search, name='drug_search'),
+    path('recap/<str:name>/', views.RecapView.as_view(), name='recap'),
     path('table/', views.table, name='table'),
     path('table/<slug_list:slugs>/', views.table, name='table'),
     path('docs/', views.docs, name='docs'),
