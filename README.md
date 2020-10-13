@@ -21,6 +21,22 @@ designed this way because:
 Finally, some generic parts (like the about page or 404 templates) lie
 in project-wide directories.
 
+### Views
+
+This project uses a mix of function-based and class-based views.
+Function-based views are prefered for simplicity, but CBVs better suit
+certain scenarios (e.g. when inheritance is required).
+
+#### CBVs
+
+In addition to usual Django conventions, CBVs implement a `get_context`
+method returning a `SimpleNamespace` object. This allows dot notation
+to be used when setting up the context in the view code, and overriding
+of the `get_context` method when inherited classes need to append
+objects to view context. The `get`, `post` or `dispatch` methods are
+then responsible to call `vars()` on the `SimpleNamespace` object to
+pass an usual `dict` to the template renderer.
+
 ### About SASS
 
 Mixtures uses SASS for generating its stylesheets. Each app has its own

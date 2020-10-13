@@ -1,4 +1,5 @@
 from itertools import chain
+from types import SimpleNamespace
 from django.db.models import Count, F
 from django.shortcuts import render, redirect
 from django.http import Http404
@@ -94,24 +95,25 @@ class DrugView(View, TemplateResponseMixin):
 
         ctx = self.get_context(request, **kwargs)
         
-        if ctx['name'] != ctx['drug'].slug:
+        if kwargs['name'] != ctx.drug.slug:
             return redirect(reverse(
                 request.resolver_match.url_name,
-                kwargs = {'name': ctx['drug'].slug}
-            ), permanent = True)
+                kwargs = {'name': ctx.drug.slug}
+            ), permanent=True)
         
-        return self.render_to_response(ctx)
+        return self.render_to_response(vars(ctx))
     
 
     def get_context(self, request, name):
 
-        drug = Drug.objects.get_from_name_or_404(name)
-        interactions = (drug.interactions
+        ctx = SimpleNamespace()
+        ctx.drug = Drug.objects.get_from_name_or_404(name)
+        ctx.interactions = (ctx.drug.interactions
             .prefetch_related('from_drug', 'to_drug')
             .order_by('is_draft', '-risk')
         )
         
-        return locals()
+        return ctx
 
 
 @method_decorator(xframe_options_exempt, name='dispatch')
@@ -123,10 +125,11 @@ class RecapView(DrugView):
     def get_context(self, *args, **kwargs):
         
         ctx = super().get_context(*args, **kwargs)
+        ctx.interactions = ctx.interactions.filter(is_draft=False)
         ctx['interactions'] = ctx['interactions'].filter(is_draft=False)
         
-        for inter in ctx['interactions']:
-            inter.drug = inter.other_interactant(ctx['drug'])
+        for inter in ctx.interactions:
+            inter.drug = inter.other_interactant(ctx.drug)
         
         return ctx
 
