@@ -119,7 +119,7 @@ class DrugView(View, TemplateResponseMixin):
 @method_decorator(xframe_options_exempt, name='dispatch')
 class RecapView(DrugView):
 
-    template_name = 'drugcombinator/recap.html'
+    template_name = 'drugcombinator/iframes/recap.html'
 
 
     def get_context(self, *args, **kwargs):
@@ -161,7 +161,7 @@ def table(request, slugs=None):
         chart_data[inter.from_drug][inter.to_drug] = inter
         chart_data[inter.to_drug][inter.from_drug] = inter
 
-    return render(request, 'drugcombinator/table.html', locals())
+    return render(request, 'drugcombinator/iframes/table.html', locals())
 
 
 def docs(request):
