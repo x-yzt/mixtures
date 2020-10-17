@@ -126,7 +126,8 @@ class RecapView(DrugView):
         
         ctx = super().get_context(*args, **kwargs)
         ctx.interactions = ctx.interactions.filter(is_draft=False)
-        ctx['interactions'] = ctx['interactions'].filter(is_draft=False)
+        ctx.dummy_risks = Interaction.get_dummy_risks()
+        ctx.dummy_synergies = Interaction.get_dummy_synergies()
         
         for inter in ctx.interactions:
             inter.drug = inter.other_interactant(ctx.drug)

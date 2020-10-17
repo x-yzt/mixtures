@@ -1,0 +1,27 @@
+<div class="row legend">
+  <ul class="col">
+    {% for interaction in dummy_risks %}
+      <li>
+        <div class="icon risk risk-{{ interaction.risk }}">
+          <div class="label"></div>
+        </div>
+        <div class="text">
+          {% include 'drugcombinator/combine_info/risk_text.html' %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <ul class="col">
+    {% for interaction in dummy_synergies %}
+      <li>
+        <div class="icon">
+          {% include 'drugcombinator/combine_info/synergy_icon.html' %}
+        </div>
+        <div class="text">
+          {% include 'drugcombinator/combine_info/synergy_text.html' %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

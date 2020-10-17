@@ -4,6 +4,15 @@
 @use 'combinator';
 
 
+/* Mixins */
+
+%clear::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+
 /* Combination table */
 
 $border-color: #FFF;
@@ -110,6 +119,17 @@ h1 {
   color: $secondary-color;
 }
 
+.col {
+  @media (min-width: 680px) {
+    width: 50%;
+    float: left;
+  }
+}
+
+.row {
+  @extend %clear;
+}
+
 .scroll {
   max-width: 100%;
   overflow-x: auto;
@@ -133,6 +153,27 @@ a {
         box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
         z-index: 10;
       }
+    }
+  }
+}
+
+.legend ul {
+  padding: 0;
+  list-style-type: none;
+  li {
+    display: flex;
+    align-items: center;
+    margin: 5px 8px;
+    .icon {
+      margin-right: 4px;
+    }
+    .label {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+    }
+    i {
+      vertical-align: middle;
     }
   }
 }
