@@ -1,11 +1,13 @@
 {% if interaction.risk == interaction.Risk.NEUTRAL %}
-La combinaison de ces substances n’augmente pas significativement leurs risques.
+  La combinaison de ces substances n’augmente pas significativement leurs risques 
+  par rapport à une consommation indépendante.
 {% elif interaction.risk == interaction.Risk.CAUTION %}
-La combinaison de ces substances présente un risque faible ou peut déclencher des situations à risque.
+  Cette combinaison présente de faibles risques physiques ou mentaux 
+  ou peut déclencher des situations à risque.
 {% elif interaction.risk == interaction.Risk.UNSAFE %}
- La combinaison de ces substances présente un risque non négligeable.
+  La combinaison de ces substances présente des risques physique ou mentaux non négligeables.
 {% elif interaction.risk == interaction.Risk.DANGEROUS %}
-  La combinaison de ces substances présente un risque important.
+  La combinaison de ces substances présente des risques importants.
 {% else %}
-  La combinaison de ces substances présente un risque inconnu.
+  La combinaison de ces substances présente des risques inconnus.
 {% endif %}
