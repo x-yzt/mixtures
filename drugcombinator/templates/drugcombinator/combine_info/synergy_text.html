@@ -1,13 +1,14 @@
 {% if interaction.synergy == interaction.Synergy.NEUTRAL %}
   Les effets de ces substances se superposent sans interagir de façon significative.
 {% elif interaction.synergy == interaction.Synergy.ADDITIVE %}
-  Les effets de ces substances sont similaires et s’additionnent.
+  Ces substances n'interagissent pas de façon significative. Leurs effets sont similaires
+  et s'additionnent.
 {% elif interaction.synergy == interaction.Synergy.DECREASE %}
-  Les effets de ces substances sont contradictoires et s’atténuent.
+  Les effets ressentis de ces substances sont contradictoires et s’atténuent.
 {% elif interaction.synergy == interaction.Synergy.INCREASE %}
   Les effets de ces substances sont multipliés ou fortement modifiés par leur combinaison.
 {% elif interaction.synergy == interaction.Synergy.MIXED %}
-  Certains effets sont augmentés, et d’autres atténués, par la combinaison de ces substances.
+  La combinaison de ces substances atténue certains de leurs effet et en augmente d'autres.
 {% else %}
   Les effets de cette combinaison ne sont pas connus.
 {% endif %}
