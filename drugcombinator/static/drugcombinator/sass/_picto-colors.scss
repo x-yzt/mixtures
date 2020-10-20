@@ -19,7 +19,7 @@ $syn-colors: #6DE #27F #DF1F67 #81E #FF76D6;
     color: $default-color;
   }
   .label {
-    background: $default-color;
+    background-color: $default-color;
     color: text-color($default-color);
   }
 }
@@ -33,7 +33,7 @@ $palette: ("risk": $risk-colors, "synergy": $syn-colors);
         color: $color;
       }
       .label {
-        background: $color;
+        background-color: $color;
         color: text-color($color);
       }
     }
