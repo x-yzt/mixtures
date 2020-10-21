@@ -8,7 +8,14 @@ SECRET_KEY = 'devKey'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# Hosts and domains
+
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1']
+
+BASE_SUBDOMAINS = ['www']
+
+DEFAULT_DOMAIN = 'localhost:8000' # Port is needed
 
 
 # Application definition
@@ -32,6 +39,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'drugportals.middleware.DynamicSubdomainMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -143,9 +151,13 @@ if os.environ.get("PROD") == 'TRUE':
 
     print("Production settings found, overriding dev settings.")    
     
-    django_heroku.settings(locals(), logging=False)
+    django_heroku.settings(locals(), logging=False, allowed_hosts=False)
 
     DEBUG = False
+
+    ALLOWED_HOSTS = ['.mixtures.info']
+
+    DEFAULT_DOMAIN = 'mixtures.info'
 
     CACHES = {
         'default': {

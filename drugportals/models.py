@@ -1,6 +1,6 @@
 from django.db.models import (Model, CASCADE, CharField, DateTimeField,
     OneToOneField)
-from django.urls import reverse
+from drugportals.middleware import reverse
 
 
 class Portal(Model):
