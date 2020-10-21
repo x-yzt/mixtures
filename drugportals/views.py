@@ -1,15 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import Http404
-from drugcombinator.models import Interaction
+from drugcombinator.models import Drug, Interaction
 from drugportals.models import Portal
 
 
-def portal(request, drug):
+def _get_drug(request, drug):
 
-    try:
-        portal = Portal.objects.get(drug__slug=drug)
-    except Portal.DoesNotExist:
-        raise Http404("Ce portail n'existe pas.")
+    request.drug = get_object_or_404(Drug, slug=drug)
+
+
+def portal(request):
+
+    portal = get_object_or_404(Portal, drug=request.drug)
 
     interactions = (
         portal.drug.interactions
