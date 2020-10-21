@@ -9,11 +9,11 @@ SECRET_KEY = 'devKey'
 DEBUG = True
 
 
-# Hosts
-
-ALLOWED_HOSTS = []
+# Hosts and URLs
 
 ROOT_HOSTCONF = 'mixtures.hosts'
+
+ROOT_URLCONF = 'mixtures.urls'
 
 DEFAULT_HOST = 'root'
 
@@ -50,8 +50,6 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
-
-ROOT_URLCONF = 'mixtures.urls'
 
 TEMPLATES = [
     {
@@ -158,9 +156,11 @@ if os.environ.get("PROD") == 'TRUE':
 
     print("Production settings found, overriding dev settings.")    
     
-    django_heroku.settings(locals(), logging=False)
+    django_heroku.settings(locals(), logging=False, allowed_hosts=False)
 
     DEBUG = False
+
+    ALLOWED_HOSTS = ['.mixtures.info']
 
     PARENT_HOST = 'mixtures.info'
 
