@@ -44,6 +44,8 @@ a few tweaks:
 
 - Static pages sitemaps use a custom child class which allows shorter
   definition;
+- Sitemaps of objects that are served by a subdomain use a custom child
+  class which support fully qualified domain names in reversed URLs;
 - Each app has its own `sitemaps` module, which is responsible for
   defining a `SITEMAPS` dict containing the sitemaps such as
   `{'sitemap_name': sitemap_object}`;

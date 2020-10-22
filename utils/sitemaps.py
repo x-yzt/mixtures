@@ -1,8 +1,9 @@
 from django.apps import apps
-from django.contrib.sitemaps import Sitemap
+from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.conf import settings
 from django.urls import reverse
 from importlib import import_module
+import re
 
 
 class StaticSitemap(Sitemap):
@@ -30,6 +31,31 @@ class StaticSitemap(Sitemap):
 
     def changefreq(self, item):
         return self.pages[item].get('changefreq', self._changefreq)
+
+
+class FullDomainSitemapMixin:
+    """
+        This mixin is intended to work with `Sitemap` or
+        `GenericSitemap`, and allows use with objects which the
+        `location` already contains a full domain.
+
+        This is useful when dealing when multidomain sites, e.g. when 
+        using the `django-host` package.
+     """
+    def location(self, *args):
+        # The reversed URL may contain an unwanted domain scheme
+        url = super().location(*args)
+        # Strip 'http://', 'https://' or '//'
+        return re.sub(r'^(https?:)?//', '', url)
+    
+    
+    def _urls(self, page, protocol, domain):
+        # Null the domain, because it is already part of location
+        return super()._urls(page, protocol, domain='')
+
+
+class FullDomainGenericSitemap(FullDomainSitemapMixin, GenericSitemap):
+    pass
 
 
 def get_app_sitemaps():

@@ -1,9 +1,9 @@
-from django.contrib.sitemaps import GenericSitemap
+from utils.sitemaps import FullDomainGenericSitemap
 from drugportals.models import Portal
 
 
 SITEMAPS = {
-    'portals': GenericSitemap(
+    'portals': FullDomainGenericSitemap(
         {
             'queryset': Portal.objects.all(),
         },
