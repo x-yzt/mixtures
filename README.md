@@ -37,6 +37,21 @@ objects to view context. The `get`, `post` or `dispatch` methods are
 then responsible to call `vars()` on the `SimpleNamespace` object to
 pass an usual `dict` to the template renderer.
 
+### Sitemaps
+
+In addition to the `django.contrib.sitemaps` package, this project uses
+a few tweaks:
+
+- Static pages sitemaps use a custom child class which allows shorter
+  definition;
+- Each app has its own `sitemaps` module, which is responsible for
+  defining a `SITEMAPS` dict containing the sitemaps such as
+  `{'sitemap_name': sitemap_object}`;
+- A `get_apps_sitemaps` function is used in order to collect those
+  sitemaps and prefix them.
+
+Relevant source code lives in the `utils/sitemaps` directory.
+
 ### About SASS
 
 Mixtures uses SASS for generating its stylesheets. Each app has its own
