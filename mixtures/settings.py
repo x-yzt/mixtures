@@ -8,7 +8,16 @@ SECRET_KEY = 'devKey'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# Hosts and URLs
+
+ROOT_HOSTCONF = 'mixtures.hosts'
+
+ROOT_URLCONF = 'mixtures.urls'
+
+DEFAULT_HOST = 'root'
+
+PARENT_HOST = 'localhost:8000'
 
 
 # Application definition
@@ -22,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    'django_hosts',
     'simple_history',
     'markdown_deux',
     'drugcombinator.apps.DrugcombinatorConfig',
@@ -29,6 +39,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -37,9 +48,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
-
-ROOT_URLCONF = 'mixtures.urls'
 
 TEMPLATES = [
     {
@@ -53,6 +63,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins' : [
+                'django_hosts.templatetags.hosts_override',
+            ]
         },
     },
 ]
@@ -143,9 +156,13 @@ if os.environ.get("PROD") == 'TRUE':
 
     print("Production settings found, overriding dev settings.")    
     
-    django_heroku.settings(locals(), logging=False)
+    django_heroku.settings(locals(), logging=False, allowed_hosts=False)
 
     DEBUG = False
+
+    ALLOWED_HOSTS = ['.mixtures.info']
+
+    PARENT_HOST = 'mixtures.info'
 
     CACHES = {
         'default': {

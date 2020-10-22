@@ -1,6 +1,6 @@
 from django.db.models import (Model, CASCADE, CharField, DateTimeField,
     OneToOneField)
-from django.urls import reverse
+from django_hosts.resolvers import reverse
 
 
 class Portal(Model):
@@ -25,7 +25,9 @@ class Portal(Model):
 
 
     def get_absolute_url(self):
-        return reverse('portal', kwargs={'drug': self.drug.slug})
+        return reverse('portal',
+            host='portals', host_kwargs={'drug': self.drug.slug},
+        )
     
 
     class Meta:

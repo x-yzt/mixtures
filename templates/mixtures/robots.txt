@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://{{ request.get_host }}{% url 'django.contrib.sitemaps.views.sitemap' %}
+Sitemap: {% url 'django.contrib.sitemaps.views.sitemap' scheme 'https' %}
