@@ -12,7 +12,9 @@
         liés aux interactions entre drogues.
       {% endblock %}"{% endfilter %}
     >
-    <meta property="og:image" contenu="{% static 'mixtures/img/logo.svg' %}"/>
+    <meta property="og:image"
+      content="{{ request.scheme }}://{{ request.get_host }}{% static 'mixtures/img/logo.svg' %}"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{% static 'mixtures/img/icon.png' %}"/>
     <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}"/>
