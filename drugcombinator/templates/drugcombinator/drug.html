@@ -48,6 +48,16 @@
       <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
     {% endfor %}
   </div>
+
+  {% if interactions %}
+    <div class="row">
+      <button class="btn modal-trigger" data-target="embed-modal">
+        <i class="material-icons left">addchart</i> Intégrer ces données
+      </button>
+    </div>
+  {% endif %}
+
+  {% include 'drugcombinator/embed_modal.html' %}
 {% endblock %}
 
 {% block scripts %}
