@@ -1,6 +1,7 @@
 from itertools import chain
 from types import SimpleNamespace
 from django.db.models import Count, F
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
@@ -8,6 +9,7 @@ from django.views import View
 from django.views.generic.base import TemplateResponseMixin
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
+from django_hosts.resolvers import reverse_host
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
@@ -107,6 +109,7 @@ class DrugView(View, TemplateResponseMixin):
     def get_context(self, request, name):
 
         ctx = SimpleNamespace()
+        ctx.default_host = reverse_host(settings.DEFAULT_HOST)
         ctx.drug = Drug.objects.get_from_name_or_404(name)
         ctx.interactions = (ctx.drug.interactions
             .prefetch_related('from_drug', 'to_drug')
