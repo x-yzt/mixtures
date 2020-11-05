@@ -1,4 +1,5 @@
-const origin = "https://www.mixtures.info";
+const origin = "https://mixtures.info";
+// const origin = "http://localhost:8000";
 
 window.addEventListener('message', event => {
     if (event.origin === origin) {
