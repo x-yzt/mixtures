@@ -80,6 +80,14 @@ h3, h5 {
   }
 }
 
+pre {
+  padding: 0 4px;
+  white-space: pre-wrap;
+  border-radius: 5px;
+  background: color("grey", "lighten-4");
+  border: 1px solid color("grey", "lighten-1");
+}
+
 .warning {
   color: $warning-color;
 }
