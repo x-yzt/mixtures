@@ -1,10 +1,31 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-01 15:55+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: simple_history/admin.py:227
+#: .\templates\admin\index.html:9
+msgid "Recent actions"
+msgstr "Actions récentes"
+
+#: .\templates\admin\index.html:10
+msgid "Last actions"
+msgstr "Dernières actions"
+
+#: .\templates\admin\index.html:14
+msgid "None available"
+msgstr "Aucune"
+
+#: .\templates\admin\index.html:32
+msgid "by"
+msgstr "par"
+
+#: .\templates\admin\index.html:35
+msgid "Unknown content"
+msgstr "Contenu inconnu"
+
 #, python-format
 msgid "Revert %s"
 msgstr "Rétablir %s"
