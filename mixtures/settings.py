@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'django_hosts',
     'simple_history',
     'markdown_deux',
@@ -75,6 +77,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mixtures.wsgi.application'
+
+SITE_ID = 1
 
 
 # Markdown preprocessor
