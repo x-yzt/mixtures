@@ -18,8 +18,8 @@ designed this way because:
 3. And last but not least, we are not sure if they will survive
    after Mixtures goes out of beta.
 
-Finally, some generic parts (like the about page or 404 templates) lie
-in project-wide directories.
+Finally, some generic parts (like the flatpages or 404 templates) lie in
+project-wide directories.
 
 ### Views
 
