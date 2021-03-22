@@ -1,0 +1,15 @@
+{% extends 'mixtures/base.html' %}
+
+{% block title %}
+  {{ flatpage.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <h1>{{ flatpage.title }}</h1>
+  </div>
+
+  <div class="row">
+    {{ flatpage.content }}
+  </div>
+{% endblock %}
