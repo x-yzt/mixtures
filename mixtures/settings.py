@@ -11,13 +11,17 @@ DEBUG = True
 
 # Hosts and URLs
 
+ALLOWED_HOSTS = ('*',)
+
 ROOT_HOSTCONF = 'mixtures.hosts'
 
 ROOT_URLCONF = 'mixtures.urls'
 
 DEFAULT_HOST = 'root'
 
-PARENT_HOST = 'localhost:8000'
+PARENT_HOST = 'localhost'
+
+HOST_PORT = '8000'
 
 
 # Application definition
@@ -163,6 +167,8 @@ if os.environ.get("PROD") == 'TRUE':
     ALLOWED_HOSTS = ['.mixtures.info']
 
     PARENT_HOST = 'mixtures.info'
+
+    HOST_PORT = ''
 
     CACHES = {
         'default': {
