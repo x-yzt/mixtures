@@ -12,10 +12,12 @@ def template(name, *args, **kwargs):
 urlpatterns = [
     path('', include('drugcombinator.urls')),
     path('portail/', include('drugportals.urls')),
-    path('a-propos/', template('mixtures/about.html'), name='about'),
     path('robots.txt', template('mixtures/robots.txt', content_type='text/plain')),
     path('sitemap.xml', sitemap_view, {'sitemaps': SITEMAPS},
          name='django.contrib.sitemaps.views.sitemap'),
     path('admin/', admin.site.urls),
-    path('<path:url>', flatpage_view, name='flatpage'),
+    # This provides backward compatibility for the "about" flatpage URL
+    # reversing, becaiuse it used to be a TemplateView
+    path('a-propos/', flatpage_view, {'url': '/a-propos/'}, name='about'),
+    path('<path:url>/', flatpage_view, name='flatpage'),
 ]
