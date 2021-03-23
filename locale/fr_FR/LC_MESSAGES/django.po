@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-01 15:55+0200\n"
+"POT-Creation-Date: 2021-03-23 02:33+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,6 +25,8 @@ msgstr "par"
 #: .\templates\admin\index.html:35
 msgid "Unknown content"
 msgstr "Contenu inconnu"
+
+# Temporary stuff for simple_hostory (supposed to be merged at some point)
 
 #, python-format
 msgid "Revert %s"
