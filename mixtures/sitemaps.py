@@ -7,7 +7,8 @@ pages_sitemap = StaticSitemap(
     },
     priority = 0.5,
     changefreq = 'daily',
-    protocol = 'https'
+    protocol = 'https',
+    i18n = True
 )
 
 SITEMAPS = {

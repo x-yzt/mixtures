@@ -11,7 +11,8 @@ pages_sitemap = StaticSitemap(
     },
     priority = 0.5,
     changefreq = 'daily',
-    protocol = 'https'
+    protocol = 'https',
+    i18n = True
 )
 
 drugs_sitemap = GenericSitemap(
@@ -23,6 +24,7 @@ drugs_sitemap = GenericSitemap(
     changefreq = 'daily',
     protocol = 'https'
 )
+drugs_sitemap.i18n = True
 
 interactions_sitemap = GenericSitemap(
     {
@@ -33,6 +35,7 @@ interactions_sitemap = GenericSitemap(
     changefreq = 'daily',
     protocol = 'https'
 )
+interactions_sitemap.i18n = True
 
 SITEMAPS = {
     'pages': pages_sitemap,
