@@ -12,7 +12,7 @@ def template(name, *args, **kwargs):
 
 urlpatterns = i18n_patterns(
     path('', include('drugcombinator.urls')),
-    path('a-propos/', template('mixtures/about.html'), name='about'),
+    path('about/', template('mixtures/about.html'), name='about'),
     path('admin/', admin.site.urls),
 )
 urlpatterns += (
