@@ -9,6 +9,20 @@
 }
 
 
+/* Language selector */
+
+#lang-form {
+  display: inline;
+  margin-left: 6px;
+
+  @media (max-width: 767px) {
+    display: block;
+    text-align: center;
+    margin-top: 6px;
+  }
+}
+
+
 /* Colors */
 
 #header, .module h2, .module caption, .inline-group h2 {
