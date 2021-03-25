@@ -1,8 +1,9 @@
 from django.contrib import admin
-from simple_history.admin import SimpleHistoryAdmin
 from django.template.loader import render_to_string
-from drugcombinator.models import Drug, Interaction, Category, Note
+from modeltranslation.admin import TabbedTranslationAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
+from drugcombinator.models import Drug, Interaction, Category, Note
 
 admin.site.site_header = "Mixtures.info"
 admin.site.site_title = "Administration de Mixtures.info"
@@ -116,7 +117,6 @@ class InteractionInlineFirst(InteractionInline):
     verbose_name_plural = "Interactions (première partie)"
 
 
-@admin.register(Drug)
 class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
@@ -169,7 +169,11 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
         return super().get_inline_instances(request, obj=None)
 
 
-@admin.register(Interaction)
+@admin.register(Drug)
+class TranslatedDrugAdmin(DrugAdmin, TabbedTranslationAdmin):
+    pass
+
+
 class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
@@ -275,6 +279,11 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         css = {
             'all': ('mixtures/css/admin/forms.min.css',),
         }
+
+
+@admin.register(Interaction)
+class TranslatedInteractionAdmin(InteractionAdmin, TabbedTranslationAdmin):
+    pass
 
 
 @admin.register(Category)
