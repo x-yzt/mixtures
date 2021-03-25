@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% get_available_languages as languages %}
+{% get_current_language as current_language %}
+
+<form id="lang-form" class="browser-default" action="{% url 'set_language' %}" method="post" hidden>
+  {% csrf_token %}
+  <select name="language">
+    {% for lang in languages %}
+      <option {% if lang == current_language %}selected{% endif %} value="{{ lang.0 }}"></option>
+    {% endfor %}
+  </select>
+</form>
+
+<a id="lang-selector" class="dropdown-trigger" href="#" data-target="lang-dropdown">
+  <i class="material-icons">language</i>
+</a>
+
+<ul id="lang-dropdown" class="dropdown-content">
+  {% for lang in languages %}
+    <li><a href="#" data-value="{{ lang.0 }}">{{ lang.1 }}</a></li>
+  {% endfor %}
+</ul>

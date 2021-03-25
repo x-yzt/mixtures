@@ -1,8 +1,11 @@
 {% load static %}
+{% load i18n %}
 {% load strings %}
 
+{% get_current_language as current_language %}
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ current_language }}">
   <head>
     <title>{% block title %}Mixtures.info{% endblock %}</title>
     <meta charset="utf-8">
@@ -49,6 +52,7 @@
                   <li><a href="{% url 'docs' %}">API</a></li>
                   <li><a href="{% url 'about' %}">À propos</a></li>
                 {% endblock %}
+                <li>{% include 'mixtures/language_selector.html' %}</li>
               </ul>
             </div>
           </nav>
@@ -134,6 +138,7 @@
       
     {% block scripts %}
       <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
+      <script src="{% static 'mixtures/js/language_selector.js' %}"></script>
       <script>M.AutoInit();</script>
     {% endblock %}
   </body>

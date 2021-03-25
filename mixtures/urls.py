@@ -16,6 +16,8 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
 )
 urlpatterns += (
+    # The following is needed for the setlang view
+    path('', include('django.conf.urls.i18n')),
     path('robots.txt', template('mixtures/robots.txt',
          content_type='text/plain')),
     path('sitemap.xml', sitemap_view, {'sitemaps': SITEMAPS},
