@@ -75,7 +75,10 @@ class Drug(LastModifiedModel):
             "de boutons dans l'app."
     )
 
-    history = HistoricalRecords()
+    # History manager will be added through simple_history's register
+    # function in translation.py, after the translated fields are
+    # added by modeltranslation
+    # history = HistoricalRecords()
     objects = DrugManager()
 
 
@@ -207,7 +210,10 @@ class Interaction(LastModifiedModel):
             " ou incomplètes."
     )
 
-    history = HistoricalRecords()
+    # History manager will be added throug simple_history's register
+    # function in translation.py, after the translated fields are
+    # added by modeltranslation
+    # history = HistoricalRecords()
     objects = InteractionManager()
 
 
