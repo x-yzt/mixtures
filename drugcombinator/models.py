@@ -128,7 +128,7 @@ class Drug(LastModifiedModel):
 
     class Meta:
         verbose_name = "substance"
-        ordering = ('name',)
+        ordering = ('slug',)
 
 
 class Interaction(LastModifiedModel):
@@ -245,7 +245,7 @@ class Interaction(LastModifiedModel):
     
     @interactants.setter
     def interactants(self, interactants):
-        interactants = sorted(interactants, key=attrgetter('name'))
+        interactants = sorted(interactants, key=attrgetter('slug'))
         self.from_drug, self.to_drug = interactants
 
 
