@@ -197,14 +197,10 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         }),
         ("Données d'interaction", {
             'fields': (
-                (
-                    'risk', 'risk_reliability', 'risk_description',
-                    'drugs_risks'
-                ),
-                (
-                    'synergy', 'effects_reliability',
-                    'effect_description', 'drugs_effects'
-                ),
+                ('risk', 'risk_reliability', 'drugs_risks'),
+                ('risk_description',),
+                ('synergy', 'effects_reliability', 'drugs_effects'),
+                ('effect_description',),
             ),
             'classes': ('vertical-label',)
         }),
@@ -286,7 +282,6 @@ class TranslatedInteractionAdmin(InteractionAdmin, TabbedTranslationAdmin):
     pass
 
 
-@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slug')
     date_hierarchy = 'last_modified'
@@ -297,6 +292,11 @@ class CategoryAdmin(admin.ModelAdmin):
         'description'
     )
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Category)
+class TranslatedCategoryAdmin(CategoryAdmin, TabbedTranslationAdmin):
+    pass
 
 
 @admin.register(Note)

@@ -84,6 +84,12 @@ input[type="button"] {
   }
 }
 
+li.ui-tabs-active, li.ui-tabs-selected {
+  a {
+    background-color: $secondary-color !important;
+  }
+}
+
 .select2-container--admin-autocomplete
 .select2-results__option--highlighted[aria-selected] {
   background-color: $secondary-color !important;
