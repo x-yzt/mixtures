@@ -10,7 +10,10 @@ class CombinatorForm(forms.Form):
         widget=forms.SelectMultiple(attrs={
             'searchable': "Rechercher dans cette liste"
         }),
-        queryset=Drug.objects.order_by('category__name', 'name'),
+        queryset=(Drug.objects
+            .order_by_translated('name')
+            .order_by('category__name')
+        ),
         choices_groupby='category',
         label="Drogues à combiner"
     )

@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
 from django_hosts.resolvers import reverse_host
+
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction
 from drugcombinator.forms import CombinatorForm, SearchForm
@@ -19,7 +20,7 @@ from drugportals.models import Portal
 
 def main(request):
 
-    drugs = Drug.objects.all()
+    drugs = Drug.objects.order_by_translated('name')
     common_drugs = drugs.filter(common=True)
     uncategorized_drugs = drugs.filter(category=None)
     categories = Category.objects.all()
@@ -42,7 +43,7 @@ def main(request):
 
 def drug_search(request):
 
-    drugs = Drug.objects.all()
+    drugs = Drug.objects.order_by_translated('name')
     common_drugs = drugs.filter(common=True)
 
     if request.method == 'POST':

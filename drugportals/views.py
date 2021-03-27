@@ -1,5 +1,7 @@
+from operator import attrgetter
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
+
 from drugcombinator.models import Drug, Interaction
 from drugportals.models import Portal
 
@@ -17,11 +19,11 @@ def portal(request):
         portal.drug.interactions
         .filter(is_draft=False)
         .prefetch_related('from_drug', 'to_drug')
-        .order_by_name()
     )
     for inter in interactions:
         inter.drug = inter.other_interactant(portal.drug)
-    
+    interactions = sorted(interactions, key=attrgetter('drug.name'))
+
     dummy_risks = Interaction.get_dummy_risks()
     
     return render(request, 'drugportals/portal.html', locals())
