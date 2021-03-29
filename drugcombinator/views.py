@@ -72,7 +72,7 @@ def drug_search(request):
 def combine(request, slugs):
 
     if len(slugs) < 2:
-        raise Http400("Au moins deux substances sont nécessaires.")
+        raise Http400("At least two substances are requiered")
 
     drugs = Drug.objects.filter(slug__in=slugs)
     interactions = (

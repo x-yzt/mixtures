@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 23:26+0300\n"
+"POT-Creation-Date: 2021-03-29 23:46+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -94,6 +94,26 @@ msgstr "Marquer les interactions sélectionnées comme publiées"
 #: .\drugcombinator\admin.py:273
 msgid "Sort the linked substances of selected interactions"
 msgstr "Réorganiser les substances liées aux interactions sélectionnées"
+
+#: .\drugcombinator\apps.py:8
+msgid "Drug combinator"
+msgstr "Combinateur de substances"
+
+#: .\drugcombinator\forms.py:12
+msgid "Search in this list"
+msgstr "Rechercher dans cette liste"
+
+#: .\drugcombinator\forms.py:19
+msgid "Substances to combine"
+msgstr "Drogues à combiner"
+
+#: .\drugcombinator\forms.py:25
+msgid "Select substances"
+msgstr "Sélectionnez des substances"
+
+#: .\drugcombinator\forms.py:35
+msgid "Find a substance"
+msgstr "Rechercher une substance"
 
 #: .\drugcombinator\models.py:19
 msgid "last modification"
