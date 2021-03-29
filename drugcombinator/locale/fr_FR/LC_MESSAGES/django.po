@@ -1,10 +1,99 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-27 23:14+0200\n"
+"POT-Creation-Date: 2021-03-29 23:26+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: .\drugcombinator\admin.py:10
+msgid "Mixtures.info adminisration"
+msgstr "Administration de Mixtures.info"
+
+#: .\drugcombinator\admin.py:11
+msgid "Welcome to Mixtures.info administration"
+msgstr "Bienvenue dans l'administration de Mixtures.info"
+
+#: .\drugcombinator\admin.py:34
+msgid "No modification"
+msgstr "Aucune modification"
+
+#: .\drugcombinator\admin.py:87
+msgid "Descriptions"
+msgstr ""
+
+#: .\drugcombinator\admin.py:93 .\drugcombinator\admin.py:94
+msgid "Other substance"
+msgstr "Autre substance"
+
+#: .\drugcombinator\admin.py:101
+msgid "Interactions (second part)"
+msgstr "Interactions (seconde partie)"
+
+#: .\drugcombinator\admin.py:118
+msgid "Interactions (first part)"
+msgstr "Interactions (première partie)"
+
+#: .\drugcombinator\admin.py:133
+msgid "Base informations"
+msgstr "Informations de base"
+
+#: .\drugcombinator\admin.py:139
+msgid "Detailled informations"
+msgstr "Informations détaillées"
+
+#: .\drugcombinator\admin.py:144 .\drugcombinator\admin.py:198
+msgid "Interaction data"
+msgstr "Données d'interaction"
+
+#: .\drugcombinator\admin.py:146
+msgid ""
+"Interaction data that does no depends on another specific substance. Those "
+"texts will be displayed in all interaction cards about this substance."
+msgstr ""
+"Données d'interaction ne dépendant pas d'une autre substance en particulier. "
+"Ces textes seront affichés dans toutes les fiches d'interaction qui "
+"concernent cette substance."
+
+#: .\drugcombinator\admin.py:162 .\drugcombinator\admin.py:257
+msgid "Related notes"
+msgstr "Notes liées"
+
+#: .\drugcombinator\admin.py:207
+msgid "Notes"
+msgstr ""
+
+#: .\drugcombinator\admin.py:215
+msgid ""
+"Those data will be automatically added to the \"risks\" field in the app."
+msgstr ""
+"Ces données seront automatiquement rajoutées au champ \"risques\" dans l'app."
+
+#: .\drugcombinator\admin.py:219
+msgid ""
+"Those data will be automatically added to the \"effects\" field in the app."
+msgstr ""
+"Ces données seront automatiquement rajoutées au champ \"effects\" dans l'app."
+
+#: .\drugcombinator\admin.py:240
+msgid "Substance-related risks"
+msgstr "Risques liés aux substances"
+
+#: .\drugcombinator\admin.py:250
+msgid "Substance-related effects"
+msgstr "Effets liés aux substances"
+
+#: .\drugcombinator\admin.py:261
+msgid "Mark all selected interactions as drafts"
+msgstr "Marquer les interactions sélectionnées comme brouillons"
+
+#: .\drugcombinator\admin.py:266
+msgid "Mark all selected interactions as published"
+msgstr "Marquer les interactions sélectionnées comme publiées"
+
+#: .\drugcombinator\admin.py:273
+msgid "Sort the linked substances of selected interactions"
+msgstr "Réorganiser les substances liées aux interactions sélectionnées"
 
 #: .\drugcombinator\models.py:19
 msgid "last modification"
