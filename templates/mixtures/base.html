@@ -10,10 +10,10 @@
     <title>{% block title %}Mixtures.info{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="description" content=
-      {% filter stripspaces %}"{% block description %}
-        Mixtures.info est une application de réduction des risques, dédiée aux synergies et risques
-        liés aux interactions entre drogues.
-      {% endblock %}"{% endfilter %}
+      {% filter stripspaces %}"{% block description %}{% blocktranslate trimmed %}
+        Mixtures.info is a harm reduction application, dedicated to the synergies and risks of drug
+        interactions.
+      {% endblocktranslate %}{% endblock %}"{% endfilter %}
     >
     <meta property="og:image"
       content="{{ request.scheme }}://{{ request.get_host }}{% static 'mixtures/img/og-icon.jpg' %}"
@@ -37,7 +37,7 @@
             <div class="nav-wrapper container">
               <a href="/" class="brand-logo valign-wrapper">
                 {% block logo %}
-                  <img src="{% static 'mixtures/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+                  <img src="{% static 'mixtures/img/logo.svg' %}" alt="Mixtures.info logo"/>
                 {% endblock %}
               </a>
 
@@ -47,10 +47,10 @@
 
               <ul class="right hide-on-med-and-down">
                 {% block nav-links %}
-                  <li><a href="{% url 'main' %}">Combinaisons</a></li>
-                  <li><a href="{% url 'drug_search' %}">Substances</a></li>
-                  <li><a href="{% url 'docs' %}">API</a></li>
-                  <li><a href="{% url 'about' %}">À propos</a></li>
+                  <li><a href="{% url 'main' %}">{% translate 'Combinations' %}</a></li>
+                  <li><a href="{% url 'drug_search' %}">{% translate 'Substances' %}</a></li>
+                  <li><a href="{% url 'docs' %}">{% translate 'API' %}</a></li>
+                  <li><a href="{% url 'about' %}">{% translate 'About' %}</a></li>
                 {% endblock %}
                 <li>{% include 'mixtures/language_selector.html' %}</li>
               </ul>
@@ -60,24 +60,24 @@
 
         <ul class="sidenav" id="mobile-nav">
           <li class="logo">
-            <img src="{% static 'mixtures/img/icon.svg' %}" alt="Logo Mixtures.info"/>
+            <img src="{% static 'mixtures/img/icon.svg' %}" alt="Mixtures.info logo"/>
           </li>
 
           <li><div class="divider"></div></li>
 
           {% block nav-links-mobile %}
             <li><a class="waves-effect" href="{% url 'main' %}">
-              <i class="material-icons">merge_type</i>Combinaisons
+              <i class="material-icons">merge_type</i>{% translate 'Combinations' %}
             </a></li>
             <li><a class="waves-effect" href="{% url 'drug_search' %}">
-              <i class="material-icons">bubble_chart</i>Substances
+              <i class="material-icons">bubble_chart</i>{% translate 'Substances' %}
             </a></li>
             <li><div class="divider"></div></li>
             <li><a class="waves-effect" href="{% url 'docs' %}">
-              <i class="material-icons">code</i>API
+              <i class="material-icons">code</i>{% translate 'API' %}
             </a></li>
             <li><a class="waves-effect" href="{% url 'about' %}">
-              <i class="material-icons">help_outline</i>À propos
+              <i class="material-icons">help_outline</i>{% translate 'About' %}
             </a></li>
           {% endblock %}
         </ul>
@@ -93,30 +93,42 @@
         <div class="container">
           <div class="row">
             <div class="col l6 s12">
-              <h5><i class="material-icons">help_outline</i>Mixtures.info</h5>
-              <p>
-                Cette application vise à la réduction des risques liés à la consommation de drogues,
-                et est proposée à fins informatives uniquement.
-              </p>
-              <p>
-                La consommation de substances psychoactives comporte des risques. Effectuez
-                systématiquement des recherches complémentaires avant d'en consommer.
-              </p>
+              <h5><i class="material-icons">help_outline</i> Mixtures.info</h5>
+              {% blocktranslate trimmed %}
+                <p>
+                  This application is aimed at reducing the risks associated with drug use, and is
+                  offered for informational purposes only.
+                </p>
+                <p>
+                  Psychoactive substance use always involves risks. Always do additional research
+                  before taking some.
+                </p>
+              {% endblocktranslate %}
             </div>
 
             <div class="col l5 offset-l1 s12">
-              <h5><i class="material-icons">link</i>Liens utiles</h5>
+              <h5><i class="material-icons">link</i> {% translate 'Useful links' %}</h5>
               <ul>
                 <li>
-                  <a href="https://www.psychonaut.fr">Psychonaut</a>, forum francophone sur les
-                  psychoactifs et le psychonautisme
+                  {% with attrs='href="https://www.psychonaut.fr" rel="nofollow"' %}
+                    {% blocktranslate trimmed %}
+                      <a {{ attrs }}>Psychonaut</a>, forum about psychoactives and psychonautism
+                    {% endblocktranslate %}
+                  {% endwith %}
                 </li>
                 <li>
-                  <a href="https://psychonautwiki.org">PsychonautWiki</a>, encyclopédie des
-                  psychoactifs libre et anglophone
+                  {% with attrs='href="https://psychonautwiki.org" rel="nofollow"' %}
+                    {% blocktranslate trimmed %}
+                      <a {{ attrs }}>PsychonautWiki</a>, free encyclopedia of psychoactives
+                    {% endblocktranslate %}
+                  {% endwith %}
                 </li>
                 <li>
-                  <a href="https://github.com/x-yzt/mixtures">Code source</a> de cette application
+                  {% with attrs='href="https://github.com/x-yzt/mixtures" rel="nofollow"' %}
+                    {% blocktranslate trimmed %}
+                      <a {{ attrs }}>Source code</a> of this application
+                    {% endblocktranslate %}
+                  {% endwith %}
                 </li>
               </ul>
             </div>
@@ -126,10 +138,14 @@
         <div class="footer-copyright">
           <div class="container">
             <span class="left">
-              Programmé et conçu par <a href="mailto://xyzt@psychonaut.fr">xyzt_</a>
+              {% with link='<a href="mailto://xyzt@psychonaut.fr">xyzt_</a>' %}
+                {% blocktranslate trimmed %}
+                  Programmed and designed by {{ link }}
+                {% endblocktranslate %}
+              {% endwith %}
             </span>
             <span class="right">
-              <a href="{% url 'admin:index' %}">Accès contributeurs</a>
+              <a href="{% url 'admin:index' %}">{% translate 'Contributor access'%}</a>
             </span>
           </div>
         </div>
