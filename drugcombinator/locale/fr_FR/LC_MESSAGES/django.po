@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 23:46+0300\n"
+"POT-Creation-Date: 2021-03-30 14:54+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -347,6 +347,28 @@ msgstr ""
 #: .\drugcombinator\models.py:339
 msgid "note"
 msgstr ""
+
+#: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:8
+#, python-format
+msgid "Interaction data for substance %(drug)s:"
+msgstr "Données d'interaction de la substance %(drug)s :"
+
+#: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:15
+#, python-format
+msgid "No interaction data for substance %(drug)s."
+msgstr "Pas de données d'interaction pour la substance %(drug)s."
+
+#: .\drugcombinator\templates\drugcombinator\admin\notes.html:10
+#, python-format
+msgid "%(number)s note related to substance %(drug)s is avalaible."
+msgid_plural "%(number)s notes related to substance %(drug)s are avalaible."
+msgstr[0] "%(number)se note liée à la substance %(drug)s est disponible."
+msgstr[1] "%(number)s notes liées à la substance %(drug)s sont disponibles."
+
+#: .\drugcombinator\templates\drugcombinator\admin\notes.html:17
+#, python-format
+msgid "No note related to substance %(drug)s."
+msgstr "Aucune note n'est liée à la substance %(drug)s."
 
 #: .\drugcombinator\utils.py:26
 #, python-brace-format
