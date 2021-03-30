@@ -1,5 +1,6 @@
 {% extends 'mixtures/base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% load humanize %}
 {% load collections %}
@@ -14,12 +15,14 @@
 {% endblock %}
 
 {% block title %}
-  {{ combination_name }} | Combinaison {{ block.super }}
+  {{ combination_name }} | {% translate 'Combination' %} | {{ block.super }}
 {% endblock %}
 
 {% block description %}
-  Risques et effets de la combinaison entre les substances {{ drugs|humanlist }}. Mixtures.info,
-  synergies et risques liés aux interactions entre drogues.
+  {% blocktranslate with drugs=drugs|humanlist trimmed %}
+    Risks and effects of the combination of {{ drugs }} substances.
+  {% endblocktranslate %}
+  {% translate 'Mixtures.info, synergies and risks of drug interactions.' %}
 {% endblock %}
 
 {% block content %}
@@ -36,25 +39,35 @@
   {% if unknown_interactions and interactions %}
     <p class="flow-text warning">
       <i class="material-icons small left">warning</i>
-      Attention : {{ unknown_interactions|apnumber }}{{ unknown_interactions|pluralize:'e,' }}
-      interaction{{ unknown_interactions|pluralize }} n'{{ unknown_interactions|pluralize:'a,ont' }}
-      pas été trouvée{{ unknown_interactions|pluralize }} dans notre base de données.
+      {% with count=unknown_interactions %}
+        {% blocktranslate count _=count with number=count|apnumber trimmed %}
+          Warning: {{ number }} interaction was not found in our database.
+        {% plural %}
+          Warning: {{ number }} interactions were not found in our database.
+        {% endblocktranslate %}
+      {% endwith %}
     </p>
   {% endif %}
 
   {% if drugs.count > 2 %}
     <p class="flow-text warning">
       <i class="material-icons small left">warning</i>
-      Prudence : {{ drugs.count|apnumber }} substances ont été sélectionnées. Mixtures.info délivre
-      uniquement des informations sur les interactions entre deux substances.
+      {% blocktranslate with number=drugs.count|apnumber trimmed %}
+        Caution: {{ number }} substances have been selected. Mixtures.info only provides information
+        on substance pairs.
+      {% endblocktranslate %}
     </p>
   {% endif %}
 
   {% for interaction in interactions %}
     {% include 'drugcombinator/interaction.html' %}
   {% empty %}
-    <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
-    <p class="flow-text">Ça pourrait être bon signe. Ou pas. Méfiance.</p>
+    <p class="flow-text">
+      {% translate 'No interactions were found in our database.' %}
+    </p>
+    <p class="flow-text">
+      {% translate 'This could be a good sign. Or not. Beware.' %}
+    </p>
   {% endfor %}
 {% endblock %}
 

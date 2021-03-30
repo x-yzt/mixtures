@@ -1,5 +1,6 @@
 {% extends 'mixtures/base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% load humanize %}
 {% load markdown_deux_tags %}
@@ -10,32 +11,34 @@
 {% endblock %}
 
 {% block description %}
-  Risques et effets de la combinaison de la substance {{ drugs }} avec d'autres psychoactifs.
-  Mixtures.info, synergies et risques liés aux interactions entre drogues.
+  {% blocktranslate trimmed %}
+    Risks and effects of combining the substance {{ drugs }} with other psychoactives.
+  {% endblocktranslate %}
+  {% translate 'Mixtures.info, synergies and risks of drug interactions.' %}
 {% endblock %}
 
 {% block title %}
-  {{ drug }} | Substance {{ block.super }}
+  {{ drug }} | {% translate 'Substance' %} | {{ block.super }}
 {% endblock %}
 
 {% block content %}
   <div class="row">
-    <h1>Substance : {{ drug }}</h1>
+    <h1>{% translate 'Substance:' %} {{ drug }}</h1>
     <div class="divider"></div>
   </div>
 
   <div class="row">
-    <h2><i class="material-icons small">info</i> À propos</h2>
+    <h2><i class="material-icons small">info</i> {% translate 'About' %}</h2>
     {% if drug.description %}
       {{ drug.description|markdown }}
     {% else %}
-      <p>Aucune information supplémentaire n'est disponible.</p>
+      <p>{% translate 'No additional information available.' %}</p>
     {% endif %}
   </div>
 
   <div class="row">
     {% if drug.risks or drug.effects %}
-      <h2><i class="material-icons small">warning</i> Avertissements</h2>
+      <h2><i class="material-icons small">warning</i> {% translate 'Warnings' %}</h2>
       {{ drug.risks|markdown }}
       {{ drug.effects|markdown }}
     {% endif %}
@@ -45,14 +48,16 @@
     {% for interaction in interactions %}
       {% include 'drugcombinator/interaction.html' %}
     {% empty %}
-      <p class="flow-text">Aucune interaction n'a été trouvée dans notre base de données.</p>
+      <p class="flow-text">
+        {% translate 'No interactions were found in our database.' %}
+      </p>
     {% endfor %}
   </div>
 
   {% if interactions %}
     <div class="row">
       <button class="btn modal-trigger" data-target="embed-modal">
-        <i class="material-icons left">addchart</i> Intégrer ces données
+        <i class="material-icons left">addchart</i> {% translate 'Embedding this data' %}
       </button>
     </div>
   {% endif %}
