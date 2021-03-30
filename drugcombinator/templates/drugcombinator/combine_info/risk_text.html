@@ -1,13 +1,25 @@
+{% load i18n %}
+
 {% if interaction.risk == interaction.Risk.NEUTRAL %}
-  La combinaison de ces substances n'augmente pas significativement leurs risques 
-  par rapport à une consommation indépendante.
+  {% blocktranslate trimmed %}
+    The combination of these substances does not significantly increase their risks compared to
+    independent use.
+  {% endblocktranslate %}
 {% elif interaction.risk == interaction.Risk.CAUTION %}
-  Cette combinaison présente de faibles risques physiques ou mentaux,
-  ou peut déclencher des situations à risque.
+  {% blocktranslate trimmed %}
+    This combination presents relatively low physical or mental risks, or may result in risky
+    situations.
+  {% endblocktranslate %}
 {% elif interaction.risk == interaction.Risk.UNSAFE %}
-  La combinaison de ces substances présente des risques physiques ou mentaux non négligeables.
+  {% blocktranslate trimmed %}
+    The combination of these substances presents non-negligible physical or mental risks.
+  {% endblocktranslate %}
 {% elif interaction.risk == interaction.Risk.DANGEROUS %}
-  La combinaison de ces substances présente d'importants risques physiques ou mentaux.
+  {% blocktranslate trimmed %}
+    The combination of these substances presents major physical or mental risks.
+  {% endblocktranslate %}
 {% else %}
-  Les risques de cette combinaison ne sont pas assez connus pour être correctement évalués.
+  {% blocktranslate trimmed %}
+    The risks of this combination are not sufficiently known to be properly estimated.
+  {% endblocktranslate %}
 {% endif %}

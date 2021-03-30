@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-30 14:54+0300\n"
+"POT-Creation-Date: 2021-03-30 15:37+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -369,6 +369,89 @@ msgstr[1] "%(number)s notes liées à la substance %(drug)s sont disponibles."
 #, python-format
 msgid "No note related to substance %(drug)s."
 msgstr "Aucune note n'est liée à la substance %(drug)s."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:4
+msgid ""
+"The combination of these substances does not significantly increase their "
+"risks compared to independent use."
+msgstr ""
+"La combinaison de ces substances n'augmente pas significativement leurs "
+"risques par rapport à une consommation indépendante."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:9
+msgid ""
+"This combination presents relatively low physical or mental risks, or may "
+"result in risky situations."
+msgstr ""
+"Cette combinaison présente de faibles risques physiques ou mentaux, ou peut "
+"déclencher des situations à risque."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:14
+msgid ""
+"The combination of these substances presents non-negligible physical or "
+"mental risks."
+msgstr ""
+"La combinaison de ces substances présente des risques physiques ou mentaux "
+"non négligeables."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:18
+msgid ""
+"The combination of these substances presents major physical or mental risks."
+msgstr ""
+"La combinaison de ces substances présente d'importants risques physiques ou "
+"mentaux."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:22
+msgid ""
+"The risks of this combination are not sufficiently known to be properly "
+"estimated."
+msgstr ""
+"Les risques de cette combinaison ne sont pas assez connus pour être "
+"correctement évalués."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:4
+msgid ""
+"These substances do not interact in any significant way. Their effects are "
+"cumulative."
+msgstr ""
+"Ces substances n'interagissent pas de façon significative. Leurs effets se "
+"cumulent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:8
+msgid ""
+"These substances do not interact significantly. Their effects are similar "
+"and add up."
+msgstr ""
+"Ces substances n'interagissent pas de façon significative. Leurs effets sont "
+"similaires et s'additionnent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:12
+msgid ""
+"The effects of these substances are contradictory and some of them are "
+"attenuated."
+msgstr ""
+"Les effets de ces substances sont contradictoires et certains d'entre eux "
+"s’atténuent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:16
+msgid ""
+"The effects of these substances are multiplied or greatly modified by their "
+"combination."
+msgstr ""
+"Les effets de ces substances sont multipliés ou fortement modifiés par leur "
+"combinaison."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:20
+msgid ""
+"The combination of these substances attenuates some of their effects and "
+"increases others."
+msgstr ""
+"La combinaison de ces substances atténue certains de leurs effet et en "
+"augmente d'autres."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:24
+msgid "The effects of this combination are not known."
+msgstr "Les effets de cette combinaison ne sont pas connus."
 
 #: .\drugcombinator\utils.py:26
 #, python-brace-format
