@@ -671,8 +671,9 @@ msgid "Paragraphs are separated by two carriage returns."
 msgstr "Les paragraphes sont séparés par deux retours à la ligne."
 
 # Needed for displaying custom history list fields correctly
-#~ msgid "modified_fields"
-#~ msgstr "Champs modifiés"
 
-#~ msgid "is_draft"
-#~ msgstr "Brouillon"
+msgid "modified_fields"
+msgstr "Champs modifiés"
+
+msgid "is_draft"
+msgstr "Brouillon"
