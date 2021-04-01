@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-30 18:30+0300\n"
+"POT-Creation-Date: 2021-04-01 21:08+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -660,6 +660,10 @@ msgstr ""
 #: .\drugcombinator\templates\drugcombinator\main.html:80
 msgid "Mix!"
 msgstr "Mélanger !"
+
+#: .\drugcombinator\templatetags\collections.py:31
+msgid "and"
+msgstr "et"
 
 #: .\drugcombinator\utils.py:26
 #, python-brace-format
