@@ -1,5 +1,6 @@
 from django.db.models import (Model, CASCADE, CharField, DateTimeField,
     OneToOneField)
+from django.utils.translation import gettext_lazy as _
 from django_hosts.resolvers import reverse
 
 
@@ -7,16 +8,16 @@ class Portal(Model):
 
     name = CharField(
         max_length = 128,
-        verbose_name = "nom"
+        verbose_name = _("name")
     )
     drug = OneToOneField(
         'drugcombinator.Drug', CASCADE,
         related_name = 'portal',
-        verbose_name = "substance"
+        verbose_name = _("substance")
     )
     last_modified = DateTimeField(
         auto_now = True,
-        verbose_name = "dernière modification"
+        verbose_name = _("last modification")
     )
 
 
@@ -31,4 +32,4 @@ class Portal(Model):
     
 
     class Meta:
-        verbose_name = "portail"
+        verbose_name = _("portal")

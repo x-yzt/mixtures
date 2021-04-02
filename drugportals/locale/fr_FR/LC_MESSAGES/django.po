@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-02 20:52+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\drugportals\apps.py:7
+msgid "Drug portals"
+msgstr "Portails de substances"
+
+#: .\drugportals\models.py:11
+msgid "name"
+msgstr "nom"
+
+#: .\drugportals\models.py:16
+msgid "substance"
+msgstr ""
+
+#: .\drugportals\models.py:20
+msgid "last modification"
+msgstr "dernière modification"
+
+#: .\drugportals\models.py:35
+msgid "portal"
+msgstr "portail"
+
+#: .\drugportals\templates\drugportals\portal.html:10
+#, python-format
+msgid ""
+"Mixtures.info is a harm reduction application. The %(portal)s is dedicated "
+"to synergies and risks of drug interactions."
+msgstr ""
+"Mixtures.info est une application de réduction des risques. Le %(portal)s "
+"est dédié aux synergies et risques des interactions entre drogues."
+
+#: .\drugportals\templates\drugportals\portal.html:26
+#: .\drugportals\templates\drugportals\portal.html:32
+msgid "Mixtures project"
+msgstr "Projet Mixtures"
+
+#: .\drugportals\templates\drugportals\portal.html:27
+#: .\drugportals\templates\drugportals\portal.html:35
+msgid "About"
+msgstr "À propos"
+
+#: .\drugportals\templates\drugportals\portal.html:44
+msgid ""
+"This portal is intended to inform about the effects and risks of mixing with "
+"other drugs."
+msgstr ""
+"Ce portail est destiné à informer sur les effets et risques du mélange avec "
+"d'autres drogues."
+
+#: .\drugportals\templates\drugportals\portal.html:49
+msgid "Interactions with other substances"
+msgstr "Interactions avec d'autres substances"
+
+#: .\drugportals\templates\drugportals\portal.html:74
+#, python-format
+msgid ""
+"Mixtures.info aims to provide verifiable data on drug mixtures. This portal "
+"is only a preview of a much more ambitious project, which concerns most "
+"drugs commonly used. This is a long-term effort, and if you wish to support "
+"us in any way, <a %(attrs)s>contact us</a>. Reviews and corrections are also "
+"welcome!"
+msgstr ""
+"Mixtures.info a pour objectif de délivrer des données vérifiables sur les "
+"mélanges de drogues. Ce portail n'est que l’aperçu d’un projet bien plus "
+"ambitieux, qui concerne la plupart des drogues en usage. C'est un travail de "
+"longue haleine, et si vous souhaitez nous soutenir d'une quelconque manière, "
+"<a %(attrs)s>contactez-nous</a>. Les critiques et corrections sont également "
+"bienvenues !"

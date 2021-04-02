@@ -1,6 +1,7 @@
 from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
 
 
 class DrugportalsConfig(AppConfig):
     name = 'drugportals'
-    verbose_name = "Portails de substances"
+    verbose_name = _("Drug portals")
