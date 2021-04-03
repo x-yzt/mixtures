@@ -21,6 +21,35 @@ designed this way because:
 Finally, some generic parts (like the about page or 404 templates) lie
 in project-wide directories.
 
+### Subdomains
+
+The `drugportals` app uses a special subdomain routing. It uses a fork
+of `django-hosts` that fixes bare subdomain routing -which is supposed
+to be merged at some point- to serve portals pages.
+
+This means **any relevant subdomain (eg. `portalname.exemple.com`)
+should be routed to Django** for portals to work, either on a production
+or development environment.
+
+#### When using the dev server
+
+One caveat of this approach is some inconsistencies in the behaviors of
+a local dev server and a production environment, due to the `localhost`
+domain not containing a `.` in it.
+
+This is mainly because:
+
+- The vast majority of web browsers does not allow setting a wildcard
+  cookie domain to a hostname that does not contains a not, such as
+  `.com` or -you guessed it- `.localhost`;
+- Of how `django-hosts` parses URLs (however, with the forked version it
+  should be consistent).
+
+One easy solution to this is to serve the application on another host in
+the dev environment, such as `local.host`, for exemple by editing the
+hosts configuration file. Some `settings.py` entries will need updating
+to reflect this.
+
 ### Views
 
 This project uses a mix of function-based and class-based views.
