@@ -186,6 +186,8 @@ if os.environ.get("PROD") == 'TRUE':
 
     SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
 
+    LANGUAGE_COOKIE_DOMAIN = '.' + PARENT_HOST
+
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
