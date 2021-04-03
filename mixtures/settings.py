@@ -164,11 +164,15 @@ if os.environ.get("PROD") == 'TRUE':
 
     DEBUG = False
 
-    ALLOWED_HOSTS = ['.mixtures.info']
-
     PARENT_HOST = 'mixtures.info'
 
+    ALLOWED_HOSTS = ['.' + PARENT_HOST]
+
     HOST_PORT = ''
+
+    CSRF_COOKIE_DOMAIN = '.' + PARENT_HOST
+
+    SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
 
     CACHES = {
         'default': {
