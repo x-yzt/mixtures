@@ -79,9 +79,9 @@
             <li><a class="waves-effect" href="{% url 'about' %}">
               <i class="material-icons">help_outline</i>{% translate 'About' %}
             </a></li>
-            <li><div class="divider"></div></li>
-            <li>{% include 'mixtures/language_selector.html' with text=_('Language') %}</li>
           {% endblock %}
+          <li><div class="divider"></div></li>
+          <li>{% include 'mixtures/language_selector.html' with text=_('Language') %}</li>
         </ul>
       </header>
         
