@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-30 13:57+0300\n"
+"POT-Creation-Date: 2021-04-04 20:08+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,7 +72,11 @@ msgstr ""
 msgid "About"
 msgstr "À propos"
 
-#: .\templates\mixtures\base.html:97
+#: .\templates\mixtures\base.html:83
+msgid "Language"
+msgstr "Langue"
+
+#: .\templates\mixtures\base.html:99
 msgid ""
 "<p> This application is aimed at reducing the risks associated with drug "
 "use, and is offered for informational purposes only. </p> <p> Psychoactive "
@@ -84,11 +88,11 @@ msgstr ""
 "consommation de substances psychoactives comporte des risques. Effectuez "
 "systématiquement des recherches complémentaires avant d'en consommer. </p>"
 
-#: .\templates\mixtures\base.html:110
+#: .\templates\mixtures\base.html:112
 msgid "Useful links"
 msgstr "Liens utiles"
 
-#: .\templates\mixtures\base.html:114
+#: .\templates\mixtures\base.html:116
 #, python-format
 msgid ""
 "<a %(attrs)s>Psychonaut</a>, forum about psychoactives and psychonautism"
@@ -96,23 +100,23 @@ msgstr ""
 "<a %(attrs)s>Psychonaut</a>, forum francophone sur les psychoactifs et le "
 "psychonautisme"
 
-#: .\templates\mixtures\base.html:121
+#: .\templates\mixtures\base.html:123
 #, python-format
 msgid "<a %(attrs)s>PsychonautWiki</a>, free encyclopedia of psychoactives"
 msgstr ""
 "<a %(attrs)s>PsychonautWiki</a>, encyclopédie libre et anglophone des "
 "psychoactifs"
 
-#: .\templates\mixtures\base.html:128
+#: .\templates\mixtures\base.html:130
 #, python-format
 msgid "<a %(attrs)s>Source code</a> of this application"
 msgstr "<a %(attrs)s>Code source</a> de cette application"
 
-#: .\templates\mixtures\base.html:142
+#: .\templates\mixtures\base.html:144
 #, python-format
 msgid "Programmed and designed by %(link)s"
 msgstr "Programmé et conçu par %(link)s"
 
-#: .\templates\mixtures\base.html:148
+#: .\templates\mixtures\base.html:150
 msgid "Contributor access"
 msgstr "Accès contributeurs"

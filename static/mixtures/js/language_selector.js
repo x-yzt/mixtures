@@ -1,18 +1,27 @@
 document.addEventListener('DOMContentLoaded', event => {
-    const selector = document.getElementById('lang-selector');
-    const dropdown = document.getElementById('lang-dropdown');
+    // Those are the "GUI" selectors element on the page, it is possible
+    // there is multiple of them on a single page
+    const selectors = document.querySelectorAll('.lang-selector');
+    const dropdowns = document.querySelectorAll('.lang-dropdown');
+    // This is the unique, hidden language form that will be used to
+    // submit POST data
     const form = document.getElementById('lang-form');
     const select = form.querySelector('[name="language"]');
 
-    M.Dropdown.init(selector, {
-        alignment: 'right',
-        coverTrigger: false
+    selectors.forEach(selector => {
+        M.Dropdown.init(selector, {
+            alignment: 'right',
+            coverTrigger: false
+        });
     });
 
-    dropdown.querySelectorAll('a').forEach(option => {
-        option.addEventListener('click', event => {
-            select.value = event.target.getAttribute('data-value');
-            form.submit();
+    dropdowns.forEach(dropdown => {
+        dropdown.querySelectorAll('a').forEach(option => {
+            option.addEventListener('click', event => {
+                event.preventDefault();
+                select.value = event.target.getAttribute('data-value');
+                form.submit();
+            });
         });
     });
 });

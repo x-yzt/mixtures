@@ -1,7 +1,9 @@
 {% load i18n %}
+{% load strings %}
 
 {% get_available_languages as languages %}
 {% get_current_language as current_language %}
+{% uuid as id %}
 
 <form id="lang-form" class="browser-default" action="{% url 'set_language' %}" method="post" hidden>
   {% csrf_token %}
@@ -12,12 +14,12 @@
   </select>
 </form>
 
-<a id="lang-selector" class="dropdown-trigger" href="#" data-target="lang-dropdown">
-  <i class="material-icons">language</i>
+<a class="lang-selector dropdown-trigger" href="#" data-target="{{ id }}">
+  <i class="material-icons">language</i>{{ text }}
 </a>
 
-<ul id="lang-dropdown" class="dropdown-content">
+<ul id="{{ id }}" class="lang-dropdown dropdown-content">
   {% for lang in languages %}
-    <li><a href="#" data-value="{{ lang.0 }}">{{ lang.1 }}</a></li>
+    <li><a href="" data-value="{{ lang.0 }}">{{ lang.1 }}</a></li>
   {% endfor %}
 </ul>
