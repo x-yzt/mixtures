@@ -1,5 +1,7 @@
 # Mixtures
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/77793bc01946a6e772b9/maintainability)](https://codeclimate.com/github/x-yzt/mixtures/maintainability)
+
 Mixtures website source code.
 
 ## Technical docs
