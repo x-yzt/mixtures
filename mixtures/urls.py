@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap as sitemap_view
 
 from mixtures.sitemaps import SITEMAPS
+from utils.i18n import set_language_view
 
 
 def template(name, *args, **kwargs):
@@ -16,8 +17,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
 )
 urlpatterns += (
-    # The following is needed for the setlang view
-    path('', include('django.conf.urls.i18n')),
+    path('setlang', set_language_view, name='set_language'),
     path('robots.txt', template('mixtures/robots.txt',
          content_type='text/plain')),
     path('sitemap.xml', sitemap_view, {'sitemaps': SITEMAPS},
