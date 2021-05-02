@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load collections %}
 {% load strings %}
 
@@ -33,14 +34,16 @@
     {% if interaction.is_draft %}
       <div class="draft-modal valign-wrapper">
         <i class="material-icons large">rowing</i>
-        <p class="flow-text">Attention ! Cette fiche est un brouillon.</p>
+        <p class="flow-text">{% translate 'Warning! This card is a draft.' %}</p>
         <p>
-          Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, mais à être
-          retravaillée. Son contenu peut être très lacunaire, voire faux. Si vous voulez nous aider,
-          vous pouvez toutefois afficher son contenu.
+          {% blocktranslate trimmed %}
+            This is a draft, not intended to deliver information, but to be reworked. Its content
+            can be very incomplete, and even erroneous. If you want to help us, you can however view
+            its content.
+          {% endblocktranslate %}
         </p>
         <a class="waves-effect waves-light btn draft-modal-reveal">
-          <i class="material-icons left">visibility</i>Je fais attention, promis
+          <i class="material-icons left">visibility</i>{% translate "I'll be careful, I promise" %}
         </a>
       </div>
     {% endif %}

@@ -1,24 +1,33 @@
 {% load admin_urls %}
+{% load i18n %}
 {% load humanize %}
+{% load strings %}
 
 {% for drug in drugs %}
   {% with count=drug.notes.count %}
     {% if count %}
-      {{ count|apnumber|capfirst }}{{ count|pluralize:'e,' }} note{{ count|pluralize }}
-      liée{{ count|pluralize }} à la substance {{ drug }} {{ count|pluralize:'est,sont' }}
-      disponible{{ count|pluralize }}.
+      {% filter stripspaces|capfirst %}
+        {% blocktranslate with number=count|apnumber count _=count trimmed %}
+          {{ number }} note related to substance {{ drug }} is avalaible.
+        {% plural %}
+          {{ number }} notes related to substance {{ drug }} are avalaible.
+        {% endblocktranslate %}
+      {% endfilter %}
     {% else %}
-      Aucune note n'est liée à la substance {{ drug }}.
+      {% blocktranslate trimmed %}
+        No note related to substance {{ drug }}.
+      {% endblocktranslate %}
     {% endif %}
-    <ol>
-      {% for note in drug.notes.all %}
-        <li><b>
-          <a class="related-widget-wrapper-link"
-              href="{% url 'admin:drugcombinator_note_change' note.pk %}?_popup=1">
-            {{ note }}
-          </a>
-        </b></li>
-      {% endfor %}
-    </ol>
   {% endwith %}
+
+  <ol>
+    {% for note in drug.notes.all %}
+      <li><b>
+        <a class="related-widget-wrapper-link"
+            href="{% url 'admin:drugcombinator_note_change' note.pk %}?_popup=1">
+          {{ note }}
+        </a>
+      </b></li>
+    {% endfor %}
+  </ol>
 {% endfor %}

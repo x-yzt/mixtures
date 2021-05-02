@@ -1,13 +1,16 @@
 {% extends 'mixtures/base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% load markdown_deux_tags %}
 
 {% block title %}{{ portal.name }} - {{ block.super }}{% endblock %}
 
 {% block description %}
-  Mixtures.info est une application de réduction des risques. Le {{ portal }} est dédié aux
-  synergies et risques des interactions entre drogues.
+  {% blocktranslate trimmed %}
+    Mixtures.info is a harm reduction application. The {{ portal }} is dedicated to synergies and
+    risks of drug interactions.
+  {% endblocktranslate %}
 {% endblock %}
 
 {% block stylesheets %}
@@ -16,20 +19,20 @@
 {% endblock %}
 
 {% block logo %}
-  <img src="{% static 'drugportals/img/logo.svg' %}" alt="Logo Mixtures.info"/>
+  <img src="{% static 'drugportals/img/logo.svg' %}" alt="Mixtures.info logo"/>
 {% endblock %}
 
 {% block nav-links %}
-  <li><a href="{% url 'main' %}">Projet Mixtures</a></li>
-  <li><a href="{% url 'about' %}">À propos</a></li>
+  <li><a href="{% url 'main' %}">{% translate 'Mixtures project' %}</a></li>
+  <li><a href="{% url 'about' %}">{% translate 'About' %}</a></li>
 {% endblock %}
 
 {% block nav-links-mobile %}
   <li><a class="waves-effect" href="{% url 'main' %}">
-    <i class="material-icons">merge_type</i>Projet Mixtures
+    <i class="material-icons">merge_type</i>{% translate 'Mixtures project' %}
   </a></li>
   <li><a class="waves-effect" href="{% url 'about' %}">
-    <i class="material-icons">help_outline</i>À propos
+    <i class="material-icons">help_outline</i>{% translate 'About' %}
   </a></li>
 {% endblock %}
 
@@ -38,10 +41,12 @@
     <h1>{{ portal.name }}</h1>
     <span>
       {{ portal.drug.description|markdown }}
-      Ce portail est destiné à informer sur les effets et risques du mélange avec d'autres drogues.
+      {% blocktranslate trimmed %}
+        This portal is intended to inform about the effects and risks of mixing with other drugs.
+      {% endblocktranslate %}
     </span>
 
-    <h2>Interactions avec d'autres substances</h2>
+    <h2>{% translate 'Interactions with other substances' %}</h2>
     <div class="drug-selector">
       {% for interaction in interactions %}
         <a id="drug-{{ interaction.drug.slug }}" class="btn waves-effect waves-light">
@@ -66,12 +71,12 @@
     <div class="card-panel welcome">
       <img src={% static 'mixtures/img/icon.svg' %} class="left"/>
       <span>
-        Mixtures.info a pour objectif de délivrer des données vérifiables sur les mélanges de
-        drogues. Ce portail n'est que l’aperçu d’un projet bien plus ambitieux, qui concerne la
-        plupart des drogues en usage. C'est un travail de longue haleine, et si vous souhaitez nous
-        soutenir d'une quelconque manière,
-        <a href="mailto://contact@mixtures.info">contactez-nous</a>. Les critiques et corrections
-        sont également bienvenues !
+        {% blocktranslate with attrs='href="mailto://contact@mixtures.info"' trimmed %}
+          Mixtures.info aims to provide verifiable data on drug mixtures. This portal is only a
+          preview of a much more ambitious project, which concerns most drugs commonly used. This is
+          a long-term effort, and if you wish to support us in any way, <a {{ attrs }}>contact
+          us</a>. Reviews and corrections are also welcome!
+        {% endblocktranslate %}
       </span>
     </div>
   </div>

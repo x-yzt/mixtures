@@ -1,21 +1,22 @@
+from operator import attrgetter
 from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
-    PositiveIntegerField, BooleanField, Max, CheckConstraint, F, Q,
-    UniqueConstraint, IntegerChoices)
-from django.db import OperationalError
+    BooleanField, CheckConstraint, F, Q, UniqueConstraint, IntegerChoices)
 from django.urls import reverse
+from django.utils.text import format_lazy
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from django.template.loader import render_to_string
-from simple_history.models import HistoricalRecords
-from operator import attrgetter
+
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.utils import markdown_allowed
+
 
 
 class LastModifiedModel(Model):
 
     last_modified = DateTimeField(
         auto_now=True,
-        verbose_name="dernière modification"
+        verbose_name=_("last modification")
     )
 
     class Meta:
@@ -26,56 +27,62 @@ class Drug(LastModifiedModel):
     
     name = CharField(
         max_length=128,
-        verbose_name="nom"
+        verbose_name=_("name")
     )
     slug = SlugField(
         unique=True,
-        verbose_name="identifiant"
+        verbose_name=_("identifier")
     )
     description = TextField(
         default='', blank=True,
-        verbose_name="description",
+        verbose_name=_("description"),
         help_text=markdown_allowed()
     )
     risks = TextField(
         default='', blank=True,
-        verbose_name="risques généraux",
-        help_text="Risques spécifiques à la combinaison de cette " \
-            "substance qui ne dépendent pas d'une interaction " \
-            "particulière.<br/>"
-            + markdown_allowed()
+        verbose_name=_("general risks"),
+        help_text=format_lazy('{text}<br/>{notice}',
+            text=_("Risks specific to combinations involving this "
+                "substance that do not depend on a specific "
+                "interaction."),
+            notice=markdown_allowed()
+        )
     )
     effects = TextField(
         default='', blank=True,
-        verbose_name="effets généraux",
-        help_text="Effets spécifiques à la combinaison de cette " \
-            "substance qui ne dépendent pas d'une interaction " \
-            "particulière.<br/>"
-            + markdown_allowed()
+        verbose_name=_("general effects"),
+        help_text=format_lazy('{text}<br/>{notice}',
+            text=_("Effects specific to combinations involving this "
+                "substance that do not depend on a specific "
+                "interaction."),
+            notice=markdown_allowed()
+        )
     )
     _aliases = TextField(
         default='', blank=True,
-        verbose_name="dénominations",
-        help_text="Un alias par ligne. Insensible à la casse."
+        verbose_name=_("aliases"),
+        help_text=_("One alias per line. No need to duplicate case.")
     )
     interactants = ManyToManyField(
         'self',
         symmetrical=True, through='Interaction',
-        verbose_name="interactants"
+        verbose_name=_("interactants")
     )
     category = ForeignKey(
         'Category', SET_NULL,
         null=True, blank=True, related_name='drugs',
-        verbose_name="catégorie"
+        verbose_name=_("category")
     )
     common = BooleanField(
         default=True,
-        verbose_name="commune",
-        help_text="Les substances communes sont affichées sous forme " \
-            "de boutons dans l'app."
+        verbose_name=_("common"),
+        help_text=_("Common substances are displayed as buttons in the "
+            "app.")
     )
 
-    history = HistoricalRecords()
+    # History manager will be added through simple_history's register
+    # function in translation.py, after the translated fields are
+    # added by modeltranslation
     objects = DrugManager()
 
 
@@ -109,7 +116,7 @@ class Drug(LastModifiedModel):
     def aliases(self):
         als = self._aliases.split('\n')
         return [al.strip() for al in als if al]
-    aliases.fget.short_description = "Dénominations"
+    aliases.fget.short_description = _("Aliases")
     
     @aliases.setter
     def set_aliases(self, value):
@@ -124,90 +131,91 @@ class Drug(LastModifiedModel):
 
 
     class Meta:
-        verbose_name = "substance"
-        ordering = ('name',)
+        verbose_name = _("substance")
+        ordering = ('slug',)
 
 
 class Interaction(LastModifiedModel):
 
     class Synergy(IntegerChoices):
 
-        UNKNOWN = (0, "Inconnue")
-        NEUTRAL = (1, "Neutre")
-        ADDITIVE = (5, "Addition")
-        DECREASE = (2, "Atténuation")
-        INCREASE = (3, "Potentialisation")
-        MIXED = (4, "Mixte")
+        UNKNOWN = (0, pgettext_lazy("synergy", "Unknown"))
+        NEUTRAL = (1, pgettext_lazy("synergy", "Neutral"))
+        ADDITIVE = (5, _("Additive"))
+        DECREASE = (2, _("Decrease"))
+        INCREASE = (3, _("Increase"))
+        MIXED = (4, _("Mixed"))
 
 
     class Risk(IntegerChoices):
 
-        UNKNOWN = (0, "Inconnu")
-        NEUTRAL = (1, "Neutre")
-        CAUTION = (2, "Vigilance")
-        UNSAFE = (3, "Risqué")
-        DANGEROUS = (4, "Dangereux")
+        UNKNOWN = (0, pgettext_lazy("risk", "Unknown"))
+        NEUTRAL = (1, pgettext_lazy("risk", "Neutral"))
+        CAUTION = (2, _("Caution"))
+        UNSAFE = (3, _("Unsafe"))
+        DANGEROUS = (4, _("Dangerous"))
 
 
     class Reliability(IntegerChoices):
 
-        UNKNOWN = (0, "Non évaluée")
-        HYPOTHETICAL = (1, "Théorique")
-        INFERRED = (2, "Supposée")
-        PROVEN = (3, "Avérée")
+        UNKNOWN = (0, pgettext_lazy("reliability", "Unknown"))
+        HYPOTHETICAL = (1, _("Hypothetical"))
+        INFERRED = (2, _("Inferred"))
+        PROVEN = (3, _("Proven"))
 
 
     from_drug = ForeignKey(
         'Drug', CASCADE,
         related_name='interactions_from',
-        verbose_name="première substance"
+        verbose_name=_("first interactant")
     )
     to_drug = ForeignKey(
         'Drug', CASCADE,
         related_name='interactions_to',
-        verbose_name="seconde substance"
+        verbose_name=_("second interactant")
     )
     risk = IntegerField(
         choices=Risk.choices, default=Risk.UNKNOWN,
-        verbose_name="risques"
+        verbose_name=_("risks")
     )
     synergy = IntegerField(
         choices=Synergy.choices, default=Synergy.UNKNOWN,
-        verbose_name="synergie"
+        verbose_name=_("synergy")
     )
     risk_reliability = IntegerField(
         choices=Reliability.choices, default=Reliability.UNKNOWN,
-        verbose_name="fiabilité des risques"
+        verbose_name=_("risks reliability")
     )
     effects_reliability = IntegerField(
         choices=Reliability.choices, default=Reliability.UNKNOWN,
-        verbose_name="fiabilité de la synergie et des effets"
+        verbose_name=_("synergy and effects reliability")
     )
     risk_description = TextField(
         default='', blank=True,
-        verbose_name="description des risques",
+        verbose_name=_("risks description"),
         help_text=markdown_allowed()
     )
     effect_description = TextField(
         default='', blank=True,
-        verbose_name="description des effets",
+        verbose_name=_("effects description"),
         help_text=markdown_allowed()
     )
     notes = TextField(
         default='', blank=True,
-        verbose_name="notes",
-        help_text="Ce champ n'est visible que sur ce site " \
-            "d'administration et est partagé entre tous les " \
-            "utilisateurs."
+        verbose_name=_("notes"),
+        help_text=_("This field is only displayed on this admin site "
+            "and is shared between all users and languages.")
     )
     is_draft = BooleanField(
         default=True,
-        verbose_name="brouillon",
-        help_text="En cas de travail en cours, de données incertaines" \
-            " ou incomplètes."
+        verbose_name=_("draft"),
+        help_text=_("In case of work-in-progress, uncertain or "
+            "incomplete data.")
     )
 
-    history = HistoricalRecords()
+    # History manager will be added throug simple_history's register
+    # function in translation.py, after the translated fields are
+    # added by modeltranslation
     objects = InteractionManager()
 
 
@@ -239,7 +247,7 @@ class Interaction(LastModifiedModel):
     
     @interactants.setter
     def interactants(self, interactants):
-        interactants = sorted(interactants, key=attrgetter('name'))
+        interactants = sorted(interactants, key=attrgetter('slug'))
         self.from_drug, self.to_drug = interactants
 
 
@@ -274,22 +282,22 @@ class Interaction(LastModifiedModel):
                 name='interactants_unique_together'
             )
         )
-        verbose_name = "interaction"
+        verbose_name = _("interaction")
 
 
 class Category(LastModifiedModel):
 
     name = CharField(
         max_length=128,
-        verbose_name="nom"
+        verbose_name=_("name")
     )
     slug = SlugField(
         unique=True,
-        verbose_name="identifiant"
+        verbose_name=_("identifier")
     )
     description = TextField(
         default='', blank=True,
-        verbose_name="description"
+        verbose_name=_("description")
     )
 
 
@@ -298,29 +306,28 @@ class Category(LastModifiedModel):
 
 
     class Meta:
-        verbose_name = "catégorie"
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
 
 
 class Note(LastModifiedModel):
 
     title = CharField(
-        max_length=128, default="Note sans titre",
-        verbose_name="titre"
+        max_length=128, default=_("Untitled note"),
+        verbose_name=_("title")
     )
     content = TextField(
         default='', blank=True,
-        verbose_name="contenu",
-        help_text="Les notes ne sont visibles que sur ce site " \
-            "d'administration et sont partagées entre tous les " \
-            "utilisateurs."
+        verbose_name=_("content"),
+        help_text=_("Notes are only displayed on this admin site and "
+            "are shared between all users and languages.")
     )
     related_drugs = ManyToManyField(
         'Drug',
         related_name='notes', blank=True,
-        verbose_name="substances concernées",
-        help_text="Si cette note concerne des substances " \
-            "particulières, vous pouvez optionellement les spécifier " \
-            "ici."
+        verbose_name=_("involved substances"),
+        help_text=_("If this note involves specific substances, you "
+            "can optionally set them here.")
     )
 
 
@@ -329,4 +336,4 @@ class Note(LastModifiedModel):
 
 
     class Meta:
-        verbose_name = "note"
+        verbose_name = _("note")

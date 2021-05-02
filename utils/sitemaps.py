@@ -7,16 +7,23 @@ import re
 
 
 class StaticSitemap(Sitemap):
+    """
+        This `Sitemap` subclasses allows a dict as first argument, where
+        keys are URL identifiers and values are dicts of parameters.
 
+        If no parameter page-specific parameter is specified, default
+        values from the class constructor will be used.
+    """
     def __init__(self, pages, lastmod=None, priority=None,
-            changefreq=None, protocol=None):
+            changefreq=None, protocol=None, i18n=False):
         self.pages = pages
         self.protocol = protocol
         
         self._lastmod = lastmod
         self._priority = priority
         self._changefreq = changefreq
-    
+        self._i18n = i18n
+
     def items(self):
         return list(self.pages.keys())
 
@@ -31,6 +38,9 @@ class StaticSitemap(Sitemap):
 
     def changefreq(self, item):
         return self.pages[item].get('changefreq', self._changefreq)
+
+    def i18n(self, item):
+        return self.pages[item].get('i18n', self.i18n)
 
 
 class FullDomainSitemapMixin:

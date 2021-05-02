@@ -1,7 +1,8 @@
+import re
+import urllib
+import uuid
 from django import template
 from django.template.defaultfilters import stringfilter
-import urllib
-import re
 
 
 register = template.Library()
@@ -50,3 +51,9 @@ def mailto(recipient, subject=None, body=None):
     }, quote_via=urllib.parse.quote)
     
     return f'mailto:{recipient}?{args}'
+
+
+@register.simple_tag(name='uuid')
+def _uuid():
+    
+    return str(uuid.uuid4())

@@ -1,12 +1,14 @@
 from django.contrib import admin
-from simple_history.admin import SimpleHistoryAdmin
 from django.template.loader import render_to_string
+from django.utils.translation import gettext as _
+from modeltranslation.admin import TabbedTranslationAdmin
+from simple_history.admin import SimpleHistoryAdmin
+
 from drugcombinator.models import Drug, Interaction, Category, Note
 
-
 admin.site.site_header = "Mixtures.info"
-admin.site.site_title = "Administration de Mixtures.info"
-admin.site.index_title = "Bienvenue dans l'administration de Mixtures.info"
+admin.site.site_title = _("Mixtures.info adminisration")
+admin.site.index_title = _("Welcome to Mixtures.info administration")
 admin.site.enable_nav_sidebar = False
 
 
@@ -29,7 +31,7 @@ class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
         prev = obj.prev_record
         if prev:
             fields = obj.diff_against(prev).changed_fields
-        return ', '.join(fields) or "Aucune modification"
+        return ', '.join(fields) or _("No modification")
 
 
 class CustomizableModelAdmin(admin.ModelAdmin):
@@ -82,21 +84,21 @@ class InteractionInline(admin.StackedInline, CustomizableInlineAdmin):
                 'synergy', 'effects_reliability', 'is_draft'
             ),)
         }),
-        ('Descriptions', {
+        (_("Descriptions"), {
             'classes': ('collapse',),
             'fields': (('risk_description', 'effect_description'),),
         }),
     )
     labels = {
-        'from_drug': "Autre subtance",
-        'to_drug': "Autre substance"
+        'from_drug': _("Other substance"),
+        'to_drug': _("Other substance")
     }
     ordering = ('to_drug',)
     autocomplete_fields = ('to_drug',)
     classes = ('collapse',)
     extra = 0
     show_change_link = True
-    verbose_name_plural = "Interactions (seconde partie)"
+    verbose_name_plural = _("Interactions (second part)")
 
 
     class Media:
@@ -113,10 +115,9 @@ class InteractionInlineFirst(InteractionInline):
 
     ordering = ('from_drug',)
     autocomplete_fields = ('from_drug',)
-    verbose_name_plural = "Interactions (première partie)"
+    verbose_name_plural = _("Interactions (first part)")
 
 
-@admin.register(Drug)
 class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
@@ -129,23 +130,22 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
                 ('name', 'slug'),
             )
         }),
-        ("Informations de base", {
+        (_("Base informations"), {
             'fields': (
                 ('common', 'category'),
                 '_aliases'
             ),
         }),
-        ("Informations détaillées", {
+        (_("Detailled informations"), {
             'fields': (
                 (('description', 'related_notes'),)
             ),
         }),
-        ("Données d'interaction", {
-            'description': (
-                "Données d'interaction ne dépendant pas d'une autre "
-                "substance en particulier. Ces textes seront affichés "
-                "dans toutes les fiches d'interaction qui concernent "
-                "cette substance."
+        (_("Interaction data"), {
+            'description': _(
+                "Interaction data that does no depends on another "
+                "specific substance. Those texts will be displayed in "
+                "all interaction cards about this substance."
             ),
             'fields': (
                 (('risks', 'effects'),)
@@ -159,7 +159,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
     def related_notes(self, obj):
         data = {'drugs': (obj,)}
         return render_to_string('drugcombinator/admin/notes.html', data)
-    related_notes.short_description = "Notes liées"
+    related_notes.short_description = _("Related notes")
 
     def get_inline_instances(self, request, obj=None):
         # Hide inlines in popup windows. More info:
@@ -169,7 +169,11 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
         return super().get_inline_instances(request, obj=None)
 
 
-@admin.register(Interaction)
+@admin.register(Drug)
+class TranslatedDrugAdmin(DrugAdmin, TabbedTranslationAdmin):
+    pass
+
+
 class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     list_display = ('__str__', 'is_draft', 'risk', 'synergy')
     list_filter = ('is_draft', 'risk', 'synergy')
@@ -191,33 +195,29 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
                 ('from_drug', 'to_drug', 'is_draft'),
             )
         }),
-        ("Données d'interaction", {
+        (_("Interaction data"), {
             'fields': (
-                (
-                    'risk', 'risk_reliability', 'risk_description',
-                    'drugs_risks'
-                ),
-                (
-                    'synergy', 'effects_reliability',
-                    'effect_description', 'drugs_effects'
-                ),
+                ('risk', 'risk_reliability', 'drugs_risks'),
+                ('risk_description',),
+                ('synergy', 'effects_reliability', 'drugs_effects'),
+                ('effect_description',),
             ),
             'classes': ('vertical-label',)
         }),
-        ("Notes", {
+        (_("Notes"), {
             'fields': (
                 ('notes', 'related_notes'),
             ),
         }),
     )
     help_texts = {
-        'drugs_risks': (
-            "Ces données seront automatiquement rajoutées au champ "
-            "\"risques\" dans l'app."
+        'drugs_risks': _(
+            "Those data will be automatically added to the \"risks\" "
+            "field in the app."
         ),
-        'drugs_effects': (
-            "Ces données seront automatiquement rajoutées au champ "
-            "\"effets\" dans l'app."
+        'drugs_effects': _(
+            "Those data will be automatically added to the \"effects\" "
+            "field in the app."
         )
     }
     autocomplete_fields = ('from_drug', 'to_drug')
@@ -237,7 +237,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
                 'data_type': 'risks'
             }
         )
-    drugs_risks.short_description = "Risques liés aux substances"
+    drugs_risks.short_description = _("Substance-related risks")
 
     def drugs_effects(self, obj):
         return render_to_string(
@@ -247,28 +247,31 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
                 'data_type': 'effects'
             }
         )
-    drugs_effects.short_description = "Effets liés aux substances"
+    drugs_effects.short_description = _("Substance-related effects")
 
     def related_notes(self, obj):
         return render_to_string(
             'drugcombinator/admin/notes.html',
             {'drugs': obj.interactants}
         )
-    related_notes.short_description = "Notes liées"
+    related_notes.short_description = _("Related notes")
     
     set_draft = set_draft_status(True)
-    set_draft.short_description = "Marquer les interactions " \
-        "sélectionnées comme brouillons"
+    set_draft.short_description = _(
+        "Mark all selected interactions as drafts"
+    )
 
     set_published = set_draft_status(False)
-    set_published.short_description = "Marquer les interactions " \
-        "sélectionnées comme publiés"
+    set_published.short_description = _(
+        "Mark all selected interactions as published"
+    )
 
     def reorder_interactants(self, request, queryset):
         for interaction in queryset:
             interaction.save()
-    reorder_interactants.short_description = "Réorganiser les " \
-        "substances liées aux interactions sélectionnées"
+    reorder_interactants.short_description = _(
+        "Sort the linked substances of selected interactions"
+    )
 
 
     class Media:
@@ -277,7 +280,11 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         }
 
 
-@admin.register(Category)
+@admin.register(Interaction)
+class TranslatedInteractionAdmin(InteractionAdmin, TabbedTranslationAdmin):
+    pass
+
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slug')
     date_hierarchy = 'last_modified'
@@ -288,6 +295,11 @@ class CategoryAdmin(admin.ModelAdmin):
         'description'
     )
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Category)
+class TranslatedCategoryAdmin(CategoryAdmin, TabbedTranslationAdmin):
+    pass
 
 
 @admin.register(Note)

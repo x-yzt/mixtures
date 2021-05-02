@@ -72,7 +72,7 @@ class InteractionModelTestCase(TestCase):
         inter.save()
         self.assertSequenceEqual(
             inter.interactants,
-            sorted(inter.interactants, key=lambda d: d.name)
+            sorted(inter.interactants, key=lambda d: d.slug)
         )
         
 

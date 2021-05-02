@@ -9,6 +9,20 @@
 }
 
 
+/* Language selector */
+
+#lang-form {
+  display: inline;
+  margin-left: 6px;
+
+  @media (max-width: 767px) {
+    display: block;
+    text-align: center;
+    margin-top: 6px;
+  }
+}
+
+
 /* Colors */
 
 #header, .module h2, .module caption, .inline-group h2 {
@@ -67,6 +81,12 @@ input[type="button"] {
 .button.default, input[type="submit"].default, .object-tools a {
   &:active, &:focus, &:hover {
     background-color: $secondary-color-dark;
+  }
+}
+
+li.ui-tabs-active, li.ui-tabs-selected {
+  a {
+    background-color: $secondary-color !important;
   }
 }
 

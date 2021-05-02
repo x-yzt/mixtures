@@ -27,6 +27,7 @@ HOST_PORT = '8000'
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -125,6 +127,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fr-fr'
 
+LANGUAGES = (
+    ('fr', 'Français'),
+    ('en', 'English'),
+)
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -133,7 +140,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
+
+LANGUAGE_COOKIE_NAME = 'language'
 
 
 # Static files
@@ -173,6 +184,8 @@ if os.environ.get("PROD") == 'TRUE':
     CSRF_COOKIE_DOMAIN = '.' + PARENT_HOST
 
     SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
+
+    LANGUAGE_COOKIE_DOMAIN = '.' + PARENT_HOST
 
     CACHES = {
         'default': {

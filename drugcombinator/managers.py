@@ -1,7 +1,69 @@
-from django.db.models import QuerySet, Manager
+from django.db.models import QuerySet, Manager, F
+from django.db.models.functions import Coalesce
 from django.http import Http404
 from django.urls import reverse
+from modeltranslation.utils import (get_language, resolution_order,
+    build_localized_fieldname)
+from modeltranslation.settings import AVAILABLE_LANGUAGES
+
+from drugcombinator import models
 from drugcombinator.utils import normalize
+
+
+class TranslatedQuerySet(QuerySet):
+    """
+        Utility `QuerySet` subclass extending `modeltranslation`'s
+        `MultilingualQuerySet` functionnalities.
+    """
+
+    def coalesce_translations(self, field):
+        """
+            Coalesce all translations of a given field according to the
+            current language and fallback resolution order, and annotate
+            the current QuerySet with it through a `field_translations`
+            key.
+        """
+        # Languages the translation has to be searched in, in relevant 
+        # order
+        langs = resolution_order(
+            get_language(), {'defaut': AVAILABLE_LANGUAGES}
+        )
+        # Build the list of translated fields names in relevant order
+        fields = [
+            build_localized_fieldname(field, lang) for lang in langs
+        ]
+
+        # If there is only one relevant field, no coalescing is needed
+        if len(fields) == 1:
+            annotation = F(fields[0])
+
+        else:
+            # Get the underlying model field type
+            FieldType = self.model._meta.get_field(field).__class__
+            # Annotate needs to know which type of field it has to output,
+            # because translated fields type differs from usual Django
+            # fields (e.g. TranslatedCharField differs from CharField)
+            annotation = Coalesce(*fields, output_field=FieldType())
+
+        return self.annotate(
+            **{field + '_translations': annotation}
+        )
+
+
+    def order_by_translated(self, field):
+        """
+            As `modeltranslation` does not provide fallback values when
+            using the `order_by` method of its manager, this method
+            implements this.
+
+            It provides ordering with fallbacks, for a single translated
+            field only.
+        """
+
+        return (self
+            .coalesce_translations(field.lstrip('-'))
+            .order_by(field + '_translations')
+        )
 
 
 class DrugManager(Manager):
@@ -44,7 +106,7 @@ class DrugManager(Manager):
             raise Http404(f"Unable to find drug {name}.")
 
 
-class DrugQuerySet(QuerySet):
+class DrugQuerySet(TranslatedQuerySet):
 
     def get_absolute_url(self):
         """
@@ -54,7 +116,7 @@ class DrugQuerySet(QuerySet):
         return reverse('combine', kwargs={'slugs': slugs})
 
 
-class InteractionQuerySet(QuerySet):
+class InteractionQuerySet(TranslatedQuerySet):
 
     def between(self, drugs, prefetch=False):
         """
@@ -68,12 +130,12 @@ class InteractionQuerySet(QuerySet):
         return qs
 
 
-    def order_by_name(self):
+    def order_by_slug(self):
         """
-            Order the queryset by its related drugs names in
+            Order the queryset by its related drugs slugs in
             lexicographic order.
         """
-        return self.order_by('from_drug__name', 'to_drug__name')
+        return self.order_by('from_drug__slug', 'to_drug__slug')
 
 
 DrugManager = DrugManager.from_queryset(DrugQuerySet)

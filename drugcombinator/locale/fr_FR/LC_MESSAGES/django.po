@@ -1,0 +1,683 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-01 21:08+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\drugcombinator\admin.py:10
+msgid "Mixtures.info adminisration"
+msgstr "Administration de Mixtures.info"
+
+#: .\drugcombinator\admin.py:11
+msgid "Welcome to Mixtures.info administration"
+msgstr "Bienvenue dans l'administration de Mixtures.info"
+
+#: .\drugcombinator\admin.py:34
+msgid "No modification"
+msgstr "Aucune modification"
+
+#: .\drugcombinator\admin.py:87
+msgid "Descriptions"
+msgstr ""
+
+#: .\drugcombinator\admin.py:93 .\drugcombinator\admin.py:94
+msgid "Other substance"
+msgstr "Autre substance"
+
+#: .\drugcombinator\admin.py:101
+msgid "Interactions (second part)"
+msgstr "Interactions (seconde partie)"
+
+#: .\drugcombinator\admin.py:118
+msgid "Interactions (first part)"
+msgstr "Interactions (première partie)"
+
+#: .\drugcombinator\admin.py:133
+msgid "Base informations"
+msgstr "Informations de base"
+
+#: .\drugcombinator\admin.py:139
+msgid "Detailled informations"
+msgstr "Informations détaillées"
+
+#: .\drugcombinator\admin.py:144 .\drugcombinator\admin.py:198
+msgid "Interaction data"
+msgstr "Données d'interaction"
+
+#: .\drugcombinator\admin.py:146
+msgid ""
+"Interaction data that does no depends on another specific substance. Those "
+"texts will be displayed in all interaction cards about this substance."
+msgstr ""
+"Données d'interaction ne dépendant pas d'une autre substance en particulier. "
+"Ces textes seront affichés dans toutes les fiches d'interaction qui "
+"concernent cette substance."
+
+#: .\drugcombinator\admin.py:162 .\drugcombinator\admin.py:257
+msgid "Related notes"
+msgstr "Notes liées"
+
+#: .\drugcombinator\admin.py:207
+msgid "Notes"
+msgstr ""
+
+#: .\drugcombinator\admin.py:215
+msgid ""
+"Those data will be automatically added to the \"risks\" field in the app."
+msgstr ""
+"Ces données seront automatiquement rajoutées au champ \"risques\" dans l'app."
+
+#: .\drugcombinator\admin.py:219
+msgid ""
+"Those data will be automatically added to the \"effects\" field in the app."
+msgstr ""
+"Ces données seront automatiquement rajoutées au champ \"effects\" dans l'app."
+
+#: .\drugcombinator\admin.py:240
+msgid "Substance-related risks"
+msgstr "Risques liés aux substances"
+
+#: .\drugcombinator\admin.py:250
+msgid "Substance-related effects"
+msgstr "Effets liés aux substances"
+
+#: .\drugcombinator\admin.py:261
+msgid "Mark all selected interactions as drafts"
+msgstr "Marquer les interactions sélectionnées comme brouillons"
+
+#: .\drugcombinator\admin.py:266
+msgid "Mark all selected interactions as published"
+msgstr "Marquer les interactions sélectionnées comme publiées"
+
+#: .\drugcombinator\admin.py:273
+msgid "Sort the linked substances of selected interactions"
+msgstr "Réorganiser les substances liées aux interactions sélectionnées"
+
+#: .\drugcombinator\apps.py:8
+msgid "Drug combinator"
+msgstr "Combinateur de substances"
+
+#: .\drugcombinator\forms.py:12
+msgid "Search in this list"
+msgstr "Rechercher dans cette liste"
+
+#: .\drugcombinator\forms.py:19
+msgid "Substances to combine"
+msgstr "Drogues à combiner"
+
+#: .\drugcombinator\forms.py:25
+msgid "Select substances"
+msgstr "Sélectionnez des substances"
+
+#: .\drugcombinator\forms.py:35
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:12
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:20
+msgid "Find a substance"
+msgstr "Rechercher une substance"
+
+#: .\drugcombinator\models.py:19
+msgid "last modification"
+msgstr "dernière modification"
+
+#: .\drugcombinator\models.py:30 .\drugcombinator\models.py:292
+msgid "name"
+msgstr "nom"
+
+#: .\drugcombinator\models.py:34 .\drugcombinator\models.py:296
+msgid "identifier"
+msgstr "identifiant"
+
+#: .\drugcombinator\models.py:38 .\drugcombinator\models.py:300
+msgid "description"
+msgstr ""
+
+#: .\drugcombinator\models.py:43
+msgid "general risks"
+msgstr ""
+
+#: .\drugcombinator\models.py:45
+msgid ""
+"Risks specific to combinations involving this substance that do not depend "
+"on a specific interaction."
+msgstr ""
+"Risques spécifiques à la combinaison de cette substance qui ne dépendent pas "
+"d'une interaction particulière."
+
+#: .\drugcombinator\models.py:53
+msgid "general effects"
+msgstr ""
+
+#: .\drugcombinator\models.py:55
+msgid ""
+"Effects specific to combinations involving this substance that do not depend "
+"on a specific interaction."
+msgstr ""
+"Effets spécifiques à la combinaison de cette substance qui ne dépendent pas "
+"d'une interaction particulière."
+
+#: .\drugcombinator\models.py:63
+msgid "aliases"
+msgstr "dénominations"
+
+#: .\drugcombinator\models.py:64
+msgid "One alias per line. No need to duplicate case."
+msgstr "Un alias par ligne. Insensible à la casse."
+
+#: .\drugcombinator\models.py:69
+msgid "interactants"
+msgstr ""
+
+#: .\drugcombinator\models.py:74 .\drugcombinator\models.py:309
+msgid "category"
+msgstr "catégorie"
+
+#: .\drugcombinator\models.py:78
+msgid "common"
+msgstr "commune"
+
+#: .\drugcombinator\models.py:79
+msgid "Common substances are displayed as buttons in the app."
+msgstr ""
+"Les substances communes sont affichées sous forme de boutons dans l'app."
+
+#: .\drugcombinator\models.py:119
+msgid "Aliases"
+msgstr "Dénominations"
+
+#: .\drugcombinator\models.py:134
+msgid "substance"
+msgstr ""
+
+#: .\drugcombinator\models.py:142
+msgctxt "synergy"
+msgid "Unknown"
+msgstr "Inconnue"
+
+#: .\drugcombinator\models.py:143
+msgctxt "synergy"
+msgid "Neutral"
+msgstr "Neutre"
+
+#: .\drugcombinator\models.py:144
+msgid "Additive"
+msgstr "Addition"
+
+#: .\drugcombinator\models.py:145
+msgid "Decrease"
+msgstr "Atténuation"
+
+#: .\drugcombinator\models.py:146
+msgid "Increase"
+msgstr "Potentialisation"
+
+#: .\drugcombinator\models.py:147
+msgid "Mixed"
+msgstr "Mixte"
+
+#: .\drugcombinator\models.py:152
+msgctxt "risk"
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: .\drugcombinator\models.py:153
+msgctxt "risk"
+msgid "Neutral"
+msgstr "Neutre"
+
+#: .\drugcombinator\models.py:154
+msgid "Caution"
+msgstr "Vigilance"
+
+#: .\drugcombinator\models.py:155
+msgid "Unsafe"
+msgstr "Risqué"
+
+#: .\drugcombinator\models.py:156
+msgid "Dangerous"
+msgstr "Dangereux"
+
+#: .\drugcombinator\models.py:161
+msgctxt "reliability"
+msgid "Unknown"
+msgstr "Non évaluée"
+
+#: .\drugcombinator\models.py:162
+msgid "Hypothetical"
+msgstr "Théorique"
+
+#: .\drugcombinator\models.py:163
+msgid "Inferred"
+msgstr "Supposée"
+
+#: .\drugcombinator\models.py:164
+msgid "Proven"
+msgstr "Avérée"
+
+#: .\drugcombinator\models.py:170
+msgid "first interactant"
+msgstr "première substance"
+
+#: .\drugcombinator\models.py:175
+msgid "second interactant"
+msgstr "seconde substance"
+
+#: .\drugcombinator\models.py:179
+msgid "risks"
+msgstr "risques"
+
+#: .\drugcombinator\models.py:183
+msgid "synergy"
+msgstr "synergie"
+
+#: .\drugcombinator\models.py:187
+msgid "risks reliability"
+msgstr "fiabilité des risques"
+
+#: .\drugcombinator\models.py:191
+msgid "synergy and effects reliability"
+msgstr "fiabilité de la synergie et des effets"
+
+#: .\drugcombinator\models.py:195
+msgid "risks description"
+msgstr "description des risques"
+
+#: .\drugcombinator\models.py:200
+msgid "effects description"
+msgstr "description des effets"
+
+#: .\drugcombinator\models.py:205
+msgid "notes"
+msgstr ""
+
+#: .\drugcombinator\models.py:206
+msgid ""
+"This field is only displayed on this admin site and is shared between all "
+"users and languages."
+msgstr ""
+"Ce champ n'est visible que sur ce site d'administration, et est partagé "
+"entre tous les languages et utilisateurs."
+
+#: .\drugcombinator\models.py:211
+msgid "draft"
+msgstr "brouillon"
+
+#: .\drugcombinator\models.py:212
+msgid "In case of work-in-progress, uncertain or incomplete data."
+msgstr "En cas de travail en cours, de données incertaines ou incomplètes."
+
+#: .\drugcombinator\models.py:285
+msgid "interaction"
+msgstr ""
+
+#: .\drugcombinator\models.py:310
+msgid "categories"
+msgstr "catégories"
+
+#: .\drugcombinator\models.py:316
+msgid "Untitled note"
+msgstr "Note sans titre"
+
+#: .\drugcombinator\models.py:317
+msgid "title"
+msgstr "titre"
+
+#: .\drugcombinator\models.py:321
+msgid "content"
+msgstr "contenu"
+
+#: .\drugcombinator\models.py:322
+msgid ""
+"Notes are only displayed on this admin site and are shared between all users "
+"and languages."
+msgstr ""
+"Les notes ne sont visibles que sur ce site d'administration et sont "
+"partagées entre tous les languages et utilisateurs."
+
+#: .\drugcombinator\models.py:328
+msgid "involved substances"
+msgstr "substances concernées"
+
+#: .\drugcombinator\models.py:329
+msgid ""
+"If this note involves specific substances, you can optionally set them here."
+msgstr ""
+"Si cette note concerne des substances particulières, vous pouvez "
+"optionellement les spécifier ici."
+
+#: .\drugcombinator\models.py:339
+msgid "note"
+msgstr ""
+
+#: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:8
+#, python-format
+msgid "Interaction data for substance %(drug)s:"
+msgstr "Données d'interaction de la substance %(drug)s :"
+
+#: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:15
+#, python-format
+msgid "No interaction data for substance %(drug)s."
+msgstr "Pas de données d'interaction pour la substance %(drug)s."
+
+#: .\drugcombinator\templates\drugcombinator\admin\notes.html:10
+#, python-format
+msgid "%(number)s note related to substance %(drug)s is avalaible."
+msgid_plural "%(number)s notes related to substance %(drug)s are avalaible."
+msgstr[0] "%(number)se note liée à la substance %(drug)s est disponible."
+msgstr[1] "%(number)s notes liées à la substance %(drug)s sont disponibles."
+
+#: .\drugcombinator\templates\drugcombinator\admin\notes.html:17
+#, python-format
+msgid "No note related to substance %(drug)s."
+msgstr "Aucune note n'est liée à la substance %(drug)s."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:18
+msgid "Combination"
+msgstr "Combinaison"
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:22
+#, python-format
+msgid "Risks and effects of the combination of %(drugs)s substances."
+msgstr "Risques et effets de la combinaison entre les substances %(drugs)s."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:25
+#: .\drugcombinator\templates\drugcombinator\drug.html:17
+msgid "Mixtures.info, synergies and risks of drug interactions."
+msgstr ""
+"Mixtures.info, synergies et risques liés aux interactions entre drogues."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:43
+#, python-format
+msgid "Warning: %(number)s interaction was not found in our database."
+msgid_plural "Warning: %(number)s interactions were not found in our database."
+msgstr[0] ""
+"Attention : %(number)se interaction n'a pas été trouvée dans notre base de "
+"données."
+msgstr[1] ""
+"Attention : %(number)s interactions n'ont pas été trouvées dans notre base "
+"de données."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:55
+#, python-format
+msgid ""
+"Caution: %(number)s substances have been selected. Mixtures.info only "
+"provides information on substance pairs."
+msgstr ""
+"Prudence : %(number)s substances ont été sélectionnées. Mixtures.info "
+"délivre uniquement des informations sur les couples de substances."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:66
+#: .\drugcombinator\templates\drugcombinator\drug.html:52
+msgid "No interactions were found in our database."
+msgstr "Aucune interaction n'a été trouvée dans notre base de données."
+
+#: .\drugcombinator\templates\drugcombinator\combine.html:69
+msgid "This could be a good sign. Or not. Beware."
+msgstr "Ça pourrait être bon signe. Ou pas. Méfiance."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:4
+msgid ""
+"The combination of these substances does not significantly increase their "
+"risks compared to independent use."
+msgstr ""
+"La combinaison de ces substances n'augmente pas significativement leurs "
+"risques par rapport à une consommation indépendante."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:9
+msgid ""
+"This combination presents relatively low physical or mental risks, or may "
+"result in risky situations."
+msgstr ""
+"Cette combinaison présente de faibles risques physiques ou mentaux, ou peut "
+"déclencher des situations à risque."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:14
+msgid ""
+"The combination of these substances presents non-negligible physical or "
+"mental risks."
+msgstr ""
+"La combinaison de ces substances présente des risques physiques ou mentaux "
+"non négligeables."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:18
+msgid ""
+"The combination of these substances presents major physical or mental risks."
+msgstr ""
+"La combinaison de ces substances présente d'importants risques physiques ou "
+"mentaux."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\risk_text.html:22
+msgid ""
+"The risks of this combination are not sufficiently known to be properly "
+"estimated."
+msgstr ""
+"Les risques de cette combinaison ne sont pas assez connus pour être "
+"correctement évalués."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:4
+msgid ""
+"These substances do not interact in any significant way. Their effects are "
+"cumulative."
+msgstr ""
+"Ces substances n'interagissent pas de façon significative. Leurs effets se "
+"cumulent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:8
+msgid ""
+"These substances do not interact significantly. Their effects are similar "
+"and add up."
+msgstr ""
+"Ces substances n'interagissent pas de façon significative. Leurs effets sont "
+"similaires et s'additionnent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:12
+msgid ""
+"The effects of these substances are contradictory and some of them are "
+"attenuated."
+msgstr ""
+"Les effets de ces substances sont contradictoires et certains d'entre eux "
+"s’atténuent."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:16
+msgid ""
+"The effects of these substances are multiplied or greatly modified by their "
+"combination."
+msgstr ""
+"Les effets de ces substances sont multipliés ou fortement modifiés par leur "
+"combinaison."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:20
+msgid ""
+"The combination of these substances attenuates some of their effects and "
+"increases others."
+msgstr ""
+"La combinaison de ces substances atténue certains de leurs effet et en "
+"augmente d'autres."
+
+#: .\drugcombinator\templates\drugcombinator\combine_info\synergy_text.html:24
+msgid "The effects of this combination are not known."
+msgstr "Les effets de cette combinaison ne sont pas connus."
+
+#: .\drugcombinator\templates\drugcombinator\docs.html:6
+#: .\drugcombinator\templates\drugcombinator\docs.html:11
+msgid "API Documentation"
+msgstr "Documentation de l'API"
+
+#: .\drugcombinator\templates\drugcombinator\docs.html:16
+#, python-format
+msgid ""
+"This page is intended to help developers integrating Mixtures.info data into "
+"a third party application. Our database contains %(drugs_count)s substances "
+"linked by %(interactions_count)s interactions, available in JSON format "
+"through an (almost) RESTful HTTP service."
+msgstr ""
+"Cette page est destinée aux développeuses et développeurs désirant intégrer "
+"les données de Mixtures.info dans une application tierce. Notre base de "
+"données contient %(drugs_count)s substances liées par %(interactions_count)s "
+"interactions, disponibles au format JSON par le biais d'un service HTTP "
+"(presque) RESTful."
+
+#: .\drugcombinator\templates\drugcombinator\docs.html:26
+msgid "The API is still under construction, and will be available soon."
+msgstr "L'API est encore en construction, et sera disponible prochainement."
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:14
+#, python-format
+msgid ""
+"Risks and effects of combining the substance %(drugs)s with other "
+"psychoactives."
+msgstr ""
+"Risques et effets de la combinaison de la substance %(drugs)s avec d'autres "
+"psychoactifs."
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:21
+msgid "Substance"
+msgstr ""
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:26
+msgid "Substance:"
+msgstr "Substance :"
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:31
+msgid "About"
+msgstr "À propos"
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:35
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:60
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:75
+msgid "No additional information available."
+msgstr "Aucune information supplémentaire n'est disponible."
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:41
+msgid "Warnings"
+msgstr "Avertissements"
+
+#: .\drugcombinator\templates\drugcombinator\drug.html:60
+msgid "Embedding this data"
+msgstr "Intégrer ces données"
+
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:13
+#: .\drugcombinator\templates\drugcombinator\main.html:12
+#, python-format
+msgid "%(site)s, combinations of psychoactive substances"
+msgstr "%(site)s, combinaisons de substances psychoactives"
+
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:31
+#: .\drugcombinator\templates\drugcombinator\main.html:57
+msgid "Not finding what you are looking for?"
+msgstr "Vous ne trouvez pas ce que vous cherchez ?"
+
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:41
+#, python-format
+msgid "The substance %(name)s was not found."
+msgstr "La substance %(name)s n'a pas été trouvée."
+
+#: .\drugcombinator\templates\drugcombinator\drug_search.html:49
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: .\drugcombinator\templates\drugcombinator\interaction.html:37
+msgid "Warning! This card is a draft."
+msgstr "Attention ! Cette fiche est un brouillon."
+
+#: .\drugcombinator\templates\drugcombinator\interaction.html:39
+msgid ""
+"This is a draft, not intended to deliver information, but to be reworked. "
+"Its content can be very incomplete, and even erroneous. If you want to help "
+"us, you can however view its content."
+msgstr ""
+"Il s'agit d'une ébauche, qui n'est pas destinée à délivrer de l'information, "
+"mais à être retravaillée. Son contenu peut être très lacunaire, voire faux. "
+"Si vous voulez nous aider, vous pouvez toutefois afficher son contenu."
+
+#: .\drugcombinator\templates\drugcombinator\interaction.html:46
+msgid "I'll be careful, I promise"
+msgstr "Je fais attention, promis"
+
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:6
+msgid "Synergistic tendency"
+msgstr "Tendance synergique"
+
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:19
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:40
+msgid "Reliability:"
+msgstr "Fiabilité :"
+
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:27
+msgid "Estimated risk"
+msgstr "Risque estimé"
+
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:50
+msgid "About effects"
+msgstr "À propos des effets"
+
+#: .\drugcombinator\templates\drugcombinator\interaction_content.html:65
+msgid "About risks"
+msgstr "À propos des risques"
+
+#: .\drugcombinator\templates\drugcombinator\main.html:19
+msgid "Combinations of psychoactive substances"
+msgstr "Combinaisons de substances psychoactives"
+
+#: .\drugcombinator\templates\drugcombinator\main.html:20
+msgid "Synergies and risks of drug interactions"
+msgstr "Synergies et risques liés aux interactions entre drogues"
+
+#: .\drugcombinator\templates\drugcombinator\main.html:24
+msgid ""
+"Mixtures.info aims to deliver <b>verifiable</b> data on <b>drug mixtures</"
+"b>. To date, our database is still very <b>incomplete</b>."
+msgstr ""
+"Mixtures.info a pour objectif de délivrer des données <b>vérifiables</b> sur "
+"les <b>mélanges de drogues</b>. À ce jour, notre base de données est encore "
+"très <b>incomplète</b>."
+
+#: .\drugcombinator\templates\drugcombinator\main.html:28
+msgid ""
+"It is possible to browse through the entire application, but <b>we encourage "
+"you to use our smaller but completed thematic portal</b> instead."
+msgid_plural ""
+"It is possible to browse through the entire application, but <b>we encourage "
+"you to use our smallers but completed thematic portals</b> instead."
+msgstr[0] ""
+"Il est possible d'accéder à la totalité de l'application, mais <b>nous vous "
+"encourageons plutôt à utiliser notre portail thématique</b>, plus restreint "
+"mais achevé."
+msgstr[1] ""
+"Il est possible d'accéder à la totalité de l'application, mais <b>nous vous "
+"encourageons plutôt à utiliser nos portails thématiques</b>, plus restreints "
+"mais achevés."
+
+#: .\drugcombinator\templates\drugcombinator\main.html:65
+msgid ""
+"Only the most common drugs are listed above. Other substances are available "
+"in this list."
+msgstr ""
+"Seules les drogues les plus courantes sont répertoriées ci-dessus. D'autres "
+"substances sont disponibles dans cette liste."
+
+#: .\drugcombinator\templates\drugcombinator\main.html:80
+msgid "Mix!"
+msgstr "Mélanger !"
+
+#: .\drugcombinator\templatetags\collections.py:31
+msgid "and"
+msgstr "et"
+
+#: .\drugcombinator\utils.py:26
+#, python-brace-format
+msgid "The {markdown} syntax is allowed."
+msgstr "La syntaxe {markdown} est autorisée."
+
+#: .\drugcombinator\utils.py:29
+msgid "Paragraphs are separated by two carriage returns."
+msgstr "Les paragraphes sont séparés par deux retours à la ligne."
+
+# Needed for displaying custom history list fields correctly
+
+msgid "modified_fields"
+msgstr "Champs modifiés"
+
+msgid "is_draft"
+msgstr "Brouillon"

@@ -1,14 +1,27 @@
+{% load i18n %}
+
 {% if interaction.synergy == interaction.Synergy.NEUTRAL %}
-  Ces substances n'interagissent pas de façon significative. Leurs effets se cumulent.
+  {% blocktranslate trimmed %}
+    These substances do not interact in any significant way. Their effects are cumulative.
+  {% endblocktranslate %}
 {% elif interaction.synergy == interaction.Synergy.ADDITIVE %}
-  Ces substances n'interagissent pas de façon significative. Leurs effets sont similaires
-  et s'additionnent.
+  {% blocktranslate trimmed %}
+    These substances do not interact significantly. Their effects are similar and add up.
+  {% endblocktranslate %}
 {% elif interaction.synergy == interaction.Synergy.DECREASE %}
-  Les effets de ces substances sont contradictoires et certains d'entre eux s’atténuent.
+  {% blocktranslate trimmed %}
+    The effects of these substances are contradictory and some of them are attenuated.
+  {% endblocktranslate %}
 {% elif interaction.synergy == interaction.Synergy.INCREASE %}
-  Les effets de ces substances sont multipliés ou fortement modifiés par leur combinaison.
+  {% blocktranslate trimmed %}
+    The effects of these substances are multiplied or greatly modified by their combination.
+  {% endblocktranslate %}
 {% elif interaction.synergy == interaction.Synergy.MIXED %}
-  La combinaison de ces substances atténue certains de leurs effet et en augmente d'autres.
+  {% blocktranslate trimmed %}
+    The combination of these substances attenuates some of their effects and increases others.
+  {% endblocktranslate %}
 {% else %}
-  Les effets de cette combinaison ne sont pas connus.
+  {% blocktranslate trimmed %}
+    The effects of this combination are not known.
+  {% endblocktranslate %}
 {% endif %}

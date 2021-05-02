@@ -3,6 +3,23 @@
 {% load static %}
 {% load i18n %}
 
+{% block userlinks %}
+  {% get_available_languages as languages %}
+  {% get_current_language as current_language %}
+
+  {{ block.super }}
+  <form id="lang-form" action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <select name="language" onchange="javascript:form.submit()">
+      {% for lang in languages %}
+        <option value="{{ lang.0 }}" {% if lang.0 == current_language %}selected{% endif %}>
+          {{ lang.1 }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+{% endblock %}
+
 {% block sidebar %}
   <div id="content-related">
     <div class="module" id="recent-actions-module">

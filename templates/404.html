@@ -1,23 +1,29 @@
 {% extends 'mixtures/base.html' %}
 
+{% load i18n %}
+
 {% block title %}
-  Page introuvable | {{ block.super }}
+  {% translate 'Page not found' %} | {{ block.super }}
 {% endblock %}
 
 {% block content %}
   <div class="row center-align">
-    <h1>Erreur 404 : Page introuvable.</h1>
+    <h1>{% translate 'Error 404: Page not found.' %}</h1>
   </div>
   <div class="row center-align">
     <h2>
       <i class="material-icons large">self_improvement</i><br/>
-      Il n'y a rien ici.
+      {% translate "There's nothing there." %}
     </h2>
   </div>
   <div class="row">
     <p class="flow-text">
-      Vous pouvez <a href="{% url 'main' %}">retourner sur la page d'accueil</a>. Ou bien peut-être
-      préférez-vous <a href="{% url 'drug_search' %}">rechercher une substance</a> ?
+      {% url 'main' as main_url %}
+      {% url 'drug_search' as search_url %}
+      {% blocktranslate trimmed %}
+        You can <a href="{{ main_url }}">return to the home page</a>. Or perhaps you prefer to
+        <a href="{{ search_url }}">search for a substance</a>?
+      {% endblocktranslate %}
     </p>
   </div>
 {% endblock %}

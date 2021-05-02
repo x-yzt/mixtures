@@ -1,12 +1,21 @@
+{% load i18n %}
 {% load collections %}
 
 {% for drug in drugs %}
   {% with data=drug|attr:data_type %}
     {% if data %}
-      <p>Données d'interaction de la substance {{ drug }}:</p>
+      <p>
+        {% blocktranslate trimmed %}
+          Interaction data for substance {{ drug }}:
+        {% endblocktranslate %}
+      </p>
       <blockquote>{{ data }}</blockquote>
     {% else %}
-      <p>Pas de données d'interaction pour la substance {{ drug }}.</p>
+      <p>
+        {% blocktranslate trimmed %}
+          No interaction data for substance {{ drug }}.
+        {% endblocktranslate %}
+      </p>
     {% endif %}
   {% endwith %}
 {% endfor %}

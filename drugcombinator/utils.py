@@ -1,7 +1,9 @@
-from django.db import connection, reset_queries
-import unicodedata as ud
 import functools
+import unicodedata
 from time import time
+from django.db import connection, reset_queries
+from django.utils.text import format_lazy
+from django.utils.translation import gettext_lazy as _
 
 
 def normalize(string):
@@ -9,7 +11,7 @@ def normalize(string):
         Returns a lowercase, without accents copy of a given string.
         "Café" -> "cafe"
     """
-    return (ud.normalize('NFKD', string.lower())
+    return (unicodedata.normalize('NFKD', string.lower())
         .encode('ASCII', 'ignore')
         .decode('utf-8')
     )
@@ -19,11 +21,13 @@ def markdown_allowed(verbose=True):
     """
         Returns a simple "Markdown is allowed" string.
     """
-    help_link = 'https://commonmark.org/help/'
-    return (
-        f"La syntaxe <a href=\"{help_link}\">markdown</a> est autorisée."
-        + verbose * " Les paragraphes sont séparés par deux retours à la ligne."
+    help_link = "https://commonmark.org/help/"
+    markdown = format_lazy(
+        _("The {markdown} syntax is allowed."),
+        markdown=f"<a href=\"{help_link}\">markdown</a>"
     )
+    syntax = _("Paragraphs are separated by two carriage returns.")
+    return format_lazy("{} {}", markdown, syntax)
 
 
 def count_queries(func):
