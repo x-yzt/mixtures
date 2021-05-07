@@ -5,7 +5,7 @@ django-heroku==0.3.1
 django-hosts @ git+git://github.com/LeMinaw/django-hosts@c465e8f3060634ebc932e85ce8173416b386f77a
 django-markdown-deux==1.0.5
 django-modeltranslation==0.16.2
-django-simple-history @ git+git://github.com/LeMinaw/django-simple-history@6aa160b9da7f01213c9bfceb19b8eaa2af7caaf2
+django-simple-history==3.0.0
 gunicorn==20.0.4
 markdown2 @ git+git://github.com/x-yzt/python-markdown2@5ca96f34fff2a37f84a85bc33afd55281ab8c631
 psycopg2==2.8.6
