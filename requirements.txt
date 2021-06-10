@@ -1,6 +1,6 @@
 ﻿asgiref==3.3.1
 dj-database-url==0.5.0
-Django==3.1.9
+Django==3.1.12
 django-heroku==0.3.1
 django-hosts @ git+git://github.com/LeMinaw/django-hosts@c465e8f3060634ebc932e85ce8173416b386f77a
 django-markdown-deux==1.0.5
