@@ -174,6 +174,11 @@ def docs(request):
     return render(request, 'drugcombinator/docs.html', locals())
 
 
+def about(request):
+
+    return render(request, 'drugcombinator/about.html', locals())
+
+
 def autocomplete(request):
 
     drugs = Drug.objects.all()
