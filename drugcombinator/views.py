@@ -176,7 +176,10 @@ def docs(request):
 
 def about(request):
 
-    contributors = Contributor.objects.filter(display=True)
+    contributors = (Contributor.objects
+        .filter(display=True)
+        .order_by('user__username')
+    )
 
     return render(request, 'drugcombinator/about.html', locals())
 

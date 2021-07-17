@@ -365,7 +365,7 @@ class Contributor(Model):
     def avatar_url(self):
         return get_libravatar_url(
             email=self.user.email,
-            https=True, size=100, default='identicon'
+            https=True, size=150, default='identicon'
         )
 
 
