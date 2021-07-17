@@ -6,3 +6,6 @@ class DrugcombinatorConfig(AppConfig):
     
     name = 'drugcombinator'
     verbose_name = _("Drug combinator")
+
+    def ready(self):
+        import drugcombinator.signals

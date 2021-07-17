@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django_hosts.resolvers import reverse_host
 
 from drugcombinator.exceptions import Http400
-from drugcombinator.models import Drug, Category, Interaction
+from drugcombinator.models import Drug, Category, Interaction, Contributor
 from drugcombinator.forms import CombinatorForm, SearchForm
 from drugcombinator.utils import normalize
 from drugportals.models import Portal
@@ -175,6 +175,8 @@ def docs(request):
 
 
 def about(request):
+
+    contributors = Contributor.objects.filter(display=True)
 
     return render(request, 'drugcombinator/about.html', locals())
 

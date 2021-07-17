@@ -1,6 +1,8 @@
 import functools
+from hashlib import md5
 import unicodedata
 from time import time
+
 from django.db import connection, reset_queries
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
@@ -53,3 +55,15 @@ def count_queries(func):
         return result
 
     return inner_func
+
+
+def get_libravatar_url(email, https=False, size=80, default=None):
+    hash_url = md5(email.strip().lower().encode()).hexdigest()
+    default = default or 'http://cdn.libravatar.org/nobody.png'
+
+    if https:
+        protocol, domain = 'https', 'seccdn.libravatar.org'
+    else:
+        protocol, domain = 'http', 'cdn.libravatar.org'
+    
+    return f'{protocol}://{domain}/avatar/{hash_url}?s={size}&d={default}'

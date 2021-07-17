@@ -1,52 +1,52 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-07 07:59+0300\n"
+"POT-Creation-Date: 2021-07-17 00:54+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\drugcombinator\admin.py:10
+#: .\drugcombinator\admin.py:13
 msgid "Mixtures.info adminisration"
 msgstr "Administration de Mixtures.info"
 
-#: .\drugcombinator\admin.py:11
+#: .\drugcombinator\admin.py:14
 msgid "Welcome to Mixtures.info administration"
 msgstr "Bienvenue dans l'administration de Mixtures.info"
 
-#: .\drugcombinator\admin.py:34
+#: .\drugcombinator\admin.py:37
 msgid "No modification"
 msgstr "Aucune modification"
 
-#: .\drugcombinator\admin.py:87
+#: .\drugcombinator\admin.py:90
 msgid "Descriptions"
 msgstr ""
 
-#: .\drugcombinator\admin.py:93 .\drugcombinator\admin.py:94
+#: .\drugcombinator\admin.py:96 .\drugcombinator\admin.py:97
 msgid "Other substance"
 msgstr "Autre substance"
 
-#: .\drugcombinator\admin.py:101
+#: .\drugcombinator\admin.py:104
 msgid "Interactions (second part)"
 msgstr "Interactions (seconde partie)"
 
-#: .\drugcombinator\admin.py:118
+#: .\drugcombinator\admin.py:121
 msgid "Interactions (first part)"
 msgstr "Interactions (première partie)"
 
-#: .\drugcombinator\admin.py:133
+#: .\drugcombinator\admin.py:136
 msgid "Base informations"
 msgstr "Informations de base"
 
-#: .\drugcombinator\admin.py:139
+#: .\drugcombinator\admin.py:142
 msgid "Detailled informations"
 msgstr "Informations détaillées"
 
-#: .\drugcombinator\admin.py:144 .\drugcombinator\admin.py:198
+#: .\drugcombinator\admin.py:147 .\drugcombinator\admin.py:201
 msgid "Interaction data"
 msgstr "Données d'interaction"
 
-#: .\drugcombinator\admin.py:146
+#: .\drugcombinator\admin.py:149
 msgid ""
 "Interaction data that does no depends on another specific substance. Those "
 "texts will be displayed in all interaction cards about this substance."
@@ -55,45 +55,57 @@ msgstr ""
 "Ces textes seront affichés dans toutes les fiches d'interaction qui "
 "concernent cette substance."
 
-#: .\drugcombinator\admin.py:162 .\drugcombinator\admin.py:257
+#: .\drugcombinator\admin.py:165 .\drugcombinator\admin.py:260
 msgid "Related notes"
 msgstr "Notes liées"
 
-#: .\drugcombinator\admin.py:207
+#: .\drugcombinator\admin.py:210
 msgid "Notes"
 msgstr ""
 
-#: .\drugcombinator\admin.py:215
+#: .\drugcombinator\admin.py:218
 msgid ""
 "Those data will be automatically added to the \"risks\" field in the app."
 msgstr ""
 "Ces données seront automatiquement rajoutées au champ \"risques\" dans l'app."
 
-#: .\drugcombinator\admin.py:219
+#: .\drugcombinator\admin.py:222
 msgid ""
 "Those data will be automatically added to the \"effects\" field in the app."
 msgstr ""
 "Ces données seront automatiquement rajoutées au champ \"effects\" dans l'app."
 
-#: .\drugcombinator\admin.py:240
+#: .\drugcombinator\admin.py:243
 msgid "Substance-related risks"
 msgstr "Risques liés aux substances"
 
-#: .\drugcombinator\admin.py:250
+#: .\drugcombinator\admin.py:253
 msgid "Substance-related effects"
 msgstr "Effets liés aux substances"
 
-#: .\drugcombinator\admin.py:261
+#: .\drugcombinator\admin.py:264
 msgid "Mark all selected interactions as drafts"
 msgstr "Marquer les interactions sélectionnées comme brouillons"
 
-#: .\drugcombinator\admin.py:266
+#: .\drugcombinator\admin.py:269
 msgid "Mark all selected interactions as published"
 msgstr "Marquer les interactions sélectionnées comme publiées"
 
-#: .\drugcombinator\admin.py:273
+#: .\drugcombinator\admin.py:276
 msgid "Sort the linked substances of selected interactions"
 msgstr "Réorganiser les substances liées aux interactions sélectionnées"
+
+#: .\drugcombinator\admin.py:331
+msgid "Provided by Libravatar"
+msgstr "Fourni par Libravatar"
+
+#: .\drugcombinator\admin.py:333
+msgid "Contributor profile"
+msgstr "Profil de contributeurice"
+
+#: .\drugcombinator\admin.py:340
+msgid "Avatar"
+msgstr ""
 
 #: .\drugcombinator\apps.py:8
 msgid "Drug combinator"
@@ -117,27 +129,27 @@ msgstr "Sélectionnez des substances"
 msgid "Find a substance"
 msgstr "Rechercher une substance"
 
-#: .\drugcombinator\models.py:19
+#: .\drugcombinator\models.py:22
 msgid "last modification"
 msgstr "dernière modification"
 
-#: .\drugcombinator\models.py:30 .\drugcombinator\models.py:292
+#: .\drugcombinator\models.py:33 .\drugcombinator\models.py:295
 msgid "name"
 msgstr "nom"
 
-#: .\drugcombinator\models.py:34 .\drugcombinator\models.py:296
+#: .\drugcombinator\models.py:37 .\drugcombinator\models.py:299
 msgid "identifier"
 msgstr "identifiant"
 
-#: .\drugcombinator\models.py:38 .\drugcombinator\models.py:300
+#: .\drugcombinator\models.py:41 .\drugcombinator\models.py:303
 msgid "description"
 msgstr ""
 
-#: .\drugcombinator\models.py:43
+#: .\drugcombinator\models.py:46
 msgid "general risks"
 msgstr ""
 
-#: .\drugcombinator\models.py:45
+#: .\drugcombinator\models.py:48
 msgid ""
 "Risks specific to combinations involving this substance that do not depend "
 "on a specific interaction."
@@ -145,11 +157,11 @@ msgstr ""
 "Risques spécifiques à la combinaison de cette substance qui ne dépendent pas "
 "d'une interaction particulière."
 
-#: .\drugcombinator\models.py:53
+#: .\drugcombinator\models.py:56
 msgid "general effects"
 msgstr ""
 
-#: .\drugcombinator\models.py:55
+#: .\drugcombinator\models.py:58
 msgid ""
 "Effects specific to combinations involving this substance that do not depend "
 "on a specific interaction."
@@ -157,141 +169,141 @@ msgstr ""
 "Effets spécifiques à la combinaison de cette substance qui ne dépendent pas "
 "d'une interaction particulière."
 
-#: .\drugcombinator\models.py:63
+#: .\drugcombinator\models.py:66
 msgid "aliases"
 msgstr "dénominations"
 
-#: .\drugcombinator\models.py:64
+#: .\drugcombinator\models.py:67
 msgid "One alias per line. No need to duplicate case."
 msgstr "Un alias par ligne. Insensible à la casse."
 
-#: .\drugcombinator\models.py:69
+#: .\drugcombinator\models.py:72
 msgid "interactants"
 msgstr ""
 
-#: .\drugcombinator\models.py:74 .\drugcombinator\models.py:309
+#: .\drugcombinator\models.py:77 .\drugcombinator\models.py:312
 msgid "category"
 msgstr "catégorie"
 
-#: .\drugcombinator\models.py:78
+#: .\drugcombinator\models.py:81
 msgid "common"
 msgstr "commune"
 
-#: .\drugcombinator\models.py:79
+#: .\drugcombinator\models.py:82
 msgid "Common substances are displayed as buttons in the app."
 msgstr ""
 "Les substances communes sont affichées sous forme de boutons dans l'app."
 
-#: .\drugcombinator\models.py:119
+#: .\drugcombinator\models.py:122
 msgid "Aliases"
 msgstr "Dénominations"
 
-#: .\drugcombinator\models.py:134
+#: .\drugcombinator\models.py:137
 msgid "substance"
 msgstr ""
 
-#: .\drugcombinator\models.py:142
+#: .\drugcombinator\models.py:145
 msgctxt "synergy"
 msgid "Unknown"
 msgstr "Inconnue"
 
-#: .\drugcombinator\models.py:143
+#: .\drugcombinator\models.py:146
 msgctxt "synergy"
 msgid "Neutral"
 msgstr "Neutre"
 
-#: .\drugcombinator\models.py:144
+#: .\drugcombinator\models.py:147
 msgid "Additive"
 msgstr "Addition"
 
-#: .\drugcombinator\models.py:145
+#: .\drugcombinator\models.py:148
 msgid "Decrease"
 msgstr "Atténuation"
 
-#: .\drugcombinator\models.py:146
+#: .\drugcombinator\models.py:149
 msgid "Increase"
 msgstr "Potentialisation"
 
-#: .\drugcombinator\models.py:147
+#: .\drugcombinator\models.py:150
 msgid "Mixed"
 msgstr "Mixte"
 
-#: .\drugcombinator\models.py:152
+#: .\drugcombinator\models.py:155
 msgctxt "risk"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: .\drugcombinator\models.py:153
+#: .\drugcombinator\models.py:156
 msgctxt "risk"
 msgid "Neutral"
 msgstr "Neutre"
 
-#: .\drugcombinator\models.py:154
+#: .\drugcombinator\models.py:157
 msgid "Caution"
 msgstr "Vigilance"
 
-#: .\drugcombinator\models.py:155
+#: .\drugcombinator\models.py:158
 msgid "Unsafe"
 msgstr "Risqué"
 
-#: .\drugcombinator\models.py:156
+#: .\drugcombinator\models.py:159
 msgid "Dangerous"
 msgstr "Dangereux"
 
-#: .\drugcombinator\models.py:161
+#: .\drugcombinator\models.py:164
 msgctxt "reliability"
 msgid "Unknown"
 msgstr "Non évaluée"
 
-#: .\drugcombinator\models.py:162
+#: .\drugcombinator\models.py:165
 msgid "Hypothetical"
 msgstr "Hypothétique"
 
-#: .\drugcombinator\models.py:163
+#: .\drugcombinator\models.py:166
 msgid "Inferred"
 msgstr "Supposée"
 
-#: .\drugcombinator\models.py:164
+#: .\drugcombinator\models.py:167
 msgid "Proven"
 msgstr "Avérée"
 
-#: .\drugcombinator\models.py:170
+#: .\drugcombinator\models.py:173
 msgid "first interactant"
 msgstr "première substance"
 
-#: .\drugcombinator\models.py:175
+#: .\drugcombinator\models.py:178
 msgid "second interactant"
 msgstr "seconde substance"
 
-#: .\drugcombinator\models.py:179
+#: .\drugcombinator\models.py:182
 msgid "risks"
 msgstr "risques"
 
-#: .\drugcombinator\models.py:183
+#: .\drugcombinator\models.py:186
 msgid "synergy"
 msgstr "synergie"
 
-#: .\drugcombinator\models.py:187
+#: .\drugcombinator\models.py:190
 msgid "risks reliability"
 msgstr "fiabilité des risques"
 
-#: .\drugcombinator\models.py:191
+#: .\drugcombinator\models.py:194
 msgid "synergy and effects reliability"
 msgstr "fiabilité de la synergie et des effets"
 
-#: .\drugcombinator\models.py:195
+#: .\drugcombinator\models.py:198
 msgid "risks description"
 msgstr "description des risques"
 
-#: .\drugcombinator\models.py:200
+#: .\drugcombinator\models.py:203
 msgid "effects description"
 msgstr "description des effets"
 
-#: .\drugcombinator\models.py:205
+#: .\drugcombinator\models.py:208
 msgid "notes"
 msgstr ""
 
-#: .\drugcombinator\models.py:206
+#: .\drugcombinator\models.py:209
 msgid ""
 "This field is only displayed on this admin site and is shared between all "
 "users and languages."
@@ -299,35 +311,35 @@ msgstr ""
 "Ce champ n'est visible que sur ce site d'administration, et est partagé "
 "entre tous les languages et utilisateurs."
 
-#: .\drugcombinator\models.py:211
+#: .\drugcombinator\models.py:214
 msgid "draft"
 msgstr "brouillon"
 
-#: .\drugcombinator\models.py:212
+#: .\drugcombinator\models.py:215
 msgid "In case of work-in-progress, uncertain or incomplete data."
 msgstr "En cas de travail en cours, de données incertaines ou incomplètes."
 
-#: .\drugcombinator\models.py:285
+#: .\drugcombinator\models.py:288
 msgid "interaction"
 msgstr ""
 
-#: .\drugcombinator\models.py:310
+#: .\drugcombinator\models.py:313
 msgid "categories"
 msgstr "catégories"
 
-#: .\drugcombinator\models.py:316
+#: .\drugcombinator\models.py:319
 msgid "Untitled note"
 msgstr "Note sans titre"
 
-#: .\drugcombinator\models.py:317
+#: .\drugcombinator\models.py:320
 msgid "title"
 msgstr "titre"
 
-#: .\drugcombinator\models.py:321
+#: .\drugcombinator\models.py:324
 msgid "content"
 msgstr "contenu"
 
-#: .\drugcombinator\models.py:322
+#: .\drugcombinator\models.py:325
 msgid ""
 "Notes are only displayed on this admin site and are shared between all users "
 "and languages."
@@ -335,20 +347,50 @@ msgstr ""
 "Les notes ne sont visibles que sur ce site d'administration et sont "
 "partagées entre tous les languages et utilisateurs."
 
-#: .\drugcombinator\models.py:328
+#: .\drugcombinator\models.py:331
 msgid "involved substances"
 msgstr "substances concernées"
 
-#: .\drugcombinator\models.py:329
+#: .\drugcombinator\models.py:332
 msgid ""
 "If this note involves specific substances, you can optionally set them here."
 msgstr ""
 "Si cette note concerne des substances particulières, vous pouvez "
 "optionellement les spécifier ici."
 
-#: .\drugcombinator\models.py:339
+#: .\drugcombinator\models.py:342
 msgid "note"
 msgstr ""
+
+#: .\drugcombinator\models.py:350
+msgid "user"
+msgstr "utilisateur"
+
+#: .\drugcombinator\models.py:354
+msgid "personal page"
+msgstr "page personnelle"
+
+#: .\drugcombinator\models.py:355
+msgid "This link may be used in public contributors lists."
+msgstr ""
+"Ce lien sera utilisé dans les listes de contributeurices publiques."
+
+#: .\drugcombinator\models.py:360
+msgid "show publicly"
+msgstr ""
+
+#: .\drugcombinator\models.py:361
+msgid "Show this profile in public contributors lists."
+msgstr ""
+"Afficher ce profil dans les listes de contributeurices publiques."
+
+#: .\drugcombinator\models.py:377
+msgid "contributor profile"
+msgstr "profil de contributeurice"
+
+#: .\drugcombinator\models.py:378
+msgid "contributor profiles"
+msgstr "profils de contributeurices"
 
 #: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:8
 #, python-format
@@ -665,12 +707,12 @@ msgstr "Mélanger !"
 msgid "and"
 msgstr "et"
 
-#: .\drugcombinator\utils.py:26
+#: .\drugcombinator\utils.py:28
 #, python-brace-format
 msgid "The {markdown} syntax is allowed."
 msgstr "La syntaxe {markdown} est autorisée."
 
-#: .\drugcombinator\utils.py:29
+#: .\drugcombinator\utils.py:31
 msgid "Paragraphs are separated by two carriage returns."
 msgstr "Les paragraphes sont séparés par deux retours à la ligne."
 
