@@ -1,9 +1,7 @@
-from itertools import chain
 from types import SimpleNamespace
-from django.db.models import Count, F
+from django.db.models import F
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.http import Http404
 from django.urls import reverse
 from django.views import View
 from django.views.generic.base import TemplateResponseMixin
@@ -12,9 +10,9 @@ from django.utils.decorators import method_decorator
 from django_hosts.resolvers import reverse_host
 
 from drugcombinator.exceptions import Http400
-from drugcombinator.models import Drug, Category, Interaction
+from drugcombinator.models import Drug, Category, Interaction, Contributor
 from drugcombinator.forms import CombinatorForm, SearchForm
-from drugcombinator.utils import normalize, count_queries
+from drugcombinator.utils import normalize
 from drugportals.models import Portal
 
 
@@ -174,6 +172,16 @@ def docs(request):
     interactions_count = Interaction.objects.all().count()
 
     return render(request, 'drugcombinator/docs.html', locals())
+
+
+def about(request):
+
+    contributors = (Contributor.objects
+        .filter(display=True)
+        .order_by('user__username')
+    )
+
+    return render(request, 'drugcombinator/about.html', locals())
 
 
 def autocomplete(request):

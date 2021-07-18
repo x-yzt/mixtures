@@ -2,13 +2,16 @@ from operator import attrgetter
 from django.db.models import (Model, DateTimeField, CharField, ForeignKey,
     CASCADE, SET_NULL, SlugField, TextField, ManyToManyField, IntegerField,
     BooleanField, CheckConstraint, F, Q, UniqueConstraint, IntegerChoices)
+from django.db.models.fields import URLField
+from django.db.models.fields.related import OneToOneField
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from django.template.loader import render_to_string
 
 from drugcombinator.managers import DrugManager, InteractionManager
-from drugcombinator.utils import markdown_allowed
+from drugcombinator.utils import markdown_allowed, get_libravatar_url
 
 
 
@@ -337,3 +340,39 @@ class Note(LastModifiedModel):
 
     class Meta:
         verbose_name = _("note")
+
+
+class Contributor(Model):
+
+    user = OneToOneField(
+        get_user_model(), CASCADE,
+        related_name='profile',
+        verbose_name=_("user")
+    )
+    page = URLField(
+        default='', blank=True, max_length=128,
+        verbose_name=_("personal page"),
+        help_text=_("This link may be used in public contributors "
+            "lists.")
+    )
+    display = BooleanField(
+        default=False,
+        verbose_name=_("show publicly"),
+        help_text=_("Show this profile in public contributors lists.")
+    )
+
+    @property
+    def avatar_url(self):
+        return get_libravatar_url(
+            email=self.user.email,
+            https=True, size=150, default='identicon'
+        )
+
+
+    def __str__(self):
+        return self.user.username
+
+
+    class Meta:
+        verbose_name = _("contributor profile")
+        verbose_name_plural = _("contributor profiles")

@@ -47,7 +47,7 @@ main > .container {
 }
 
 .multiple-select-dropdown li:first-of-type {
-  display: none;
+  display: none !important;
 }
 
 
@@ -55,6 +55,34 @@ main > .container {
 
 .row.no-margin {
   margin: 0;
+}
+
+
+/* People list component */
+
+.people {
+  .col {
+    margin-bottom: 16px;
+  }
+  img {
+    max-width: 100px;
+    transition: all .2s;
+  }
+  p {
+    margin: unset;
+  }
+  i {
+    color: $link-color;
+  }
+  a {
+    font-weight: inherit;
+    color: inherit;
+    &:hover, &:focus {
+      img {
+        filter: opacity(.7);
+      }
+    }
+  }
 }
 
 

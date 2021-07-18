@@ -1,10 +1,13 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TabbedTranslationAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
-from drugcombinator.models import Drug, Interaction, Category, Note
+from drugcombinator.models import (Drug, Interaction, Category, Note,
+    Contributor)
 
 admin.site.site_header = "Mixtures.info"
 admin.site.site_title = _("Mixtures.info adminisration")
@@ -314,3 +317,31 @@ class NoteAdmin(admin.ModelAdmin):
         'content'
     )
     autocomplete_fields = ('related_drugs',)
+
+
+class ContributorInline(admin.StackedInline, CustomizableInlineAdmin):
+    model = Contributor
+
+    can_delete = False
+    fields = (
+        'display',
+        ('avatar', 'page')
+    )
+    readonly_fields = ('avatar',)
+    help_texts = {'avatar': _("Provided by Libravatar")}
+    # Only one contributor profile is allowed per user
+    verbose_name_plural = _("Contributor profile")
+
+    def avatar(self, obj):
+        return render_to_string(
+            'drugcombinator/admin/image.html',
+            {'url': obj.avatar_url}
+        )
+    avatar.short_description = _("Avatar")
+
+
+admin.site.unregister(get_user_model())
+
+@admin.register(get_user_model())
+class ContributorUserAdmin(UserAdmin):
+    inlines = (ContributorInline,)
