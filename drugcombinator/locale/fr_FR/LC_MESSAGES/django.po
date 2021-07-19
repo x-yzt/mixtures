@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-17 19:45+0200\n"
+"POT-Creation-Date: 2021-07-20 00:12+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,23 +111,46 @@ msgstr ""
 msgid "Drug combinator"
 msgstr "Combinateur de substances"
 
-#: .\drugcombinator\forms.py:12
+#: .\drugcombinator\forms.py:13
 msgid "Search in this list"
 msgstr "Rechercher dans cette liste"
 
-#: .\drugcombinator\forms.py:19
+#: .\drugcombinator\forms.py:20
 msgid "Substances to combine"
 msgstr "Drogues à combiner"
 
-#: .\drugcombinator\forms.py:25
+#: .\drugcombinator\forms.py:26
 msgid "Select substances"
 msgstr "Sélectionnez des substances"
 
-#: .\drugcombinator\forms.py:35
+#: .\drugcombinator\forms.py:36
 #: .\drugcombinator\templates\drugcombinator\drug_search.html:12
 #: .\drugcombinator\templates\drugcombinator\drug_search.html:20
 msgid "Find a substance"
 msgstr "Rechercher une substance"
+
+#: .\drugcombinator\forms.py:47
+msgid "Your contribution"
+msgstr "Votre contribution"
+
+#: .\drugcombinator\forms.py:49
+msgid ""
+"Any remark or suggestion you might have about this data. Don't be shy ;)"
+msgstr ""
+"Toute remarque ou suggestion que vous pourriez avoir au sujet de ces "
+"données. Ne soyez pas timides ;)"
+
+#: .\drugcombinator\forms.py:57
+msgid "Your email address"
+msgstr "Votre adresse email"
+
+#: .\drugcombinator\forms.py:59
+msgid ""
+"We might need to contact you back about this contribution. We will not use "
+"your email for another purpose."
+msgstr ""
+"Nous pourrions avoir besoin de vous contacter au sujet de cette "
+"contribution. Votre adresse ne sera pas utilisée à d'autres fins."
 
 #: .\drugcombinator\models.py:22
 msgid "last modification"
@@ -539,6 +562,23 @@ msgstr ""
 msgid "The effects of this combination are not known."
 msgstr "Les effets de cette combinaison ne sont pas connus."
 
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:8
+#, python-format
+msgid "Contribute: %(topic)s"
+msgstr "Contribution : %(topic)s"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:18
+msgid "Incorrect input"
+msgstr "Entrée invalide"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:36
+msgid "Send"
+msgstr "Envoyer"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:38
+msgid "Close"
+msgstr "Fermer"
+
 #: .\drugcombinator\templates\drugcombinator\docs.html:6
 #: .\drugcombinator\templates\drugcombinator\docs.html:11
 msgid "API Documentation"
@@ -617,11 +657,11 @@ msgstr "La substance %(name)s n'a pas été trouvée."
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: .\drugcombinator\templates\drugcombinator\interaction.html:37
+#: .\drugcombinator\templates\drugcombinator\interaction.html:38
 msgid "Warning! This card is a draft."
 msgstr "Attention ! Cette fiche est un brouillon."
 
-#: .\drugcombinator\templates\drugcombinator\interaction.html:39
+#: .\drugcombinator\templates\drugcombinator\interaction.html:40
 msgid ""
 "This is a draft, not intended to deliver information, but to be reworked. "
 "Its content can be very incomplete, and even erroneous. If you want to help "
@@ -631,7 +671,7 @@ msgstr ""
 "mais à être retravaillée. Son contenu peut être très lacunaire, voire faux. "
 "Si vous voulez nous aider, vous pouvez toutefois afficher son contenu."
 
-#: .\drugcombinator\templates\drugcombinator\interaction.html:46
+#: .\drugcombinator\templates\drugcombinator\interaction.html:47
 msgid "I'll be careful, I promise"
 msgstr "Je fais attention, promis"
 
@@ -713,6 +753,11 @@ msgstr "La syntaxe {markdown} est autorisée."
 #: .\drugcombinator\utils.py:31
 msgid "Paragraphs are separated by two carriage returns."
 msgstr "Les paragraphes sont séparés par deux retours à la ligne."
+
+#: .\drugcombinator\views.py:235
+#, python-brace-format
+msgid "New contribution: {interaction}"
+msgstr "Nouvelle contribution : {interaction}"
 
 # Needed for displaying custom history list fields correctly
 

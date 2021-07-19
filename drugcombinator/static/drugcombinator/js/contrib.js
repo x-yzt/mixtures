@@ -35,9 +35,17 @@ document.addEventListener('DOMContentLoaded', event => {
             
             if (response.ok) {
                 form.reset();
-                M.toast({ html: "Message sent!" });
+                M.toast({
+                    html: gettext("Contribution sent. Thanks!")
+                });
+            } else if (response.status === 400) {
+                M.toast({
+                    html: gettext("Invalid contribution :(")
+                });
             } else {
-                M.toast({ html: "An error occured while sending :("})
+                M.toast({
+                    html: gettext("An error occured while sending :(")
+                });
             }
         });
     });
