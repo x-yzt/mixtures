@@ -69,9 +69,12 @@
       {% translate 'This could be a good sign. Or not. Beware.' %}
     </p>
   {% endfor %}
+
+  {% include 'drugcombinator/contrib_modal.html' %}
 {% endblock %}
 
 {% block scripts %}
   {{ block.super }}
   <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
+  <script src="{% static 'drugcombinator/js/contrib.js' %}"></script>
 {% endblock %}

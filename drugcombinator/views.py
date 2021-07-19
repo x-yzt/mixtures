@@ -1,17 +1,24 @@
+from abc import ABCMeta, abstractmethod
 from types import SimpleNamespace
+
 from django.db.models import F
+from django.core.mail import send_mail
 from django.conf import settings
+from django.http.response import (HttpResponse, HttpResponseBadRequest,
+    HttpResponseNotAllowed)
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic.base import TemplateResponseMixin
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
+from django.utils.text import format_lazy
+from django.utils.translation import gettext_lazy as _
 from django_hosts.resolvers import reverse_host
 
 from drugcombinator.exceptions import Http400
 from drugcombinator.models import Drug, Category, Interaction, Contributor
-from drugcombinator.forms import CombinatorForm, SearchForm
+from drugcombinator.forms import CombinatorForm, SearchForm, ContribForm
 from drugcombinator.utils import normalize
 from drugportals.models import Portal
 
@@ -84,13 +91,12 @@ def combine(request, slugs):
     expected_interactions = len(drugs) * (len(drugs)-1) // 2
     unknown_interactions = expected_interactions - len(interactions)
 
+    contrib_form = ContribForm()
+
     return render(request, 'drugcombinator/combine.html', locals())
 
 
-class DrugView(View, TemplateResponseMixin):
-
-    template_name = 'drugcombinator/drug.html'
-
+class AbstractDrugView(View, TemplateResponseMixin, metaclass=ABCMeta):
 
     def get(self, request, **kwargs):
 
@@ -103,17 +109,31 @@ class DrugView(View, TemplateResponseMixin):
             ), permanent=True)
         
         return self.render_to_response(vars(ctx))
-    
 
+    @abstractmethod
     def get_context(self, request, name):
 
         ctx = SimpleNamespace()
-        ctx.default_host = reverse_host(settings.DEFAULT_HOST)
+
         ctx.drug = Drug.objects.get_from_name_or_404(name)
         ctx.interactions = (ctx.drug.interactions
             .prefetch_related('from_drug', 'to_drug')
             .order_by('is_draft', '-risk')
         )
+        
+        return ctx
+
+
+class DrugView(AbstractDrugView):
+
+    template_name = 'drugcombinator/drug.html'
+
+
+    def get_context(self, request, name):
+        
+        ctx = super().get_context(request, name)
+        ctx.default_host = reverse_host(settings.DEFAULT_HOST)
+        ctx.contrib_form = ContribForm()
         
         return ctx
 
@@ -124,9 +144,9 @@ class RecapView(DrugView):
     template_name = 'drugcombinator/iframes/recap.html'
 
 
-    def get_context(self, *args, **kwargs):
+    def get_context(self, request, name):
         
-        ctx = super().get_context(*args, **kwargs)
+        ctx = super().get_context(request, name)
         ctx.interactions = ctx.interactions.filter(is_draft=False)
         ctx.dummy_risks = Interaction.get_dummy_risks()
         ctx.dummy_synergies = Interaction.get_dummy_synergies()
@@ -198,3 +218,30 @@ def autocomplete(request):
         request, 'drugcombinator/autocomplete.js', locals(),
         content_type='text/javascript'
     )
+
+
+def send_contrib(request):
+
+    if request.method == 'POST':
+        contrib_form = ContribForm(request.POST)
+        
+        if contrib_form.is_valid():
+            interaction = contrib_form.cleaned_data['interaction_field']
+            expeditor = contrib_form.cleaned_data['email_field']
+            message = contrib_form.cleaned_data['message_field']
+
+            send_mail(
+                format_lazy(
+                    _("New contribution: {interaction}"),
+                    interaction=interaction,
+                ),
+                message,
+                from_email=expeditor,
+                recipient_list=['contact@mixtures.info'],
+                fail_silently=False,
+            )
+            return HttpResponse(status=204)
+        
+        return HttpResponseBadRequest("Invalid form data")
+
+    return HttpResponseNotAllowed(['POST'], "Unallowed method")

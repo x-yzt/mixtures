@@ -19,5 +19,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('docs/', views.docs, name='docs'),
 
+    path('send-contrib/', views.send_contrib, name='send_contrib'),
     path('autocomplete.js', cache(views.autocomplete), name='autocomplete')
 ]

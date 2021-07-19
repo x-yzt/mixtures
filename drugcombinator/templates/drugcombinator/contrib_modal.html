@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<div id="contrib-modal" class="modal">
+  <form action="{% url 'send_contrib' %}" method="post">
+    <div class="modal-content">
+      <h4>
+        <i class="material-icons">addchart</i>
+        {% blocktranslate with topic='<span id="contrib-topic"></span>' %}
+          Contribute: {{ topic }}
+        {% endblocktranslate %}
+      </h4>
+
+      <div class="row">
+        {% for field in contrib_form.visible_fields %}
+          <div class="input-field col s12">
+            {{ field }}
+            {{ field.label_tag }}
+            <span class="helper-text" data-error="{% translate 'Incorrect input' %}">
+              {{ field.help_text }}
+            </span>
+          </div>
+        {% endfor %}
+        {% for field in contrib_form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+        {% csrf_token %}
+        
+        <div class="progress" style="display: none;">
+          <div class="indeterminate"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" type="submit">
+        {% translate 'Send' %} <i class="material-icons right">send</i>
+      </button>
+      <a class="modal-close waves-effect btn-flat">{% translate 'Close' %}</a>
+    </div>
+  </form>
+</div>
