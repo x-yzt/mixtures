@@ -157,6 +157,7 @@
     {% block scripts %}
       <script src="{% static 'mixtures/js/materialize.min.js' %}"></script>
       <script src="{% static 'mixtures/js/language_selector.js' %}"></script>
+      <script src="{% url 'i18n' %}"></script>
       <script>M.AutoInit();</script>
     {% endblock %}
   </body>

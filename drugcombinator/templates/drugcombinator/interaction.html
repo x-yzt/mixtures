@@ -14,15 +14,16 @@
     </div>
   {% endif %}
 
-  <a class="btn btn-floating waves-effect waves-light" href="
+  <a
     {% if perms.drugcombinator.change_interaction %}
-      {% url 'admin:drugcombinator_interaction_change' interaction.pk %}
+      class="btn btn-floating waves-effect waves-light"
+      href="{% url 'admin:drugcombinator_interaction_change' interaction.pk %}"
     {% else %}
-      {% with subject='Contribution : '|cat:interaction %}
-        {% mailto 'contact@mixtures.info' subject interaction.get_contrib_email_body|formatspaces %}
-      {% endwith %}
+      id="contrib-{{ interaction.id }}"
+      class="btn btn-floating waves-effect waves-light modal-trigger"
+      data-target="contrib-modal"
     {% endif %}
-  ">
+  >
     <i class="material-icons">edit</i>
   </a>
 

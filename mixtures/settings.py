@@ -105,6 +105,15 @@ DATABASES = {
 }
 
 
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_SUBJECT_PREFIX = "[Mixtures system] "
+
+DEFAULT_FROM_EMAIL = "system@mixtures.info"
+
+
 # Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -195,6 +204,18 @@ if os.environ.get("PROD") == 'TRUE':
     }
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+    EMAIL_HOST = "mail.gandi.net"
+
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+
+    EMAIL_HOST_USER = "system@mixtures.info"
+
+    EMAIL_PORT = 465
+
+    EMAIL_USE_SSL = True
 
     LOGGING = {
         'version': 1,
