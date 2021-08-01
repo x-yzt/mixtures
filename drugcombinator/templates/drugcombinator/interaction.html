@@ -2,7 +2,7 @@
 {% load collections %}
 {% load strings %}
 
-<div class="row card interaction">
+<div class="row card interaction" data-interaction-name="{{ interaction }}">
 
   {% if drugs|length != 2 %}
     <div class="col s12">

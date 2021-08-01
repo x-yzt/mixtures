@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', event => {
     btns.forEach(btn => {
         const interactionId = btn.id.replace('contrib-', '');
         const interactionName = 
-            btn.closest('.interaction').querySelector('h2').textContent;
+            btn.closest('.interaction').getAttribute('data-interaction-name');
 
         btn.addEventListener('click', event => {
             field.value = interactionId;
