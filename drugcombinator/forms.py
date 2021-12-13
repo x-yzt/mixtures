@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms.fields import CharField
 from django.utils.translation import gettext_lazy as _
 
@@ -62,5 +63,29 @@ class ContribForm(forms.Form):
     )
     interaction_field = forms.ModelChoiceField(
         queryset=Interaction.objects.all(),
+        required=False,
         widget=forms.HiddenInput()
     )
+    combination_name_field = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+
+
+    def clean(self):
+        """
+            As this form can be used to contribute data about
+            interactions that do not exist in the database at this
+            point, a combination name must be given as a fallback to a
+            proprer interaction identifier.
+        """
+        cleaned_data = super().clean()
+
+        interaction = cleaned_data['interaction_field']
+        combination_name = cleaned_data['combination_name_field']
+
+        if interaction is None and not combination_name:
+            raise ValidationError(
+                "An interaction identifier or a combination name must "
+                "be provided."
+            )

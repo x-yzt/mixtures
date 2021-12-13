@@ -2,8 +2,7 @@
 {% load collections %}
 {% load strings %}
 
-<div class="row card interaction" data-interaction-name="{{ interaction }}">
-
+<div class="row card interaction">
   {% if drugs|length != 2 %}
     <div class="col s12">
       <h2>
@@ -22,6 +21,7 @@
       id="contrib-{{ interaction.id }}"
       class="btn btn-floating waves-effect waves-light modal-trigger"
       data-target="contrib-modal"
+      data-interaction-name="{{ interaction }}"
     {% endif %}
   >
     <i class="material-icons">edit</i>

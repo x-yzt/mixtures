@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.db.utils import IntegrityError
+from drugcombinator.forms import ContribForm
 from drugcombinator.utils import normalize
 from drugcombinator.models import Drug, Interaction
 
@@ -107,3 +108,28 @@ class InteractionModelTestCase(TestCase):
 
         with self.assertRaises(ValueError):
             self.inter_a_b.other_interactant(self.drug_c)
+
+
+class ContribFormTestCase(TestCase):
+
+    data = {
+        'message_field': "Hello!",
+        'email_field': "me@example.com"
+    }
+
+
+    def test_no_interaction(self):
+
+        form = ContribForm(data={
+            **self.data,
+            'combination_name_field': "A + B"
+        })
+
+        self.assertTrue(form.is_valid())
+
+
+    def test_no_interaction_no_name(self):
+
+        form = ContribForm(data=self.data)
+
+        self.assertFalse(form.is_valid())

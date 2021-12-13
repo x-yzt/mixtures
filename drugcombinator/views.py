@@ -227,13 +227,14 @@ def send_contrib(request):
         
         if contrib_form.is_valid():
             interaction = contrib_form.cleaned_data['interaction_field']
+            name = contrib_form.cleaned_data['combination_name_field']
             expeditor = contrib_form.cleaned_data['email_field']
             message = contrib_form.cleaned_data['message_field']
 
             send_mail(
                 format_lazy(
                     _("New contribution: {interaction}"),
-                    interaction=interaction,
+                    interaction=interaction or name,
                 ),
                 message,
                 from_email=expeditor,

@@ -65,9 +65,31 @@
     <p class="flow-text">
       {% translate 'No interactions were found in our database.' %}
     </p>
-    <p class="flow-text">
-      {% translate 'This could be a good sign. Or not. Beware.' %}
-    </p>
+    {% if drugs.count == 2 %}
+      <p class="flow-text">
+        {% translate "Do you think you can help us? We'd love to:" %}
+      </p>
+      <div class="center-align">
+        <a
+          {% if perms.drugcombinator.change_interaction %}
+            class="btn-large waves-effect waves-light"
+            href="{% url 'admin:drugcombinator_interaction_add' %}"
+          {% else %}
+            id="contrib-new"
+            class="btn-large waves-effect waves-light modal-trigger"
+            href="#" 
+            data-target="contrib-modal"
+            data-interaction-name="{{ combination_name }}"
+          {% endif %}
+        >
+          <i class="material-icons left">edit</i> {% translate 'Contribute' %}
+        </a>
+      </div>
+    {% else %}
+      <p class="flow-text">
+        {% translate 'This could be a good sign. Or not. Beware.' %}
+      </p>
+    {% endif %}
   {% endfor %}
 
   {% include 'drugcombinator/contrib_modal.html' %}
