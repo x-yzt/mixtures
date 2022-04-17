@@ -237,13 +237,6 @@ class Interaction(LastModifiedModel):
         return self.interactants[not index]
 
 
-    def get_contrib_email_body(self):
-        return render_to_string(
-            'drugcombinator/mail/contrib_body.txt',
-            {'interaction': self}
-        )
-    
-
     @property
     def interactants(self):
         return (self.from_drug, self.to_drug)
