@@ -7,25 +7,27 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <h1>{% translate 'API Documentation' %} | Mixtures.info</h1>
-  </div>
+  <div class="max-width-md">
+    <div class="row">
+      <h1>{% translate 'API Documentation' %} | Mixtures.info</h1>
+    </div>
 
-  <div class="row">
-    <p class="flow-text">
-      {% blocktranslate trimmed %}
-        This page is intended to help developers integrating Mixtures.info data into a third party
-        application. Our database contains {{ drugs_count }} substances linked by
-        {{ interactions_count }} interactions, available in JSON format through an (almost) RESTful
-        HTTP service.
-      {% endblocktranslate %}
-    </p>
+    <div class="row">
+      <p class="flow-text">
+        {% blocktranslate trimmed %}
+          This page is intended to help developers integrating Mixtures.info data into a third party
+          application. Our database contains {{ drugs_count }} substances linked by
+          {{ interactions_count }} interactions, available in JSON format through an (almost) RESTful
+          HTTP service.
+        {% endblocktranslate %}
+      </p>
 
-    <p class="flow-text center-align">
-      <i class="material-icons large">code</i><br/>
-      {% blocktranslate trimmed %}
-        The API is still under construction, and will be available soon.
-      {% endblocktranslate %}
-    </p>
+      <p class="flow-text center-align">
+        <i class="material-icons large">code</i><br/>
+        {% blocktranslate trimmed %}
+          The API is still under construction, and will be available soon.
+        {% endblocktranslate %}
+      </p>
+    </div>
   </div>
 {% endblock %}

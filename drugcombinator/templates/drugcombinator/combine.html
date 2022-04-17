@@ -36,61 +36,71 @@
     <div class="divider"></div>
   </div>
 
-  {% if unknown_interactions and interactions %}
-    <p class="flow-text warning">
-      <i class="material-icons small left">warning</i>
-      {% with count=unknown_interactions %}
-        {% blocktranslate count _=count with number=count|apnumber trimmed %}
-          Warning: {{ number }} interaction was not found in our database.
-        {% plural %}
-          Warning: {{ number }} interactions were not found in our database.
-        {% endblocktranslate %}
-      {% endwith %}
-    </p>
-  {% endif %}
+  <div class="row">
+    <div class="col s12 xl9">
+      {% if unknown_interactions and interactions %}
+        <p class="flow-text warning">
+          <i class="material-icons small left">warning</i>
+          {% with count=unknown_interactions %}
+            {% blocktranslate count _=count with number=count|apnumber trimmed %}
+              Warning: {{ number }} interaction was not found in our database.
+            {% plural %}
+              Warning: {{ number }} interactions were not found in our database.
+            {% endblocktranslate %}
+          {% endwith %}
+        </p>
+      {% endif %}
 
-  {% if drugs.count > 2 %}
-    <p class="flow-text warning">
-      <i class="material-icons small left">warning</i>
-      {% blocktranslate with number=drugs.count|apnumber trimmed %}
-        Caution: {{ number }} substances have been selected. Mixtures.info only provides information
-        on substance pairs.
-      {% endblocktranslate %}
-    </p>
-  {% endif %}
+      {% if drugs.count > 2 %}
+        <p class="flow-text warning">
+          <i class="material-icons small left">warning</i>
+          {% blocktranslate with number=drugs.count|apnumber trimmed %}
+            Caution: {{ number }} substances have been selected. Mixtures.info only provides information
+            on substance pairs.
+          {% endblocktranslate %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
 
-  {% for interaction in interactions %}
-    {% include 'drugcombinator/interaction.html' %}
-  {% empty %}
-    <p class="flow-text">
-      {% translate 'No interactions were found in our database.' %}
-    </p>
-    {% if drugs.count == 2 %}
-      <p class="flow-text">
-        {% translate "Do you think you can help us? We'd love to:" %}
-      </p>
-      <div class="row center-align">
-        <a
-          {% if perms.drugcombinator.change_interaction %}
-            class="btn-large waves-effect waves-light"
-            href="{% url 'admin:drugcombinator_interaction_add' %}"
-          {% else %}
-            id="contrib-new"
-            class="btn-large waves-effect waves-light modal-trigger"
-            href="#" 
-            data-target="contrib-modal"
-            data-interaction-name="{{ combination_name }}"
-          {% endif %}
-        >
-          <i class="material-icons left">edit</i> {% translate 'Contribute' %}
-        </a>
-      </div>
-    {% else %}
-      <p class="flow-text">
-        {% translate 'This could be a good sign. Or not. Beware.' %}
-      </p>
-    {% endif %}
-  {% endfor %}
+  <div class="row no-margin">
+    <div class="col s12 m9 l10 xl9">
+      {% for interaction in interactions %}
+        {% include 'drugcombinator/interaction.html' %}
+      {% empty %}
+        <p class="flow-text">
+          {% translate 'No interactions were found in our database.' %}
+        </p>
+        {% if drugs.count == 2 %}
+          <p class="flow-text">
+            {% translate "Do you think you can help us? We'd love to:" %}
+          </p>
+          <div class="row center-align">
+            <a
+              {% if perms.drugcombinator.change_interaction %}
+                class="btn-large waves-effect waves-light"
+                href="{% url 'admin:drugcombinator_interaction_add' %}"
+              {% else %}
+                id="contrib-new"
+                class="btn-large waves-effect waves-light modal-trigger"
+                href="#" 
+                data-target="contrib-modal"
+                data-interaction-name="{{ combination_name }}"
+              {% endif %}
+            >
+              <i class="material-icons left">edit</i> {% translate 'Contribute' %}
+            </a>
+          </div>
+        {% else %}
+          <p class="flow-text">
+            {% translate 'This could be a good sign. Or not. Beware.' %}
+          </p>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% include 'drugcombinator/toc.html' %}
+  </div>
 
   {% include 'drugcombinator/contrib_modal.html' %}
 {% endblock %}

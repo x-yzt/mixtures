@@ -16,44 +16,46 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <h1>{% translate 'Find a substance' %}</h1>
-    <div class="divider"></div>
-  </div>
+  <div class="max-width-md">
+    <div class="row">
+      <h1>{% translate 'Find a substance' %}</h1>
+      <div class="divider"></div>
+    </div>
 
-  <div class="row">
-    {% for drug in common_drugs %}
-      <a href="{{ drug.get_absolute_url }}" class="waves-effect waves-light btn drug selected">
-        {{ drug }}
-      </a>
-    {% endfor %}
+    <div class="row">
+      {% for drug in common_drugs %}
+        <a href="{{ drug.get_absolute_url }}" class="waves-effect waves-light btn drug selected">
+          {{ drug }}
+        </a>
+      {% endfor %}
 
-    <h3>{% translate 'Not finding what you are looking for?'%}</h3>
+      <h3>{% translate 'Not finding what you are looking for?'%}</h3>
 
-    <form action="" method="post">
-      {% csrf_token %}
+      <form action="" method="post">
+        {% csrf_token %}
 
-      <div class="row">
-        <div class="input-field col l6 offset-l3 m8 offset-m2 s12">
-          <i class="material-icons prefix">search</i>
-          {{ search_form }}
-          <span class="helper-text" data-error="
-            {% blocktranslate %}The substance {{ name }} was not found.{% endblocktranslate %}
-          "></span>
+        <div class="row">
+          <div class="input-field col l6 offset-l3 m8 offset-m2 s12">
+            <i class="material-icons prefix">search</i>
+            {{ search_form }}
+            <span class="helper-text" data-error="
+              {% blocktranslate %}The substance {{ name }} was not found.{% endblocktranslate %}
+            "></span>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="center-align">
-          <button class="btn-large waves-effect waves-light" type="submit" name="action">
-            {% translate 'Confirm' %}
-            <i class="material-icons right">send</i>
-          </button>
+        <div class="row">
+          <div class="center-align">
+            <button class="btn-large waves-effect waves-light" type="submit" name="action">
+              {% translate 'Confirm' %}
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
 
-    <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
   </div>
 {% endblock %}
 

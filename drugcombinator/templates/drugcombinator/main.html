@@ -15,76 +15,78 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <h1>{% translate 'Combinations of psychoactive substances' %}</h1>
-    <h2>{% translate 'Synergies and risks of drug interactions' %}</h2>
-    
-    <div class="col s12 l7">
-      <p>
-        {% blocktranslate trimmed %}
-          Mixtures.info aims to deliver <b>verifiable</b> data on <b>drug mixtures</b>. To date, our
-          database is still very <b>incomplete</b>.
-        {% endblocktranslate %}
-        {% blocktranslate count _=portals.count trimmed %}
-          It is possible to browse through the entire application, but <b>we encourage you to use
-          our smaller but completed thematic portal</b> instead.
-        {% plural %}
-          It is possible to browse through the entire application, but <b>we encourage you to use
-          our smallers but completed thematic portals</b> instead.
-        {% endblocktranslate %}
-      </p>
-    </div>
-    <div class="col s12 l5">
-      <ul>
-        {% for portal in portals %}
-          <li>
-            <a class="waves-effect waves-light btn btn-large" href="{{ portal.get_absolute_url }}">
-              <i class="material-icons left">chevron_right</i>{{ portal }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div class="col s12 divider"></div>
-  </div>
-
-  <div class="row">
-    {% for drug in common_drugs %}
-      <a id="drug-{{ drug.id }}" class="waves-effect waves-light btn drug">{{ drug }}</a>
-    {% endfor %}
-
-    <h3>{% translate 'Not finding what you are looking for?' %}</h3>
-
-    <form action="" method="post">
-      {% csrf_token %}
-
-      <div class="row">
-        <div class="col l6 m12 s12">
-          <p>
-            {% blocktranslate trimmed %}
-              Only the most common drugs are listed above. Other substances are available in this
-              list.
-            {% endblocktranslate %}
-          </p>
-        </div>
-
-        <div class="col l6 m8 offset-m2 s12">
-          {{ combinator_form }}
-        </div>
+  <div class="max-width-md">
+    <div class="row">
+      <h1>{% translate 'Combinations of psychoactive substances' %}</h1>
+      <h2>{% translate 'Synergies and risks of drug interactions' %}</h2>
+      
+      <div class="col s12 l7">
+        <p>
+          {% blocktranslate trimmed %}
+            Mixtures.info aims to deliver <b>verifiable</b> data on <b>drug mixtures</b>. To date,
+            our database is still very <b>incomplete</b>.
+          {% endblocktranslate %}
+          {% blocktranslate count _=portals.count trimmed %}
+            It is possible to browse through the entire application, but <b>we encourage you to use
+            our smaller but completed thematic portal</b> instead.
+          {% plural %}
+            It is possible to browse through the entire application, but <b>we encourage you to use
+            our smallers but completed thematic portals</b> instead.
+          {% endblocktranslate %}
+        </p>
+      </div>
+      <div class="col s12 l5">
+        <ul>
+          {% for portal in portals %}
+            <li>
+              <a class="waves-effect waves-light btn btn-large" href="{{ portal.get_absolute_url }}">
+                <i class="material-icons left">chevron_right</i>{{ portal }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
 
-      <div class="row">
-        <div class="center-align">
-          <button id="combine-submit" class="btn-large waves-effect waves-light"
-              type="submit" name="action">{% translate 'Mix!' %}
-            <i class="material-icons right">merge_type</i>
-          </button>
-        </div>
-      </div>
-    </form>
+      <div class="col s12 divider"></div>
+    </div>
 
-    <div class="divider"></div>
+    <div class="row">
+      {% for drug in common_drugs %}
+        <a id="drug-{{ drug.id }}" class="waves-effect waves-light btn drug">{{ drug }}</a>
+      {% endfor %}
+
+      <h3>{% translate 'Not finding what you are looking for?' %}</h3>
+
+      <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="row">
+          <div class="col l6 m12 s12">
+            <p>
+              {% blocktranslate trimmed %}
+                Only the most common drugs are listed above. Other substances are available in this
+                list.
+              {% endblocktranslate %}
+            </p>
+          </div>
+
+          <div class="col l6 m8 offset-m2 s12">
+            {{ combinator_form }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="center-align">
+            <button id="combine-submit" class="btn-large waves-effect waves-light"
+                type="submit" name="action">{% translate 'Mix!' %}
+              <i class="material-icons right">merge_type</i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="divider"></div>
+    </div>
   </div>
 {% endblock %}
 

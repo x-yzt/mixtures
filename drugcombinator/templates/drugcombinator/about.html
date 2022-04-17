@@ -8,261 +8,266 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <h1>À propos de Mixtures.info</h1>
-  </div>
-
-  <div class="row">
-    <h2 id="contributors">
-      <i class="material-icons small">group</i> Contributeurices
-    </h2>
-
-    <p>
-      Les données présentes sur Mixtures.info sont le fruit du travail des ces personnes. Nous les
-      en remercions du fond du coeur 💜 !
-    </p>
-    
-    <div class="people row">
-      {% for contributor in contributors %}
-        <div class="col s6 m4 l3 center-align">
-          {% if contributor.page %}
-            <a href="{{ contributor.page }}" rel="external nofollow">
-          {% endif %}
-          <img
-            class="circle responsive-img" src="{{ contributor.avatar_url }}"
-            alt="Avatar de {{ contributor }}"
-          />
-          <p class="flow-text">
-            {% if contributor.page %}
-              <i class="material-icons small">open_in_new</i>
-            {% endif %}
-            {{ contributor }}
-          </p>
-          {% if contributor.page %}
-            </a>
-          {% endif %}
-        </div>
-      {% endfor %}
+  <div class="max-width-md">
+    <div class="row">
+      <h1>À propos de Mixtures.info</h1>
     </div>
 
-    <h2 id="faq">
-      <i class="material-icons small">help_outline</i> Questions fréquentes
-    </h2>
+    <div class="row">
+      <h2 id="contributors">
+        <i class="material-icons small">group</i> Contributeurices
+      </h2>
 
-    <ul class="collapsible">
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons">sms_failed</i> J'ai trouvé une donnée incorrecte !
-        </div>
-        <div class="collapsible-body">
-          <p>
-            Malgré le soin que nous y apportons, il est possible que des erreurs figurent sur cette
-            application. Merci de nous contacter à
-            <a href="mailto://contact@mixtures.info">contact@mixtures.info</a> pour nous signaler
-            tout contenu que vous jugeriez incorrect.
-          </p>
-          <p>
-            Il est également possible de suggérer des modifications à l'aide des formulaires dédiés
-            via l'icône <i class="material-icons tiny">create</i> présente sur les cartes
-            d'interaction.
-          <p>
-            Si votre contribution respecte nos <a href="#data-quality">critères de qualité des
-            données</a>, c'est encore mieux.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons small">group_work</i> Comment puis-je contribuer ?
-        </div>
-        <div class="collapsible-body">
-          <p>
-            Merci de vouloir nous aider ! Si vous désirez compléter notre base de données, faites
-            nous parvenir vos contributions à
-            <a href="mailto://contact@mixtures.info">contact@mixtures.info</a>. N'hésitez pas à
-            prendre connaissance de nos <a href="#data-quality">critères de qualité des données</a>
-            au préalable.
-          </p>
-          <p>
-            Si vous désirez apporter une contribution régulière ou que vous représentez une
-            association, <a href="mailto://contact@mixtures.info">contactez-nous</a> afin d'obtenir
-            un accès personnalisé à l'interface d'édition.
-          </p>
-          <p>
-            Mixtures.info est un projet collaboratif qui ne peut exister sans contributions !
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons small">star_half</i> À quoi correspond la variable "fiabilité" ?
-        </div>
-        <div class="collapsible-body">
-          <p>
-            Dans un soucis de transparence, les données de Mixtures.info sont accompagnées d'un
-            indice de fiabilité, qui indique le niveau de certitude de l'information délivrée.
-          </p>
-          <ul class="browser-default">
-            <li>
-              <b>Hypothétique :</b> les sources ne suffisent pas à tirer de conclusion, car elles
-              sont rares ou contradictoires. Il faut faire des hypothèses à partir des propriétés
-              des substances ou de quelques témoignages. 
-            </li>
-            <li>
-              <b>Supposée :</b> les données sont issues d'un nombre important de témoignages.
-              Quelques études scientifiques peuvent les soutenir. 
-            </li>
-            <li>
-              <b>Avérée :</b> les données sont le fruit d'une convergence massive des témoignages et
-              des connaissances scientifiques.
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons small">vertical_split</i> Pourquoi séparer Synergie et Risque ?
-        </div>
-        <div class="collapsible-body">
-          <ul class="browser-default">
-            <li>
-              La partie <b>Synergie</b> rassemble des informations sur les effets d'une combinaison
-              et les mécanismes qui se cachent derrière, sans en évaluer la dangerosité. Elle répond
-              à un objectif d'accessibilité du savoir.
-            </li>
-            <li>
-              La partie <b>Risque</b> s'adresse aux personnes qui voudraient savoir plus
-              concrètement ce que l'on encoure à mélanger deux substances. Elle répond à un objectif
-              de réduction des risques.
-            </li>
-          </ul>
-          <p>
-            Séparer ces deux parties nous permet d'être plus précis, d'intégrer d'avantage
-            d'informations, et de mieux répondre aux besoins des lecteurices : la connaissance, la
-            sécurité, ou les deux. Les personnes souhaitant intégrer nos données dans des
-            applications tierces peuvent ainsi choisir celles qui les intéressent.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons small">face</i> Qui se cache derrière Mixtures.info ?
-        </div>
-        <div class="collapsible-body">
-          <p>
-            Cette application est à l'initiative de <b>Tridimensionnel</b>, coordinateurice de
-            rédaction, et de <b>xyzt_</b>, développeuse. Toutefois, Mixtures.info ne serait rien
-            sans sa formidable équipe de <a href="#contributors">contributeurices</a>.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons">bug_report</i> J'ai trouvé un bug !
-        </div>
-        <div class="collapsible-body">
-          <p>
-            Oups ! Concevoir des applications n'est pas toujours facile, et il se peut que quelques
-            malfaçons se soient glissées dans le code source de Mixtures.info. Vous pouvez signaler
-            toute anomalie en ouvrant un ticket sur notre
-            <a href="https://github.com/x-yzt/mixtures/issues">bug tracker</a>.
-          </p>
-          <p>
-            Pour toute suggestion, remarque ou idée géniale, vous êtes également les bienvenus sur
-            notre bug tracker. 
-          </p>
-        </div>
-      </li>
-    </ul>
+      <p>
+        Les données présentes sur Mixtures.info sont le fruit du travail des ces personnes. Nous les
+        en remercions du fond du coeur 💜 !
+      </p>
+      
+      <div class="people row">
+        {% for contributor in contributors %}
+          <div class="col s6 m4 l3 center-align">
+            {% if contributor.page %}
+              <a href="{{ contributor.page }}" rel="external nofollow">
+            {% endif %}
+            <img
+              class="circle responsive-img" src="{{ contributor.avatar_url }}"
+              alt="Avatar de {{ contributor }}"
+            />
+            <p class="flow-text">
+              {% if contributor.page %}
+                <i class="material-icons small">open_in_new</i>
+              {% endif %}
+              {{ contributor }}
+            </p>
+            {% if contributor.page %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
 
-    <h2 id="data-quality">
-      <i class="material-icons small">playlist_add_check</i> Qualité et fiabilité des données
-    </h2>
+      <h2 id="faq">
+        <i class="material-icons small">help_outline</i> Questions fréquentes
+      </h2>
 
-    <p>
-      La qualité des données présentes sur Mixtures.info est un sujet qui nous préoccupe
-      particulièrement.
-    </p>
-    <p>
-      Chaque information qui y est présente <b>doit être sourcée</b>, c'est à dire accompagnée d'un
-      lien vers une ressource attestant de la validité l'information. Mixtures.info n'est idéalement
-      <b>pas</b> un lieu destiné à produire du <a href="https://fr.wikipedia.org/wiki/Wikip%C3%A9dia
-      :Travaux_in%C3%A9dits#Qu'est-ce_qu'un_travail_in%C3%A9dit_?"> travail inédit </a>, mais un
-      lieu destiné à regrouper des informations <b>vérifiables</b>. À noter que si les wikis ou
-      forums sont des outils précieux, souvent liés à de nombreuses sources de qualité, ils ne
-      constituents <b>pas</b> en eux-mêmes des sources suffisantes.
-    </p>
-    <p>
-      D'autre part, toute information doit être <b>modérée</b> selon la qualitée de son origine. Il
-      convient ainsi de différencier :
-      <ul class="browser-default">
-        <li>Les sources de faible à moyenne fiabilité, tels que les témoignages ou
-        recoupements de témoignages ;</li>
-        <li>Les sources de fiabilité convenable, telles les études scientifiques valides
-        recoupées par des témoignages ;</li>
-        <li>Les sources de forte fiabilité, telles les méta-études valides recoupées par des
-        témoignages.</li>
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">sms_failed</i> J'ai trouvé une donnée incorrecte !
+          </div>
+          <div class="collapsible-body">
+            <p>
+              Malgré le soin que nous y apportons, il est possible que des erreurs figurent sur
+              cette application. Merci de nous contacter à
+              <a href="mailto://contact@mixtures.info">contact@mixtures.info</a> pour nous signaler
+              tout contenu que vous jugeriez incorrect.
+            </p>
+            <p>
+              Il est également possible de suggérer des modifications à l'aide des formulaires
+              dédiés via l'icône <i class="material-icons tiny">create</i> présente sur les cartes
+              d'interaction.
+            <p>
+              Si votre contribution respecte nos <a href="#data-quality">critères de qualité des
+              données</a>, c'est encore mieux.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons small">group_work</i> Comment puis-je contribuer ?
+          </div>
+          <div class="collapsible-body">
+            <p>
+              Merci de vouloir nous aider ! Si vous désirez compléter notre base de données, faites
+              nous parvenir vos contributions à
+              <a href="mailto://contact@mixtures.info">contact@mixtures.info</a>. N'hésitez pas à
+              prendre connaissance de nos <a href="#data-quality">critères de qualité des
+              données</a> au préalable.
+            </p>
+            <p>
+              Si vous désirez apporter une contribution régulière ou que vous représentez une
+              association, <a href="mailto://contact@mixtures.info">contactez-nous</a> afin
+              d'obtenir un accès personnalisé à l'interface d'édition.
+            </p>
+            <p>
+              Mixtures.info est un projet collaboratif qui ne peut exister sans contributions !
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons small">star_half</i> À quoi correspond la variable
+            "fiabilité" ?
+          </div>
+          <div class="collapsible-body">
+            <p>
+              Dans un soucis de transparence, les données de Mixtures.info sont accompagnées d'un
+              indice de fiabilité, qui indique le niveau de certitude de l'information délivrée.
+            </p>
+            <ul class="browser-default">
+              <li>
+                <b>Hypothétique :</b> les sources ne suffisent pas à tirer de conclusion, car elles
+                sont rares ou contradictoires. Il faut faire des hypothèses à partir des propriétés
+                des substances ou de quelques témoignages. 
+              </li>
+              <li>
+                <b>Supposée :</b> les données sont issues d'un nombre important de témoignages.
+                Quelques études scientifiques peuvent les soutenir. 
+              </li>
+              <li>
+                <b>Avérée :</b> les données sont le fruit d'une convergence massive des témoignages
+                et des connaissances scientifiques.
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons small">vertical_split</i> Pourquoi séparer Synergie et Risque ?
+          </div>
+          <div class="collapsible-body">
+            <ul class="browser-default">
+              <li>
+                La partie <b>Synergie</b> rassemble des informations sur les effets d'une
+                combinaison et les mécanismes qui se cachent derrière, sans en évaluer la
+                dangerosité. Elle répond à un objectif d'accessibilité du savoir.
+              </li>
+              <li>
+                La partie <b>Risque</b> s'adresse aux personnes qui voudraient savoir plus
+                concrètement ce que l'on encoure à mélanger deux substances. Elle répond à un
+                objectif de réduction des risques.
+              </li>
+            </ul>
+            <p>
+              Séparer ces deux parties nous permet d'être plus précis, d'intégrer d'avantage
+              d'informations, et de mieux répondre aux besoins des lecteurices : la connaissance, la
+              sécurité, ou les deux. Les personnes souhaitant intégrer nos données dans des
+              applications tierces peuvent ainsi choisir celles qui les intéressent.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons small">face</i> Qui se cache derrière Mixtures.info ?
+          </div>
+          <div class="collapsible-body">
+            <p>
+              Cette application est à l'initiative de <b>Tridimensionnel</b>, coordinateurice de
+              rédaction, et de <b>xyzt_</b>, développeuse. Toutefois, Mixtures.info ne serait rien
+              sans sa formidable équipe de <a href="#contributors">contributeurices</a>.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">bug_report</i> J'ai trouvé un bug !
+          </div>
+          <div class="collapsible-body">
+            <p>
+              Oups ! Concevoir des applications n'est pas toujours facile, et il se peut que
+              quelques malfaçons se soient glissées dans le code source de Mixtures.info. Vous
+              pouvez signaler toute anomalie en ouvrant un ticket sur notre
+              <a href="https://github.com/x-yzt/mixtures/issues">bug tracker</a>.
+            </p>
+            <p>
+              Pour toute suggestion, remarque ou idée géniale, vous êtes également les bienvenus sur
+              notre bug tracker. 
+            </p>
+          </div>
+        </li>
       </ul>
-    </p>
-    <p>
-      Exemple de contribution <b>invalide</b> :
-      <blockquote><em>
-        La polyconsommation de stimulants et de dépresseurs entraîne plus d'abus qu'avec chaque
-        produit seul. Il y a un grand risque d'addiction.
-      </em></blockquote>
-      Exemple de contribution <b>valide</b> :
-      <blockquote><em>
-        <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/9088780">Cette étude</a> montre que
-        la poly-consommation de stimulants et de dépresseurs serait corrélée à plus de pratiques à
-        risque et d'effets secondaires que la consommation de stimulants seuls. Par exemple, dans
-        <a target="_blank" href="https://erowid.org/experiences/exp.php?ID=4390">ce témoignage</a>,
-        l'addiction de l'auteur à l'alprazolam fut une conséquence de son utilisation hebdomadaire
-        de MDMA.
-      </em></blockquote>
-      Dans la contribution valide, chaque information est reliée à sa source : ici, une étude et un
-      témoignage. L'étude est a priori une source plus solide que le témoignage, mais ce n'est pas
-      toujours possible d'en trouver : l'important est d'être explicite sur la nature de la source
-      ("<em>cette étude</em>", "<em>ce témoignage"</em>), afin de ne pas faire passer une 
-      information pour plus fiable qu'elle n'est. De plus, étant donné qu'une seule étude n'est pas
-      une  preuve très solide, on utilise le conditionnel ("<em>serait correlée</em>"). 
-    </p>
-    <p>
-      Finalement, on a dit la même chose que dans le premier exemple, mais <b>sans rien affirmer par 
-      soi-même</b> et en donnant une <b>image fidèle</b> de l'état des connaissances. Ces
-      différences peuvent sembler mineures, mais appliquer ces directives permet au lecteur ou à la
-      lectrice de vérifier l'information. Parce que des données fausses peuvent mettre en danger, il
-      est impensable de demander à être cru sur parole.
-    </p>
 
-    <h2 id="open-data">
-      <i class="material-icons small">lock_open</i> Licences open source et open data
-    </h2>
-    <p>
-      Mixtures.info est un <a href="https://fr.wikipedia.org/wiki/Logiciel_libre">logiciel libre</a>
-      et <a href="https://fr.wikipedia.org/wiki/Open_source">open source</a>, distribué sous la
-      licence <a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">GPLv3</a>. L'entièreté de son
-      code source est disponible sur <a href="https://github.com/x-yzt/mixtures">GitHub</a>. Cela
-      signifie que vous êtes libre de comprendre le fonctionnement interne de cette application,
-      mais aussi d'y contribuer ou de la copier, dans les limites des termes de cette licence.
-    </p>
-    <p>
-      Les données présentes sur Mixtures.info sont également libres, puisque distribuées en <a href=
-      "https://fr.wikipedia.org/wiki/Donn%C3%A9es_ouvertes">open data</a>. Elles sont en revanche
-      distribuées sous la licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">
-      CC-BY-SA 4.0</a>.
-    </p>
-    <p>
-      Consultez les licences correspondantes pour savoir ce que vous pouvez légalement faire ou pas.
-    </p>
+      <h2 id="data-quality">
+        <i class="material-icons small">playlist_add_check</i> Qualité et fiabilité des données
+      </h2>
 
-    <h2>
-      <i class="material-icons small">build</i> Technologies utilisées
-    </h2>
-    <p>
-      Mixtures.info est programmé en Python à l'aide du framework Django. L'affichage utillise le
-      framework Materialize, et l'application est hébergée sur la plateforme Heroku. Pour une liste
-      exhaustive des technologies et bibliothèques logicielles utilisées, consultez le
-      <a href="https://github.com/x-yzt/mixtures">code source</a>.
-    </p>
+      <p>
+        La qualité des données présentes sur Mixtures.info est un sujet qui nous préoccupe
+        particulièrement.
+      </p>
+      <p>
+        Chaque information qui y est présente <b>doit être sourcée</b>, c'est à dire accompagnée
+        d'un lien vers une ressource attestant de la validité l'information. Mixtures.info n'est
+        idéalement <b>pas</b> un lieu destiné à produire du <a href="https://fr.wikipedia.org/wiki/
+        Wikip%C3%A9dia:Travaux_in%C3%A9dits#Qu'est-ce_qu'un_travail_in%C3%A9dit_?"> travail
+        inédit</a>, mais un lieu destiné à regrouper des informations <b>vérifiables</b>. À noter
+        que si les wikis ou forums sont des outils précieux, souvent liés à de nombreuses sources de
+        qualité, ils ne constituents <b>pas</b> en eux-mêmes des sources suffisantes.
+      </p>
+      <p>
+        D'autre part, toute information doit être <b>modérée</b> selon la qualitée de son origine.
+        Il convient ainsi de différencier :
+        <ul class="browser-default">
+          <li>Les sources de faible à moyenne fiabilité, tels que les témoignages ou
+          recoupements de témoignages ;</li>
+          <li>Les sources de fiabilité convenable, telles les études scientifiques valides
+          recoupées par des témoignages ;</li>
+          <li>Les sources de forte fiabilité, telles les méta-études valides recoupées par des
+          témoignages.</li>
+        </ul>
+      </p>
+      <p>
+        Exemple de contribution <b>invalide</b> :
+        <blockquote><em>
+          La polyconsommation de stimulants et de dépresseurs entraîne plus d'abus qu'avec chaque
+          produit seul. Il y a un grand risque d'addiction.
+        </em></blockquote>
+        Exemple de contribution <b>valide</b> :
+        <blockquote><em>
+          <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/9088780">Cette étude</a> montre
+          que la poly-consommation de stimulants et de dépresseurs serait corrélée à plus de
+          pratiques à risque et d'effets secondaires que la consommation de stimulants seuls. Par
+          exemple, dans <a target="_blank" href="https://erowid.org/experiences/exp.php?ID=4390">ce
+          témoignage</a>, l'addiction de l'auteur à l'alprazolam fut une conséquence de son
+          utilisation hebdomadaire de MDMA.
+        </em></blockquote>
+        Dans la contribution valide, chaque information est reliée à sa source : ici, une étude et
+        un témoignage. L'étude est a priori une source plus solide que le témoignage, mais ce n'est
+        pas toujours possible d'en trouver : l'important est d'être explicite sur la nature de la
+        source ("<em>cette étude</em>", "<em>ce témoignage"</em>), afin de ne pas faire passer une 
+        information pour plus fiable qu'elle n'est. De plus, étant donné qu'une seule étude n'est
+        pas une preuve très solide, on utilise le conditionnel ("<em>serait correlée</em>"). 
+      </p>
+      <p>
+        Finalement, on a dit la même chose que dans le premier exemple, mais <b>sans rien affirmer
+        par soi-même</b> et en donnant une <b>image fidèle</b> de l'état des connaissances. Ces
+        différences peuvent sembler mineures, mais appliquer ces directives permet au lecteur ou à
+        la lectrice de vérifier l'information. Parce que des données fausses peuvent mettre en
+        danger, il est impensable de demander à être cru sur parole.
+      </p>
+
+      <h2 id="open-data">
+        <i class="material-icons small">lock_open</i> Licences open source et open data
+      </h2>
+      <p>
+        Mixtures.info est un <a href="https://fr.wikipedia.org/wiki/Logiciel_libre">logiciel
+        libre</a> et <a href="https://fr.wikipedia.org/wiki/Open_source">open source</a>, distribué
+        sous la licence <a href="https://www.gnu.org/licenses/gpl-3.0.fr.html">GPLv3</a>.
+        L'entièreté de son code source est disponible sur <a href=
+        "https://github.com/x-yzt/mixtures">GitHub</a>. Cela signifie que vous êtes libre de
+        comprendre le fonctionnement interne de cette application, mais aussi d'y contribuer ou de
+        la copier, dans les limites des termes de cette licence.
+      </p>
+      <p>
+        Les données présentes sur Mixtures.info sont également libres, puisque distribuées en 
+        <a href="https://fr.wikipedia.org/wiki/Donn%C3%A9es_ouvertes">open data</a>. Elles sont en
+        revanche distribuées sous la licence <a href=
+        "https://creativecommons.org/licenses/by-sa/4.0/deed.fr"> CC-BY-SA 4.0</a>.
+      </p>
+      <p>
+        Consultez les licences correspondantes pour savoir ce que vous pouvez légalement faire ou
+        pas.
+      </p>
+
+      <h2>
+        <i class="material-icons small">build</i> Technologies utilisées
+      </h2>
+      <p>
+        Mixtures.info est programmé en Python à l'aide du framework Django. L'affichage utillise le
+        framework Materialize, et l'application est hébergée sur la plateforme Heroku. Pour une
+        liste exhaustive des technologies et bibliothèques logicielles utilisées, consultez le
+        <a href="https://github.com/x-yzt/mixtures">code source</a>.
+      </p>
+    </div>
   </div>
 {% endblock %}

@@ -1,0 +1,7 @@
+<div id="toc" class="col m3 l2 offset-xl1 hide-on-small-only">
+  <ul class="section table-of-contents">
+    {% for slug, name in toc.items %}
+      <li><a href="#{{ slug }}">{{ name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

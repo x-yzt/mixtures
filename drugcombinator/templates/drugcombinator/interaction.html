@@ -2,7 +2,7 @@
 {% load collections %}
 {% load strings %}
 
-<div class="row card interaction">
+<div id="{{ interaction.slug }}" class="row card interaction scrollspy">
   {% if drugs|length != 2 %}
     <div class="col s12">
       <h2>

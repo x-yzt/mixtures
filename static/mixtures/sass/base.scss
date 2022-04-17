@@ -34,11 +34,23 @@ main {
 }
 
 
-/* Content width */
+/* Content width & grid */
 
 main > .container {
-  max-width: 960px;
+  @media only screen and (min-width: 993px) {
+    width: 80%;
+  }
 }
+
+.max-width-md {
+  max-width: 992px;
+  margin: auto;
+}
+
+.no-margin {
+  margin: 0;
+}
+
 
 /* Forms */
 
@@ -48,13 +60,6 @@ main > .container {
 
 .multiple-select-dropdown li:first-of-type {
   display: none !important;
-}
-
-
-/* General purpose styles */
-
-.row.no-margin {
-  margin: 0;
 }
 
 

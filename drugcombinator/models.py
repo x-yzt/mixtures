@@ -238,6 +238,11 @@ class Interaction(LastModifiedModel):
 
 
     @property
+    def slug(self):
+        return f"{self.from_drug.slug}_{self.to_drug.slug}"
+
+
+    @property
     def interactants(self):
         return (self.from_drug, self.to_drug)
     

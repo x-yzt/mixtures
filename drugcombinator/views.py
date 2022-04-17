@@ -87,6 +87,7 @@ def combine(request, slugs):
     )
     
     combination_name = ' + '.join([str(d) for d in drugs])
+    toc = {inter.slug: str(inter) for inter in interactions}
 
     expected_interactions = len(drugs) * (len(drugs)-1) // 2
     unknown_interactions = expected_interactions - len(interactions)
@@ -120,6 +121,10 @@ class AbstractDrugView(View, TemplateResponseMixin, metaclass=ABCMeta):
             .prefetch_related('from_drug', 'to_drug')
             .order_by('is_draft', '-risk')
         )
+        ctx.toc = {
+            inter.slug: str(inter.other_interactant(ctx.drug))
+            for inter in ctx.interactions
+        }
         
         return ctx
 

@@ -16,6 +16,28 @@
 }
 
 
+/* Sticky table of contents */
+
+#toc {
+  $padding-left: 8px;
+
+  position: sticky;
+  top: 100px;
+  padding-right: 0;
+  .table-of-contents a {
+    padding-left: $padding-left;
+    &:hover {
+      padding-left: $padding-left - 1px;
+      color: $secondary-color;
+    }
+    &.active {
+      padding-left: $padding-left - 3px;
+      border-width: 3px;
+    }
+  }
+}
+
+
 /* Interaction cards */
 
 .interaction {
@@ -23,8 +45,8 @@
   padding: 0 16px;
   .btn-floating {
     position: absolute;
-    top: 28px;
-    right: -16px;
+    top: -10px;
+    left: -10px;
   }
 }
 
