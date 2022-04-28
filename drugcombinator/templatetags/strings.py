@@ -3,7 +3,7 @@ import urllib
 import uuid
 from django import template
 from django.template.defaultfilters import stringfilter
-
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -57,3 +57,15 @@ def mailto(recipient, subject=None, body=None):
 def _uuid():
     
     return str(uuid.uuid4())
+
+
+@register.simple_tag
+def echo(*seq):
+
+    return ''.join(seq)
+
+
+@register.simple_tag(name='echosafe')
+def echo_safe(*seq):
+    """Same as `echo`, but mark output string as safe."""
+    return mark_safe(echo(*seq))
