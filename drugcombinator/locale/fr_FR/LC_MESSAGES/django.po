@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 10:36+0200\n"
+"POT-Creation-Date: 2022-04-28 19:17+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -412,6 +412,424 @@ msgstr "profil de contributeurice"
 #: .\drugcombinator\models.py:376
 msgid "contributor profiles"
 msgstr "profils de contributeurices"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:9
+#: .\drugcombinator\templates\drugcombinator\about.html:18
+#, python-format
+msgid "About %(site)s"
+msgstr "À propos de %(site)s"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:26
+msgid "Contributors"
+msgstr "Contributeurices"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:30
+msgid ""
+"The data avalaible on Mixtures.info is the labour of these people. We thank "
+"them from our very hearts 💜 !"
+msgstr ""
+"Les données présentes sur Mixtures.info sont le fruit du travail des ces "
+"personnes. Nous les en remercions du fond du coeur 💜 !"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:61
+msgid "Frequently asked questions"
+msgstr "Questions fréquentes"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:72
+msgid "I found wrong data !"
+msgstr "J'ai trouvé une donnée incorrecte !"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:76
+#, python-format
+msgid ""
+"Despite the care we put into it, it is possible that errors appear on this "
+"application. Please contact us at %(contact_link)s to report any content you "
+"feel to be incorrect."
+msgstr ""
+"Malgré le soin que nous y apportons, il est possible que des erreurs "
+"figurent sur cette application. Merci de nous contacter à %(contact_link)s "
+"pour nous signaler tout contenu que vous jugeriez incorrect."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:83
+#, python-format
+msgid ""
+"It is also possible to suggest modifications using the dedicated forms using "
+"the %(icon)s icon on the interaction cards."
+msgstr ""
+"Il est également possible de suggérer des modifications à l'aide des "
+"formulaires dédiés via l'icône %(icon)s présente sur les cartes "
+"d'interaction."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:88
+#, python-format
+msgid ""
+"If your contribution meets our <a %(qa_attrs)s>data quality criteria</a>, "
+"even better."
+msgstr ""
+"Si votre contribution respecte nos <a %(qa_attrs)s>critères de qualité des "
+"données</a>, c'est encore mieux."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:97
+msgid "How can I contribute?"
+msgstr "Comment puis-je contribuer ?"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:101
+#, python-format
+msgid ""
+"Thank you for being willing to help us! If you wish to enrich our database, "
+"please send your contributions to %(contact_link)s. Please read our <a "
+"%(qa_attrs)s>data quality criteria</a> beforehand."
+msgstr ""
+"Merci de vouloir nous aider ! Si vous désirez compléter notre base de "
+"données, faites nous parvenir vos contributions à %(contact_link)s. "
+"N'hésitez pas à prendre connaissance de nos <a %(qa_attrs)s>critères de "
+"qualité des données</a> au préalable."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:108
+#, python-format
+msgid ""
+"If you wish to make periodic contributions or if you represent an "
+"association, please contact us at %(contact_link)s in order to obtain "
+"personalized access to the publishing interface."
+msgstr ""
+"Si vous désirez apporter une contribution régulière ou que vous représentez "
+"une association, contactez-nous à l'adresse %(contact_link)s afin d'obtenir "
+"un accès personnalisé à l'interface d'édition."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:115
+msgid ""
+"Mixtures.info is a collaborative project that cannot exist without "
+"contributions!"
+msgstr ""
+"Mixtures.info est un projet collaboratif qui ne peut exister sans "
+"contributions !"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:124
+msgid "What is the \"reliability\" variable?"
+msgstr "À quoi correspond la variable \"fiabilité\" ?"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:128
+msgid ""
+"In a concern of transparency, the information provided by Mixtures.info is "
+"accompanied by a reliability index, which indicates the level of certainty "
+"of the delivered information."
+msgstr ""
+"Dans un soucis de transparence, les données de Mixtures.info sont "
+"accompagnées d'un indice de fiabilité, qui indique le niveau de certitude de "
+"l'information délivrée."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:136
+msgid "Hypothetical:"
+msgstr "Hypothétique :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:137
+msgid ""
+"the sources are not sufficient to reach a conclusion, because they are rare "
+"or contradictory. It is necessary to make hypotheses from the properties of "
+"the substances or from a few testimonies."
+msgstr ""
+"les sources ne suffisent pas à tirer de conclusion, car elles sont rares ou "
+"contradictoires. Il faut faire des hypothèses à partir des propriétés des "
+"substances ou de quelques témoignages."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:144
+msgid "Inferred:"
+msgstr "Supposée :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:145
+msgid ""
+"the data is based on a large number of testimonies. Some scientific studies "
+"can support them."
+msgstr ""
+"les données sont issues d'un nombre important de témoignages. Quelques "
+"études scientifiques peuvent les soutenir."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:151
+msgid "Proven:"
+msgstr "Avérée :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:152
+msgid ""
+"the data are the result of a solid convergence of testimonies and scientific "
+"knowledge."
+msgstr ""
+"les données sont le fruit d'une convergence massive des témoignages et des "
+"connaissances scientifiques."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:163
+msgid "Why separate Synergy and Risk?"
+msgstr "Pourquoi séparer Synergie et Risque ?"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:168
+msgid ""
+"The <b>Synergy</b> section compiles information about the effects of a "
+"combination and the mechanisms behind it, without assessing its "
+"dangerousness. It addresses a goal of accessibility of knowledge."
+msgstr ""
+"La partie <b>Synergie</b> rassemble des informations sur les effets d'une "
+"combinaison et les mécanismes qui se cachent derrière, sans en évaluer la "
+"dangerosité. Elle répond à un objectif d'accessibilité du savoir."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:175
+msgid ""
+"The <b>Risk</b> section is for people who would like to know more concretely "
+"what is involved in mixing two substances. It addresses a goal of harm "
+"reduction."
+msgstr ""
+"La partie <b>Risque</b> s'adresse aux personnes qui voudraient savoir plus "
+"concrètement ce que l'on encoure à mélanger deux substances. Elle répond à "
+"un objectif de réduction des risques."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:182
+msgid ""
+"Separating these two sections allows us to be more precise, to integrate "
+"more information, and to better address the needs of the readers: knowledge, "
+"safety, or both. People who want to integrate our data into third-party "
+"applications can choose the ones they are interested in."
+msgstr ""
+"Séparer ces deux parties nous permet d'être plus précis, d'intégrer "
+"d'avantage d'informations, et de mieux répondre aux besoins des "
+"lecteurices : la connaissance, la sécurité, ou les deux. Les personnes "
+"souhaitant intégrer nos données dans des applications tierces peuvent ainsi "
+"choisir celles qui les intéressent."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:193
+msgid "Who is behind Mixtures.info ?"
+msgstr "Qui se cache derrière Mixtures.info ?"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:197
+#, python-format
+msgid ""
+"This application is the brainchild of <b>Tridimensionnel</b>, editorial "
+"coordinator, and <b>xyzt_</b>, software engineer. However, Mixtures.info "
+"would be nothing without its wonderful team of <a %(attrs)s>contributors</a>."
+msgstr ""
+"Cette application est à l'initiative de <b>Tridimensionnel</b>, "
+"coordinateurice de rédaction, et de <b>xyzt_</b>, développeuse. Toutefois, "
+"Mixtures.info ne serait rien sans sa formidable équipe de <a "
+"%(attrs)s>contributeurices</a>."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:207
+msgid "I found a bug!"
+msgstr "J'ai trouvé un bug !"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:211
+#, python-format
+msgid ""
+"Oops! Designing applications is not always easy, and it is possible that "
+"some defects have slipped into the source code of Mixtures.info. You can "
+"report any anomaly by opening a ticket on our <a %(bt_attrs)s>bug tracker</"
+"a>."
+msgstr ""
+"Oups ! Concevoir des applications n'est pas toujours facile, et il se peut "
+"que quelques malfaçons se soient glissées dans le code source de Mixtures."
+"info. Vous pouvez signaler toute anomalie en ouvrant un ticket sur notre <a "
+"%(bt_attrs)s>bug tracker</a>."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:218
+msgid ""
+"For any suggestion, remark or amazing idea, you are also very welcome on our "
+"bug tracker."
+msgstr ""
+"Pour toute suggestion, remarque ou idée géniale, vous êtes également les "
+"bienvenus sur notre bug tracker."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:229
+msgid "Data quality and reliability"
+msgstr "Qualité et fiabilité des données"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:233
+msgid ""
+"The quality of the data provided by Mixtures.info is a subject we are "
+"particularly concerned of."
+msgstr ""
+"La qualité des données présentes sur Mixtures.info est un sujet qui nous "
+"préoccupe particulièrement."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:239
+msgid "https://en.wikipedia.org/wiki/Wikipedia:No_original_research"
+msgstr "https://fr.wikipedia.org/wiki/Wikip%%C3%%A9dia:Travaux_in%%C3%%A9dits"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:241
+#, python-format
+msgid ""
+"Each piece of information <b>must be sourced</b>, i.e. accompanied by a link "
+"to a resource testifying the validity of the information. Mixtures.info is "
+"ideally <b>not</b> a place to produce <a %(or_attrs)s>original research</a>, "
+"but a place to gather <b>verifiable</b> information. Note that while wikis "
+"or forums are valuable tools, often linked to many high-quality sources, "
+"they are <b>not</b> in themselves sufficient sources."
+msgstr ""
+"Chaque information qui y est présente <b>doit être sourcée</b>, c'est à dire "
+"accompagnée d'un lien vers une ressource attestant de la validité "
+"l'information. Mixtures.info n'est idéalement <b>pas</b> un lieu destiné à "
+"produire du <a %(or_attrs)s> travail inédit</a>, mais un lieu destiné à "
+"regrouper des informations <b>vérifiables</b>. À noter que si les wikis ou "
+"forums sont des outils précieux, souvent liés à de nombreuses sources de "
+"qualité, ils ne constituents <b>pas</b> en eux-mêmes des sources suffisantes."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:251
+msgid ""
+"Moreover, all information must be <b>moderated</b> in accordance with the "
+"quality of its origin. It is thus appropriate to distinguish:"
+msgstr ""
+"D'autre part, toute information doit être <b>modérée</b> selon la qualitée "
+"de son origine. Il convient ainsi de différencier :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:256
+msgid ""
+"<li>Sources of low to average reliability, such as testimonials or cross-"
+"checking of testimonies;</li> <li>Sources of reasonable reliability, such as "
+"valid scientific studies cross-checked by testimonies;</li> <li>Highly "
+"reliable sources, such as valid meta-studies cross-referenced with "
+"testimonials.</li>"
+msgstr ""
+"<li>Les sources de faible à moyenne fiabilité, tels que les témoignages ou "
+"recoupements de témoignages ;</li> <li>Les sources de fiabilité convenable, "
+"telles les études scientifiques valides recoupées par des témoignages ;</li> "
+"<li>Les sources de forte fiabilité, telles les méta-études valides recoupées "
+"par des témoignages.</li>"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:267
+msgid "Example of an <b>invalid</b> contribution:"
+msgstr "Exemple de contribution <b>invalide</b> :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:269
+msgid ""
+"Polyuse of stimulants and depressants leads to more abuse than with each "
+"product alone. There is a high risk of addiction."
+msgstr ""
+"La polyconsommation de stimulants et de dépresseurs entraîne plus d'abus "
+"qu'avec chaque produit seul. Il y a un grand risque d'addiction."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:274
+msgid "Example of a <b>valid</b> contribution:"
+msgstr "Exemple de contribution <b>valide</b> :"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:278
+#, python-format
+msgid ""
+"<a %(r1_attrs)s>This study</a> shows that polyuse of stimulants and "
+"depressants would correlate with more risky practices and side effects than "
+"stimulant use alone. For example, in <a %(r2_attrs)s>this testimony</a>, the "
+"author's addiction to alprazolam was a consequence of their weekly MDMA use."
+msgstr ""
+"<a %(r1_attrs)s>Cette étude</a> montre que la poly-consommation de "
+"stimulants et de dépresseurs serait corrélée à plus de pratiques à risque et "
+"d'effets secondaires que la consommation de stimulants seuls. Par exemple, "
+"dans <a %(r2_attrs)s>ce témoignage</a>, l'addiction de l'auteur à "
+"l'alprazolam fut une conséquence de son utilisation hebdomadaire de MDMA."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:285
+msgid ""
+"In the valid contribution, each piece of information is linked to its "
+"source: here, a study and a testimony. The study is probably a more solid "
+"source than the testimony, but it is not always possible to find one: the "
+"important thing is to be explicit about the nature of the source (\"<em>this "
+"study</em>\", \"<em>this testimony\"</em>), to not make information seem "
+"more reliable than it is. Also, since a single study is not very strong "
+"evidence, a conditional tone is used (\"<em>would be correlated</em>\")."
+msgstr ""
+"Dans la contribution valide, chaque information est reliée à sa source : "
+"ici, une étude et un témoignage. L'étude est a priori une source plus solide "
+"que le témoignage, mais ce n'est pas toujours possible d'en trouver : "
+"l'important est d'être explicite sur la nature de la source (\"<em>cette "
+"étude</em>\", \"<em>ce témoignage\"</em>), afin de ne pas faire passer une "
+"information pour plus fiable qu'elle n'est. De plus, étant donné qu'une "
+"seule étude n'est pas une preuve très solide, on utilise le conditionnel "
+"(\"<em>serait correlée</em>\")."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:295
+msgid ""
+"In the end, the same thing was said as in the first example, but <b>without "
+"asserting anything on its own</b> and giving an <b>accurate picture</b> of "
+"the state of knowledge. These differences may seem minor, but applying these "
+"guidelines allows the reader to verify the information. False data can be "
+"life threatening, hence it is unthinkable to ask to be taken at face value."
+msgstr ""
+"Finalement, on a dit la même chose que dans le premier exemple, mais <b>sans "
+"rien affirmer par soi-même</b> et en donnant une <b>image fidèle</b> de "
+"l'état des connaissances. Ces différences peuvent sembler mineures, mais "
+"appliquer ces directives permet au lecteur ou à la lectrice de vérifier "
+"l'information. Parce que des données fausses peuvent mettre en danger, il "
+"est impensable de demander à être cru sur parole."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:306
+msgid "Open source and open data licenses"
+msgstr "Licences open source et open data"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:309
+msgid "https://en.wikipedia.org/wiki/Free_software"
+msgstr "https://fr.wikipedia.org/wiki/Logiciel_libre"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:310
+msgid "https://en.wikipedia.org/wiki/Open-source_software"
+msgstr "https://fr.wikipedia.org/wiki/Open_source"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:311
+msgid "https://www.gnu.org/licenses/gpl-3.0.en.html"
+msgstr "https://www.gnu.org/licenses/gpl-3.0.fr.html"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:315
+#, python-format
+msgid ""
+"Mixtures.info is a <a %(fs_attrs)s>free</a>, <a %(oss_attrs)s>open source</"
+"a> software, distributed under the <a %(gpl_attrs)s>GPLv3</a> license. Its "
+"entire source code is available on <a %(gh_attrs)s>GitHub</a>. This means "
+"you are free to understand the inner operation of this application, but also "
+"to contribute to it or copy it, as long as you respect this license."
+msgstr ""
+"Mixtures.info est un <a %(fs_attrs)s>logiciel libre</a> et <a "
+"%(oss_attrs)s>open source</a>, distribué sous la licence <a "
+"%(gpl_attrs)s>GPLv3</a>. L'entièreté de son code source est disponible sur "
+"<a %(gh_attrs)s>GitHub</a>. Cela signifie que vous êtes libre de comprendre "
+"le fonctionnement interne de cette application, mais aussi d'y contribuer ou "
+"de la copier, dans les limites des termes de cette licence."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:324
+msgid "https://en.wikipedia.org/wiki/Open_data"
+msgstr "https://fr.wikipedia.org/wiki/Donn%%C3%%A9es_ouvertes"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:325
+msgid "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+msgstr "https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:328
+#, python-format
+msgid ""
+"The data provided by Mixtures.info is also free, since it is distributed as "
+"<a %(od_attrs)s>open data</a>. They are however distributed under the <a "
+"%(cc_attrs)s>CC-BY-SA 4.0</a> license."
+msgstr ""
+"Les données présentes sur Mixtures.info sont également libres, puisque "
+"distribuées en <a %(od_attrs)s>open data</a>. Elles sont en revanche "
+"distribuées sous la licence <a %(cc_attrs)s>CC-BY-SA 4.0</a>."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:335
+msgid ""
+"Please consult the relevant licenses to find out what you can and cannot "
+"legally do."
+msgstr ""
+"Consultez les licences correspondantes pour savoir ce que vous pouvez "
+"légalement faire ou pas."
+
+#: .\drugcombinator\templates\drugcombinator\about.html:341
+msgid "Technologies used"
+msgstr "Technologies utilisées"
+
+#: .\drugcombinator\templates\drugcombinator\about.html:344
+#, python-format
+msgid ""
+"Mixtures.info is programmed in Python using the Django framework. The "
+"display uses the Materialize framework, and the application is hosted on the "
+"Heroku platform. For an exhaustive list of technologies and software "
+"libraries used, please see the <a %(gh_attrs)s>source code</a>."
+msgstr ""
+"Mixtures.info est programmé en Python à l'aide du framework Django. "
+"L'affichage utillise le framework Materialize, et l'application est hébergée "
+"sur la plateforme Heroku. Pour une liste exhaustive des technologies et "
+"bibliothèques logicielles utilisées, consultez le <a %(gh_attrs)s>code "
+"source</a>."
 
 #: .\drugcombinator\templates\drugcombinator\admin\drugs_interactions.html:8
 #, python-format
