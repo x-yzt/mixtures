@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from django.db.models import F
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import Http404
 from django.http.response import (HttpResponse, HttpResponseBadRequest,
     HttpResponseNotAllowed)
 from django.shortcuts import render, redirect
@@ -80,6 +81,11 @@ def combine(request, slugs):
         raise Http400("At least two substances are requiered")
 
     drugs = Drug.objects.filter(slug__in=slugs)
+
+    not_found_drugs = len(slugs) - len(drugs)
+    if not_found_drugs:
+        raise Http404(f"Unable to find {not_found_drugs} substance(s)")
+
     interactions = (
             Interaction.objects
             .between(drugs, prefetch=True)
