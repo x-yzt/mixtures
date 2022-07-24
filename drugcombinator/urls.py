@@ -1,4 +1,4 @@
-from django.urls import path, register_converter
+from django.urls import include, path, register_converter
 from django.views.decorators.cache import cache_page
 from drugcombinator.converters import SlugListConverter
 from drugcombinator import views
@@ -18,6 +18,8 @@ urlpatterns = [
     path('table/<slug_list:slugs>/', views.table, name='table'),
     path('about/', views.about, name='about'),
     path('docs/', views.docs, name='docs'),
+
+    path('api/', include('drugcombinator.api.urls')),
 
     path('send-contrib/', views.send_contrib, name='send_contrib'),
     path('autocomplete.js', cache(views.autocomplete), name='autocomplete')
