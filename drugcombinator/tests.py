@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.db.utils import IntegrityError
 from drugcombinator.forms import ContribForm
 from drugcombinator.utils import normalize
@@ -108,6 +108,36 @@ class InteractionModelTestCase(TestCase):
 
         with self.assertRaises(ValueError):
             self.inter_a_b.other_interactant(self.drug_c)
+
+
+class ComboViewTestCase(TestCase):
+
+    drug_a = Drug(name="DrugA", slug='drug-a')
+    drug_b = Drug(name="DrugB", slug='drug-b')
+
+
+    def setUp(self):
+
+        self.drug_a.save()
+        self.drug_b.save()
+
+
+    def test_return_code(self):
+
+        for url, code in (
+            ('/combo/', 404),
+            ('/combo/a/', 400),
+            ('/combo/x/', 400),
+            ('/combo/a+x/', 404),
+            ('/combo/a+b+x/', 404),
+            ('/combo/x+y/', 404),
+            ('/combo/a+b/', 200),
+        ):
+            with self.subTest(url=url):
+                self.assertEqual(
+                    self.client.get(url, follow=True).status_code,
+                    code
+                )
 
 
 class ContribFormTestCase(TestCase):
