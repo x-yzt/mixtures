@@ -25,9 +25,13 @@
       suivant à votre page web, à côté de vos autres fichiers JavaScript :
     </p> 
     <pre>{% filter stripspaces|force_escape %}
+      {% comment %}
+        The {% static %} templatetag would add an hash suffix to the script URI when using caching
+        (eg. .../js/resize-frames.xxxxxxxx.js), hence it is not used.
+      {% endcomment %} 
       <script
         type="text/javascript"
-        src="https://{{ default_host }}{% static 'drugcombinator/js/resize-frames.js' %}"
+        src="https://{{ request.get_host }}{% get_static_prefix %}drugcombinator/js/resize-frames.js"
       ></script>
     {% endfilter %}</pre>
     
