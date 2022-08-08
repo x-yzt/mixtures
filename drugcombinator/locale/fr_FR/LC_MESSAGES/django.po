@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-28 19:17+0200\n"
+"POT-Creation-Date: 2022-08-08 16:34+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1002,6 +1002,7 @@ msgid "Send"
 msgstr "Envoyer"
 
 #: .\drugcombinator\templates\drugcombinator\contrib_modal.html:38
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:80
 msgid "Close"
 msgstr "Fermer"
 
@@ -1082,6 +1083,85 @@ msgstr "La substance %(name)s n'a pas été trouvée."
 #: .\drugcombinator\templates\drugcombinator\drug_search.html:50
 msgid "Confirm"
 msgstr "Confirmer"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:7
+msgid "Integrate this data on a website"
+msgstr "Intégrer ces données sur un site web"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:10
+msgid ""
+"Mixtures.info offers a convenient way to integrate a nice summary of the "
+"above information in another web page, using <em>iFrames</em>."
+msgstr ""
+"Mixtures.info propose un moyen simple et pratique d'intégrer un joli "
+"récapitulatif des informations ci-dessus dans une autre page web, à l'aide "
+"d'<em>iFrames</em>."
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:16
+msgid ""
+"To do so, simply copy the following HTML code into the destination page, at "
+"the position where you want to integrate the data:"
+msgstr ""
+"Pour ce faire, il suffit de copier le code HTML suivant dans la page de "
+"destination, à l'endroit où vous souhaitez y intégrer les données :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:28
+msgid ""
+"Unfortunately, one restriction of <em>iFrame</em> elements is that they "
+"cannot automatically adjust their height to what they contain. A simple way "
+"to get around this problem is to load an additional JavaScript file, adding "
+"the following HTML code to your web page, alongside your other JavaScript "
+"files:"
+msgstr ""
+"Malheureusement, une des limitations des éléments <em>iFrame</em> est qu'ils "
+"ne peuvent pas automatiquement adapter leur hauteur à ce qu'ils contiennent. "
+"Une façon simple de contourner ce problème est de charger un fichier "
+"JavaScript supplémentaire, en ajoutant le code HTML suivant à votre page "
+"web, à côté de vos autres fichiers JavaScript :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:47
+msgid "Notes :"
+msgstr "Notes :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:50
+msgid ""
+"You only need to copy the second code once, even if you integrate several "
+"<em>iFrames</em> elements on the same page."
+msgstr ""
+"Il n'est nécéssaire de copier qu'une seule fois le second code, même si vous "
+"intégrez plusieurs éléments <em>iFrames</em>."
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:56
+msgid ""
+"If you don't know where to put your JavaScript files, it is recommended that "
+"you load them at the end of the <code>&lt;body&gt;</code> element. It is "
+"also common to load them into the <code>&lt;head&gt;</code> element."
+msgstr ""
+"Si vous ne savez pas où charger vos fichiers JavaScript, il est recommandé "
+"de le faire à la fin de l'élément HTML <code>&lt;body&gt;</code>. Il est "
+"également courant de les charger dans l'élément <code>&lt;head&gt;</code>."
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:63
+msgid ""
+"If you can't or don't want to load an extra JavaScript file, it is possible "
+"to give a fixed height to the <em>iFrame</em> by changing <code>height: "
+"auto</code> to, for example, <code>height: 500px</code> in the first code. "
+"Of course, you can change the value <code>500px</code> as you like."
+msgstr ""
+"Si vous ne pouvez ou ne voulez pas charger de fichier JavaScript "
+"supplémentaire, il est possible de donner une hauteur fixe à l'<em>iFrame</"
+"em> en modifiant <code>height: auto</code> en, par exemple, <code>height: "
+"500px</code> dans le premier code. Évidemment, vous pouvez changer la valeur "
+"<code>500px</code> à votre convenance."
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:71
+#, python-format
+msgid ""
+"For any questions or problems regarding integrations, please <a "
+"%(attrs)s>contact us</a>."
+msgstr ""
+"Pour toute question ou problème concernant les intégrations, <a "
+"%(attrs)s>contactez-nous</a>."
 
 #: .\drugcombinator\templates\drugcombinator\interaction.html:38
 msgid "Warning! This card is a draft."
@@ -1180,7 +1260,7 @@ msgstr "La syntaxe {markdown} est autorisée."
 msgid "Paragraphs are separated by two carriage returns."
 msgstr "Les paragraphes sont séparés par deux retours à la ligne."
 
-#: .\drugcombinator\views.py:241
+#: .\drugcombinator\views.py:247
 #, python-brace-format
 msgid "New contribution: {interaction}"
 msgstr "Nouvelle contribution : {interaction}"
