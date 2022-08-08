@@ -1,13 +1,15 @@
 {% load i18n %}
 
-<div class="sticky-anchor"></div>
+<div class="row hide-on-small-only">
+  <div class="sticky-anchor"></div>
 
-<div id="toc">
-  <h6>{% translate 'Table of contents' %}</h4>
-  
-  <ul class="section table-of-contents">
-    {% for slug, name in toc.items %}
-      <li><a href="#{{ slug }}">{{ name }}</a></li>
-    {% endfor %}
-  </ul>
+  <div id="toc">
+    <h6>{% translate 'Table of contents' %}</h4>
+    
+    <ul class="table-of-contents">
+      {% for slug, name in toc.items %}
+        <li><a href="#{{ slug }}">{{ name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>

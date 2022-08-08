@@ -28,43 +28,44 @@
   </div>
 
   <div class="row">
-    <div class="col s12 xl9">
-      <h2><i class="material-icons small">info</i> {% translate 'About' %}</h2>
-      {% if drug.description %}
-        {{ drug.description|markdown }}
-      {% else %}
-        <p>{% translate 'No additional information available.' %}</p>
-      {% endif %}
-
-      {% if drug.risks or drug.effects %}
-        <h2><i class="material-icons small">warning</i> {% translate 'Warnings' %}</h2>
-        {{ drug.risks|markdown }}
-        {{ drug.effects|markdown }}
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col s12 m9 l10 xl9">
-      {% for interaction in interactions %}
-        {% include 'drugcombinator/interaction.html' %}
-      {% empty %}
-        <p class="flow-text">
-          {% translate 'No interactions were found in our database.' %}
-        </p>
-      {% endfor %}
+      <div class="row">
+        <h2 class="no-margin"><i class="material-icons small">info</i> {% translate 'About' %}</h2>
+        {% if drug.description %}
+          {{ drug.description|markdown }}
+        {% else %}
+          <p>{% translate 'No additional information available.' %}</p>
+        {% endif %}
+
+        {% if drug.risks or drug.effects %}
+          <h2><i class="material-icons small">warning</i> {% translate 'Warnings' %}</h2>
+          {{ drug.risks|markdown }}
+          {{ drug.effects|markdown }}
+        {% endif %}
+      </div>
+
+      <div class="row">
+        {% for interaction in interactions %}
+          {% include 'drugcombinator/interaction.html' %}
+        {% empty %}
+          <p class="flow-text">
+            {% translate 'No interactions were found in our database.' %}
+          </p>
+        {% endfor %}
+      </div>
     </div>
 
-    {% include 'drugcombinator/toc.html' %}
+    <div id="sidebar" class="col s12 m3 l2 xl3">
+      {% if interactions %}
+        <div class="row">
+          <button class="btn modal-trigger" data-target="embed-modal">
+            <i class="material-icons left">addchart</i> {% translate 'Embed this data' %}
+          </button>
+        </div>
+      {% endif %}
+
+      {% include 'drugcombinator/toc.html' %}
   </div>
-
-  {% if interactions %}
-    <div class="row">
-      <button class="btn modal-trigger" data-target="embed-modal">
-        <i class="material-icons left">addchart</i> {% translate 'Embedding this data' %}
-      </button>
-    </div>
-  {% endif %}
 
   {% include 'drugcombinator/contrib_modal.html' %}
   {% include 'drugcombinator/embed_modal.html' %}
@@ -74,4 +75,5 @@
   {{ block.super }}
   <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
   <script src="{% static 'drugcombinator/js/contrib.js' %}"></script>
+  <script src="{% static 'drugcombinator/js/sticky.js' %}"></script>
 {% endblock %}
