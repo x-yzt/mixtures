@@ -1,16 +1,22 @@
+{% load i18n %}
 {% load static %}
 {% load strings %}
 
 <div id="embed-modal" class="modal">
   <div class="modal-content">
-    <h4><i class="material-icons">addchart</i> Intégrer ces données sur un site web</h4>
+    <h4><i class="material-icons">addchart</i> {% translate 'Intégrer ces données sur un site web' %}</h4>
     
     <p>
-      Mixtures.info propose un moyen simple et pratique d'intégrer un joli récapitulatif des
-      informations ci-dessus dans une autre page web, à l'aide d'<em>iFrames</em>.
+      {% blocktranslate trimmed %}
+        Mixtures.info propose un moyen simple et pratique d'intégrer un joli récapitulatif des
+        informations ci-dessus dans une autre page web, à l'aide d'<em>iFrames</em>.
+      {% endblocktranslate %}
+    </p>
     <p>
-      Pour ce faire, il suffit de copier le code HTML suivant dans la page de destination, à
-      l'endroit où vous souhaiter y intégrer les données :
+      {% blocktranslate trimmed %}
+        Pour ce faire, il suffit de copier le code HTML suivant dans la page de destination, à
+        l'endroit où vous souhaitez y intégrer les données :
+      {% endblocktranslate %}
     </p>
     <pre>{% filter stripspaces|force_escape %}
       <iframe
@@ -18,11 +24,13 @@
         style="border: none; width: 100%; height: auto"
       ></iframe>
     {% endfilter %}</pre>
-    <p>
-      Malheureusement, une des limitations des éléments <em>iFrame</em> est qu'ils ne peuvent pas
-      automatiquement adapter leur hauteur à ce qu'ils contiennent. Une façon simple de contourner
-      ce problème est de charger un fichier JavaScript supplémentaire, en ajoutant le code HTML
-      suivant à votre page web, à côté de vos autres fichiers JavaScript :
+    <p>      
+      {% blocktranslate trimmed %}
+        Malheureusement, une des limitations des éléments <em>iFrame</em> est qu'ils ne peuvent pas
+        automatiquement adapter leur hauteur à ce qu'ils contiennent. Une façon simple de contourner
+        ce problème est de charger un fichier JavaScript supplémentaire, en ajoutant le code HTML
+        suivant à votre page web, à côté de vos autres fichiers JavaScript :
+      {% endblocktranslate %}
     </p> 
     <pre>{% filter stripspaces|force_escape %}
       {% comment %}
@@ -35,31 +43,39 @@
       ></script>
     {% endfilter %}</pre>
     
-    <b>Notes :</b>
+    <b>{% translate 'Notes :' %}</b>
     <ul class="browser-default">
       <li>
-        Il n'est nécéssaire de copier qu'une seule fois le second code, même si vous intégrez
-        plusieurs éléments <em>iFrames</em>.
+        {% blocktranslate trimmed %}
+          Il n'est nécéssaire de copier qu'une seule fois le second code, même si vous intégrez
+          plusieurs éléments <em>iFrames</em>.
+        {% endblocktranslate %}
       </li>
       <li>
-        Si vous ne savez pas où charger vos fichiers JavaScript, il est recommandé de le faire à
-        la fin de l'élément HTML <code>&lt;body&gt;</code>. Il est également courant de les charger
-        dans l'élément <code>&lt;head&gt;</code>.
+        {% blocktranslate trimmed %}
+          Si vous ne savez pas où charger vos fichiers JavaScript, il est recommandé de le faire à
+          la fin de l'élément HTML <code>&lt;body&gt;</code>. Il est également courant de les charger
+          dans l'élément <code>&lt;head&gt;</code>.
+        {% endblocktranslate %}
       </li>
       <li>
-        Si vous ne pouvez ou ne voulez pas charger de fichier JavaScript supplémentaire, il est
-        possible de donner une hauteur fixe à l'<em>iFrame</em> en modifiant <code>height:
-        auto</code> en, par exemple, <code>height: 500px</code> dans le premier code. Évidemment,
-        vous pouvez changer la valeur <code>500px</code> à votre convenance.
+        {% blocktranslate trimmed %}
+          Si vous ne pouvez ou ne voulez pas charger de fichier JavaScript supplémentaire, il est
+          possible de donner une hauteur fixe à l'<em>iFrame</em> en modifiant <code>height:
+          auto</code> en, par exemple, <code>height: 500px</code> dans le premier code. Évidemment,
+          vous pouvez changer la valeur <code>500px</code> à votre convenance.
+        {% endblocktranslate %}
       </li>
       <li>
-        Pour toute question ou problème concernant les intégrations,
-        <a href="mailto://contact@mixtures.info">contactez-nous</a>.
+        {% blocktranslate with attrs='href="mailto://contact@mixtures.info"' trimmed %}
+          Pour toute question ou problème concernant les intégrations,
+          <a {{ attrs }}>contactez-nous</a>.
+        {% endblocktranslate %}
       </li>
     </ul>
   </div>
   
   <div class="modal-footer">
-    <a class="modal-close waves-effect btn-flat">Fermer</a>
+    <a class="modal-close waves-effect btn-flat">{% translate 'Fermer' %}</a>
   </div>
 </div>
