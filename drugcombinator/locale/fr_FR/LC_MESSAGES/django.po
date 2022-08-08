@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-08 16:34+0200\n"
+"POT-Creation-Date: 2022-08-08 20:54+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -868,7 +868,7 @@ msgid "Mixtures.info, synergies and risks of drug interactions."
 msgstr ""
 "Mixtures.info, synergies et risques liés aux interactions entre drogues."
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:45
+#: .\drugcombinator\templates\drugcombinator\combine.html:46
 #, python-format
 msgid "Warning: %(number)s interaction was not found in our database."
 msgid_plural "Warning: %(number)s interactions were not found in our database."
@@ -879,7 +879,7 @@ msgstr[1] ""
 "Attention : %(number)s interactions n'ont pas été trouvées dans notre base "
 "de données."
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:57
+#: .\drugcombinator\templates\drugcombinator\combine.html:58
 #, python-format
 msgid ""
 "Caution: %(number)s substances have been selected. Mixtures.info only "
@@ -888,20 +888,20 @@ msgstr ""
 "Prudence : %(number)s substances ont été sélectionnées. Mixtures.info "
 "délivre uniquement des informations sur les couples de substances."
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:72
+#: .\drugcombinator\templates\drugcombinator\combine.html:70
 #: .\drugcombinator\templates\drugcombinator\drug.html:53
 msgid "No interactions were found in our database."
 msgstr "Aucune interaction n'a été trouvée dans notre base de données."
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:76
+#: .\drugcombinator\templates\drugcombinator\combine.html:74
 msgid "Do you think you can help us? We'd love to:"
 msgstr "Vous pensez pouvoir nous aider ? Nous en serions ravis :"
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:91
+#: .\drugcombinator\templates\drugcombinator\combine.html:89
 msgid "Contribute"
 msgstr "Contribuer"
 
-#: .\drugcombinator\templates\drugcombinator\combine.html:96
+#: .\drugcombinator\templates\drugcombinator\combine.html:94
 msgid "This could be a good sign. Or not. Beware."
 msgstr "Ça pourrait être bon signe. Ou pas. Méfiance."
 
@@ -1246,6 +1246,10 @@ msgstr ""
 #: .\drugcombinator\templates\drugcombinator\main.html:81
 msgid "Mix!"
 msgstr "Mélanger !"
+
+#: .\drugcombinator\templates\drugcombinator\toc.html:6
+msgid "Table of contents"
+msgstr "Sommaire"
 
 #: .\drugcombinator\templatetags\collections.py:31
 msgid "and"

@@ -21,9 +21,10 @@
 #toc {
   $padding-left: 8px;
 
-  position: sticky;
   top: 100px;
-  padding-right: 0;
+  bottom: 20px;
+  padding-right: 10px; // For new-style browsers transparent scrollbars
+  overflow-y: scroll;
   .table-of-contents a {
     padding-left: $padding-left;
     &:hover {
@@ -35,6 +36,10 @@
       border-width: 3px;
     }
   }
+}
+
+footer {
+  z-index: 10; // Fix to not make the sticky TOC overlap the footer
 }
 
 
