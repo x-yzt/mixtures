@@ -2,6 +2,8 @@ from django.db.models import TextField
 from django.forms import ValidationError
 from django.utils.translation import gettext as _
 
+from drugcombinator.fields import ListField as ListFormField
+
 
 class ListField(TextField):
 
@@ -58,3 +60,10 @@ class ListField(TextField):
         if not value:
             value = []
         return self.sep.join(map(str, value))
+
+
+    def formfield(self, **kwargs):
+    
+        defaults = {'form_class': ListFormField, 'sep': self.sep}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
