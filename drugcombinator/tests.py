@@ -127,10 +127,16 @@ class InteractionModelTestCase(TestCase):
             self.inter_a_b.other_interactant(self.drug_c)
     
 
-    def test_interactant_names(self):
+    def test_interaction_names(self):
+
         self.assertEqual(
             self.inter_a_b.names, ["First name", "Second name"]
         )
+    
+
+    def test_interaction_names_blank(self):
+        
+        self.assertEqual(self.inter_b_c.names, [])
 
 
 class ComboViewTestCase(TestCase):

@@ -179,7 +179,6 @@ class Interaction(LastModifiedModel):
         verbose_name=_("second interactant")
     )
     names = ListField(
-        default='', blank=True,
         verbose_name=_("slang names"),
         help_text=_("One name per line. The first one can be "
             "emphasized in the app.")

@@ -1,4 +1,5 @@
 from django.db.models import TextField
+from django.forms import ValidationError
 from django.utils.translation import gettext as _
 
 
@@ -13,6 +14,7 @@ class ListField(TextField):
 
         self.sep = sep
         kwargs['blank'] = True
+        kwargs['default'] = default
 
         super().__init__(*args, **kwargs)
 
@@ -35,19 +37,24 @@ class ListField(TextField):
 
 
     def from_db_value(self, value, expression, connection):
-        
-        return value.split(self.sep)
+
+        return self.to_python(value)
 
 
     def to_python(self, value):
-        
+        if isinstance(value, list):
+            return value
+
         if isinstance(value, str):
+            if not value:
+                return []
             return value.split(self.sep)
-        return value
+
+        raise ValidationError(f"Invalid value {value}")
 
 
     def get_prep_value(self, value):
 
-        if value is None:
+        if not value:
             value = []
-        return self.sep.join(value)
+        return self.sep.join(map(str, value))
