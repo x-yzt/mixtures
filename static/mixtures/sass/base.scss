@@ -51,6 +51,12 @@ main > .container {
   margin: 0;
 }
 
+br.show-on-medium-and-down {
+  // Workaround because utilities classes only work on div elements
+  @media screen and (min-width: 993px) {
+    display: none;
+  }
+}
 
 /* Forms */
 

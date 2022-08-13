@@ -1,8 +1,10 @@
-from django.forms.models import (ModelChoiceIterator, ModelChoiceField,
-    ModelMultipleChoiceField)
 from operator import attrgetter
 from functools import partial
 from itertools import groupby
+
+from django.forms.fields import CharField
+from django.forms.models import (ModelChoiceIterator,
+    ModelMultipleChoiceField)
 
 
 class GroupedModelChoiceIterator(ModelChoiceIterator):
@@ -45,3 +47,26 @@ class GroupedModelMultipleChoiceField(ModelMultipleChoiceField):
             groupby=choices_groupby
         )
         super().__init__(*args, **kwargs)
+
+
+class ListField(CharField):
+    
+    def __init__(self, sep, *args, **kwargs):
+    
+        self.sep = sep
+        super().__init__(*args, **kwargs)
+    
+
+    def prepare_value(self, value):
+    
+        return self.sep.join(value)
+
+
+    def to_python(self, value):
+
+        if not value:
+            return []
+        return [
+            item.strip() for item in value.split(self.sep)
+            if item.strip()
+        ]

@@ -184,7 +184,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     search_fields = (
         'from_drug__name', 'from_drug___aliases',
         'to_drug__name', 'to_drug___aliases',
-        'risk_description', 'effect_description'
+        'names', 'risk_description', 'effect_description'
     )
     actions = ('set_draft', 'set_published', 'reorder_interactants')
 
@@ -195,7 +195,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                ('from_drug', 'to_drug', 'is_draft'),
+                ('from_drug', 'to_drug', 'names', 'is_draft'),
             )
         }),
         (_("Interaction data"), {
