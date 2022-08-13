@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from django.template.loader import render_to_string
 
 from drugcombinator.managers import DrugManager, InteractionManager
+from drugcombinator.modelfields import ListField
 from drugcombinator.utils import markdown_allowed, get_libravatar_url
 
 
@@ -176,6 +177,12 @@ class Interaction(LastModifiedModel):
         'Drug', CASCADE,
         related_name='interactions_to',
         verbose_name=_("second interactant")
+    )
+    names = ListField(
+        default='', blank=True,
+        verbose_name=_("slang names"),
+        help_text=_("One name per line. The first one can be "
+            "emphasized in the app.")
     )
     risk = IntegerField(
         choices=Risk.choices, default=Risk.UNKNOWN,

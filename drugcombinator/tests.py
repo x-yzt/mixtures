@@ -1,8 +1,12 @@
-from django.test import Client, TestCase
+from operator import attrgetter
+
+from django.test import TestCase
 from django.db.utils import IntegrityError
+
 from drugcombinator.forms import ContribForm
 from drugcombinator.utils import normalize
 from drugcombinator.models import Drug, Interaction
+from drugcombinator.modelfields import ListField
 
 
 class UtilsTestCase(TestCase):
@@ -21,6 +25,18 @@ class UtilsTestCase(TestCase):
         self.assertEqual(normalize(data), data)
 
 
+class ListFieldTestCase(TestCase):
+
+    def test_list_field_deconstruct(self):
+
+        list_field = ListField(sep=',', default=['a'], help_text="Foo")
+        _, _, args, kwargs = list_field.deconstruct()
+        reconstructed_list_field = ListField(*args, **kwargs)
+
+        ag = attrgetter('sep', 'default', 'help_text')
+        self.assertEqual(ag(list_field), ag(reconstructed_list_field))
+
+
 class InteractionModelTestCase(TestCase):
 
     drug_a = Drug(name="DrugA", slug='drug-a')
@@ -28,7 +44,8 @@ class InteractionModelTestCase(TestCase):
     drug_c = Drug(name="DrugC", slug='drug-c')
     inter_a_b = Interaction(
         from_drug=drug_a,
-        to_drug=drug_b
+        to_drug=drug_b,
+        names=["First name", "Second name"]
     )
     inter_b_c = Interaction(
         from_drug=drug_b,
@@ -108,6 +125,12 @@ class InteractionModelTestCase(TestCase):
 
         with self.assertRaises(ValueError):
             self.inter_a_b.other_interactant(self.drug_c)
+    
+
+    def test_interactant_names(self):
+        self.assertEqual(
+            self.inter_a_b.names, ["First name", "Second name"]
+        )
 
 
 class ComboViewTestCase(TestCase):
