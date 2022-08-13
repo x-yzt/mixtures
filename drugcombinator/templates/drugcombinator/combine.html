@@ -32,6 +32,11 @@
         <a href="{{ drug.get_absolute_url }}">{{ drug }}</a>
         {% if not forloop.last %}+{% endif %}
       {% endfor %}
+
+      {% if interactions.count == 1 and interactions.0.names %}
+        <br class="show-on-medium-and-down"/>
+        <small>({{ interactions.0.names.0|capfirst }})</small>
+      {% endif %}
     </h1>
     <div class="divider"></div>
   </div>
