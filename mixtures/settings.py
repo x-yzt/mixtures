@@ -1,5 +1,6 @@
 import os
-import django_heroku
+
+import dj_database_url
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -180,9 +182,9 @@ if os.environ.get("PROD") == 'TRUE':
 
     print("Production settings found, overriding dev settings.")    
     
-    django_heroku.settings(locals(), logging=False, allowed_hosts=False)
-
     DEBUG = False
+
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
     PARENT_HOST = 'mixtures.info'
 
@@ -195,6 +197,8 @@ if os.environ.get("PROD") == 'TRUE':
     SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
 
     LANGUAGE_COOKIE_DOMAIN = '.' + PARENT_HOST
+
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
     CACHES = {
         'default': {
