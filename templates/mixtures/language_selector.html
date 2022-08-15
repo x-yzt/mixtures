@@ -1,8 +1,9 @@
 {% load i18n %}
 {% load strings %}
 
-{% get_available_languages as languages %}
-{% get_current_language as current_language %}
+{% get_available_languages as languages_codes %}
+{% get_current_language as current_language_code %}
+{% get_language_info_list for languages_codes as languages %}
 {% uuid as id %}
 
 <form id="lang-form" class="browser-default" action="{% url 'set_language' %}" method="post" hidden>
@@ -10,7 +11,10 @@
   <input type="hidden" name="next" value="{{ request.build_absolute_uri }}">
   <select name="language">
     {% for lang in languages %}
-      <option {% if lang == current_language %}selected{% endif %} value="{{ lang.0 }}"></option>
+      <option
+        {% if lang.code == current_language_code %}selected{% endif %}
+        value="{{ lang.code }}"
+      ></option>
     {% endfor %}
   </select>
 </form>
@@ -21,6 +25,6 @@
 
 <ul id="{{ id }}" class="lang-dropdown dropdown-content">
   {% for lang in languages %}
-    <li><a href="" data-value="{{ lang.0 }}">{{ lang.1 }}</a></li>
+    <li><a href="" data-value="{{ lang.code }}">{{ lang.name_local|capfirst }}</a></li>
   {% endfor %}
 </ul>
