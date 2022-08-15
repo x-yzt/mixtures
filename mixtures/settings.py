@@ -186,7 +186,7 @@ if os.environ.get("PROD") == 'TRUE':
 
     SECRET_KEY = os.environ["SECRET_KEY"]
 
-    PARENT_HOST = 'mixtures.info'
+    PARENT_HOST = os.getenv('PARENT_HOST', 'mixtures.info')
 
     ALLOWED_HOSTS = ['.' + PARENT_HOST]
 
