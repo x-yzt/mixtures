@@ -46,11 +46,11 @@
         },
         "django-mistune": {
             "hashes": [
-                "sha256:4f543acf0475e085df924c9c18b7441ad70a6865411124130578f483ed1567c2",
-                "sha256:97e446a84b876990c52dd957ac5f075b2ece7aec914f0b2c927fd1371a7596ba"
+                "sha256:3a6dd4bf13c8b2200ef21fc44059e1e6632c6552c947c37c5b1ee80c4cc970eb",
+                "sha256:4707bc5571f3b21ad28bde255d8fffbb507927861b80d4f10c6df01cb99fd2f2"
             ],
             "index": "pypi",
-            "version": "==0.1.1"
+            "version": "==0.1.2"
         },
         "django-modeltranslation": {
             "hashes": [

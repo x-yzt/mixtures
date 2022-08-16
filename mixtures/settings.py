@@ -1,6 +1,7 @@
 import os
 
 import dj_database_url
+from django_mistune.plugins import AddClasses, HeaderLevels
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django_hosts',
     'simple_history',
-    'markdown_deux',
+    'django_mistune',
     'drugcombinator.apps.DrugcombinatorConfig',
     'drugportals.apps.DrugportalsConfig',
 ]
@@ -83,17 +84,14 @@ WSGI_APPLICATION = 'mixtures.wsgi.application'
 
 # Markdown preprocessor
 
-MARKDOWN_DEUX_STYLES = {
+MISTUNE_STYLES = {
     'default': {
-        'extras': {
-            'code-friendly': None,
-            'cuddled-lists': None,
-            'demote-headers': 3,
-            'html-classes': {'ul': 'browser-default'},
-            'target-blank-links': None
-        },
-        'safe_mode': 'escape'
-    }
+        'plugins': [
+            HeaderLevels(3),
+            AddClasses({'ul': 'browser-default'}),
+            # TODO: Target blank links
+        ]
+    },
 }
 
 
