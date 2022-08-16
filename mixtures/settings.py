@@ -79,6 +79,8 @@ TEMPLATES = [
     },
 ]
 
+FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
+
 WSGI_APPLICATION = 'mixtures.wsgi.application'
 
 
