@@ -67,9 +67,7 @@ class Drug(LastModifiedModel):
             notice=markdown_allowed()
         )
     )
-    aliases = TextField(
-        default='',
-        blank=True,
+    aliases = ListField(
         verbose_name=_("aliases"),
         help_text=_("One alias per line. No need to duplicate case.")
     )
