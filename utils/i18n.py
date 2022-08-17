@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-import django
+
 from django.conf import settings
 from django.http.request import validate_host
 from django.utils.http import _urlparse, url_has_allowed_host_and_scheme
@@ -29,7 +29,8 @@ def _is_allowed(url, require_https=False, *args, **kwargs):
     setting (including wildcards.)
 
     Note: `args` and `kwargs` are there to mock unused arguments from
-    original function calls."""
+    original function calls.
+    """
     url = _urlparse(url)
 
     allowed_schemes = {'https'} if require_https else {'http', 'https'}
@@ -46,11 +47,10 @@ def _is_allowed(url, require_https=False, *args, **kwargs):
 
 
 def set_language_view(request):
-    """
-    Thin wrapper around the `django.views.i18n.set_language` view, using
-    a slightly different validation logic for the `next` parameter and
-    `Referer` header, allowing redirection to any URI which host matches
-    the `ALLOWED_HOST` settings.
+    """Thin wrapper around the `django.views.i18n.set_language` view,
+    using a slightly different validation logic for the `next` parameter
+    and `Referer` header, allowing redirection to any URI which host
+    matches the `ALLOWED_HOST` settings.
 
     This is needed because the `drugportals` app serves portals on
     subdomains, and this view might be served from the root domain -or,

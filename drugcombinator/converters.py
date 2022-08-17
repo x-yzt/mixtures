@@ -1,5 +1,4 @@
 class SlugListConverter:
-    
     regex = r'[a-z\d_+-]+'
 
     def to_python(self, url):

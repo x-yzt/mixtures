@@ -1,39 +1,37 @@
 from django.contrib.sitemaps import GenericSitemap
+
+from drugcombinator.models import Drug, Interaction
 from utils.sitemaps import StaticSitemap
-from drugcombinator.models import Interaction, Drug
 
 
-pages_sitemap = StaticSitemap(
-    {
+pages_sitemap = StaticSitemap({
         'main': {'priority': 1.0},
         'drug_search': {'priority': 0.7},
         'docs': {},
     },
-    priority = 0.5,
-    changefreq = 'daily',
-    protocol = 'https',
-    i18n = True
+    priority=0.5,
+    changefreq='daily',
+    protocol='https',
+    i18n=True
 )
 
-drugs_sitemap = GenericSitemap(
-    {
+drugs_sitemap = GenericSitemap({
         'queryset': Drug.objects.all(),
         'date_field': 'last_modified',
     },
-    priority = 0.8,
-    changefreq = 'daily',
-    protocol = 'https'
+    priority=0.8,
+    changefreq='daily',
+    protocol='https'
 )
 drugs_sitemap.i18n = True
 
-interactions_sitemap = GenericSitemap(
-    {
+interactions_sitemap = GenericSitemap({
         'queryset': Interaction.objects.all(),
         'date_field': 'last_modified',
     },
-    priority = 0.9,
-    changefreq = 'daily',
-    protocol = 'https'
+    priority=0.9,
+    changefreq='daily',
+    protocol='https'
 )
 interactions_sitemap.i18n = True
 
