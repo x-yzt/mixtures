@@ -1,0 +1,7 @@
+[flake8]
+exclude =
+    */migrations/*.*
+per-file-ignores =
+    mixtures/settings.py: E501
+    mixtures/settings_deploy.py: F405,F403
+    drugcombinator/urls.py: E501
