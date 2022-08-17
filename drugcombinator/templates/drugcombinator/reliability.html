@@ -1,15 +1,24 @@
-{% for _ in '...' %}
-  {% if forloop.counter <= score %}
-    <i class="material-icons
-      {% if score == 1 %}
-        red-text text-lighten-1
-      {% elif score == 2 %}
-        orange-text text-lighten-2
-      {% elif score == 3 %}
-        green-text text-lighten-2
+{% load i18n %}
+
+<em>
+  <br/>
+  {% translate 'Reliability:' %} {{ text|lower }}.
+  {% if score %}
+    <br/>
+    {% for _ in '...' %}
+      {% if forloop.counter <= score %}
+        <i class="material-icons tiny
+          {% if score == 1 %}
+            red-text text-lighten-1
+          {% elif score == 2 %}
+            orange-text text-lighten-2
+          {% elif score == 3 %}
+            green-text text-lighten-2
+          {% endif %}
+        ">check_circle</i>
+      {% else %}
+        <i class="material-icons tiny grey-text text-lighten-2">brightness_1</i>
       {% endif %}
-    ">check_circle</i>
-  {% else %}
-    <i class="material-icons grey-text text-lighten-2">brightness_1</i>
+    {% endfor %}
   {% endif %}
-{% endfor %}
+</em>

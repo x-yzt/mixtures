@@ -14,12 +14,11 @@
       <p>
         {% include 'drugcombinator/combine_info/synergy_text.html' %}
         {% if interaction.synergy != interaction.Synergy.UNKNOWN %}
-          <br/>
-          <em>
-            {% translate 'Reliability:' %} {{ interaction.get_effects_reliability_display|lower }}.
-          </em>
-          <br/>
-          {% include 'drugcombinator/reliability.html' with score=interaction.effects_reliability %}
+          {% with score=interaction.effects_reliability %}
+            {% with text=interaction.get_effects_reliability_display %}
+              {% include 'drugcombinator/reliability.html' %}
+            {% endwith %}
+          {% endwith %}
         {% endif %}
       </p>
     </div>
@@ -37,12 +36,11 @@
       <p>
         {% include 'drugcombinator/combine_info/risk_text.html' %}
         {% if interaction.risk != interaction.Risk.UNKNOWN %}
-          <br/>
-          <em>
-            {% translate 'Reliability:' %} {{ interaction.get_risk_reliability_display|lower }}.
-          </em>
-          <br/>
-          {% include 'drugcombinator/reliability.html' with score=interaction.risk_reliability %}
+          {% with score=interaction.risk_reliability %}
+            {% with text=interaction.get_risk_reliability_display %}
+              {% include 'drugcombinator/reliability.html' %}
+            {% endwith %}
+          {% endwith %}
         {% endif %}
       </p>
     </div>
