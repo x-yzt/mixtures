@@ -82,7 +82,7 @@ class DrugManager(Manager):
 
         reg = rf'(^|\r|\n){name}(\r|\n|$)'
         try:
-            return self.filter(_aliases__iregex=reg)[0]
+            return self.filter(aliases__iregex=reg)[0]
         except IndexError:
             raise self.model.DoesNotExist
 

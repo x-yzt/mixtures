@@ -67,7 +67,7 @@ class Drug(LastModifiedModel):
             notice=markdown_allowed()
         )
     )
-    _aliases = TextField(
+    aliases = TextField(
         default='',
         blank=True,
         verbose_name=_("aliases"),
@@ -121,19 +121,6 @@ class Drug(LastModifiedModel):
                 interactions_from__in=self.interactions_to.all()
             )
         )
-
-    @property
-    def aliases(self):
-        als = self._aliases.split('\n')
-        return [al.strip() for al in als if al]
-    aliases.fget.short_description = _("Aliases")
-
-    @aliases.setter
-    def set_aliases(self, value):
-        if isinstance(value, str):
-            self._aliases = value.strip()
-        else:
-            self._aliases = '\n'.join([v.strip() for v in value])
 
     def get_absolute_url(self):
         return reverse('drug', kwargs={'name': self.slug})

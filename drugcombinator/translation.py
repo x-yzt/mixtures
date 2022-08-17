@@ -11,7 +11,7 @@ class CategoryTranslationOptions(TranslationOptions):
 
 @register(Drug)
 class DrugTranslationOptions(TranslationOptions):
-    fields = ('name', 'description', 'risks', 'effects', '_aliases')
+    fields = ('name', 'description', 'risks', 'effects', 'aliases')
 
 
 @register(Interaction)
