@@ -26,6 +26,11 @@ SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
 
 LANGUAGE_COOKIE_DOMAIN = '.' + PARENT_HOST
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://' + PARENT_HOST,
+    'https://*.' + PARENT_HOST,
+]
+
 
 # Database
 
