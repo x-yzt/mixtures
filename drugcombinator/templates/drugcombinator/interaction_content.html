@@ -18,6 +18,8 @@
           <em>
             {% translate 'Reliability:' %} {{ interaction.get_effects_reliability_display|lower }}.
           </em>
+          <br/>
+          {% include 'drugcombinator/reliability.html' with score=interaction.effects_reliability %}
         {% endif %}
       </p>
     </div>
@@ -39,6 +41,8 @@
           <em>
             {% translate 'Reliability:' %} {{ interaction.get_risk_reliability_display|lower }}.
           </em>
+          <br/>
+          {% include 'drugcombinator/reliability.html' with score=interaction.risk_reliability %}
         {% endif %}
       </p>
     </div>
