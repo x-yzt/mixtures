@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'mixtures.wsgi.application'
 MISTUNE_STYLES = {
     'default': {
         'plugins': [
-            HeaderLevels(3),
+            HeaderLevels(top=4),
             AddClasses({'ul': 'browser-default'}),
             # TODO: Target blank links
         ]
