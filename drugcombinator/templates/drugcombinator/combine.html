@@ -32,39 +32,42 @@
         <a href="{{ drug.get_absolute_url }}">{{ drug }}</a>
         {% if not forloop.last %}+{% endif %}
       {% endfor %}
+
+      {% if interactions.count == 1 and interactions.0.names %}
+        <br class="show-on-medium-and-down"/>
+        <small>({{ interactions.0.names.0|capfirst }})</small>
+      {% endif %}
     </h1>
     <div class="divider"></div>
   </div>
 
   <div class="row">
-    <div class="col s12 xl9">
-      {% if unknown_interactions and interactions %}
-        <p class="flow-text warning">
-          <i class="material-icons small left">warning</i>
-          {% with count=unknown_interactions %}
-            {% blocktranslate count _=count with number=count|apnumber trimmed %}
-              Warning: {{ number }} interaction was not found in our database.
-            {% plural %}
-              Warning: {{ number }} interactions were not found in our database.
-            {% endblocktranslate %}
-          {% endwith %}
-        </p>
-      {% endif %}
-
-      {% if drugs.count > 2 %}
-        <p class="flow-text warning">
-          <i class="material-icons small left">warning</i>
-          {% blocktranslate with number=drugs.count|apnumber trimmed %}
-            Caution: {{ number }} substances have been selected. Mixtures.info only provides information
-            on substance pairs.
-          {% endblocktranslate %}
-        </p>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="row no-margin">
     <div class="col s12 m9 l10 xl9">
+      <div class="row">
+        {% if unknown_interactions and interactions %}
+          <p class="flow-text warning">
+            <i class="material-icons small left">warning</i>
+            {% with count=unknown_interactions %}
+              {% blocktranslate count _=count with number=count|apnumber trimmed %}
+                Warning: {{ number }} interaction was not found in our database.
+              {% plural %}
+                Warning: {{ number }} interactions were not found in our database.
+              {% endblocktranslate %}
+            {% endwith %}
+          </p>
+        {% endif %}
+
+        {% if drugs.count > 2 %}
+          <p class="flow-text warning">
+            <i class="material-icons small left">warning</i>
+            {% blocktranslate with number=drugs.count|apnumber trimmed %}
+              Caution: {{ number }} substances have been selected. Mixtures.info only provides information
+              on substance pairs.
+            {% endblocktranslate %}
+          </p>
+        {% endif %}
+      </div>
+
       {% for interaction in interactions %}
         {% include 'drugcombinator/interaction.html' %}
       {% empty %}
@@ -99,7 +102,28 @@
       {% endfor %}
     </div>
 
-    {% include 'drugcombinator/toc.html' %}
+    <div id="sidebar" class="col s12 m3 l2 xl3">
+      {% if interactions.count == 1 %}
+        {% with names=interactions.0.names %}
+          {% if names %}
+            <h6>
+              {% blocktranslate trimmed count _=names|length %}
+                Slang name
+              {% plural %}
+                Slang names
+              {% endblocktranslate %}
+            </h6>
+            <ul>
+              {% for name in names %}
+                <li>{{ name|capfirst }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      {% elif interactions.count > 1 %}
+        {% include 'drugcombinator/toc.html' %}
+      {% endif %}
+    </div>
   </div>
 
   {% include 'drugcombinator/contrib_modal.html' %}
@@ -109,4 +133,5 @@
   {{ block.super }}
   <script src="{% static 'drugcombinator/js/reveal.js' %}"></script>
   <script src="{% static 'drugcombinator/js/contrib.js' %}"></script>
+  <script src="{% static 'drugcombinator/js/sticky.js' %}"></script>
 {% endblock %}

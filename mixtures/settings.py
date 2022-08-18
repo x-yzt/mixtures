@@ -1,17 +1,18 @@
-import os
-import django_heroku
+from pathlib import Path
+
+from django_mistune.plugins import AddClasses, HeaderLevels
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# General settings
 
-SECRET_KEY = 'devKey'
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
+SECRET_KEY = 'devkey'
+
 
 # Hosts and URLs
-
-ALLOWED_HOSTS = ('*',)
 
 ROOT_HOSTCONF = 'mixtures.hosts'
 
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django_hosts',
     'simple_history',
-    'markdown_deux',
+    'django_mistune',
     'drugcombinator.apps.DrugcombinatorConfig',
     'drugportals.apps.DrugportalsConfig',
 ]
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +62,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,29 +71,28 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'builtins' : [
+            'builtins': [
                 'django_hosts.templatetags.hosts_override',
             ]
         },
     },
 ]
 
+FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
+
 WSGI_APPLICATION = 'mixtures.wsgi.application'
 
 
 # Markdown preprocessor
 
-MARKDOWN_DEUX_STYLES = {
+MISTUNE_STYLES = {
     'default': {
-        'extras': {
-            'code-friendly': None,
-            'cuddled-lists': None,
-            'demote-headers': 3,
-            'html-classes': {'ul': 'browser-default'},
-            'target-blank-links': None
-        },
-        'safe_mode': 'escape'
-    }
+        'plugins': [
+            HeaderLevels(top=4),
+            AddClasses({'ul': 'browser-default'}),
+            # TODO: Target blank links
+        ]
+    },
 }
 
 
@@ -100,7 +101,7 @@ MARKDOWN_DEUX_STYLES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -145,12 +146,10 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, "locale"),
+    BASE_DIR / 'locale',
 )
 
 LANGUAGE_COOKIE_NAME = 'language'
@@ -158,11 +157,15 @@ LANGUAGE_COOKIE_NAME = 'language'
 
 # Static files
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    BASE_DIR / "static",
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Cache
@@ -172,63 +175,3 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
-
-
-# Production settings
-
-if os.environ.get("PROD") == 'TRUE':
-
-    print("Production settings found, overriding dev settings.")    
-    
-    django_heroku.settings(locals(), logging=False, allowed_hosts=False)
-
-    DEBUG = False
-
-    PARENT_HOST = 'mixtures.info'
-
-    ALLOWED_HOSTS = ['.' + PARENT_HOST]
-
-    HOST_PORT = ''
-
-    CSRF_COOKIE_DOMAIN = '.' + PARENT_HOST
-
-    SESSION_COOKIE_DOMAIN = '.' + PARENT_HOST
-
-    LANGUAGE_COOKIE_DOMAIN = '.' + PARENT_HOST
-
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'mixtures-app-cache'
-        }
-    }
-
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-    EMAIL_HOST = "mail.gandi.net"
-
-    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
-
-    EMAIL_HOST_USER = "system@mixtures.info"
-
-    EMAIL_PORT = 465
-
-    EMAIL_USE_SSL = True
-
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {'console': {'class': 'logging.StreamHandler'}},
-        'loggers': {
-            'django': {
-                'handlers': ['console'],
-                'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR')
-            }
-        }
-    }
-
-else:
-
-    print("No production settings found, using dev settings.")

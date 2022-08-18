@@ -11,12 +11,12 @@ class CategoryTranslationOptions(TranslationOptions):
 
 @register(Drug)
 class DrugTranslationOptions(TranslationOptions):
-    fields = ('name', 'description', 'risks', 'effects', '_aliases')
+    fields = ('name', 'description', 'risks', 'effects', 'aliases')
 
 
 @register(Interaction)
 class InteractionTranslationOptions(TranslationOptions):
-    fields = ('risk_description', 'effect_description')
+    fields = ('names', 'risk_description', 'effect_description')
 
 
 # Those are needed for simple_history to discover the new

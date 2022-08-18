@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load markdown_deux_tags %}
+{% load mistune %}
 
 <div class="row no-margin">
   <div class="col s12 m12 l6">
@@ -14,10 +14,11 @@
       <p>
         {% include 'drugcombinator/combine_info/synergy_text.html' %}
         {% if interaction.synergy != interaction.Synergy.UNKNOWN %}
-          <br/>
-          <em>
-            {% translate 'Reliability:' %} {{ interaction.get_effects_reliability_display|lower }}.
-          </em>
+          {% with score=interaction.effects_reliability %}
+            {% with text=interaction.get_effects_reliability_display %}
+              {% include 'drugcombinator/reliability.html' %}
+            {% endwith %}
+          {% endwith %}
         {% endif %}
       </p>
     </div>
@@ -35,10 +36,11 @@
       <p>
         {% include 'drugcombinator/combine_info/risk_text.html' %}
         {% if interaction.risk != interaction.Risk.UNKNOWN %}
-          <br/>
-          <em>
-            {% translate 'Reliability:' %} {{ interaction.get_risk_reliability_display|lower }}.
-          </em>
+          {% with score=interaction.risk_reliability %}
+            {% with text=interaction.get_risk_reliability_display %}
+              {% include 'drugcombinator/reliability.html' %}
+            {% endwith %}
+          {% endwith %}
         {% endif %}
       </p>
     </div>

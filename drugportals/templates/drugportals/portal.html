@@ -2,7 +2,7 @@
 
 {% load i18n %}
 {% load static %}
-{% load markdown_deux_tags %}
+{% load mistune %}
 
 {% block title %}{{ portal.name }} - {{ block.super }}{% endblock %}
 
@@ -60,7 +60,12 @@
 
     {% for interaction in interactions %}
       <div id="card-{{ interaction.drug.slug }}" class="interaction-content">
-        <h2>{{ interaction.drug }}</h2>
+        <h2>
+          {{ interaction.drug }}
+          {% if interaction.names %}
+            <small>({{ interaction.names.0|capfirst }})</small>
+          {% endif %}
+        </h2>
         <p>{{ interaction.drug.description|markdown }}</p>
         {% include 'drugcombinator/interaction_content.html' %}
       </div>

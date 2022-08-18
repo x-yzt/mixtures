@@ -6,27 +6,28 @@ from django.utils.translation import gettext as _
 from modeltranslation.admin import TabbedTranslationAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
-from drugcombinator.models import (Drug, Interaction, Category, Note,
-    Contributor)
+from drugcombinator.models import (
+    Category, Contributor, Drug, Interaction, Note)
+
 
 admin.site.site_header = "Mixtures.info"
+
 admin.site.site_title = _("Mixtures.info adminisration")
+
 admin.site.index_title = _("Welcome to Mixtures.info administration")
+
 admin.site.enable_nav_sidebar = False
 
 
-def set_draft_status(status:bool):
+def set_draft_status(status: bool):
     def action(self, request, queryset):
         queryset.update(is_draft=status)
     return action
 
 
 class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
-    """
-        Modified SimpleHistoryAdmin that allows viewing changed fields
-        in history list.
-    """
-
+    """Modified SimpleHistoryAdmin that allows viewing changed fields
+    in history list."""
     history_list_display = ('modified_fields',)
 
     def modified_fields(self, obj):
@@ -38,19 +39,20 @@ class ChangedFieldsHistoryAdmin(SimpleHistoryAdmin):
 
 
 class CustomizableModelAdmin(admin.ModelAdmin):
-    """
-        ABC allowing to override model fields help_texts and labels.
-        Adding help texts to computed or readonly admin fields is also
-        supported.
-        
-        Admin classes inheriting this ABC simply needs to define two
-        dicts named help_texts and labels.
+    """ABC allowing to override model fields help texts and labels.
 
-        Exemple:
-        help_texts = {'field_name': 'help_text_override'}
-        labels = {'field_name': 'label_override'}
-    """
+    Adding help texts to computed or readonly admin fields is also
+    supported.
 
+    Admin classes inheriting this ABC simply needs to define two dicts,
+    `help_texts` and `labels`.
+
+    Example:
+    ```
+    help_texts = {'field_name': 'help_text_override'}
+    labels = {'field_name': 'label_override'}
+    ```
+    """
     help_texts = {}
     labels = {}
 
@@ -61,11 +63,8 @@ class CustomizableModelAdmin(admin.ModelAdmin):
 
 
 class CustomizableInlineAdmin(admin.options.InlineModelAdmin):
-    """
-        This ABC works exactly like CustomizableModelAdmin, but allows
-        inlines customizations.
-    """
-
+    """This ABC works exactly like CustomizableModelAdmin, but allows
+    inlines customizations."""
     help_texts = {}
     labels = {}
 
@@ -103,7 +102,6 @@ class InteractionInline(admin.StackedInline, CustomizableInlineAdmin):
     show_change_link = True
     verbose_name_plural = _("Interactions (second part)")
 
-
     class Media:
         css = {
             'all': ('mixtures/css/admin/forms.min.css',),
@@ -125,7 +123,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
     date_hierarchy = 'last_modified'
-    search_fields = ('name', 'slug', '_aliases')
+    search_fields = ('name', 'slug', 'aliases')
 
     fieldsets = (
         (None, {
@@ -136,7 +134,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
         (_("Base informations"), {
             'fields': (
                 ('common', 'category'),
-                '_aliases'
+                'aliases'
             ),
         }),
         (_("Detailled informations"), {
@@ -182,9 +180,9 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'last_modified'
     search_fields = (
-        'from_drug__name', 'from_drug___aliases',
-        'to_drug__name', 'to_drug___aliases',
-        'risk_description', 'effect_description'
+        'from_drug__name', 'from_drug__aliases',
+        'to_drug__name', 'to_drug__aliases',
+        'names', 'risk_description', 'effect_description'
     )
     actions = ('set_draft', 'set_published', 'reorder_interactants')
 
@@ -195,7 +193,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                ('from_drug', 'to_drug', 'is_draft'),
+                ('from_drug', 'to_drug', 'names', 'is_draft'),
             )
         }),
         (_("Interaction data"), {
@@ -258,7 +256,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
             {'drugs': obj.interactants}
         )
     related_notes.short_description = _("Related notes")
-    
+
     set_draft = set_draft_status(True)
     set_draft.short_description = _(
         "Mark all selected interactions as drafts"
@@ -275,7 +273,6 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     reorder_interactants.short_description = _(
         "Sort the linked substances of selected interactions"
     )
-
 
     class Media:
         css = {
@@ -341,6 +338,7 @@ class ContributorInline(admin.StackedInline, CustomizableInlineAdmin):
 
 
 admin.site.unregister(get_user_model())
+
 
 @admin.register(get_user_model())
 class ContributorUserAdmin(UserAdmin):
