@@ -123,7 +123,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
     list_display = ('__str__', 'slug', 'aliases', 'common')
     list_filter = ('category', 'common')
     date_hierarchy = 'last_modified'
-    search_fields = ('name', 'slug', '_aliases')
+    search_fields = ('name', 'slug', 'aliases')
 
     fieldsets = (
         (None, {
@@ -134,7 +134,7 @@ class DrugAdmin(ChangedFieldsHistoryAdmin):
         (_("Base informations"), {
             'fields': (
                 ('common', 'category'),
-                '_aliases'
+                'aliases'
             ),
         }),
         (_("Detailled informations"), {
@@ -180,8 +180,8 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     list_filter = ('is_draft', 'risk', 'synergy')
     date_hierarchy = 'last_modified'
     search_fields = (
-        'from_drug__name', 'from_drug___aliases',
-        'to_drug__name', 'to_drug___aliases',
+        'from_drug__name', 'from_drug__aliases',
+        'to_drug__name', 'to_drug__aliases',
         'names', 'risk_description', 'effect_description'
     )
     actions = ('set_draft', 'set_published', 'reorder_interactants')
