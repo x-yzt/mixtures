@@ -45,17 +45,19 @@ class StructureSerializer:
 
         The `structure` must be a tuple that contains either:
             - Strings matching object fields or attributes;
-            - 2-tuples `('field', substructure)` where:
+            - 2-tuples `('field', 'related_field')` where:
                 - `'field'` is a field of the model that will result in
                 a `QuerySet` of related objects when accessed;
+                - `'related_field'` is a field of the related model.
+                The value of this field will be used to represent the
+                related objects;
+            - 3-tuples `('field', 'related_field', substructure)` where:
+                - 'related_field' is a field as described above, that
+                will ve used as a key to identify related objects. If it
+                is `None`, objects will not have keys.
                 - `substructure` is a structure recursively matching
                 this description, specifying the structure to use to
-                serialize the related objects;
-            - 3-tuples `('field', 'related_field', substructure)` where
-            `'related_field'` is a field of the related objects. This
-            behaves like the 2-tuple option above, except
-            `'related_field'` which will be used as a key to identify
-            related objects.
+                serialize the related objects.
 
         The `select_related` parameter is an optionnal dict
         `{'field': related_fields}` where:
@@ -83,24 +85,20 @@ class StructureSerializer:
             assert isinstance(item, (str, tuple))
 
             if isinstance(item, tuple):
-                match len(item):
-                    case 2:
-                        field, substructure = item
-                        key = None
-                    case 3:
-                        field, key, substructure = item
-                    case n:
-                        raise ValueError(
-                            "Structure must only contain 2-tuples or "
-                            f"3-tuples (got {n})"
-                        )
+                assert 2 <= len(item) <= 3
+                field, key, substructure, *_ = [*item, None]
 
                 relations = self.select_related.get(item, ())
                 queryset = getattr(obj, field).select_related(*relations)
 
-                data[field] = (
-                    self.serialize_many(queryset, key, substructure)
-                )
+                if substructure is None:
+                    assert key is not None
+                    data[field] = self.serialize_single_key(queryset, key)
+
+                else:
+                    data[field] = (
+                        self.serialize_many(queryset, key, substructure)
+                    )
 
             else:
                 data[item] = self._transform(getattr(obj, item))
@@ -124,6 +122,14 @@ class StructureSerializer:
             self.serialize(obj, structure)
             for obj in objs
         }
+
+    def serialize_single_key(self, objs, key):
+        """Serializes a collection of objects or a `QuerySet`.
+
+        Output is a tuple where each object is represented by a lookup
+        on a single `key`.
+        """
+        return tuple(self._transform(getattr(obj, key)) for obj in objs)
 
     def _transform(self, value):
         if isinstance(value, Model):
