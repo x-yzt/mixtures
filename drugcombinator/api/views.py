@@ -2,7 +2,6 @@ from itertools import chain
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 
 from drugcombinator.models import Drug, Interaction
 # from drugcombinator.utils import count_queries
@@ -10,20 +9,41 @@ from utils.i18n import get_translated_values
 from utils.serializers import StructureSerializer
 
 
+def _site_url(request):
+    def get_url(obj):
+        return (
+            'site_url',
+            request.build_absolute_uri(obj.get_absolute_url())
+        )
+    return get_url
+
+
+def _api_url(request):
+    def get_url(obj):
+        return (
+            'url',
+            request.build_absolute_uri(
+                obj.get_absolute_url(namespace='api')
+            )
+        )
+    return get_url
+
+
 def aliases(request):
     drugs = Drug.objects.all()
     aliases = {}
 
     for drug in drugs:
-        uri = request.build_absolute_uri(
-            reverse('drug', kwargs={'slug': drug.slug})
-        )
+        data = {
+            'slug': drug.slug,
+            'url': _api_url(request)(drug)
+        }
 
         for name in chain(
             get_translated_values(drug, 'name'),
             drug.aliases
         ):
-            aliases[name] = uri
+            aliases[name] = data
 
     return JsonResponse(aliases)
 
@@ -35,34 +55,36 @@ def drugs(request):
 def drug(request, slug):
     drug = get_object_or_404(Drug, slug=slug)
 
-    serializer = StructureSerializer()
-    data = serializer.serialize(
-        drug,
-        structure={
-            'name': None,
-            'slug': None,
-            'aliases': None,
-            'category': None,
-            'common': None,
-            'description': None,
-            'risks': None,
-            'effects': None,
-            'interactions': ('slug', {
-                'interactants': None,
-                'is_draft': None,
-                'risk': None,
-                'synergy': None,
-                'risk_reliability': None,
-                'effects_reliability': None,
-                'risk_description': None,
-                'effect_description': None,
-            }),
-        },
+    serializer = StructureSerializer(
+        structure=(
+            'name',
+            'slug',
+            'aliases',
+            _site_url(request),
+            'category',
+            'common',
+            'description',
+            'risks',
+            'effects',
+            ('interactions', 'slug', (
+                'interactants',
+                'is_draft',
+                _api_url(request),
+                _site_url(request),
+                'risk',
+                'synergy',
+                'risk_reliability',
+                'effects_reliability',
+                'risk_description',
+                'effect_description',
+            )),
+        ),
         select_related={
             'interactions': ('from_drug', 'to_drug')
-        }
+        },
     )
 
+    data = serializer.serialize(drug)
     return JsonResponse(data)
 
 
