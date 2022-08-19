@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from typing import Callable
 
 from django.db.models import Model, QuerySet
 
@@ -45,6 +46,12 @@ class StructureSerializer:
 
         The `structure` must be a tuple that contains either:
             - Strings matching object fields or attributes;
+            - Callables taking a model instance in parameter and
+            returning a `('key', value)` tuple where:
+                - `'key'` is an identifier that will be used as key in
+                the serialized output;
+                - `value` will be used as value. It will be
+                postprocessed by the serializer as regular fields do;
             - 2-tuples `('field', 'related_field')` where:
                 - `'field'` is a field of the model that will result in
                 a `QuerySet` of related objects when accessed;
@@ -82,7 +89,7 @@ class StructureSerializer:
         data = {}
 
         for item in structure:
-            assert isinstance(item, (str, tuple))
+            assert isinstance(item, (str, tuple, Callable))
 
             if isinstance(item, tuple):
                 assert 2 <= len(item) <= 3
@@ -99,6 +106,10 @@ class StructureSerializer:
                     data[field] = (
                         self.serialize_many(queryset, key, substructure)
                     )
+
+            elif callable(item):
+                key, val = item(obj)
+                data[key] = self._transform(val)
 
             else:
                 data[item] = self._transform(getattr(obj, item))
