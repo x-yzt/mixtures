@@ -120,8 +120,12 @@ class Drug(LastModifiedModel):
             )
         )
 
-    def get_absolute_url(self):
-        return reverse('drug', kwargs={'name': self.slug})
+    def get_absolute_url(self, namespace=None):
+        name = 'drug'
+        if namespace:
+            name = f"{namespace}:{name}"
+
+        return reverse(name, kwargs={'name': self.slug})
 
     class Meta:
         verbose_name = _("substance")
@@ -224,8 +228,12 @@ class Interaction(LastModifiedModel):
     def __str__(self):
         return f"{self.from_drug.name} + {self.to_drug.name}"
 
-    def get_absolute_url(self):
-        return reverse('combine', kwargs={
+    def get_absolute_url(self, namespace=None):
+        name = 'combine'
+        if namespace:
+            name = f"{namespace}:{name}"
+
+        return reverse(name, kwargs={
             'slugs': (self.from_drug.slug, self.to_drug.slug)
         })
 
