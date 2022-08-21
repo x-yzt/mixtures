@@ -42,6 +42,13 @@ class DrugStructureSerializerTestCase(BaseDrugSerializerTestCase):
         ('interactions', None, ('interactants',))
     ))
 
+    serializer_nested_callback = StructureSerializer((
+        'name',
+        ('interactions', 'slug', (
+            lambda o: ('custom', str(o).upper()),
+        ))
+    ))
+
     def testSerialize(self):
         for (serializer, result) in {
             'serializer_key': {
@@ -136,4 +143,16 @@ class DrugStructureSerializerTestCase(BaseDrugSerializerTestCase):
                 key='interactants'
             ),
             (('Drug A', 'Drug B'), ('Drug A', 'Drug C'))
+        )
+
+    def testSerializerCallable(self):
+        self.assertEqual(
+            self.serializer_nested_callback.serialize(self.drug_a),
+            {
+                'name': 'Drug A',
+                'interactions': {
+                    'drug-a_drug-b': {'custom': 'DRUG A + DRUG B'},
+                    'drug-a_drug-c': {'custom': 'DRUG A + DRUG C'}
+                }
+            }
         )
