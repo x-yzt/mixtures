@@ -70,21 +70,19 @@ class DrugManager(Manager):
 
         Throw DoesNotExist if no drug is found.
         """
-        try:
-            return self.get(slug=normalize(name))
-        except self.model.DoesNotExist:
-            pass
-
-        try:
-            return self.filter(name__iexact=name)[0]
-        except IndexError:
-            pass
-
         reg = rf'(^|\r|\n){name}(\r|\n|$)'
-        try:
-            return self.filter(aliases__iregex=reg)[0]
-        except IndexError:
-            raise self.model.DoesNotExist
+
+        for lookup in (
+            lambda: self.get(slug=normalize(name)),
+            lambda: self.filter(name__iexact=name)[0],
+            lambda: self.filter(aliases__iregex=reg)[0],
+        ):
+            try:
+                return lookup()
+            except (self.model.DoesNotExist, IndexError):
+                continue
+
+        raise self.model.DoesNotExist
 
     def get_from_name_or_404(self, name):
         """Similar to `get_from_name` but raises `Http404` if no drug is
