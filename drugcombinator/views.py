@@ -49,11 +49,11 @@ def drug_search(request):
     drugs = Drug.objects.order_by_translated('name')
     common_drugs = drugs.filter(common=True)
 
-    if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+    if request.GET:
+        search_form = SearchForm(request.GET)
 
         if search_form.is_valid():
-            name = search_form.cleaned_data['name_field']
+            name = search_form.cleaned_data['q']
 
             try:
                 drug = Drug.objects.get_from_name(name)
@@ -62,8 +62,9 @@ def drug_search(request):
             except Drug.DoesNotExist:
                 (
                     search_form
-                    .fields['name_field']
-                    .widget.attrs
+                    .fields['q']
+                    .widget
+                    .attrs
                     .update({'class': 'autocomplete invalid'})
                 )
 
