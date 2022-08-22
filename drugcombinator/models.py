@@ -125,7 +125,7 @@ class Drug(LastModifiedModel):
         if namespace:
             name = f"{namespace}:{name}"
 
-        return reverse(name, kwargs={'name': self.slug})
+        return reverse(name, kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = _("substance")
