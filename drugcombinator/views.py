@@ -93,8 +93,9 @@ def combine(request, slugs):
     combination_name = ' + '.join([str(d) for d in drugs])
     toc = {inter.slug: str(inter) for inter in interactions}
 
-    expected_interactions = len(drugs) * (len(drugs)-1) // 2
-    unknown_interactions = expected_interactions - len(interactions)
+    unknown_interactions = (
+        drugs.expected_interaction_count - len(interactions)
+    )
 
     contrib_form = ContribForm()
 

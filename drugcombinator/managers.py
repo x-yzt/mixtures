@@ -100,6 +100,12 @@ class DrugQuerySet(TranslatedQuerySet):
         slugs = self.values_list('slug', flat=True).order_by('slug')
         return reverse('combine', kwargs={'slugs': slugs})
 
+    @property
+    def expected_interaction_count(self):
+        """How many interactions are expected between those
+        substances."""
+        return len(self) * (len(self)-1) // 2
+
 
 class InteractionQuerySet(TranslatedQuerySet):
     def between(self, drugs, prefetch=False):
