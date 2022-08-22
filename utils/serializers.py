@@ -95,8 +95,13 @@ class StructureSerializer:
                 assert 2 <= len(item) <= 3
                 field, key, substructure, *_ = [*item, None]
 
-                relations = self.select_related.get(item, ())
-                queryset = getattr(obj, field).select_related(*relations)
+                queryset = getattr(obj, field)
+
+                # This allows duck typing for model attributes returning
+                # iterables instead of true QuerySets
+                if hasattr(queryset, 'select_related'):
+                    relations = self.select_related.get(item, ())
+                    queryset.select_related(*relations)
 
                 if substructure is None:
                     assert key is not None
