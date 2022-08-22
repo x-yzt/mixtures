@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 from drugcombinator.models import Drug, Interaction
-# from drugcombinator.utils import count_queries
+from drugcombinator.utils import JsonErrorResponse
 from utils.i18n import get_translated_values
 from utils.serializers import StructureSerializer
 
@@ -81,7 +81,7 @@ def drug(request, slug):
         ),
         select_related={
             'interactions': ('from_drug', 'to_drug')
-        },
+        }
     )
 
     data = serializer.serialize(drug)
@@ -89,22 +89,53 @@ def drug(request, slug):
 
 
 def combine(request, slugs):
+    if len(slugs) < 2:
+        return JsonErrorResponse(
+            f"At least 2 substances are required (got {len(slugs)})"
+        )
+    if len(slugs) > 5:
+        return JsonErrorResponse(
+            f"At most 5 substances are allowed (got {len(slugs)})"
+        )
+
     drugs = Drug.objects.filter(slug__in=slugs)
+
+    not_found_drugs = len(slugs) - len(drugs)
+    if not_found_drugs:
+        return JsonErrorResponse(
+            f"{not_found_drugs} substance(s) were not found",
+            status=404
+        )
+
     interactions = Interaction.objects.between(drugs, prefetch=True)
+    unknown_interactions = (
+        drugs.expected_interaction_count - len(interactions)
+    )
 
-    serializer = StructureSerializer()
+    serializer = StructureSerializer(
+        structure=(
+            'names',
+            'is_draft',
+            _site_url(request),
+            'risk',
+            'synergy',
+            'risk_reliability',
+            'effects_reliability',
+            'risk_description',
+            'effect_description',
+            ('interactants', 'slug', (
+                'name',
+                'slug',
+                _api_url(request),
+                _site_url(request),
+                'risks',
+                'effects',
+            )),
+        )
+    )
+
     data = {
-        inter.slug: serializer.serialize(inter, {
-            'interactants': None,
-            'is_draft': None,
-            'risk': None,
-            'synergy': None,
-            'risk_reliability': None,
-            'effects_reliability': None,
-            'risk_description': None,
-            'effect_description': None,
-        })
-        for inter in interactions
+        'unknown_interactions': unknown_interactions,
+        'interactions': serializer.serialize_many(interactions, 'slug'),
     }
-
     return JsonResponse(data)

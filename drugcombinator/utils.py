@@ -4,6 +4,7 @@ from hashlib import md5
 from time import time
 
 from django.db import connection, reset_queries
+from django.http import JsonResponse
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -63,3 +64,9 @@ def get_libravatar_url(email, https=False, size=80, default=None):
         protocol, domain = 'http', 'cdn.libravatar.org'
 
     return f'{protocol}://{domain}/avatar/{hash_url}?s={size}&d={default}'
+
+
+class JsonErrorResponse(JsonResponse):
+    def __init__(self, msg, *args, **kwargs):
+        kwargs.setdefault('status', 400)
+        super().__init__({'error': msg}, *args, **kwargs)
