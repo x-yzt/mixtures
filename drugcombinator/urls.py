@@ -23,5 +23,5 @@ urlpatterns = [
     path('api/',                     include('drugcombinator.api.urls')),
 
     path('send-contrib/',            views.send_contrib,        name='send_contrib'),
-    path('autocomplete.js',          cache(views.autocomplete), name='autocomplete'),
+    path('autocomplete/',            cache(views.autocomplete), name='autocomplete'),
 ]

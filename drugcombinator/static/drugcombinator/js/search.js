@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', event => {
     const searchBox = document.getElementById('id_q');
-    M.Autocomplete.init(searchBox, {data: ac_data});
+
+    fetch('/autocomplete/')
+    .then(response => response.json())
+    .then(data => {
+        M.Autocomplete.init(searchBox, { data: data });
+    });
 });

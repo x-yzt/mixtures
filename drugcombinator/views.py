@@ -4,7 +4,7 @@ from types import SimpleNamespace
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db.models import F
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.http.response import (
     HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed)
 from django.shortcuts import get_object_or_404, redirect, render
@@ -208,10 +208,7 @@ def autocomplete(request):
             ):
                 entries.append(alias)
 
-    return render(
-        request, 'drugcombinator/autocomplete.js', locals(),
-        content_type='text/javascript'
-    )
+    return JsonResponse({entry: None for entry in entries})
 
 
 def send_contrib(request):
