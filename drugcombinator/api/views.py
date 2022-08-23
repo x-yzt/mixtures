@@ -1,7 +1,6 @@
 from itertools import chain
 
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 
 from drugcombinator.models import Drug, Interaction
 from drugcombinator.utils import JsonErrorResponse
@@ -74,7 +73,13 @@ def drugs(request):
 
 
 def drug(request, slug):
-    drug = get_object_or_404(Drug, slug=slug)
+    try:
+        drug = Drug.objects.get(slug=slug)
+
+    except Drug.DoesNotExist:
+        return JsonErrorResponse(
+            f"Unable to find substance {slug}", status=404
+        )
 
     serializer = StructureSerializer(
         structure=(
