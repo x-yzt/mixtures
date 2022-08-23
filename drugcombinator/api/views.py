@@ -34,10 +34,7 @@ def aliases(request):
     aliases = {}
 
     for drug in drugs:
-        data = {
-            'slug': drug.slug,
-            'url': _api_url(request)(drug)
-        }
+        data = {'slug': drug.slug} | dict([_api_url(request)(drug)])
 
         for name in chain(
             get_translated_values(drug, 'name'),
@@ -48,8 +45,32 @@ def aliases(request):
     return JsonResponse(aliases)
 
 
+def search(request, name):
+    try:
+        drug = Drug.objects.get_from_name(name)
+
+    except Drug.DoesNotExist:
+        return JsonErrorResponse(
+            f"Unable to find substance {name}", status=404
+        )
+
+    data = {'slug': drug.slug} | dict([_api_url(request)(drug)])
+    return JsonResponse(data)
+
+
 def drugs(request):
-    pass
+    drugs = Drug.objects.all()
+
+    serializer = StructureSerializer((
+        'name',
+        _api_url(request),
+        _site_url(request),
+        'category',
+        'common',
+    ))
+
+    data = serializer.serialize_many(drugs, 'slug')
+    return JsonResponse(data)
 
 
 def drug(request, slug):
