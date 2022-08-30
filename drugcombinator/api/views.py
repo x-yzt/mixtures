@@ -124,6 +124,12 @@ def combine(request, slugs):
             f"At most 5 substances are allowed (got {len(slugs)})"
         )
 
+    duplicated_slugs = len(slugs) - len(set(slugs))
+    if duplicated_slugs:
+        return JsonErrorResponse(
+            f"{duplicated_slugs} substance(s) are duplicates"
+        )
+
     drugs = Drug.objects.filter(slug__in=slugs)
 
     not_found_drugs = len(slugs) - len(drugs)
