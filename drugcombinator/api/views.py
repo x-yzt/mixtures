@@ -1,0 +1,173 @@
+from itertools import chain
+
+from django.http import JsonResponse
+
+from drugcombinator.models import Drug, Interaction
+from drugcombinator.utils import JsonErrorResponse
+from utils.i18n import get_translated_values
+from utils.serializers import StructureSerializer
+
+
+def _site_url(request):
+    def get_url(obj):
+        return (
+            'site_url',
+            request.build_absolute_uri(obj.get_absolute_url())
+        )
+    return get_url
+
+
+def _api_url(request):
+    def get_url(obj):
+        return (
+            'url',
+            request.build_absolute_uri(
+                obj.get_absolute_url(namespace='api')
+            )
+        )
+    return get_url
+
+
+def aliases(request):
+    drugs = Drug.objects.all()
+    aliases = {}
+
+    for drug in drugs:
+        data = {'slug': drug.slug} | dict([_api_url(request)(drug)])
+
+        for name in chain(
+            get_translated_values(drug, 'name'),
+            drug.aliases
+        ):
+            aliases[name] = data
+
+    return JsonResponse(aliases)
+
+
+def search(request, name):
+    try:
+        drug = Drug.objects.get_from_name(name)
+
+    except Drug.DoesNotExist:
+        return JsonErrorResponse(
+            f"Unable to find substance {name}", status=404
+        )
+
+    data = {'slug': drug.slug} | dict([_api_url(request)(drug)])
+    return JsonResponse(data)
+
+
+def drugs(request):
+    drugs = Drug.objects.all()
+
+    serializer = StructureSerializer((
+        'name',
+        _api_url(request),
+        _site_url(request),
+        'category',
+        'common',
+    ))
+
+    data = serializer.serialize_many(drugs, 'slug')
+    return JsonResponse(data)
+
+
+def drug(request, slug):
+    try:
+        drug = Drug.objects.get(slug=slug)
+
+    except Drug.DoesNotExist:
+        return JsonErrorResponse(
+            f"Unable to find substance {slug}", status=404
+        )
+
+    serializer = StructureSerializer(
+        structure=(
+            'name',
+            'slug',
+            'aliases',
+            _site_url(request),
+            'category',
+            'common',
+            'description',
+            'risks',
+            'effects',
+            ('interactions', 'slug', (
+                'interactants',
+                'is_draft',
+                _api_url(request),
+                _site_url(request),
+                'risk',
+                'synergy',
+                'risk_reliability',
+                'effects_reliability',
+                'risk_description',
+                'effect_description',
+            )),
+        ),
+        select_related={
+            'interactions': ('from_drug', 'to_drug')
+        }
+    )
+
+    data = serializer.serialize(drug)
+    return JsonResponse(data)
+
+
+def combine(request, slugs):
+    if len(slugs) < 2:
+        return JsonErrorResponse(
+            f"At least 2 substances are required (got {len(slugs)})"
+        )
+    if len(slugs) > 5:
+        return JsonErrorResponse(
+            f"At most 5 substances are allowed (got {len(slugs)})"
+        )
+
+    duplicated_slugs = len(slugs) - len(set(slugs))
+    if duplicated_slugs:
+        return JsonErrorResponse(
+            f"{duplicated_slugs} substance(s) are duplicates"
+        )
+
+    drugs = Drug.objects.filter(slug__in=slugs)
+
+    not_found_drugs = len(slugs) - len(drugs)
+    if not_found_drugs:
+        return JsonErrorResponse(
+            f"{not_found_drugs} substance(s) were not found",
+            status=404
+        )
+
+    interactions = Interaction.objects.between(drugs, prefetch=True)
+    unknown_interactions = (
+        drugs.expected_interaction_count - len(interactions)
+    )
+
+    serializer = StructureSerializer(
+        structure=(
+            'names',
+            'is_draft',
+            _site_url(request),
+            'risk',
+            'synergy',
+            'risk_reliability',
+            'effects_reliability',
+            'risk_description',
+            'effect_description',
+            ('interactants', 'slug', (
+                'name',
+                'slug',
+                _api_url(request),
+                _site_url(request),
+                'risks',
+                'effects',
+            )),
+        )
+    )
+
+    data = {
+        'unknown_interactions': unknown_interactions,
+        'interactions': serializer.serialize_many(interactions, 'slug'),
+    }
+    return JsonResponse(data)

@@ -4,11 +4,10 @@ from types import SimpleNamespace
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db.models import F
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.http.response import (
     HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed)
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
@@ -50,11 +49,11 @@ def drug_search(request):
     drugs = Drug.objects.order_by_translated('name')
     common_drugs = drugs.filter(common=True)
 
-    if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+    if request.GET:
+        search_form = SearchForm(request.GET)
 
         if search_form.is_valid():
-            name = search_form.cleaned_data['name_field']
+            name = search_form.cleaned_data['q']
 
             try:
                 drug = Drug.objects.get_from_name(name)
@@ -63,8 +62,9 @@ def drug_search(request):
             except Drug.DoesNotExist:
                 (
                     search_form
-                    .fields['name_field']
-                    .widget.attrs
+                    .fields['q']
+                    .widget
+                    .attrs
                     .update({'class': 'autocomplete invalid'})
                 )
 
@@ -93,8 +93,9 @@ def combine(request, slugs):
     combination_name = ' + '.join([str(d) for d in drugs])
     toc = {inter.slug: str(inter) for inter in interactions}
 
-    expected_interactions = len(drugs) * (len(drugs)-1) // 2
-    unknown_interactions = expected_interactions - len(interactions)
+    unknown_interactions = (
+        drugs.expected_interaction_count - len(interactions)
+    )
 
     contrib_form = ContribForm()
 
@@ -104,20 +105,13 @@ def combine(request, slugs):
 class AbstractDrugView(View, TemplateResponseMixin, metaclass=ABCMeta):
     def get(self, request, **kwargs):
         ctx = self.get_context(request, **kwargs)
-
-        if kwargs['name'] != ctx.drug.slug:
-            return redirect(reverse(
-                request.resolver_match.url_name,
-                kwargs={'name': ctx.drug.slug}
-            ), permanent=True)
-
         return self.render_to_response(vars(ctx))
 
     @abstractmethod
-    def get_context(self, request, name):
+    def get_context(self, request, slug):
         ctx = SimpleNamespace()
 
-        ctx.drug = Drug.objects.get_from_name_or_404(name)
+        ctx.drug = get_object_or_404(Drug, slug=slug)
         ctx.interactions = (
             ctx.drug.interactions
             .prefetch_related('from_drug', 'to_drug')
@@ -134,8 +128,8 @@ class AbstractDrugView(View, TemplateResponseMixin, metaclass=ABCMeta):
 class DrugView(AbstractDrugView):
     template_name = 'drugcombinator/drug.html'
 
-    def get_context(self, request, name):
-        ctx = super().get_context(request, name)
+    def get_context(self, request, slug):
+        ctx = super().get_context(request, slug)
         ctx.default_host = reverse_host(settings.DEFAULT_HOST)
         ctx.contrib_form = ContribForm()
 
@@ -146,8 +140,8 @@ class DrugView(AbstractDrugView):
 class RecapView(DrugView):
     template_name = 'drugcombinator/iframes/recap.html'
 
-    def get_context(self, request, name):
-        ctx = super().get_context(request, name)
+    def get_context(self, request, slug):
+        ctx = super().get_context(request, slug)
         ctx.interactions = ctx.interactions.filter(is_draft=False)
         ctx.dummy_risks = Interaction.get_dummy_risks()
         ctx.dummy_synergies = Interaction.get_dummy_synergies()
@@ -215,10 +209,7 @@ def autocomplete(request):
             ):
                 entries.append(alias)
 
-    return render(
-        request, 'drugcombinator/autocomplete.js', locals(),
-        content_type='text/javascript'
-    )
+    return JsonResponse({entry: None for entry in entries})
 
 
 def send_contrib(request):

@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixtures.info/combo.schema.json",
+  "title": "Combination",
+  "description": "A combination of several substances.",
+  "type": "object",
+  "properties": {
+    "unknown_interactions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Number of interactions no data were found on."
+    },
+    "interactions": {
+      "type": "object",
+      "description": "Found interactions.",
+      "additionalProperties" : {
+        "type": "object",
+        "title": "Slug",
+        "description": "Unique identifier of the interaction. Substances slugs are separated by an underscore (_).",
+        "properties": {
+          "names": {
+            "type": "array",
+            "description": "Slang names of this interaction.",
+            "items": {
+              "type": "string",
+              "description": "Slang name."
+            }
+          },
+          "is_draft": {
+            "type": "boolean",
+            "description": "Is the content of this interaction a draft?"
+          },
+          "site_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the interaction on the Mixtures website."
+          },
+          "risk": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 4,
+            "description": "Risk classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: CAUTION\n 3: UNSAFE\n4: DANGEROUS"
+          },
+          "synergy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Synergy classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: DECREASE\n 3: INCREASE\n4: MIXED\n5: ADDITIVE"
+          },
+          "risk_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination risk data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "effects_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination effects data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "risk_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the risks of this combination."
+          },
+          "effect_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the effects of this combination."
+          },
+          "interactants": {
+            "type": "object",
+            "description": "Substances involved in the interaction.",
+            "additionalProperties": {
+              "type": "object",
+              "title": "Slug",
+              "description": "Unique identifier of the substance.",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "description": "Unique identifier of the substance."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the substance."
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL of the substance."
+                },
+                "site_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL of the substance on the Mixtures website."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "unknown_interactions": 2,
+      "interactions": {
+        "drug-a_drug-b": {
+          "names": ["Combination slang name"],
+          "is_draft": false,
+          "site_url": "https://mixtures.info/en/combo/drug-a+drug-b/",
+          "risk": 2,
+          "synergy": 4,
+          "risk_reliability": 2,
+          "effects_reliability": 3,
+          "risk_description": "Interaction risk description.",
+          "effect_description": "Interaction effect description.",
+          "interactants": {
+            "drug-a": {
+              "name": "Drug A",
+              "slug": "drug-a",
+              "url": "https://mixtures.indo/en/api/v1/substance/drug-a/",
+              "site_url": "https://mixtures.info/en/substance/drug-a/",
+              "risks": "General risks of drug A.",
+              "effects": "General effects of drug B."
+            },
+            "drug-b": {
+              "name": "Drug B",
+              "slug": "drug-b",
+              "url": "https://mixtures.info/en/api/v1/substance/drug-b/",
+              "site_url": "https://mixtures.info/en/substance/drug-b/",
+              "risks": "",
+              "effects": ""
+            }
+          }
+        }
+      }
+    }
+  ]
+}

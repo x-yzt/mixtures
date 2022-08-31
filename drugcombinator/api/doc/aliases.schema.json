@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixtures.info/aliases.schema.json",
+  "title": "Aliases",
+  "description": "A map of all avalaible aliases, mapping them to slugs and URLs.",
+  "type": "object",
+  "additionalProperties" : {
+    "title": "Alias",
+    "type" : "object",
+    "properties": {
+      "slug": {
+        "type": "string",
+        "description": "Unique identifier of the substance whose alias it is."
+      },
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL of the substance whose alias it is."
+      }
+    }
+  }
+}
