@@ -61,3 +61,20 @@ def set_language_view(request):
         response = set_language(request)
 
     return response
+
+
+def get_translated_fields(field):
+    """Given a field name, return all translated fields names."""
+    langs = (lang[0].replace('-', '_') for lang in settings.LANGUAGES)
+    return [f"{field}_{lang}" for lang in langs]
+
+
+def get_translated_values(obj, field):
+    """
+    Given a model instance and a field name, return all avalaible
+    translated values of the field.
+    """
+    return list(filter(None, (
+        getattr(obj, translated_field, None)
+        for translated_field in get_translated_fields(field)
+    )))

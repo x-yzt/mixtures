@@ -112,6 +112,29 @@ class InteractionModelTestCase(TestCase):
         self.assertEqual(self.inter_b_c.names, [])
 
 
+class DrugModelTestCase(TestCase):
+    drug_a = Drug(
+        pk=2, name="Drug A", slug="a", aliases=("Drug B", "Other"))
+    drug_b = Drug(
+        pk=1, name="Drug B", slug="b")
+
+    def setUp(self):
+        self.drug_a.save()
+        self.drug_b.save()
+
+    def test_get_by_name(self):
+        for name, query, result in (
+            ('icase',          "drug a", self.drug_a),
+            ('alias',          "Other",  self.drug_a),
+            ('alias_conflict', "Drug B", self.drug_b),
+        ):
+            with self.subTest(name=name):
+                self.assertEqual(
+                    Drug.objects.get_from_name(query),
+                    result
+                )
+
+
 class ComboViewTestCase(TestCase):
     drug_a = Drug(name="DrugA", slug='a')
     drug_b = Drug(name="DrugB", slug='b')

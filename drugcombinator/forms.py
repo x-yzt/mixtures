@@ -29,7 +29,7 @@ class CombinatorForm(forms.Form):
 
 class SearchForm(forms.Form):
     """Form to search for a substance."""
-    name_field = CharField(
+    q = CharField(
         widget=forms.TextInput(attrs={
             'class': 'autocomplete',  # Materialize CSS class
             'autocomplete': 'off'  # Disable default browser autocomplete
