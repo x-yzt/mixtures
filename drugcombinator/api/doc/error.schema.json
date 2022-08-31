@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixtures.info/error.schema.json",
+  "title": "Error",
+  "type": "object",
+  "properties" : {
+    "error": {
+      "type" : "string",
+      "description": "Error message."
+    }
+  }
+}

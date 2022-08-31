@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixtures.info/combo.schema.json",
+  "title": "Combination",
+  "description": "A combination of several substances.",
+  "type": "object",
+  "properties": {
+    "unknown_interactions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Number of interactions no data were found on."
+    },
+    "interactions": {
+      "type": "object",
+      "description": "Found interactions.",
+      "additionalProperties" : {
+        "type": "object",
+        "title": "Slug",
+        "description": "Unique identifier of the interaction. Substances slugs are separated by an underscore (_).",
+        "properties": {
+          "names": {
+            "type": "array",
+            "description": "Slang names of this interaction.",
+            "items": {
+              "type": "string",
+              "description": "Slang name."
+            }
+          },
+          "is_draft": {
+            "type": "boolean",
+            "description": "Is the content of this interaction a draft?"
+          },
+          "site_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the interaction on the Mixtures website."
+          },
+          "risk": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 4,
+            "description": "Risk classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: CAUTION\n 3: UNSAFE\n4: DANGEROUS"
+          },
+          "synergy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Synergy classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: DECREASE\n 3: INCREASE\n4: MIXED\n5: ADDITIVE"
+          },
+          "risk_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination risk data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "effects_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination effects data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "risk_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the risks of this combination."
+          },
+          "effect_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the effects of this combination."
+          },
+          "interactants": {
+            "type": "object",
+            "description": "Substances involved in the interaction.",
+            "additionalProperties": {
+              "type": "object",
+              "title": "Slug",
+              "description": "Unique identifier of the substance.",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "description": "Unique identifier of the substance."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the substance."
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL of the substance."
+                },
+                "site_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL of the substance on the Mixtures website."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "example": {"unknown_interactions": 0, "interactions": {"mdma_opiaces": {"names": [], "is_draft": false, "site_url": "http://localhost:8000/fr/combo/mdma+opiaces/", "risk": 2, "synergy": 4, "risk_reliability": 2, "effects_reliability": 2, "risk_description": "Les opiac\u00e9s \u00e9tant des d\u00e9presseurs du syst\u00e8me nerveux dont certains sont facilement overdosables (comme l'h\u00e9ro\u00efne ou la morphine), il faut rester vigilant \u00e0 ne pas abuser lorsqu'on les combine avec un stimulant qui masque leurs effets. \r\n\r\nCette [m\u00e9ta-\u00e9tude](https://www.ncbi.nlm.nih.gov/pubmed/21756931) rapporte que certains usagers utilisent les opiac\u00e9s pour pour surmonter la descente et le contrecoup de la MDMA ou pour att\u00e9nuer ses effets stimulants. Elle souligne par ailleurs que ces utilisations sont corr\u00e9l\u00e9es \u00e0 une augmentation de la consommation de l'une ou l'autre substance seule. En d'autres termes, cela peut indiquer un plus grand risque de d\u00e9pendance.\r\n\r\nCertaines [organisations](https://sunrisehouse.com/polydrug-use/opioids-amphetamines/) mettent en avant l'effet contradictoire de ce type de combinaisons pour souligner un risque de complication cardiaque.", "effect_description": "Certains effets d\u00e9presseurs des opiac\u00e9s (comme le ralentissement cardiaque ou la relaxation musculaire) sont oppos\u00e9s \u00e0 l'effet stimulant de la MDMA. On peut le constater dans les listes d'effets subjectifs \u00e9tablies par PsychonautWiki : [Morphine](https://psychonautwiki.org/wiki/Morphine) ; [MDMA](https://psychonautwiki.org/wiki/MDMA#Subjective_effects). Leurs effets peuvent donc se contrarier, mais ils ne s'annulent pas : ces substances ne sont pas un antidote l'une de l'autre. \r\n\r\nPeu de [retours d'exp\u00e9riences](https://www.erowid.org/experiences/exp.cgi?S1=3&S2=207) sont disponibles, aussi il est difficile d'en tirer des g\u00e9n\u00e9ralit\u00e9s. Mais on peut noter que les usagers occasionnels semblent en tirer une euphorie unique (\"[bliss](https://www.erowid.org/experiences/exp.php?ID=39423)\") o\u00f9 les effets secondaires des deux substances s'\u00e9quilibrent. Le risque de d\u00e9pendance est mis en avant. Les effets contradictoires du m\u00e9lange peuvent aussi entra\u00eener des effets tr\u00e8s bizarres, comme dans ce [trip report](https://www.erowid.org/experiences/exp.php?ID=112246) o\u00f9 l'auteur se sent \"comme un somnambule\".\r\n\r\nCette [m\u00e9ta-\u00e9tude](https://www.ncbi.nlm.nih.gov/pubmed/21756931) rapporte que l'utilisation d'opiac\u00e9s pour amortir la descente de MDMA pourrait venir de leur effet pro-s\u00e9rotoninergique.", "interactants": {"mdma": {"name": "MDMA", "slug": "mdma", "url": "http://localhost:8000/fr/api/v1/substance/mdma/", "site_url": "http://localhost:8000/fr/substance/mdma/", "risks": "", "effects": ""}, "opiaces": {"name": "Opiac\u00e9s", "slug": "opiaces", "url": "http://localhost:8000/fr/api/v1/substance/opiaces/", "site_url": "http://localhost:8000/fr/substance/opiaces/", "risks": "", "effects": ""}}}}}
+}

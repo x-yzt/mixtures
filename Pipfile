@@ -17,6 +17,7 @@ whitenoise = "~=5.2"
 [dev-packages]
 flake8 = "*"
 isort = "*"
+json-schema-for-humans = "*"
 
 [requires]
 python_version = "3.10"
