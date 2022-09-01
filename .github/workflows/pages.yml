@@ -29,7 +29,7 @@ jobs:
         with:
           command: install -d
       - name: Build JSON Schema for Humans
-        run: generate-schema-doc --config expand_buttons=true drugcombinator/api/ docs/
+        run: pipenv run generate-schema-doc --config expand_buttons=true drugcombinator/api/ docs/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
