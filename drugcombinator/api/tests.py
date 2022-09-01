@@ -1,3 +1,5 @@
+from itertools import combinations
+
 from django.test import TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils import translation
@@ -172,7 +174,8 @@ class DrugStructureSerializerTestCase(BaseAPITestCase):
 
 class APIViewTestCase(BaseAPITestCase):
     def testAliases(self):
-        response = self.client.get(reverse('api:aliases'))
+        with self.assertNumQueries(1):
+            response = self.client.get(reverse('api:aliases'))
 
         self.assertContainsSubset(
             response.json(),
@@ -317,9 +320,25 @@ class APIViewTestCase(BaseAPITestCase):
             }
         )
 
+    def testCombineQueryCount(self):
+        Drug.objects.all().delete()
+
+        for i in range(5):
+            Drug(name=str(i), slug=str(i)).save()
+        drugs = Drug.objects.all()
+
+        for a, b in combinations(drugs, 2):
+            Interaction(from_drug=a, to_drug=b).save()
+
+        with self.assertNumQueries(4):
+            self.client.get(reverse(
+                'api:combine',
+                kwargs={'slugs': [d.slug for d in drugs]}
+            ))
+
     def testCombineEmpty(self):
         with self.assertRaises(NoReverseMatch):
-            self.client.get(reverse('api:combine'), kwargs={'slugs': []})
+            self.client.get(reverse('api:combine', kwargs={'slugs': []}))
 
     def testCombineReturnCode(self):
         for slugs, code in (
