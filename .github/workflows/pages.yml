@@ -24,12 +24,18 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Install dev dependencies
-        uses: VaultVulp/action-pipenv@v2.0.1
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
-          command: install -d
+          python-version: 3.10.6
+      - name: Install dev dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
       - name: Build JSON Schema for Humans
-        run: generate-schema-doc --config expand_buttons=true drugcombinator/api/ docs/
+        run: |
+          mkdir _site
+          pipenv run generate-schema-doc --config expand_buttons=true drugcombinator/api/ _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
