@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixtures.info/substance.schema.json",
+  "title": "Substance",
+  "description": "An exhaustive representation of a substance.",
+  "type": "object",
+  "properties" : {
+    "slug": {
+      "type": "string",
+      "description": "Unique identifier of the substance."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the substance."
+    },
+    "aliases": {
+      "type": "array",
+      "description": "Alternative names of the substance.",
+      "items": {
+        "type": "string",
+        "description": "Alias name"
+      }
+    },
+    "site_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the substance on the Mixtures website."
+    },
+    "category": {
+      "type": ["string", "null"],
+      "description": "Name of the category of the substance."
+    },
+    "common": {
+      "type": "boolean",
+      "description": "Is this substance classified as common?"
+    },
+    "description": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Short description of the substance."
+    },
+    "risks": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Risks specific to combinations involving this substance that do not depend on a specific interaction."
+    },
+    "effects": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Effects specific to combinations involving this substance that do not depend on a specific interaction."
+    },
+    "interactions": {
+      "type": "object",
+      "description": "Interactions this substance is involved in.",
+      "additionalProperties": {
+        "type": "object",
+        "title": "Slug",
+        "description": "Unique identifier of the interaction. Substances slugs are separated by an underscore (_).",
+        "properties": {
+          "interactants": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Substances involved in the interaction.",
+            "items": {
+              "type": "string",
+              "description": "Substance name"
+            }
+          },
+          "is_draft": {
+            "type": "boolean",
+            "description": "Is the content of this interaction a draft?"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the interaction."
+          },
+          "site_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the interaction on the Mixtures website."
+          },
+          "risk": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 4,
+            "description": "Risk classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: CAUTION\n 3: UNSAFE\n4: DANGEROUS"
+          },
+          "synergy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Synergy classification of this combination.\n\n0: UNKNOWN\n1: NEUTRAL\n 2: DECREASE\n 3: INCREASE\n4: MIXED\n5: ADDITIVE"
+          },
+          "risk_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination risk data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "effects_reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Reliability classification of this combination effects data.\n\n0: UNKNOWN\n1: HYPOTHETICAL\n 2: INFERRED\n 3: PROVEN"
+          },
+          "risk_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the risks of this combination."
+          },
+          "effect_description": {
+            "type": "string",
+            "format": "markdown",
+            "description": "Description of the effects of this combination."
+          }
+        }
+      }
+    }
+  }
+}
