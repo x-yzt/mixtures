@@ -51,6 +51,12 @@ main > .container {
   margin: 0;
 }
 
+.right-on-medium-and-up {
+  @media screen and (min-width: 601px) {
+    float: right;
+  }
+}
+
 br.show-on-medium-and-down {
   // Workaround because utilities classes only work on div elements
   @media screen and (min-width: 993px) {

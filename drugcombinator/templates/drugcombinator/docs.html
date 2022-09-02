@@ -17,17 +17,69 @@
         {% blocktranslate trimmed %}
           This page is intended to help developers integrating Mixtures.info data into a third party
           application. Our database contains {{ drugs_count }} substances linked by
-          {{ interactions_count }} interactions, available in JSON format through an (almost) RESTful
-          HTTP service.
+          {{ interactions_count }} interactions, available in JSON format through an HTTP service.
         {% endblocktranslate %}
       </p>
 
-      <p class="flow-text center-align">
-        <i class="material-icons large">code</i><br/>
+      <h2>{% translate 'Terms of use' %}</h2>
+      <p class="flow-text">
         {% blocktranslate trimmed %}
-          The API is still under construction, and will be available soon.
+          <!--TODO-->
         {% endblocktranslate %}
       </p>
+      
+      <h2>{% translate 'Endpoints' %}</h2>
+
+      {% for endpoint in endpoints %}
+        <div class="row card-panel">
+          <div class="col s12 m9">
+            <pre>GET {{ endpoint.url }}</pre>
+          </div>
+          
+          <div class="col s12 m3">
+            <a
+              class="btn dropdown-trigger right-on-medium-and-up waves-effect waves-light"
+              data-target="dropdown-schema-{{ forloop.counter }}"
+              href="#"
+            >
+              Schemas <i class="material-icons right">description</i>
+            </a>
+
+            <ul id="dropdown-schema-{{ forloop.counter }}" class="dropdown-content">
+              {% for schema, url in endpoint.schemas %}
+                <li>
+                  <a href="{{ url }}" target="_blank" rel="nofollow">{{ schema|capfirst }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="col s12">
+            {% if endpoint.params %}
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Converter</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for name, converter in endpoint.params.items %}
+                    <tr>
+                      <td><code>{{ name }}</code></td>
+                      <td><code>{{ converter }}</code></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+
+            {% if endpoint.doc %}
+              <p>{{ endpoint.doc }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

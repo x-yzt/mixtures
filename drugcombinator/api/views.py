@@ -3,7 +3,7 @@ from itertools import chain
 from django.http import JsonResponse
 
 from drugcombinator.models import Drug, Interaction
-from drugcombinator.utils import JsonErrorResponse
+from drugcombinator.api.utils import JsonErrorResponse, schemas
 from utils.i18n import get_translated_values
 from utils.serializers import StructureSerializer
 
@@ -28,6 +28,7 @@ def _api_url(request):
     return get_url
 
 
+@schemas('aliases')
 def aliases(request):
     drugs = Drug.objects.all()
     aliases = {}
@@ -44,6 +45,7 @@ def aliases(request):
     return JsonResponse(aliases)
 
 
+@schemas('search', 'error')
 def search(request, name):
     try:
         drug = Drug.objects.get_from_name(name)
@@ -57,7 +59,9 @@ def search(request, name):
     return JsonResponse(data)
 
 
+@schemas('substances')
 def drugs(request):
+    """List all drugs."""
     drugs = Drug.objects.all()
 
     serializer = StructureSerializer((
@@ -72,6 +76,7 @@ def drugs(request):
     return JsonResponse(data)
 
 
+@schemas('substance', 'error')
 def drug(request, slug):
     try:
         drug = Drug.objects.get(slug=slug)
@@ -114,6 +119,7 @@ def drug(request, slug):
     return JsonResponse(data)
 
 
+@schemas('combo', 'error')
 def combine(request, slugs):
     if len(slugs) < 2:
         return JsonErrorResponse(
