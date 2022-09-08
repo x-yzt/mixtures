@@ -30,6 +30,12 @@ def _api_url(request):
 
 @schemas('aliases')
 def aliases(request):
+    """A list of all avalaible aliases, mapping them to substance slugs
+    and URLs.
+
+    This is useful for caching or if you want to implement your own
+    search logic locally.
+    """
     drugs = Drug.objects.all()
     aliases = {}
 
@@ -47,6 +53,10 @@ def aliases(request):
 
 @schemas('search', 'error')
 def search(request, name):
+    """Get a substance by name and return its slug and URL.
+
+    Database slugs, names and aliases will be matched against the query.
+    """
     try:
         drug = Drug.objects.get_from_name(name)
 
@@ -61,7 +71,8 @@ def search(request, name):
 
 @schemas('substances')
 def drugs(request):
-    """List all drugs."""
+    """List all substances in the database, and get a basic summary of
+    them."""
     drugs = Drug.objects.all()
 
     serializer = StructureSerializer((
@@ -78,6 +89,12 @@ def drugs(request):
 
 @schemas('substance', 'error')
 def drug(request, slug):
+    """Get some detailled information about a substance and a basic
+    summary of its interactions.
+
+    The `slug` parameter has to be exact, use the `search` endpoint to
+    get a substance slug from its name or aliases.
+    """
     try:
         drug = Drug.objects.get(slug=slug)
 
@@ -121,6 +138,12 @@ def drug(request, slug):
 
 @schemas('combo', 'error')
 def combine(request, slugs):
+    """Get detailled information about a substance combination.
+
+    The `slugs` parameter must be a list of valid slugs sepatared by
+    plus characters (eg. `.../combo/drug-a+drug-b/`). A maximum of 5
+    substances is allowed in each query.
+    """
     if len(slugs) < 2:
         return JsonErrorResponse(
             f"At least 2 substances are required (got {len(slugs)})"
