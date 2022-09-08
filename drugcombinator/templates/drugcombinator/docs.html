@@ -1,6 +1,7 @@
 {% extends 'mixtures/base.html' %}
 
 {% load i18n %}
+{% load mistune %}
 {% load strings %}
 
 {% block title %}
@@ -115,7 +116,7 @@
             {% endif %}
 
             {% if endpoint.doc %}
-              <p>{{ endpoint.doc }}</p>
+              <p>{{ endpoint.doc|formatspaces|markdown }}</p>
             {% endif %}
           </div>
         </div>
