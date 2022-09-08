@@ -1,6 +1,7 @@
 {% extends 'mixtures/base.html' %}
 
 {% load i18n %}
+{% load strings %}
 
 {% block title %}
   {% translate 'API Documentation' %} | {{ block.super }}
@@ -9,7 +10,7 @@
 {% block content %}
   <div class="max-width-md">
     <div class="row">
-      <h1>{% translate 'API Documentation' %} | Mixtures.info</h1>
+      <h1>{% translate 'API Documentation' %}</h1>
     </div>
 
     <div class="row">
@@ -21,15 +22,54 @@
         {% endblocktranslate %}
       </p>
 
-      <h2>{% translate 'Terms of use' %}</h2>
-      <p class="flow-text">
+      <h2><i class="material-icons small">balance</i> {% translate 'Terms of use' %}</h2>
+      <h3>{% translate 'License' %}</h3>
+      <p>
+        {% translate 'https://creativecommons.org/licenses/by-sa/4.0/deed.en' as cc_url %}
+        {% echosafe 'href="' cc_url '"' as attrs %}
         {% blocktranslate trimmed %}
-          <!--TODO-->
+          All data is distributed under the <a {{ attrs }}>Creative Commons CC-BY-SA 4.0
+          license</a>. Any work using this API must conform to the terms of this license, including
+          the obligation to give credit and to share any derived work under the same license.
         {% endblocktranslate %}
       </p>
-      
-      <h2>{% translate 'Endpoints' %}</h2>
 
+      <h3>{% translate 'Best practices' %}</h3>
+      <p>
+        {% blocktranslate trimmed %}
+          Please use this API responsibly. This includes throttling your queries, and making as few
+          requests as possible to perform a given action.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% blocktranslate trimmed %}
+          It is good practise to use local caches when possible. Instead of performing lots of
+          search queries, we provide an <code>aliases</code> endpoint you can locally cache to
+          perform searches locally.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% translate 'We may suspend access to the API in case of misuse.' %}
+      </p>
+
+      <h2><i class="material-icons small">translate</i> {% translate 'Internationalization' %}</h2>
+      <p>
+        {% blocktranslate trimmed %}
+          All API endpoints use internationalization. The desired response language can be specified
+          by prefixing the API URIs with a language code (eg. <code>/en/api/v1/...</code> for
+          English). If no language prefix is provided (<code>/api/v1/...</code>), the system will
+          try to pick one according to your request headers and will perform a redirect.
+        {% endblocktranslate %}
+      </p>
+      <p>
+        {% get_available_languages as langs %}
+        {% translate 'Avalaible language codes:' %}
+        {% for lang in langs %}
+          <code>{{ lang.0 }}</code>{% if not forloop.last %},{% else %}.{% endif %}
+        {% endfor %}
+      </p>
+      
+      <h2><i class="material-icons small">link</i> {% translate 'Endpoints' %}</h2>
       {% for endpoint in endpoints %}
         <div class="row card-panel">
           <div class="col s12 m9">

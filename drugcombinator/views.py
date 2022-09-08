@@ -191,8 +191,10 @@ def docs(request):
     resolver = get_resolver(api.urls)
 
     endpoints = []
-    for view, patterns in resolver.reverse_dict.items():
-        # Reverse dict also contains pattern names
+    # Reverse dict items order must be reversed so the docs follow the
+    # URLConf patterns insertion order
+    for view, patterns in reversed(list(resolver.reverse_dict.items())):
+        # Reverse dict also contains pattern names, discard them
         if not callable(view):
             continue
 
