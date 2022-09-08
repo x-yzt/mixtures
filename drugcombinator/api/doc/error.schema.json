@@ -8,5 +8,8 @@
       "type" : "string",
       "description": "Error message."
     }
-  }
+  },
+  "examples": [
+    {"error": "An error message"}
+  ]
 }

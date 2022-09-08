@@ -18,5 +18,21 @@
         "description": "URL of the substance whose alias it is."
       }
     }
-  }
+  },
+  "examples": [
+    {
+      "Drug A": {
+        "slug": "drug-a",
+        "url": "https://mixtures.info/en/api/v1/substance/drug-a/"
+      },
+      "Alias of drug A": {
+        "slug": "drug-a",
+        "url": "https://mixtures.info/en/api/v1/substance/drug-a/"
+      },
+      "Drug B": {
+        "slug": "drug-b",
+        "url": "https://mixtures.info/en/api/v1/substance/drug-b/"
+      }
+    }
+  ]
 }

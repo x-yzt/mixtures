@@ -14,5 +14,11 @@
       "format": "uri",
       "description": "URL of the substance whose alias it is."
     }
-  }
+  },
+  "examples": [
+    {
+      "slug": "drug-a",
+      "url": "https://mixtures.info/en/api/v1/substance/drug-a/"
+    }
+  ]
 }
