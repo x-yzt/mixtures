@@ -118,5 +118,52 @@
         }
       }
     }
-  }
+  },
+  "examples": [
+    {
+      "name": "Drug A",
+      "slug": "drug-a",
+      "aliases": [
+        "Alias of drug A"
+      ],
+      "site_url": "https://mixtures.info/en/substance/drug-a/",
+      "category": "Category name",
+      "common": true,
+      "description": "Drug A description.",
+      "risks": "General risks of drug A.",
+      "effects": "General effects of drug A.",
+      "interactions": {
+        "drug-a_drug-b": {
+          "interactants": [
+            "Drug A",
+            "Drug B"
+          ],
+          "is_draft": false,
+          "url": "https://mixtures.info/en/api/v1/combo/drug-a+drug-b/",
+          "site_url": "https://mixtures.info/en/combo/drug-a+drug-b/",
+          "risk": 2,
+          "synergy": 4,
+          "risk_reliability": 2,
+          "effects_reliability": 1,
+          "risk_description": "",
+          "effect_description": ""
+        },
+        "drug-a_drug-c": {
+          "interactants": [
+            "Drug A",
+            "Drug C"
+          ],
+          "is_draft": true,
+          "url": "https://mixtures.info/en/api/v1/combo/drug-a+drug-c/",
+          "site_url": "https://mixtures.info/en/combo/drug-a+drug-c/",
+          "risk": 3,
+          "synergy": 0,
+          "risk_reliability": 1,
+          "effects_reliability": 0,
+          "risk_description": "Interaction risk description.",
+          "effect_description": "Interaction effect description."
+        }
+      }
+    }
+  ]
 }

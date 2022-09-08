@@ -3,7 +3,7 @@ from itertools import chain
 from django.http import JsonResponse
 
 from drugcombinator.models import Drug, Interaction
-from drugcombinator.utils import JsonErrorResponse
+from drugcombinator.api.utils import JsonErrorResponse, schemas
 from utils.i18n import get_translated_values
 from utils.serializers import StructureSerializer
 
@@ -28,7 +28,14 @@ def _api_url(request):
     return get_url
 
 
+@schemas('aliases')
 def aliases(request):
+    """A list of all avalaible aliases, mapping them to substance slugs
+    and URLs.
+
+    This is useful for caching or if you want to implement your own
+    search logic locally.
+    """
     drugs = Drug.objects.all()
     aliases = {}
 
@@ -44,7 +51,12 @@ def aliases(request):
     return JsonResponse(aliases)
 
 
+@schemas('search', 'error')
 def search(request, name):
+    """Get a substance by name and return its slug and URL.
+
+    Database slugs, names and aliases will be matched against the query.
+    """
     try:
         drug = Drug.objects.get_from_name(name)
 
@@ -57,7 +69,10 @@ def search(request, name):
     return JsonResponse(data)
 
 
+@schemas('substances')
 def drugs(request):
+    """List all substances in the database, and get a basic summary of
+    them."""
     drugs = Drug.objects.all()
 
     serializer = StructureSerializer((
@@ -72,7 +87,14 @@ def drugs(request):
     return JsonResponse(data)
 
 
+@schemas('substance', 'error')
 def drug(request, slug):
+    """Get some detailled information about a substance and a basic
+    summary of its interactions.
+
+    The `slug` parameter has to be exact, use the `search` endpoint to
+    get a substance slug from its name or aliases.
+    """
     try:
         drug = Drug.objects.get(slug=slug)
 
@@ -114,7 +136,14 @@ def drug(request, slug):
     return JsonResponse(data)
 
 
+@schemas('combo', 'error')
 def combine(request, slugs):
+    """Get detailled information about a substance combination.
+
+    The `slugs` parameter must be a list of valid slugs sepatared by
+    plus characters (eg. `.../combo/drug-a+drug-b/`). A maximum of 5
+    substances is allowed in each query.
+    """
     if len(slugs) < 2:
         return JsonErrorResponse(
             f"At least 2 substances are required (got {len(slugs)})"

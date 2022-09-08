@@ -32,5 +32,23 @@
         "description": "Is this substance classified as common?"
       }
     }
-  }
+  },
+  "examples": [
+    {
+      "drug-a": {
+        "name": "Drug A",
+        "url": "https://mixtures.info/fr/api/v1/substance/drug-a/",
+        "site_url": "https://mixtures.info/fr/substance/drug-a/",
+        "category": "Category name",
+        "common": true
+      },
+      "drug-b": {
+        "name": "Drug B",
+        "url": "https://mixtures.info/fr/api/v1/substance/drug-b/",
+        "site_url": "https://mixtures.info/fr/substance/drug-b/",
+        "category": "Category name",
+        "common": false
+      }
+    }
+  ]
 }

@@ -120,7 +120,7 @@
             "drug-a": {
               "name": "Drug A",
               "slug": "drug-a",
-              "url": "https://mixtures.indo/en/api/v1/substance/drug-a/",
+              "url": "https://mixtures.info/en/api/v1/substance/drug-a/",
               "site_url": "https://mixtures.info/en/substance/drug-a/",
               "risks": "General risks of drug A.",
               "effects": "General effects of drug B."

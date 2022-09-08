@@ -8,6 +8,7 @@ from django.http import Http404, JsonResponse
 from django.http.response import (
     HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed)
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import get_resolver
 from django.utils.decorators import method_decorator
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +17,8 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.base import TemplateResponseMixin
 from django_hosts.resolvers import reverse_host
 
+from drugcombinator import api
+from drugcombinator.api.utils import get_absolute_api_url
 from drugcombinator.exceptions import Http400
 from drugcombinator.forms import CombinatorForm, ContribForm, SearchForm
 from drugcombinator.models import Category, Contributor, Drug, Interaction
@@ -184,6 +187,29 @@ def table(request, slugs=None):
 def docs(request):
     drugs_count = Drug.objects.all().count()
     interactions_count = Interaction.objects.all().count()
+
+    resolver = get_resolver(api.urls)
+
+    endpoints = []
+    # Reverse dict items order must be reversed so the docs follow the
+    # URLConf patterns insertion order
+    for view, patterns in reversed(list(resolver.reverse_dict.items())):
+        # Reverse dict also contains pattern names, discard them
+        if not callable(view):
+            continue
+
+        patterns, _, _, params = patterns
+        pattern = patterns[0][0]
+
+        endpoints.append({
+            'url': get_absolute_api_url(request, pattern),
+            'params': {
+                name: type(converter).__name__
+                for name, converter in params.items()
+            },
+            'schemas': zip(view.schemas, view.schemas_docs_urls),
+            'doc': view.__doc__
+        })
 
     return render(request, 'drugcombinator/docs.html', locals())
 
