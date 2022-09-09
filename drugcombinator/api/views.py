@@ -2,8 +2,8 @@ from itertools import chain
 
 from django.http import JsonResponse
 
-from drugcombinator.models import Drug, Interaction
 from drugcombinator.api.utils import JsonErrorResponse, schemas
+from drugcombinator.models import Drug, Interaction
 from utils.i18n import get_translated_values
 from utils.serializers import StructureSerializer
 

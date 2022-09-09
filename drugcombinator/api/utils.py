@@ -23,10 +23,10 @@ def schemas(*args):
     """
     def decorator(func):
         func.schemas = args
-        func.schemas_docs_urls = (
-            f'{BASE_SCHEMAS_DOCS_URL}{schema}.schema'
+        func.get_schemas_docs_urls = lambda: {
+            schema: f'{BASE_SCHEMAS_DOCS_URL}{schema}.schema'
             for schema in func.schemas
-        )
+        }
         return func
 
     return decorator

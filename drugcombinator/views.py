@@ -207,7 +207,7 @@ def docs(request):
                 name: type(converter).__name__
                 for name, converter in params.items()
             },
-            'schemas': zip(view.schemas, view.schemas_docs_urls),
+            'schemas': view.get_schemas_docs_urls(),
             'doc': view.__doc__
         })
 

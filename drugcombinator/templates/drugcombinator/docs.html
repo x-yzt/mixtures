@@ -87,7 +87,7 @@
             </a>
 
             <ul id="dropdown-schema-{{ forloop.counter }}" class="dropdown-content">
-              {% for schema, url in endpoint.schemas %}
+              {% for schema, url in endpoint.schemas.items %}
                 <li>
                   <a href="{{ url }}" target="_blank" rel="nofollow">{{ schema|capfirst }}</a>
                 </li>
