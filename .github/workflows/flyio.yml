@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy to fly.io
+      - name: Set up fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to fly.io
         run: flyctl deploy --remote-only
