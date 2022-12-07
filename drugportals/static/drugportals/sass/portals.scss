@@ -14,6 +14,7 @@ $tertiary-color: #80FFDB;
 
 $bck-color-light: color.scale($bck-color, $lightness: 10%);
 // $bck-color-lighter: color.scale($bck-color, $lightness: 20%);
+$text-color-dark: color.scale($text-color, $blackness: 60%);
 
 $text-gradient: $primary-color, $secondary-color, $tertiary-color;
 
@@ -66,6 +67,11 @@ a {
   &:link, &:visited {
     color: $tertiary-color;
   }
+}
+
+code {
+  background: $bck-color-light;
+  border-color: $text-color-dark;
 }
 
 ::selection {
