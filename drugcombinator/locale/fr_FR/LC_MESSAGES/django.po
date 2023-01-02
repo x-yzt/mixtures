@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-09 23:57+0200\n"
+"POT-Creation-Date: 2023-01-02 22:02+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1293,17 +1293,17 @@ msgid "Combinations of psychoactive substances"
 msgstr "Combinaisons de substances psychoactives"
 
 #: .\drugcombinator\templates\drugcombinator\main.html:21
-msgid "Synergies and risks of drug interactions"
-msgstr "Synergies et risques liés aux interactions entre drogues"
+msgid "Effects and risks of drug mixtures"
+msgstr "Effets et risques des mélanges de drogues"
 
 #: .\drugcombinator\templates\drugcombinator\main.html:25
 msgid ""
-"Mixtures.info aims to deliver <b>verifiable</b> data on <b>drug mixtures</"
-"b>. To date, our database is still very <b>incomplete</b>."
+"Mixtures.info aims to deliver <b>verifiable</b> data on <b>drug "
+"interactions</b>. To date, our database is still very <b>incomplete</b>."
 msgstr ""
 "Mixtures.info a pour objectif de délivrer des données <b>vérifiables</b> sur "
-"les <b>mélanges de drogues</b>. À ce jour, notre base de données est encore "
-"très <b>incomplète</b>."
+"les <b>interactions entre drogues</b>. À ce jour, notre base de données est "
+"encore très <b>incomplète</b>."
 
 #: .\drugcombinator\templates\drugcombinator\main.html:29
 msgid ""
@@ -1360,9 +1360,8 @@ msgid "New contribution: {interaction}"
 msgstr "Nouvelle contribution : {interaction}"
 
 # Needed for displaying custom history list fields correctly
+#~ msgid "modified_fields"
+#~ msgstr "Champs modifiés"
 
-msgid "modified_fields"
-msgstr "Champs modifiés"
-
-msgid "is_draft"
-msgstr "Brouillon"
+#~ msgid "is_draft"
+#~ msgstr "Brouillon"
