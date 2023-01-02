@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 22:02+0100\n"
+"POT-Creation-Date: 2023-01-02 22:37+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,40 +111,45 @@ msgstr ""
 msgid "Drug combinator"
 msgstr "Combinateur de substances"
 
-#: .\drugcombinator\forms.py:14
+#: .\drugcombinator\forms.py:16
 msgid "Search in this list"
 msgstr "Rechercher dans cette liste"
 
-#: .\drugcombinator\forms.py:22
+#: .\drugcombinator\forms.py:24
 msgid "Substances to combine"
 msgstr "Drogues à combiner"
 
-#: .\drugcombinator\forms.py:27
+#: .\drugcombinator\forms.py:29
 msgid "Select substances"
 msgstr "Sélectionnez des substances"
 
-#: .\drugcombinator\forms.py:37
+#: .\drugcombinator\forms.py:39
 #: .\drugcombinator\templates\drugcombinator\drug_search.html:12
 #: .\drugcombinator\templates\drugcombinator\drug_search.html:21
 msgid "Find a substance"
 msgstr "Rechercher une substance"
 
-#: .\drugcombinator\forms.py:47
+#: .\drugcombinator\forms.py:49
 msgid "Your contribution"
 msgstr "Votre contribution"
 
-#: .\drugcombinator\forms.py:50
+#: .\drugcombinator\forms.py:53
+#, python-brace-format
 msgid ""
-"Any remark or suggestion you might have about this data. Don't be shy ;)"
+"Any remark or suggestion you might have about this data.\n"
+"Information must be supported by a link to a source. For more information, "
+"please see our <a {href}>data reliability criteria</a>."
 msgstr ""
-"Toute remarque ou suggestion que vous pourriez avoir au sujet de ces "
-"données. Ne soyez pas timides ;)"
+"Toute remarque que vous pourriez avoir au sujet de ces données.\n"
+"Les informations doivent s'accompagner d'un lien vers une source. Pour en "
+"savoir plus, n'hésitez pas à consulter nos <a {href}>critères de fiabilité "
+"des données</a>."
 
-#: .\drugcombinator\forms.py:58
+#: .\drugcombinator\forms.py:70
 msgid "Your email address"
 msgstr "Votre adresse email"
 
-#: .\drugcombinator\forms.py:61
+#: .\drugcombinator\forms.py:73
 msgid ""
 "We might need to contact you back about this contribution. We will not use "
 "your email for another purpose."
@@ -1358,6 +1363,12 @@ msgstr "Les paragraphes sont séparés par deux retours à la ligne."
 #, python-brace-format
 msgid "New contribution: {interaction}"
 msgstr "Nouvelle contribution : {interaction}"
+
+#~ msgid ""
+#~ "Any remark or suggestion you might have about this data. Don't be shy ;)"
+#~ msgstr ""
+#~ "Toute remarque ou suggestion que vous pourriez avoir au sujet de ces "
+#~ "données. Ne soyez pas timides ;)"
 
 # Needed for displaying custom history list fields correctly
 #~ msgid "modified_fields"

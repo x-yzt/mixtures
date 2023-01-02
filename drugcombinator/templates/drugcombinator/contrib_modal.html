@@ -16,7 +16,7 @@
             {{ field }}
             {{ field.label_tag }}
             <span class="helper-text" data-error="{% translate 'Incorrect input' %}">
-              {{ field.help_text }}
+              {{ field.help_text|safe }}
             </span>
           </div>
         {% endfor %}

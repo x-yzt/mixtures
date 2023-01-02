@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.fields import CharField
+from django.urls import reverse_lazy
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from drugcombinator.fields import GroupedModelMultipleChoiceField
@@ -46,10 +48,20 @@ class ContribForm(forms.Form):
         }),
         label=_("Your contribution"),
         label_suffix='',
-        help_text=_(
-            "Any remark or suggestion you might have about this data. "
-            "Don't be shy ;)")
+        help_text=format_lazy(
+            _(
+                "Any remark or suggestion you might have about this "
+                "data.\n"
+                "Information must be supported by a link to a source. "
+                "For more information, please see our <a {href}>data "
+                "reliability criteria</a>."
+            ),
+            href=format_lazy(
+                'href="{url}#data-quality"', url=reverse_lazy('about')
+            )
+        )
     )
+
     email_field = forms.EmailField(
         widget=forms.TextInput(attrs={
             'type': 'email',
