@@ -1,0 +1,30 @@
+{% extends 'mixtures/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+  {% blocktranslate with site=block.super trimmed %}
+    To go deeper | {{ site }}
+  {% endblocktranslate %}
+{% endblock %}
+
+{% block content %}
+  <div class="max-width-md">
+    <div class="row">
+      <h1>
+        {% translate 'To go deeper' %}
+      </h1>
+    </div>
+
+    <div class="row">
+      <h2 id="contributors">
+        <i class="material-icons small">bolt</i> {% translate 'Title example' %}
+      </h2>
+
+      <p>
+        {% blocktranslate trimmed %}
+          Some placeholder content.
+        {% endblocktranslate %}
+      </p>
+    </div>
+{% endblock %}

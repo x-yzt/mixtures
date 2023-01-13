@@ -49,6 +49,7 @@
                 {% block nav-links %}
                   <li><a href="{% url 'main' %}">{% translate 'Combinations' %}</a></li>
                   <li><a href="{% url 'drug_search' %}">{% translate 'Substances' %}</a></li>
+                  <li><a href="{% url 'info' %}">{% translate 'To go deeper' %}</a></li>
                   <li><a href="{% url 'docs' %}">{% translate 'API' %}</a></li>
                   <li><a href="{% url 'about' %}">{% translate 'About' %}</a></li>
                 {% endblock %}
@@ -71,6 +72,9 @@
             </a></li>
             <li><a class="waves-effect" href="{% url 'drug_search' %}">
               <i class="material-icons">bubble_chart</i>{% translate 'Substances' %}
+            </a></li>
+            <li><a class="waves-effect" href="{% url 'info' %}">
+              <i class="material-icons">more_vert</i>{% translate 'To go deeper' %}
             </a></li>
             <li><div class="divider"></div></li>
             <li><a class="waves-effect" href="{% url 'docs' %}">
