@@ -89,7 +89,10 @@ MISTUNE_STYLES = {
     'default': {
         'plugins': [
             HeaderLevels(top=4),
-            AddClasses({'ul': 'browser-default'}),
+            AddClasses({
+                'ul': 'browser-default',
+                'img': ('responsive-img', 'materialboxed'),
+            }),
             # TODO: Target blank links
         ]
     },
