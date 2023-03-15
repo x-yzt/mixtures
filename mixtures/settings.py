@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from django_mistune.plugins import AddClasses, HeaderLevels
+from django_mistune.plugins import AddClasses, HeaderLevels, TargetBlankLinks
 
 
 # General settings
@@ -93,7 +93,7 @@ MISTUNE_STYLES = {
                 'ul': 'browser-default',
                 'img': ('responsive-img', 'materialboxed'),
             }),
-            # TODO: Target blank links
+            TargetBlankLinks(),
         ]
     },
 }
