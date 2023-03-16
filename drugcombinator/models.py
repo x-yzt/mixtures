@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from mdanchors import AnchorConverter
 
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.modelfields import ListField
@@ -219,6 +220,14 @@ class Interaction(LastModifiedModel):
             "In case of work-in-progress, uncertain or incomplete "
             "data.")
     )
+    uris = JSONField(
+        default=dict,
+        editable=False,
+        verbose_name=_("URIs"),
+        help_text=_(
+            "URIs extracted from these interaction data texts, mapped "
+            "to their last Wayback Machine snapshot date.")
+    )
 
     # History manager will be added throug simple_history's register
     # function in translation.py, after the translated fields are
@@ -259,8 +268,31 @@ class Interaction(LastModifiedModel):
         # reordering
         self.interactants = self.interactants
 
-    def save(self, *args, **kwargs):
+    def extract_uris(self):
+        """Extract URIs from this model `risk_description` and
+        `effect_description` text fields."""
+
+        return set().union(*map(
+            lambda field: AnchorConverter(field).uris,
+            (self.risk_description, self.effect_description)
+        ))
+
+    def update_uris(self):
+        """Update stored URIs according to this model text fields.
+
+        If a URI was already extracted, it will not be modified.
+        Unused URIs will be removed.
+        New URIs will be added with a `None` value.
+        """
+        self.uris = {
+            uri: getattr(self.uris, uri, None)
+            for uri in self.extract_uris()
+        }
+
+    def save(self, process_uris=True, *args, **kwargs):
         self.sort_interactants()
+        if process_uris:
+            self.update_uris()
         super().save(*args, **kwargs)
 
     @classmethod

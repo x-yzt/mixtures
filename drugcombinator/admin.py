@@ -202,6 +202,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
                 ('risk_description',),
                 ('synergy', 'effects_reliability', 'drugs_effects'),
                 ('effect_description',),
+                ('uris',),
             ),
             'classes': ('vertical-label',)
         }),
@@ -222,7 +223,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         )
     }
     autocomplete_fields = ('from_drug', 'to_drug')
-    readonly_fields = ('drugs_risks', 'drugs_effects', 'related_notes')
+    readonly_fields = ('drugs_risks', 'drugs_effects', 'related_notes', 'uris')
     radio_fields = {
         'risk': admin.VERTICAL,
         'synergy': admin.VERTICAL,
