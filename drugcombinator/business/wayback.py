@@ -2,6 +2,8 @@ import json
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from django.conf import settings
+
 
 class WaybackClient:
     # WM docs for getting snapshots:
@@ -9,6 +11,10 @@ class WaybackClient:
 
     # WM docs for capturing:
     # https://docs.google.com/document/d/1Nsv52MvSjbLb2PCpHlat0gkzw0EvtSgpKHu4mk0MnrA/
+
+    @property
+    def token(self):
+        return f"{settings.ARCHIVE_ACCESS}:{settings.ARCHIVE_SECRET}"
 
     def json_response(self, request):
         with urlopen(request) as response:
@@ -36,7 +42,10 @@ class WaybackClient:
         data = urlencode({'url': url})
         request = Request(
             'https://web.archive.org/save',
-            headers={'Accept': 'application/json'},
+            headers={
+                'Accept': 'application/json',
+                'Authorization': f'LOW {self.token}'
+            },
             data=data.encode()
         )
 
