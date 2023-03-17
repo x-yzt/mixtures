@@ -3,8 +3,8 @@ from operator import attrgetter
 from django.contrib.auth import get_user_model
 from django.db.models import (
     CASCADE, SET_NULL, BooleanField, CharField, CheckConstraint, DateTimeField,
-    F, ForeignKey, IntegerChoices, IntegerField, ManyToManyField, Model, Q,
-    SlugField, TextField, UniqueConstraint)
+    F, ForeignKey, IntegerChoices, IntegerField, JSONField, ManyToManyField,
+    Model, Q, SlugField, TextField, UniqueConstraint)
 from django.db.models.fields import URLField
 from django.db.models.fields.related import OneToOneField
 from django.urls import reverse
@@ -15,6 +15,7 @@ from mdanchors import AnchorConverter
 
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.modelfields import ListField
+from drugcombinator.tasks import ping_webarchive
 from drugcombinator.utils import get_libravatar_url, markdown_allowed
 
 
@@ -289,11 +290,19 @@ class Interaction(LastModifiedModel):
             for uri in self.extract_uris()
         }
 
+    def schedule_webarchive_ping(self):
+        ping_webarchive(self.id, self.uris)()
+
     def save(self, process_uris=True, *args, **kwargs):
         self.sort_interactants()
+
         if process_uris:
             self.update_uris()
+
         super().save(*args, **kwargs)
+
+        if process_uris:
+            self.schedule_webarchive_ping()
 
     @classmethod
     def get_dummy_risks(cls):
