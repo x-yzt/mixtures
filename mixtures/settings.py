@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    'huey.contrib.djhuey',
     'django_hosts',
     'simple_history',
     'django_mistune',
@@ -81,6 +82,18 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
 
 WSGI_APPLICATION = 'mixtures.wsgi.application'
+
+
+# Huey task scheduler
+
+HUEY = {
+    'name': "mixtures",
+    'huey_class': 'huey.SqliteHuey',
+    'filename': './huey.sqlite',
+    'consumer': {
+        'periodic': False,  # Disable crontab feature
+    },
+}
 
 
 # Markdown preprocessor
@@ -178,3 +191,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+
+# Other credentials
+
+ARCHIVE_ACCESS = 'L9DohDZqKr2r6Oty'
+
+ARCHIVE_SECRET = ''
