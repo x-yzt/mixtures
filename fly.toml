@@ -20,12 +20,14 @@ kill_timeout = 5
 
 [processes]
   web = "./bin/launch.sh"
+  worker = "./bin/worker.sh"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
 
 [[services]]
+  processes = ["web"]
   internal_port = 8080
   protocol = "tcp"
 
