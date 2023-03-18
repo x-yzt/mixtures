@@ -184,7 +184,10 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         'to_drug__name', 'to_drug__aliases',
         'names', 'risk_description', 'effect_description'
     )
-    actions = ('set_draft', 'set_published', 'reorder_interactants')
+    actions = (
+        'set_draft', 'set_published', 'rebuild_interactants',
+        'ping_webarchive'
+    )
 
     history_list_display = (
         ChangedFieldsHistoryAdmin.history_list_display + ('is_draft',)
@@ -205,6 +208,12 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
             ),
             'classes': ('vertical-label',)
         }),
+        (_("Metadata"), {
+            'fields': (
+                ('extracted_uris',),
+            ),
+            'classes': ('collapse',)
+        }),
         (_("Notes"), {
             'fields': (
                 ('notes', 'related_notes'),
@@ -222,7 +231,10 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         )
     }
     autocomplete_fields = ('from_drug', 'to_drug')
-    readonly_fields = ('drugs_risks', 'drugs_effects', 'related_notes')
+    readonly_fields = (
+        'drugs_risks', 'drugs_effects', 'related_notes',
+        'extracted_uris'
+    )
     radio_fields = {
         'risk': admin.VERTICAL,
         'synergy': admin.VERTICAL,
@@ -257,6 +269,13 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         )
     related_notes.short_description = _("Related notes")
 
+    def extracted_uris(self, obj):
+        return render_to_string(
+            'drugcombinator/admin/uris.html',
+            {'uris': obj.uris}
+        )
+    extracted_uris.short_description = _("Extracted URIs")
+
     set_draft = set_draft_status(True)
     set_draft.short_description = _(
         "Mark all selected interactions as drafts"
@@ -267,11 +286,18 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
         "Mark all selected interactions as published"
     )
 
-    def reorder_interactants(self, request, queryset):
+    def rebuild_interactants(self, request, queryset):
         for interaction in queryset:
             interaction.save()
-    reorder_interactants.short_description = _(
-        "Sort the linked substances of selected interactions"
+    rebuild_interactants.short_description = _(
+        "Rebuild selected interactions (linked substances order, URIs)"
+    )
+
+    def ping_webarchive(self, request, queryset):
+        for interaction in queryset:
+            interaction.schedule_webarchive_ping()
+    ping_webarchive.short_description = _(
+        "Ping archive.org about selected interactions URIS"
     )
 
     class Media:

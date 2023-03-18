@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+set -emo pipefail
 
 echo "--> Running launch script"
 export PATH=/app/gettext/bin:$PATH
@@ -11,6 +11,9 @@ MANAGE_FILE=${MANAGE_FILE:2}
 # starts
 echo "--> Collecting static files"
 python "$MANAGE_FILE" collectstatic --noinput
+
+echo "--> Running task worker in background"
+python "$MANAGE_FILE" run_huey &
 
 echo "--> Running web server"
 gunicorn -b :8080 mixtures.wsgi

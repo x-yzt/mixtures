@@ -11,6 +11,8 @@ django-simple-history = "~=3.1"
 django-mistune = "~=0.1"
 django-hosts = {ref = "9d249d114774ee5a60fe82826bf741aec86cbb46", git = "https://github.com/LeMinaw/django-hosts"}
 gunicorn = "*"
+huey = "~=2.4"
+md-anchors = "~=0.2"
 psycopg2-binary = "*"
 whitenoise = "~=5.2"
 

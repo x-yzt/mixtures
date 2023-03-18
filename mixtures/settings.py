@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from django_mistune.plugins import AddClasses, HeaderLevels
+from django_mistune.plugins import AddClasses, HeaderLevels, TargetBlankLinks
 
 
 # General settings
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    'huey.contrib.djhuey',
     'django_hosts',
     'simple_history',
     'django_mistune',
@@ -83,6 +84,18 @@ FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
 WSGI_APPLICATION = 'mixtures.wsgi.application'
 
 
+# Huey task scheduler
+
+HUEY = {
+    'name': "mixtures",
+    'huey_class': 'huey.SqliteHuey',
+    'filename': './huey.sqlite',
+    'consumer': {
+        'periodic': False,  # Disable crontab feature
+    },
+}
+
+
 # Markdown preprocessor
 
 MISTUNE_STYLES = {
@@ -93,7 +106,7 @@ MISTUNE_STYLES = {
                 'ul': 'browser-default',
                 'img': ('responsive-img', 'materialboxed'),
             }),
-            # TODO: Target blank links
+            TargetBlankLinks(),
         ]
     },
 }
@@ -178,3 +191,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+
+# Other credentials
+
+ARCHIVE_ACCESS = 'L9DohDZqKr2r6Oty'
+
+ARCHIVE_SECRET = ''

@@ -60,6 +60,11 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 
+# Other credentials
+
+ARCHIVE_SECRET = getenv('ARCHIVE_TOKEN')
+
+
 # Logs
 
 LOGGING = {

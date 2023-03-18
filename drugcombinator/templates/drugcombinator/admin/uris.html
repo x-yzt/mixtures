@@ -1,0 +1,18 @@
+{% load i18n %}
+{% load humanize %}
+{% load strings %}
+
+<ol>
+  {% for uri, meta in uris.items %}
+    <li><a href="{{ uri }}">{{ uri }}</a>:
+    {% if meta.status == 'ARCHIVED' %}
+      <b><a href="{{ meta.url }}">{% translate 'Archived' %}</a></b>,
+      {{ meta.date|wb_timestamp|naturaltime }}
+    {% elif meta.status == 'REQUESTED' %}
+      <b>{% translate 'Capture requested' %}</b>,
+      {{ meta.date|timestamp|naturaltime }} <em>({% translate 'job' %} {{ meta.job }})</em>
+    {% else %}
+      <b>{% translate 'Not archived' %}</b>
+    {% endif %}
+  {% endfor %}
+</ol>

@@ -1,6 +1,7 @@
 import re
 import urllib
 import uuid
+from datetime import datetime
 
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -40,6 +41,16 @@ def stripspaces(text):
         text = re.sub(pat, repl, text, re.A, re.M)
 
     return text
+
+
+@register.filter(is_safe=True)
+def wb_timestamp(text):
+    return datetime.strptime(text, '%Y%m%d%H%M%S')
+
+
+@register.filter(is_safe=True)
+def timestamp(text):
+    return datetime.fromtimestamp(text)
 
 
 @register.simple_tag
