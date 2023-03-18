@@ -1,65 +1,65 @@
-from contextlib import contextmanager
+import unicodedata
 
 from django.conf import settings
-from django.http.request import validate_host
-from django.utils.http import _urlparse, url_has_allowed_host_and_scheme
-from django.views.i18n import set_language
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import translate_url
+from django.utils.http import _urlparse, is_same_domain
+from django.utils.translation import check_for_language
+from django.views.decorators.csrf import csrf_exempt
 
 
-@contextmanager
-def patch_allowed_urls(func):
-    """Context manager replacing `url_has_allowed_host_and_scheme` by
-    custom variation in the namespace of a given function.
-    """
-    # func will call the alternate validation function in place of
-    # http.url_has_allowed_host_and_scheme
-    func.__globals__['url_has_allowed_host_and_scheme'] = _is_allowed
-
-    try:
-        yield
-    finally:
-        # Revert the namespace to its original state
-        func.__globals__['url_has_allowed_host_and_scheme'] = (
-            url_has_allowed_host_and_scheme)
-
-
-def _is_allowed(url, require_https=False, *args, **kwargs):
-    """Variation of the `django.http.url_has_allowed_host_and_scheme`
-    function, checking the given URL host against the `ALLOWED_HOSTS`
-    setting (including wildcards.)
-
-    Note: `args` and `kwargs` are there to mock unused arguments from
-    original function calls.
-    """
-    url = _urlparse(url)
-
-    allowed_schemes = {'https'} if require_https else {'http', 'https'}
-    allowed_hosts = settings.ALLOWED_HOSTS
-    # Fallback to localhost-like patterns when debugging with an empty
-    # ALLOWED_HOSTS settings
-    if settings.DEBUG and not allowed_hosts:
-        allowed_hosts = {'.localhost', '127.0.0.1', '[::1]'}
-
-    return (
-        validate_host(url.netloc, allowed_hosts)
-        and (url.scheme in allowed_schemes)
-    )
-
-
+@csrf_exempt
 def set_language_view(request):
-    """Thin wrapper around the `django.views.i18n.set_language` view,
-    using a slightly different validation logic for the `next` parameter
-    and `Referer` header, allowing redirection to any URI which host
-    matches the `ALLOWED_HOST` settings.
+    """Rewrite of `django.views.i18n.set_language` view, checking `next`
+    parameter against `ALLOWED_HOSTS` setting.
 
     This is needed because the `drugportals` app serves portals on
     subdomains, and this view might be served from the root domain -or,
     at least, from a different subdomain.
-    """
-    with patch_allowed_urls(set_language):
-        # Call the default set_language from Django i18n
-        response = set_language(request)
 
+    # Docstring from `django.views.i18n.set_language`:
+
+        Redirect to a given URL while setting the chosen language in the
+        session (if enabled) and in a cookie. The URL and the language
+        code need to be specified in the request parameters.
+
+        Since this view changes how the user will see the rest of the
+        site, it must only be accessed as a POST request.
+    """
+    if request.method != "POST":
+        return HttpResponse(status=400)
+
+    lang_code = request.POST.get('language')
+    next_url = request.POST.get('next')
+
+    if not (lang_code and check_for_language(lang_code)):
+        return HttpResponse(status=400)
+
+    if next_url:
+        if not url_has_allowed_host_and_scheme(
+            url=next_url,
+            allowed_hosts=settings.ALLOWED_HOSTS,
+            require_https=request.is_secure(),
+        ):
+            next_url = "/"
+
+        response = HttpResponseRedirect(
+            translate_url(next_url, lang_code)
+        )
+
+    else:
+        response = HttpResponse(status=204)
+
+    response.set_cookie(
+        settings.LANGUAGE_COOKIE_NAME,
+        lang_code,
+        max_age=settings.LANGUAGE_COOKIE_AGE,
+        path=settings.LANGUAGE_COOKIE_PATH,
+        domain=settings.LANGUAGE_COOKIE_DOMAIN,
+        secure=settings.LANGUAGE_COOKIE_SECURE,
+        httponly=settings.LANGUAGE_COOKIE_HTTPONLY,
+        samesite=settings.LANGUAGE_COOKIE_SAMESITE,
+    )
     return response
 
 
@@ -78,3 +78,55 @@ def get_translated_values(obj, field):
         getattr(obj, translated_field, None)
         for translated_field in get_translated_fields(field)
     )))
+
+
+def url_has_allowed_host_and_scheme(url, allowed_hosts, require_https=False):
+    """Rewrite of `django.utils.http.url_has_allowed_host_and_scheme`
+    supporting wilcard domains for the host parameter.
+
+    See original function for docs and comments.
+    """
+    url = url.strip()
+    if not url:
+        return False
+
+    return _url_has_allowed_host_and_scheme(
+        url, allowed_hosts, require_https=require_https
+    ) and _url_has_allowed_host_and_scheme(
+        url.replace("\\", "/"), allowed_hosts, require_https=require_https
+    )
+
+
+def _url_has_allowed_host_and_scheme(url, allowed_hosts, require_https=False):
+    """Rewrite of `django.utils.http._url_has_allowed_host_and_scheme`
+    supporting wilcard domains for the host parameter.
+
+    See original function for docs and comments.
+    """
+    if url.startswith("///"):
+        return False
+    try:
+        url_info = _urlparse(url)
+    except ValueError:
+        return False
+
+    if not url_info.netloc and url_info.scheme:
+        return False
+
+    if unicodedata.category(url[0])[0] == "C":
+        return False
+
+    scheme = url_info.scheme
+    if not url_info.scheme and url_info.netloc:
+        scheme = "http"
+
+    valid_schemes = ["https"] if require_https else ["http", "https"]
+
+    return (
+        not url_info.netloc or any(
+            is_same_domain(url_info.netloc, host)
+            for host in allowed_hosts
+        ) and (
+            not scheme or scheme in valid_schemes
+        )
+    )

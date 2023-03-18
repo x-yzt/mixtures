@@ -24,6 +24,11 @@ PARENT_HOST = 'localhost'
 
 HOST_PORT = '8000'
 
+ALLOWED_HOSTS = [
+    f'.{PARENT_HOST}',
+    f'.{PARENT_HOST}:{HOST_PORT}',
+]
+
 
 # Application definition
 
