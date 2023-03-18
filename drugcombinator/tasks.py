@@ -33,6 +33,8 @@ def get_snapshot(id, uri):
     if uri not in interaction.uris:
         return
 
+    meta = interaction.uris[uri]
+
     snapshot = WaybackClient().get_last_snapshot(uri)
 
     if snapshot:
@@ -43,7 +45,7 @@ def get_snapshot(id, uri):
         }
         interaction.save(process_uris=False)
 
-    else:
+    elif meta is None or meta.get('status', None) != 'REQUESTED':
         schedule_capture(id, uri)
 
 
@@ -75,7 +77,7 @@ def capture(id, uri):
 @task()
 def ping_webarchive(id, uris):
     for uri, meta in uris.items():
-        if meta is None:
+        if meta is None or meta['status'] != 'ARCHIVED':
             schedule_get_snapshot(id, uri)
 
 
