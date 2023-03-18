@@ -10,7 +10,7 @@ kill_timeout = 5
   DJANGO_SETTINGS_MODULE = "mixtures.settings_deploy"
 
 [build]
-  builder = "paketobuildpacks/builder:base"
+  builder = "paketobuildpacks/builder:full"
   buildpacks = [
     "gcr.io/paketo-buildpacks/python"
   ]
@@ -20,14 +20,12 @@ kill_timeout = 5
 
 [processes]
   web = "./bin/launch.sh"
-  worker = "./bin/worker.sh"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
 
 [[services]]
-  processes = ["web"]
   internal_port = 8080
   protocol = "tcp"
 
