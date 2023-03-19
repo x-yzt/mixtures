@@ -95,6 +95,18 @@ footer {
     padding: 0;
   }
 
+  .collection-item {
+    padding: 10px 10px 5px;
+
+    & > a:first-child {
+      display: inline-block;
+      max-width: calc(100% - 6rem);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
   .badge i {
     vertical-align: text-top;
   }
