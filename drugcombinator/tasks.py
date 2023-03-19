@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from urllib.request import HTTPError
 
 from django.apps import apps
 from huey.contrib.djhuey import db_task, task
@@ -64,13 +65,21 @@ def capture(id, uri):
     if uri not in interaction.uris:
         return
 
-    request = WaybackClient().capture(uri)
+    try:
+        request = WaybackClient().capture(uri)
 
-    interaction.uris[uri] = {
-        'status': 'REQUESTED',
-        'job': request['job_id'],
-        'date': datetime.now().timestamp()
-    }
+        interaction.uris[uri] = {
+            'status': 'REQUESTED',
+            'job': request['job_id'],
+            'date': datetime.now().timestamp()
+        }
+
+    except HTTPError:
+        interaction.uris[uri] = {
+            'status': 'FAILED',
+            'date': datetime.now().timestamp()
+        }
+
     interaction.save(process_uris=False)
 
 

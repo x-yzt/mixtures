@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-18 00:18+0100\n"
+"POT-Creation-Date: 2023-03-19 11:19+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -907,6 +907,10 @@ msgid "job"
 msgstr "tâche"
 
 #: .\drugcombinator\templates\drugcombinator\admin\uris.html:15
+msgid "Capture request failed"
+msgstr "Capture échouée"
+
+#: .\drugcombinator\templates\drugcombinator\admin\uris.html:18
 msgid "Not archived"
 msgstr "Non archivée"
 

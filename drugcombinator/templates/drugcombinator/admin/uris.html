@@ -11,6 +11,9 @@
     {% elif meta.status == 'REQUESTED' %}
       <b>{% translate 'Capture requested' %}</b>,
       {{ meta.date|timestamp|naturaltime }} <em>({% translate 'job' %} {{ meta.job }})</em>
+    {% elif meta.status == 'FAILED' %}
+      <b>{% translate 'Capture request failed' %}</b>,
+      {{ meta.date|timestamp|naturaltime }}
     {% else %}
       <b>{% translate 'Not archived' %}</b>
     {% endif %}
