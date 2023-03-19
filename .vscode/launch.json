@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Django dev server",
+            "name": "Django server",
             "type": "python",
             "request": "launch",
             "pythonArgs": ["-Wa"],
@@ -13,7 +13,18 @@
             "django": true
         },
         {
-            "name": "Django tests",
+            "name": "Django huey",
+            "type": "python",
+            "request": "launch",
+            "pythonArgs": ["-Wa"],
+            "program": "${workspaceFolder}\\manage.py",
+            "args": [
+                "run_huey"
+            ],
+            "django": true
+        },
+        {
+            "name": "Django test",
             "type": "python",
             "request": "launch",
             "pythonArgs": ["-Wa"],
@@ -22,6 +33,16 @@
                 "test"
             ],
             "django": true
-        }
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Dev server",
+            "configurations": [
+                "Django server",
+                "Django huey",
+            ],
+            "stopAll": true
+        },
     ]
 }

@@ -95,6 +95,7 @@ HUEY = {
     'name': "mixtures",
     'huey_class': 'huey.SqliteHuey',
     'filename': './huey.sqlite',
+    'immediate': False,
     'consumer': {
         'periodic': False,  # Disable crontab feature
     },
