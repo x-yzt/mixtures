@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -50,3 +51,10 @@ class WaybackClient:
         )
 
         return self.json_response(request)
+
+
+def to_datetime(timestamp):
+    """Archive.org uses a special timestamp format. This decodes it to
+    a python `datetime`."""
+
+    return datetime.strptime(timestamp, '%Y%m%d%H%M%S')

@@ -4,7 +4,7 @@ from urllib.request import HTTPError
 from django.apps import apps
 from huey.contrib.djhuey import db_task, task
 
-from drugcombinator.business.wayback import WaybackClient
+from drugcombinator.business.wayback import WaybackClient, to_datetime
 
 
 class TaskScheduler:
@@ -42,7 +42,7 @@ def get_snapshot(id, uri):
         interaction.uris[uri] = {
             'status': 'ARCHIVED',
             'url': snapshot['url'],
-            'date': snapshot['timestamp']
+            'date': to_datetime(snapshot['timestamp']).timestamp()
         }
         interaction.save(process_uris=False)
 

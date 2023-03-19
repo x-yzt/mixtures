@@ -44,11 +44,6 @@ def stripspaces(text):
 
 
 @register.filter(is_safe=True)
-def wb_timestamp(text):
-    return datetime.strptime(text, '%Y%m%d%H%M%S')
-
-
-@register.filter(is_safe=True)
 def timestamp(text):
     return datetime.fromtimestamp(text)
 

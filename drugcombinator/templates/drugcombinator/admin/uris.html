@@ -7,7 +7,7 @@
     <li><a href="{{ uri }}">{{ uri }}</a>:
     {% if meta.status == 'ARCHIVED' %}
       <b><a href="{{ meta.url }}">{% translate 'Archived' %}</a></b>,
-      {{ meta.date|wb_timestamp|naturaltime }}
+      {{ meta.date|timestamp|naturaltime }}
     {% elif meta.status == 'REQUESTED' %}
       <b>{% translate 'Capture requested' %}</b>,
       {{ meta.date|timestamp|naturaltime }} <em>({% translate 'job' %} {{ meta.job }})</em>
