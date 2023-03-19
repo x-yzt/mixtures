@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load humanize %}
+{% load strings %}
+
+<div class="col s12">
+  <ul class="collapsible sources">
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">attachment</i>
+        Sources
+        <span class="badge">{{ uris|length }}</span>
+      </div>
+
+      <div class="collapsible-body">
+        <ul class="collection">
+          {% for uri, meta in uris.items %}
+            <li class="collection-item">
+              <a href="{{ uri }}">{{ uri }}</a>
+
+              {% if meta.status == 'ARCHIVED' %}
+                <a href="{{ meta.url }}">
+                  <span
+                    class="new badge tooltipped"
+                    data-badge-caption=""
+                    data-position="right"
+                    data-tooltip="{{ meta.date|timestamp|naturaltime|capfirst }}"
+                  >
+                    <b>{% translate 'Archived' %}</b>
+                    <i class="tiny material-icons">open_in_new</i>
+                  </span>
+                </a>
+              {% elif meta.status == 'REQUESTED' %}
+                <span
+                  class="new badge grey tooltipped"
+                  data-badge-caption=""
+                  data-position="right"
+                  data-tooltip="{{ meta.date|timestamp|naturaltime|capfirst }}"
+                >
+                  <b>{% translate 'Capture requested' %}</b>
+                </span>
+              {% else %}
+                <span class="new badge grey" data-badge-caption="">
+                  <b>{% translate 'Not archived' %}</b>
+                </span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

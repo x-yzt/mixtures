@@ -78,3 +78,9 @@
     {% endif %}
   </div>
 </div>
+
+{% if interaction.uris %}
+  <div class="row">
+    {% include 'drugcombinator/sources.html' with uris=interaction.uris %}
+  </div>
+{% endif %}

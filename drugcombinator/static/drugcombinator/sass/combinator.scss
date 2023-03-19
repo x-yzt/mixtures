@@ -90,6 +90,17 @@ footer {
   }
 }
 
+.sources {
+  .collapsible-body {
+    padding: 0;
+  }
+
+  .badge i {
+    vertical-align: text-top;
+  }
+}
+
+
 .draft-modal {
   display: flex;
   position: absolute;
