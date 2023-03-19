@@ -13,7 +13,7 @@ $secondary-color: #4EA8DE;
 $tertiary-color: #80FFDB;
 
 $bck-color-light: color.scale($bck-color, $lightness: 10%);
-// $bck-color-lighter: color.scale($bck-color, $lightness: 20%);
+$bck-color-lighter: color.scale($bck-color, $lightness: 25%);
 $text-color-dark: color.scale($text-color, $blackness: 60%);
 
 $text-gradient: $primary-color, $secondary-color, $tertiary-color;
@@ -51,6 +51,30 @@ nav {
   }
 }
 
+.collapsible {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+
+  .collapsible-header {
+    background: $bck-color-light;
+    border: none;
+  
+    .badge {
+      color: $text-color-dark;
+    }
+  }
+
+  .collapsible-body {
+    border: none;
+  }
+}
+
+.collection .collection-item {
+  background: $bck-color-light;
+  border-top: 1px solid $bck-color-lighter;
+  border-bottom: none;
+}
 
 /* Typography */
 
