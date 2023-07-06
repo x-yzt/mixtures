@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "~=4.1.7"
+django = "~=4.1.10"
 dj-database-url = "~=1.0"
 django-modeltranslation = "~=0.18"
 django-simple-history = "~=3.1"
