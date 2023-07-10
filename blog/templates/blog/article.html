@@ -1,0 +1,10 @@
+{% extends 'blog/index.html' %}
+
+
+{% block title %}
+  {{ articles.0|capfirst }} | {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  <a href="{% url 'index' %}">{{ block.super }}</a> &gt; {{ articles.0|capfirst }}
+{% endblock %}

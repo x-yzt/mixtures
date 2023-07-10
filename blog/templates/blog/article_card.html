@@ -1,0 +1,66 @@
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+{% load mistune %}
+
+
+<article class="row card">
+  <header class="col s12">
+    <h2 class="">
+      {{ article|capfirst }}
+      <a href="{{ article.get_absolute_uri }}">
+        <i class="material-icons">link</i>
+      </a>
+    </h2>
+
+    <div class="valign-wrapper">
+      <div class="col s10 m11 no-padding">
+        <p>
+          {% blocktranslate trimmed with date=article.created|naturaltime %}
+            Published {{ date }} by
+          {% endblocktranslate %}
+          {% if article.author.profile.page %}
+            <a href="{{ article.author.profile.page }}" rel="external nofollow">
+          {% endif %}
+          {{ article.author|default:_('a mysterious person') }}
+          {% if article.author.profile.page %}
+            </a>
+          {% endif %}
+        </p>
+      </div>
+
+      <div class="col s2 m1 no-padding">
+        <img
+          class="circle responsive-img"
+          src="
+            {% if article.author %}
+              {{ article.author.profile.avatar_url }}
+            {% else %}
+              {% static 'blog/img/bird.jpg' %}
+            {% endif %}
+          "
+          alt="{% blocktranslate trimmed with author=article.author %}
+            {{ author }}'s avatar
+          {% endblocktranslate %}"
+        />
+      </div>
+    </div>
+
+    <div class="divider"></div>
+  </header>
+
+  <main class="row col s12">
+    <span class="flow-text">{{ article.content|markdown }}</span>
+  </main>
+
+  <footer class="col s12">
+    {% if article.created != article.last_modified %}
+      <div class="divider"></div>
+      <p>
+        {% blocktranslate trimmed with date=article.last_modified|naturaltime %}
+          Edited {{ date }}
+        {% endblocktranslate %}
+      </p>
+    {% endif %}
+  </footer>
+</article>

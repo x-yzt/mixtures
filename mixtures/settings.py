@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_mistune',
     'drugcombinator.apps.DrugcombinatorConfig',
     'drugportals.apps.DrugportalsConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
