@@ -3,6 +3,7 @@ from django.db.models import (
     SET_NULL, CharField, DateTimeField, ForeignKey, Model, SlugField,
     TextField)
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from drugcombinator.utils import markdown_allowed
@@ -10,7 +11,7 @@ from drugcombinator.utils import markdown_allowed
 
 class Article(Model):
     created = DateTimeField(
-        auto_now_add=True,
+        default=timezone.now,
         verbose_name=_("creation")
     )
     last_modified = DateTimeField(
