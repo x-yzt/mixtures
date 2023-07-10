@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-11 00:26+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\blog\admin.py:21
+msgid "Metadata"
+msgstr "Métadonnées"
+
+#: .\blog\models.py:15
+msgid "creation"
+msgstr "création"
+
+#: .\blog\models.py:19
+msgid "last modification"
+msgstr "dernière modification"
+
+#: .\blog\models.py:23
+msgid "identifier"
+msgstr "identifiant"
+
+#: .\blog\models.py:27
+msgid "title"
+msgstr "titre"
+
+#: .\blog\models.py:35
+msgid "author"
+msgstr "auteurice"
+
+#: .\blog\models.py:38
+msgid "content"
+msgstr "contenu"
+
+#: .\blog\models.py:53
+msgid "article"
+msgstr ""
+
+#: .\blog\templates\blog\article_card.html:19
+#, python-format
+msgid "Published %(date)s by"
+msgstr "Publié %(date)s par"
+
+#: .\blog\templates\blog\article_card.html:25
+msgid "a mysterious person"
+msgstr "une personne mystérieuse"
+
+#: .\blog\templates\blog\article_card.html:42
+#, python-format
+msgid "%(author)s's avatar"
+msgstr "avatar de %(author)s"
+
+#: .\blog\templates\blog\article_card.html:60
+#, python-format
+msgid "Edited %(date)s"
+msgstr "Édité %(date)s"
+
+#: .\blog\templates\blog\index.html:7 .\blog\templates\blog\index.html:17
+#, python-format
+msgid "%(site)s's blog"
+msgstr "Blog de %(site)s"
