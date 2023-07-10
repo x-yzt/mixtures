@@ -46,7 +46,7 @@ class Article(Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_uri(self):
+    def get_absolute_url(self):
         return reverse('article', kwargs={'slug': self.slug})
 
     class Meta:
