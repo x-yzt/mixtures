@@ -15,6 +15,7 @@ def template(name, *args, **kwargs):
 
 urlpatterns = i18n_patterns(
     path('', include('drugcombinator.urls')),
+    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('i18n.js', JavaScriptCatalog.as_view(), name='i18n'),
 )

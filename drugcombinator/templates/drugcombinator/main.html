@@ -87,6 +87,22 @@
 
       <div class="divider"></div>
     </div>
+
+    <div class="row">
+      <h2>{% translate 'News feed' %}</h2>
+      
+      <p>
+        {% url 'index' as blog %}
+        {% blocktranslate trimmed %}
+          Hey! Perhaps you would like to read the last articles from <a href="{{ blog }}"> our
+          blog</a>?
+        {% endblocktranslate %}
+      </p>
+
+      {% for article in articles %}
+        {% include 'blog/article_card.html' %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
 

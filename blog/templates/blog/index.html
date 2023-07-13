@@ -1,0 +1,32 @@
+{% extends 'mixtures/base.html' %}
+
+{% load i18n %}
+
+
+{% block title %}
+  {% blocktranslate with site=block.super trimmed %}
+    {{ site }}'s blog
+  {% endblocktranslate %}
+{% endblock %}
+
+{% block content %}
+  <div class="max-width-md">
+    <div class="row">
+      <h1>
+        {% block header %}
+          {% blocktranslate with site='Mixtures.info' trimmed %}
+            {{ site }}'s blog
+          {% endblocktranslate %}
+        {% endblock %}
+      </h1>
+    </div>
+
+    {% block main %}
+      {% for article in page %}
+        {% include 'blog/article_card.html' %}
+      {% endfor %}
+
+      {% include 'blog/paginator.html' %}
+    {% endblock %}
+  </div>
+{% endblock %}

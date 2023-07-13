@@ -1,0 +1,28 @@
+{% extends 'blog/index.html' %}
+
+
+{% block title %}
+  {{ article|capfirst }} | {{ block.super }}
+{% endblock %}
+
+{% block header %}
+  <a href="{% url 'index' %}">{{ block.super }}</a> &gt; {{ article|capfirst }}
+{% endblock %}
+
+{% block main %}
+  {% include 'blog/article_card.html' %}
+
+  <ul class="pagination">
+    <li class="{% if previous_article %} waves-effect {% else %} disabled {% endif %} left">
+      <a {% if previous_article %} href="{{ previous_article.get_absolute_url }}" {% endif %}>
+        <i class="material-icons">chevron_left</i>
+      </a>
+    </li>
+    
+    <li class="{% if next_article %} waves-effect {% else %} disabled {% endif %} right">
+      <a {% if next_article %} href="{{ next_article.get_absolute_url }}" {% endif %}>
+        <i class="material-icons">chevron_right</i>
+      </a>
+    </li>
+  </ul>
+{% endblock %}

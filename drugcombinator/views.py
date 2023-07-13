@@ -17,6 +17,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.base import TemplateResponseMixin
 from django_hosts.resolvers import reverse_host
 
+from blog.models import Article
 from drugcombinator import api
 from drugcombinator.api.utils import get_absolute_api_url
 from drugcombinator.exceptions import Http400
@@ -32,6 +33,7 @@ def main(request):
     uncategorized_drugs = drugs.filter(category=None)
     categories = Category.objects.all()
     portals = Portal.objects.all()
+    articles = Article.objects.all()[:3]
 
     if request.method == 'POST':
         combinator_form = CombinatorForm(request.POST)
