@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
 from blog.models import Article
+from utils import exists_or_none
 
 
 def index(request, page=None):
@@ -14,6 +15,9 @@ def index(request, page=None):
 
 
 def article(request, slug):
-    articles = [get_object_or_404(Article, slug=slug)]
+    article = get_object_or_404(Article, slug=slug)
+
+    previous_article = exists_or_none(article.get_previous_by_created)
+    next_article = exists_or_none(article.get_next_by_created)
 
     return render(request, 'blog/article.html', locals())

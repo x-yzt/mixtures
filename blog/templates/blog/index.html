@@ -21,8 +21,12 @@
       </h1>
     </div>
 
-    {% for article in articles %}
-      {% include 'blog/article_card.html' %}
-    {% endfor %}
+    {% block main %}
+      {% for article in page %}
+        {% include 'blog/article_card.html' %}
+      {% endfor %}
+
+      {% include 'blog/paginator.html' %}
+    {% endblock %}
   </div>
 {% endblock %}
