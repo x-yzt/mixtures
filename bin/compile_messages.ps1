@@ -1,1 +1,1 @@
-python ./manage.py compilemessages --ignore=venv/*
+python ./manage.py compilemessages --ignore=.venv/*

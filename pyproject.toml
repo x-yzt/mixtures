@@ -1,0 +1,29 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "mixtures"
+requires-python = ">=3.10"
+dependencies = [
+    "django~=4.1.10",
+    "dj-database-url~=1.0",
+    "django-modeltranslation~=0.18",
+    "django-simple-history~=3.1",
+    "django-mistune~=0.1",
+    "django-hosts~=5.2",
+    "gunicorn",
+    "huey~=2.4",
+    "md-anchors~=0.2",
+    "psycopg2-binary",
+    "whitenoise~=5.2",
+    # Needed because some old dependancies use pkg_resources
+    "setuptools>=68.2.0",
+]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "flake8",
+    "isort",
+    "json-schema-for-humans",
+]

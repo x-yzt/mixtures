@@ -25,9 +25,7 @@ in project-wide directories.
 
 ### Subdomains
 
-The `drugportals` app uses a special subdomain routing. It uses a fork
-of `django-hosts` that fixes bare subdomain routing -which is supposed
-to be merged at some point- to serve portals pages.
+The `drugportals` app uses a special subdomain routing.
 
 This means **any relevant subdomain (eg. `portalname.exemple.com`)
 should be routed to Django** for portals to work, either on a production
@@ -44,8 +42,8 @@ This is mainly because:
 - The vast majority of web browsers does not allow setting a wildcard
   cookie domain to a hostname that does not contains a not, such as
   `.com` or -you guessed it- `.localhost`;
-- Of how `django-hosts` parses URLs (however, with the forked version it
-  should be consistent).
+- Historycally, of how `django-hosts` parses URLs, but a fix for this
+  was merged (as of 2023) and it should now be consistent.
 
 One easy solution to this is to serve the application on another host in
 the dev environment, such as `local.host`, for exemple by editing the

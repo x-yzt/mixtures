@@ -130,5 +130,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# PDM
+.pdm-python
+.pdm-build/
+
 # Docs
 docs/
