@@ -1,48 +1,42 @@
-# fly.toml file generated for mixtures on 2022-10-04T14:08:40+02:00
-
 app = "mixtures"
-
+primary_region = "cdg"
 kill_signal = "SIGINT"
-kill_timeout = 5
+kill_timeout = "5s"
+
+[experimental]
+  auto_rollback = true
+
+[build]
+  builder = "paketobuildpacks/builder:full"
+  buildpacks = ["gcr.io/paketo-buildpacks/python"]
+
+[deploy]
+  release_command = "./bin/release.sh"
 
 [env]
   DJANGO_LOG_LEVEL = "WARN"
   DJANGO_SETTINGS_MODULE = "mixtures.settings_deploy"
 
-[build]
-  builder = "paketobuildpacks/builder:full"
-  buildpacks = [
-    "gcr.io/paketo-buildpacks/python"
-  ]
-
-[deploy]
-  release_command = "./bin/release.sh"
-
 [processes]
   web = "./bin/launch.sh"
 
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
-
 [[services]]
-  internal_port = 8080
   protocol = "tcp"
+  internal_port = 8080
+  processes = ["web"]
 
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
 
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
-
   [[services.tcp_checks]]
-    grace_period = "1s"
     interval = "15s"
-    restart_limit = 0
     timeout = "2s"
+    grace_period = "1s"
