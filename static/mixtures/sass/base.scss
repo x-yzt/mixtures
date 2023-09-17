@@ -82,7 +82,8 @@ br.show-on-medium-and-down {
     margin-bottom: 16px;
   }
   img {
-    max-width: 100px;
+    width: 100px;
+    aspect-ratio: 1;
     transition: all .2s;
   }
   p {
