@@ -27,3 +27,8 @@ dev = [
     "isort",
     "json-schema-for-humans",
 ]
+
+[tool.isort]
+skip_glob = "*/migrations/*.*"
+multi_line_output = 4
+lines_after_imports = 2
