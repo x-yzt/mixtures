@@ -10,6 +10,7 @@
   {{ block.super }}
   <form id="lang-form" action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.build_absolute_uri }}">
     <select name="language" onchange="javascript:form.submit()">
       {% for lang in languages %}
         <option value="{{ lang.0 }}" {% if lang.0 == current_language %}selected{% endif %}>
