@@ -1,19 +1,11 @@
-#!/bin/bash
+#!/bin/ash
+
 set -emo pipefail
 
 echo "--> Running launch script"
-export PATH=/app/gettext/bin:$PATH
-MANAGE_FILE=$(find . -maxdepth 3 -type f -name 'manage.py' | head -1)
-MANAGE_FILE=${MANAGE_FILE:2}
-
-# Changes made to the filesystem in fly.io release commands are not
-# persistent, hence staticfiles collection runs just before gunicorn
-# starts
-echo "--> Collecting static files"
-python "$MANAGE_FILE" collectstatic --noinput
 
 echo "--> Running task worker in background"
-python "$MANAGE_FILE" run_huey &
+python manage.py run_huey &
 
 echo "--> Running web server"
-gunicorn -b :8080 mixtures.wsgi
+gunicorn -b :8080 --workers 1 mixtures.wsgi

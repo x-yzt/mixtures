@@ -7,8 +7,6 @@ kill_timeout = "5s"
   auto_rollback = true
 
 [build]
-  builder = "paketobuildpacks/builder:full"
-  buildpacks = ["gcr.io/paketo-buildpacks/python"]
 
 [deploy]
   release_command = "./bin/release.sh"
