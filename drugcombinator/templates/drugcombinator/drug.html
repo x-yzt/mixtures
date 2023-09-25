@@ -67,6 +67,10 @@
       {% include 'drugcombinator/toc.html' %}
   </div>
 
+  {% if interactions %}
+    {% include 'drugcombinator/mobile_sidebar.html' %}
+  {% endif %}
+ 
   {% include 'drugcombinator/contrib_modal.html' %}
   {% include 'drugcombinator/embed_modal.html' %}
 {% endblock %}

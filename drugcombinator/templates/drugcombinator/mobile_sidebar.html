@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<ul id="mobile-sidebar" class="sidenav show-on-small">
+  <li><h6>{% translate 'Table of contents' %}</h6></li>
+
+  <li><div class="divider"></div></li>
+
+  <div id="mobile-toc" class="table-of-contents">
+    {% for slug, name in toc.items %}
+      <li><a href="#{{ slug }}">{{ name }}</a></li>
+    {% endfor %}
+  </div>
+</ul>
+
+<a
+  id="mobile-sidebar-trigger"
+  class="sidenav-trigger show-on-small"
+  href="#"
+  data-target="mobile-sidebar"
+>
+  <i class="material-icons">chevron_left</i>
+</a>
