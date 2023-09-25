@@ -25,7 +25,9 @@ ENV PYTHONUNBUFFERED 1
 
 COPY --from=build /code .
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    && chmod +x ./bin/release.sh \
+    && chmod +x ./bin/launch.sh
 
 EXPOSE 8080
 
