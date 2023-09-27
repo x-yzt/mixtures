@@ -2,9 +2,24 @@ from operator import attrgetter
 
 from django.contrib.auth import get_user_model
 from django.db.models import (
-    CASCADE, SET_NULL, BooleanField, CharField, CheckConstraint, DateTimeField,
-    F, ForeignKey, IntegerChoices, IntegerField, JSONField, ManyToManyField,
-    Model, Q, SlugField, TextField, UniqueConstraint)
+    CASCADE,
+    SET_NULL,
+    BooleanField,
+    CharField,
+    CheckConstraint,
+    DateTimeField,
+    F,
+    ForeignKey,
+    IntegerChoices,
+    IntegerField,
+    JSONField,
+    ManyToManyField,
+    Model,
+    Q,
+    SlugField,
+    TextField,
+    UniqueConstraint,
+)
 from django.db.models.fields import URLField
 from django.db.models.fields.related import OneToOneField
 from django.urls import reverse
@@ -273,9 +288,9 @@ class Interaction(LastModifiedModel):
         """Extract URIs from this model `risk_description` and
         `effect_description` text fields."""
 
-        return set().union(*map(
-            lambda field: AnchorConverter(field).uris,
-            (self.risk_description, self.effect_description)
+        return set().union(*(
+            AnchorConverter(field).uris
+            for field in (self.risk_description, self.effect_description)
         ))
 
     def update_uris(self):

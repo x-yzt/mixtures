@@ -4,7 +4,10 @@ from django.http import Http404
 from django.urls import reverse
 from modeltranslation.settings import AVAILABLE_LANGUAGES
 from modeltranslation.utils import (
-    build_localized_fieldname, get_language, resolution_order)
+    build_localized_fieldname,
+    get_language,
+    resolution_order,
+)
 
 from drugcombinator.utils import normalize
 
@@ -34,11 +37,11 @@ class TranslatedQuerySet(QuerySet):
 
         else:
             # Get the underlying model field type
-            FieldType = self.model._meta.get_field(field).__class__
+            field_type = self.model._meta.get_field(field).__class__
             # Annotate needs to know which type of field it has to output,
             # because translated fields type differs from usual Django
             # fields (e.g. TranslatedCharField differs from CharField)
-            annotation = Coalesce(*fields, output_field=FieldType())
+            annotation = Coalesce(*fields, output_field=field_type())
 
         return self.annotate(
             **{field + '_translations': annotation}
@@ -89,8 +92,8 @@ class DrugManager(Manager):
         found."""
         try:
             return self.get_from_name(name)
-        except self.model.DoesNotExist:
-            raise Http404(f"Unable to find drug {name}.")
+        except self.model.DoesNotExist as e:
+            raise Http404(f"Unable to find drug {name}.") from e
 
 
 class DrugQuerySet(TranslatedQuerySet):

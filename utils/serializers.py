@@ -1,5 +1,4 @@
-from collections.abc import Iterable
-from typing import Callable
+from collections.abc import Callable, Iterable
 
 from django.db.models import Model, QuerySet
 
@@ -89,7 +88,7 @@ class StructureSerializer:
         data = {}
 
         for item in structure:
-            assert isinstance(item, (str, tuple, Callable))
+            assert isinstance(item, str | tuple | Callable)
 
             if isinstance(item, tuple):
                 assert 2 <= len(item) <= 3

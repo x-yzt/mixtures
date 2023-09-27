@@ -10,10 +10,10 @@ class ListField(TextField):
 
     DEFAULT_SEP = '\n'
 
-    def __init__(self, sep=DEFAULT_SEP, default=[], *args, **kwargs):
+    def __init__(self, sep=DEFAULT_SEP, default=None, *args, **kwargs):
         self.sep = sep
         kwargs['blank'] = True
-        kwargs['default'] = default
+        kwargs['default'] = [] if default is None else default
 
         super().__init__(*args, **kwargs)
 
@@ -28,7 +28,7 @@ class ListField(TextField):
 
     @property
     def non_db_attrs(self):
-        return super().non_db_attrs + ('sep',)
+        return (*super().non_db_attrs, 'sep')
 
     def from_db_value(self, value, expression, connection):
         return self.to_python(value)

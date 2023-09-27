@@ -10,7 +10,7 @@ from utils.i18n import set_language_view
 
 
 def template(name, *args, **kwargs):
-    return TemplateView.as_view(template_name=name, *args, **kwargs)
+    return TemplateView.as_view(*args, template_name=name, **kwargs)
 
 
 urlpatterns = i18n_patterns(

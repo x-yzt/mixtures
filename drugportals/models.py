@@ -1,5 +1,10 @@
 from django.db.models import (
-    CASCADE, CharField, DateTimeField, Model, OneToOneField)
+    CASCADE,
+    CharField,
+    DateTimeField,
+    Model,
+    OneToOneField,
+)
 from django.utils.translation import gettext_lazy as _
 from django_hosts.resolvers import reverse
 

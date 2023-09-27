@@ -1,7 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db.models import (
-    SET_NULL, CharField, DateTimeField, ForeignKey, Model, SlugField,
-    TextField)
+    SET_NULL,
+    CharField,
+    DateTimeField,
+    ForeignKey,
+    Model,
+    SlugField,
+    TextField,
+)
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _

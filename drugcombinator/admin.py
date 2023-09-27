@@ -7,7 +7,12 @@ from modeltranslation.admin import TabbedTranslationAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
 from drugcombinator.models import (
-    Category, Contributor, Drug, Interaction, Note)
+    Category,
+    Contributor,
+    Drug,
+    Interaction,
+    Note,
+)
 
 
 admin.site.site_header = "Mixtures.info"
@@ -190,7 +195,7 @@ class InteractionAdmin(ChangedFieldsHistoryAdmin, CustomizableModelAdmin):
     )
 
     history_list_display = (
-        ChangedFieldsHistoryAdmin.history_list_display + ('is_draft',)
+        (*ChangedFieldsHistoryAdmin.history_list_display, 'is_draft')
     )
 
     fieldsets = (

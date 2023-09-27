@@ -6,7 +6,10 @@ from django.core.mail import send_mail
 from django.db.models import F
 from django.http import Http404, JsonResponse
 from django.http.response import (
-    HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed)
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseNotAllowed,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import get_resolver
 from django.utils.decorators import method_decorator
@@ -233,7 +236,7 @@ def autocomplete(request):
     for drug in drugs:
         for alias in drug.aliases:
             if not any(
-                [normalize(alias) in normalize(e) for e in entries]
+                normalize(alias) in normalize(e) for e in entries
             ):
                 entries.append(alias)
 
