@@ -1,5 +1,5 @@
 # Build and deploy Django app on fly.io
-name: Build Django app
+name: App deploy
 
 on:
   push:

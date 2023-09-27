@@ -1,5 +1,5 @@
 # Build and deploy API docs using JSON Schema for Humans with GitHub Pages
-name: Build API docs
+name: Docs deploy
 
 on:
   push:
