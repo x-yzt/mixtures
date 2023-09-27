@@ -23,16 +23,38 @@ dependencies = [
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "flake8",
-    "isort",
     "json-schema-for-humans",
+    "ruff",
 ]
 
 [tool.pdm.options]
 add = ["--no-self"]
 install = ["--no-self"]
+remove = ["--no-self"]
 
-[tool.isort]
-skip_glob = "*/migrations/*.*"
-multi_line_output = 4
-lines_after_imports = 2
+[tool.ruff]
+extend-exclude = [
+    "*/migrations/*.*",
+    ".venv/*.*",
+]
+select = [
+    "F", "E", "W", "I", "N", "UP", "B", "C4", "DJ", "INP", "PIE", "PYI",
+    "RSE", "RET", "SLOT", "SIM", "TID", "INT", "PTH", "PERF", "RUF"
+]
+ignore = [
+    "DJ003",  # TODO: Remove this!
+    "DJ012",
+    "PERF203",
+    "RUF012",
+]
+line-length = 79
+
+[tool.ruff.per-file-ignores]
+"mixtures/settings.py" = ["E501"]
+"mixtures/settings_deploy.py"= ["F403", "F405"]
+"drugcombinator/urls.py"= ["E501"]
+"tests.py" = ["N802"]
+
+[tool.ruff.isort]
+lines-after-imports = 2
+split-on-trailing-comma = false

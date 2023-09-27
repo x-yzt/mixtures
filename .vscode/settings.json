@@ -3,9 +3,6 @@
         "*.html": "django-html",
     },
     "editor.rulers": [72, 79],
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true,
-
     "[django-html]": {
         "editor.tabSize": 2,
         "editor.rulers": [100],
