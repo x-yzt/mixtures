@@ -134,5 +134,8 @@ dmypy.json
 .pdm-python
 .pdm-build/
 
+# Ruff
+.ruff_cache/
+
 # Docs
 docs/

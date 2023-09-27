@@ -16,3 +16,4 @@ __pycache__/
 .venv/
 *.pyc
 .pdm-python
+.ruff_cache/
