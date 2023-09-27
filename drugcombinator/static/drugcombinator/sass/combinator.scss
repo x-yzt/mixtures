@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Load color palette from Materialize customizations
 @use "custom-variables" as *;
 
@@ -23,6 +25,35 @@
   @media only screen and (min-width: 1201px) {
     padding-left: 3rem;
   }
+}
+
+#mobile-sidebar {
+  $item-height: 32px;
+
+  li {
+    line-height: $item-height;
+
+    & > h6, & > a {
+      padding: 0 math.div($item-height, 2);
+      height: $item-height;
+      line-height: $item-height;
+    }
+    
+    & > a.active {
+      $border-width: 4px;
+
+      padding-left: math.div($item-height, 2) - $border-width;
+      border-left-width: $border-width;
+    }
+  }
+}
+
+#mobile-sidebar-trigger {
+  position: fixed;
+  right: -4px;
+  top: 50%;
+
+  color: #666;
 }
 
 
