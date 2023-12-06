@@ -49,7 +49,7 @@ CACHES['default'] = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = "mail.gandi.net"
+EMAIL_HOST = "mail.mailo.com"
 
 EMAIL_HOST_PASSWORD = getenv('EMAIL_PASSWORD')
 
