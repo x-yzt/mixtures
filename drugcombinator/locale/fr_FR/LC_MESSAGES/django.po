@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-09 17:57+0100\n"
+"POT-Creation-Date: 2024-02-05 18:19+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1316,6 +1316,10 @@ msgstr ""
 "Pour toute question ou problème concernant les intégrations, <a "
 "%(attrs)s>contactez-nous</a>."
 
+#: .\drugcombinator\templates\drugcombinator\iframes\legend.html:5
+msgid "Show legends"
+msgstr "Voir les légendes"
+
 #: .\drugcombinator\templates\drugcombinator\interaction.html:41
 msgid "Warning! This card is a draft."
 msgstr "Attention ! Cette fiche est un brouillon."
@@ -1421,23 +1425,23 @@ msgstr "Fiabilité :"
 msgid "and"
 msgstr "et"
 
-#: .\drugcombinator\utils.py:27
+#: .\drugcombinator\utils.py:28
 #, python-brace-format
 msgid "The {markdown} syntax is allowed."
 msgstr "La syntaxe {markdown} est autorisée."
 
-#: .\drugcombinator\utils.py:30
+#: .\drugcombinator\utils.py:31
 msgid "Paragraphs are separated by two carriage returns."
 msgstr "Les paragraphes sont séparés par deux retours à la ligne."
 
-#: .\drugcombinator\views.py:258
+#: .\drugcombinator\views.py:274
 #, python-brace-format
 msgid "New contribution: {interaction}"
 msgstr "Nouvelle contribution : {interaction}"
 
 # Needed for displaying custom history list fields correctly
-#~ msgid "modified_fields"
-#~ msgstr "Champs modifiés"
+msgid "modified_fields"
+msgstr "Champs modifiés"
 
-#~ msgid "is_draft"
-#~ msgstr "Brouillon"
+msgid "is_draft"
+msgstr "Brouillon"
