@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-09 17:57+0100\n"
+"POT-Creation-Date: 2024-04-12 18:59+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1073,15 +1073,33 @@ msgstr "Les effets de cette combinaison ne sont pas connus."
 msgid "Contribute: %(topic)s"
 msgstr "Contribution : %(topic)s"
 
-#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:18
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:16
+msgid "<b>Wanna report your personnal experience</b> about this combo?"
+msgstr ""
+"Vous souhaitez nous faire part de <b>votre expérience personnelle</b> de ce "
+"combo ? Remplissez notre petit formulaire !"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:27
+msgid "Fill our short form"
+msgstr "C'est parti !"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:33
+msgid ""
+"<b>Anything else to say</b> about this interaction sheet? Please use the "
+"form below."
+msgstr ""
+"<b>Autre chose à dire</b> sur cette fiche d'interaction ? Veuillez utiliser "
+"le formulaire ci-dessous."
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:42
 msgid "Incorrect input"
 msgstr "Entrée invalide"
 
-#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:36
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:60
 msgid "Send"
 msgstr "Envoyer"
 
-#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:38
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:62
 #: .\drugcombinator\templates\drugcombinator\embed_modal.html:80
 msgid "Close"
 msgstr "Fermer"
@@ -1436,8 +1454,8 @@ msgid "New contribution: {interaction}"
 msgstr "Nouvelle contribution : {interaction}"
 
 # Needed for displaying custom history list fields correctly
-#~ msgid "modified_fields"
-#~ msgstr "Champs modifiés"
+msgid "modified_fields"
+msgstr "Champs modifiés"
 
-#~ msgid "is_draft"
-#~ msgstr "Brouillon"
+msgid "is_draft"
+msgstr "Brouillon"
