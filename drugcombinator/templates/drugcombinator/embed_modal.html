@@ -4,7 +4,10 @@
 
 <div id="embed-modal" class="modal">
   <div class="modal-content">
-    <h4><i class="material-icons">addchart</i> {% translate 'Integrate this data on a website' %}</h4>
+    <h4>
+      <i class="material-icons">addchart</i>
+      {% translate 'Integrate this data on a website' %}
+    </h4>
     
     <p>
       {% blocktranslate trimmed %}
@@ -12,67 +15,134 @@
         in another web page, using <em>iFrames</em>.
       {% endblocktranslate %}
     </p>
+
+    <ul class="collapsible">
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">brush</i>
+          {% translate 'Settings' %}
+        </div>
+        
+        <form id="embed-settings" class="collapsible-body">
+          <p>{% translate 'Frame height:' %}</p>
+          <p>
+            <label>
+              <input name="height" type="radio" value="auto" checked>
+              <span>{% translate 'Fit content' %}</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="height" type="radio" value="fixed">
+              <span>{% translate 'Fixed value:' %}</span>
+              <input
+                name="height-px"
+                type="number"
+                class="validate"
+                min="0"
+                step="1"
+                required
+                placeholder="{% translate 'In px' %}"
+              >
+            </label>
+          </p>
+
+          <div class="divider"></div>
+
+          <p>{% translate 'Color theme:' %}</p>
+          <p>
+            <label>
+              <input name="theme" type="radio" value="light" checked>
+              <span>{% translate 'Light' %}</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="theme" type="radio" value="dark">
+              <span>{% translate 'Dark' %}</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="theme" type="radio" value="auto">
+              <span>{% translate 'Match browser settings' %}</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="theme" type="radio" value="custom">
+              <span>{% translate 'Custom text color:' %}</span>
+              <input name="text-color" type="color">
+            </label>
+          </p>
+        </form>
+      </li>
+    </ul>
+
     <p>
       {% blocktranslate trimmed %}
         To do so, simply copy the following HTML code into the destination page, at the position
         where you want to integrate the data:
       {% endblocktranslate %}
     </p>
-    <pre>{% filter stripspaces|force_escape %}
-      <iframe
-        src="{% url 'recap' drug.slug scheme 'https' %}"
-        style="border: none; width: 100%; height: auto"
-      ></iframe>
-    {% endfilter %}</pre>
-    <p>      
-      {% blocktranslate trimmed %}
-        Unfortunately, one restriction of <em>iFrame</em> elements is that they cannot automatically
-        adjust their height to what they contain. A simple way to get around this problem is to load
-        an additional JavaScript file, adding the following HTML code to your web page, alongside
-        your other JavaScript files:
+    <pre id="embed-code" data-src="{% url 'recap' drug.slug scheme 'https' %}">
+      {% filter stripspaces|force_escape %}
+        <iframe
+          src="{% url 'recap' drug.slug scheme 'https' %}"
+          style="border: none; width: 100%; height: auto"
+        ></iframe>
+      {% endfilter %}
+    </pre>
+
+    <div id="js-notice">
+      <p>      
+        {% blocktranslate trimmed %}
+          Unfortunately, one restriction of <em>iFrame</em> elements is that they cannot
+          automatically adjust their height to what they contain. A simple way to get around this
+          problem is to load an additional JavaScript file, adding the following HTML code to your
+          web page, alongside your other JavaScript files:
+        {% endblocktranslate %}
+      </p> 
+      <pre>{% filter stripspaces|force_escape %}
+        {% comment %}
+          The {% static %} templatetag would add an hash suffix to the script URI when using caching
+          (eg. .../js/resize-frames.xxxxxxxx.js), hence it is not used.
+        {% endcomment %} 
+        <script
+          type="text/javascript"
+          src="https://{{ request.get_host }}{% get_static_prefix %}drugcombinator/js/resize-frames.js"
+        ></script>
+      {% endfilter %}</pre>
+      
+      <b>{% translate 'Notes :' %}</b>
+      <ul class="browser-default">
+        <li>
+          {% blocktranslate trimmed %}
+            You only need to copy the second code once, even if you integrate several
+            <em>iFrames</em> elements on the same page.
+          {% endblocktranslate %}
+        </li>
+        <li>
+          {% blocktranslate trimmed %}
+            If you don't know where to put your JavaScript files, it is recommended that you load
+            them at the end of the <code>&lt;body&gt;</code> element. It is also common to load them
+            into the <code>&lt;head&gt;</code> element.
+          {% endblocktranslate %}
+        </li>
+        <li>
+          {% blocktranslate trimmed %}
+            If you can't or don't want to load an extra JavaScript file, it is possible to set the
+            <em>iFrame</em> to a fixed height by using the embed settings above.
+          {% endblocktranslate %}
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      {% blocktranslate with attrs='href="mailto://contact@mixtures.info"' trimmed %}
+        For any questions or problems regarding integrations, please <a {{ attrs }}>contact us</a>.
       {% endblocktranslate %}
-    </p> 
-    <pre>{% filter stripspaces|force_escape %}
-      {% comment %}
-        The {% static %} templatetag would add an hash suffix to the script URI when using caching
-        (eg. .../js/resize-frames.xxxxxxxx.js), hence it is not used.
-      {% endcomment %} 
-      <script
-        type="text/javascript"
-        src="https://{{ request.get_host }}{% get_static_prefix %}drugcombinator/js/resize-frames.js"
-      ></script>
-    {% endfilter %}</pre>
-    
-    <b>{% translate 'Notes :' %}</b>
-    <ul class="browser-default">
-      <li>
-        {% blocktranslate trimmed %}
-          You only need to copy the second code once, even if you integrate several <em>iFrames</em>
-          elements on the same page.
-        {% endblocktranslate %}
-      </li>
-      <li>
-        {% blocktranslate trimmed %}
-          If you don't know where to put your JavaScript files, it is recommended that you load them
-          at the end of the <code>&lt;body&gt;</code> element. It is also common to load them into
-          the <code>&lt;head&gt;</code> element.
-        {% endblocktranslate %}
-      </li>
-      <li>
-        {% blocktranslate trimmed %}
-          If you can't or don't want to load an extra JavaScript file, it is possible to give a
-          fixed height to the <em>iFrame</em> by changing <code>height: auto</code> to, for example,
-          <code>height: 500px</code> in the first code. Of course, you can change the value
-          <code>500px</code> as you like.
-        {% endblocktranslate %}
-      </li>
-      <li>
-        {% blocktranslate with attrs='href="mailto://contact@mixtures.info"' trimmed %}
-          For any questions or problems regarding integrations, please
-          <a {{ attrs }}>contact us</a>.
-        {% endblocktranslate %}
-      </li>
-    </ul>
+    </p>
   </div>
   
   <div class="modal-footer">
