@@ -11,6 +11,30 @@
       </h4>
 
       <div class="row">
+        <p>
+          <i class="material-icons">flight_takeoff</i>
+          {% blocktranslate trimmed %}
+            <b>Wanna report your personnal experience</b> about this combo?
+          {% endblocktranslate %}
+        </p>
+
+        <a
+          class="btn waves-effect waves-light"
+          href="https://framaforms.org/rapport-dexperience-pour-mixtures-1709731704"
+          target="_blank"
+          rel="nofollow noreferrer"
+        >
+          {% translate 'Fill our short form' %} <i class="material-icons right">launch</i>
+        </a>
+      </div>
+      
+      <div class="row">
+        <p>
+          {% blocktranslate trimmed %}
+            <b>Anything else to say</b> about this interaction sheet? Please use the form below.
+          {% endblocktranslate %}
+        </p>
+        
         {% for field in contrib_form.visible_fields %}
           <div class="input-field col s12">
             {{ field }}

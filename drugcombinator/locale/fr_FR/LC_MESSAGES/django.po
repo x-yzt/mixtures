@@ -1073,11 +1073,29 @@ msgstr "Les effets de cette combinaison ne sont pas connus."
 msgid "Contribute: %(topic)s"
 msgstr "Contribution : %(topic)s"
 
-#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:18
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:16
+msgid "<b>Wanna report your personnal experience</b> about this combo?"
+msgstr ""
+"Vous souhaitez nous faire part de <b>votre expérience personnelle</b> de ce "
+"combo ? Remplissez notre petit formulaire !"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:27
+msgid "Fill our short form"
+msgstr "C'est parti !"
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:33
+msgid ""
+"<b>Anything else to say</b> about this interaction sheet? Please use the "
+"form below."
+msgstr ""
+"<b>Autre chose à dire</b> sur cette fiche d'interaction ? Veuillez utiliser "
+"le formulaire ci-dessous."
+
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:42
 msgid "Incorrect input"
 msgstr "Entrée invalide"
 
-#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:36
+#: .\drugcombinator\templates\drugcombinator\contrib_modal.html:60
 msgid "Send"
 msgstr "Envoyer"
 
