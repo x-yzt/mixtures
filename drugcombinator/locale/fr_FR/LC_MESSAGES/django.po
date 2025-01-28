@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-05 18:19+0100\n"
+"POT-Creation-Date: 2025-01-28 19:41+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -670,9 +670,9 @@ msgid ""
 "a>."
 msgstr ""
 "Oups ! Concevoir des applications n'est pas toujours facile, et il se peut "
-"que quelques malfaçons se soient glissées dans le code source de Mixtures."
-"info. Vous pouvez signaler toute anomalie en ouvrant un ticket sur notre <a "
-"%(bt_attrs)s>bug tracker</a>."
+"que quelques malfaçons se soient glissées dans le code source de "
+"Mixtures.info. Vous pouvez signaler toute anomalie en ouvrant un ticket sur "
+"notre <a %(bt_attrs)s>bug tracker</a>."
 
 #: .\drugcombinator\templates\drugcombinator\about.html:229
 msgid ""
@@ -1082,7 +1082,7 @@ msgid "Send"
 msgstr "Envoyer"
 
 #: .\drugcombinator\templates\drugcombinator\contrib_modal.html:38
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:80
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:150
 msgid "Close"
 msgstr "Fermer"
 
@@ -1237,11 +1237,11 @@ msgstr "La substance %(name)s n'a pas été trouvée."
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:7
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:9
 msgid "Integrate this data on a website"
 msgstr "Intégrer ces données sur un site web"
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:10
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:13
 msgid ""
 "Mixtures.info offers a convenient way to integrate a nice summary of the "
 "above information in another web page, using <em>iFrames</em>."
@@ -1250,7 +1250,47 @@ msgstr ""
 "récapitulatif des informations ci-dessus dans une autre page web, à l'aide "
 "d'<em>iFrames</em>."
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:16
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:23
+msgid "Settings"
+msgstr "Paramètres"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:27
+msgid "Frame height:"
+msgstr "Hauteur du cadre :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:31
+msgid "Fit content"
+msgstr "Adapter au contenu"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:37
+msgid "Fixed value:"
+msgstr "Valeur fixe :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:45
+msgid "In px"
+msgstr "En px"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:52
+msgid "Color theme:"
+msgstr "Thème"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:56
+msgid "Light"
+msgstr "Clair"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:62
+msgid "Dark"
+msgstr "Sombre"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:68
+msgid "Match browser settings"
+msgstr "Réglage navigateur"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:74
+msgid "Custom text color:"
+msgstr "Couleur du texte :"
+
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:83
 msgid ""
 "To do so, simply copy the following HTML code into the destination page, at "
 "the position where you want to integrate the data:"
@@ -1258,7 +1298,7 @@ msgstr ""
 "Pour ce faire, il suffit de copier le code HTML suivant dans la page de "
 "destination, à l'endroit où vous souhaitez y intégrer les données :"
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:28
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:99
 msgid ""
 "Unfortunately, one restriction of <em>iFrame</em> elements is that they "
 "cannot automatically adjust their height to what they contain. A simple way "
@@ -1272,11 +1312,11 @@ msgstr ""
 "JavaScript supplémentaire, en ajoutant le code HTML suivant à votre page "
 "web, à côté de vos autres fichiers JavaScript :"
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:47
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:118
 msgid "Notes :"
 msgstr "Notes :"
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:50
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:121
 msgid ""
 "You only need to copy the second code once, even if you integrate several "
 "<em>iFrames</em> elements on the same page."
@@ -1284,7 +1324,7 @@ msgstr ""
 "Il n'est nécéssaire de copier qu'une seule fois le second code, même si vous "
 "intégrez plusieurs éléments <em>iFrames</em>."
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:56
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:127
 msgid ""
 "If you don't know where to put your JavaScript files, it is recommended that "
 "you load them at the end of the <code>&lt;body&gt;</code> element. It is "
@@ -1294,20 +1334,17 @@ msgstr ""
 "de le faire à la fin de l'élément HTML <code>&lt;body&gt;</code>. Il est "
 "également courant de les charger dans l'élément <code>&lt;head&gt;</code>."
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:63
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:134
 msgid ""
 "If you can't or don't want to load an extra JavaScript file, it is possible "
-"to give a fixed height to the <em>iFrame</em> by changing <code>height: "
-"auto</code> to, for example, <code>height: 500px</code> in the first code. "
-"Of course, you can change the value <code>500px</code> as you like."
+"to set the <em>iFrame</em> to a fixed height by using the embed settings "
+"above."
 msgstr ""
 "Si vous ne pouvez ou ne voulez pas charger de fichier JavaScript "
 "supplémentaire, il est possible de donner une hauteur fixe à l'<em>iFrame</"
-"em> en modifiant <code>height: auto</code> en, par exemple, <code>height: "
-"500px</code> dans le premier code. Évidemment, vous pouvez changer la valeur "
-"<code>500px</code> à votre convenance."
+"em> en utilisant les réglages ci-dessus."
 
-#: .\drugcombinator\templates\drugcombinator\embed_modal.html:71
+#: .\drugcombinator\templates\drugcombinator\embed_modal.html:143
 #, python-format
 msgid ""
 "For any questions or problems regarding integrations, please <a "
@@ -1406,11 +1443,11 @@ msgstr "Fil d'actualités"
 #: .\drugcombinator\templates\drugcombinator\main.html:96
 #, python-format
 msgid ""
-"Hey! Perhaps you would like to read the last articles from <a href=\"%(blog)s"
-"\"> our blog</a>?"
+"Hey! Perhaps you would like to read the last articles from <a "
+"href=\"%(blog)s\"> our blog</a>?"
 msgstr ""
-"Hey ! Peut-être seriez vous intéressé·e par les derniers articles de <a href="
-"\"%(blog)s\"> notre blog</a> ?"
+"Hey ! Peut-être seriez vous intéressé·e par les derniers articles de <a "
+"href=\"%(blog)s\"> notre blog</a> ?"
 
 #: .\drugcombinator\templates\drugcombinator\mobile_sidebar.html:4
 #: .\drugcombinator\templates\drugcombinator\toc.html:7
