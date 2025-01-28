@@ -2,6 +2,26 @@
 
 {% load static %}
 
+{% block styles %}
+  <style>
+    {% if text_color %}
+      * {
+        color: #{{ text_color }};
+      }
+    {% elif theme == "dark" %}
+      * {
+        color: #FFF;
+      }
+    {% elif theme == "auto" %}
+      @media (prefers-color-scheme: dark) {
+        * {
+          color: #FFF;
+        }
+      }
+    {% endif %}
+  </style>
+{% endblock %}
+
 {% block content %}
   <h1>{{ drug }} : Récapitulatif des interactions</h1>
 
@@ -16,7 +36,7 @@
       </div>
     {% endfor %}
   </div>
-
+    
   {% include 'drugcombinator/iframes/legend.html' %}
 {% endblock %}
 

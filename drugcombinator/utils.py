@@ -3,6 +3,7 @@ import unicodedata
 from hashlib import md5
 from time import time
 
+from django.core.exceptions import ValidationError
 from django.db import connection, reset_queries
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
@@ -63,3 +64,16 @@ def get_libravatar_url(email, https=False, size=80, default=None):
         protocol, domain = 'http', 'cdn.libravatar.org'
 
     return f'{protocol}://{domain}/avatar/{hash_url}?s={size}&d={default}'
+
+
+def validate_request_param(request, param, validator=None):
+    """Return a GET parameter value from the request object and
+    validate it."""
+    value = request.GET.get(param)
+
+    if value is not None and validator is not None:
+        try:
+            validator(value)
+        except ValidationError:
+            return None
+    return value

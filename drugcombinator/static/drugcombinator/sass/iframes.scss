@@ -78,9 +78,9 @@ table {
     display: inline-block;
     text-align: center;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 4px;
     min-width: 60px;
-    margin: 3px;
+    margin: 6px 3px;
   }
 }
 
@@ -101,7 +101,6 @@ footer {
   position: sticky;
   width: 100%;
   bottom: 0;
-  margin-top: 5px;
   padding: 10px;
   background: $primary-color;
   p {
@@ -157,20 +156,50 @@ a {
   }
 }
 
+.legend-container {
+  background: rgba(0, 0, 0, .05);
+  margin-top: 6px;
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: block;
+    padding: 12px;
+
+    &::after {
+      content: " expand_less";
+      font-family: 'Material Icons';
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+#show-legend:not(:checked) {
+  &~label::after {
+    content: " expand_more";
+  }
+
+  &~.legend {
+    display: none;
+  }
+}
+
 .legend ul {
   padding: 0;
   list-style-type: none;
   li {
     display: flex;
     align-items: center;
-    margin: 5px 8px;
+    margin: 12px;
     .icon {
-      margin-right: 4px;
+      margin-right: 12px;
     }
     .label {
       width: 24px;
       height: 24px;
-      border-radius: 5px;
+      border-radius: 4px;
     }
     i {
       vertical-align: middle;

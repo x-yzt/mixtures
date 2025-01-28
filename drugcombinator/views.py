@@ -3,6 +3,7 @@ from types import SimpleNamespace
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.validators import RegexValidator
 from django.db.models import F
 from django.http import Http404, JsonResponse
 from django.http.response import (
@@ -26,7 +27,7 @@ from drugcombinator.api.utils import get_absolute_api_url
 from drugcombinator.exceptions import Http400
 from drugcombinator.forms import CombinatorForm, ContribForm, SearchForm
 from drugcombinator.models import Category, Contributor, Drug, Interaction
-from drugcombinator.utils import normalize
+from drugcombinator.utils import normalize, validate_request_param
 from drugportals.models import Portal
 
 
@@ -150,12 +151,27 @@ class RecapView(DrugView):
 
     def get_context(self, request, slug):
         ctx = super().get_context(request, slug)
+
         ctx.interactions = ctx.interactions.filter(is_draft=False)
+        for inter in ctx.interactions:
+            inter.drug = inter.other_interactant(ctx.drug)
+
         ctx.dummy_risks = Interaction.get_dummy_risks()
         ctx.dummy_synergies = Interaction.get_dummy_synergies()
 
-        for inter in ctx.interactions:
-            inter.drug = inter.other_interactant(ctx.drug)
+        word_validator = RegexValidator(r"^\w*$")
+        color_validator = RegexValidator(r"^[a-fA-F0-9]{6}$")
+
+        ctx.theme = validate_request_param(
+            request,
+            'theme',
+            word_validator
+        )
+        ctx.text_color = validate_request_param(
+            request,
+            'text-color',
+            color_validator
+        )
 
         return ctx
 
