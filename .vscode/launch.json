@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Django server",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "pythonArgs": ["-Wa"],
             "program": "${workspaceFolder}\\manage.py",
@@ -14,7 +14,7 @@
         },
         {
             "name": "Django huey",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "pythonArgs": ["-Wa"],
             "program": "${workspaceFolder}\\manage.py",
@@ -25,7 +25,7 @@
         },
         {
             "name": "Django test",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "pythonArgs": ["-Wa"],
             "program": "${workspaceFolder}\\manage.py",
