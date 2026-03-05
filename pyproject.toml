@@ -6,12 +6,12 @@ build-backend = "pdm.backend"
 name = "mixtures"
 requires-python = ">=3.10"
 dependencies = [
-    "django~=5.0",
+    "django~=5.2",
     "dj-database-url~=3.1",
     "django-modeltranslation~=0.20",
     "django-simple-history~=3.11",
     "django-mistune~=0.3",
-    "django-hosts~=6.0",  # TODO: Update to 7.0 when dj>=5.2
+    "django-hosts~=7.0",
     "huey~=2.6",
     "md-anchors~=0.2",  # TODO: Remove this
     "whitenoise~=6.12",
