@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddConstraint(
             model_name='interaction',
-            constraint=models.CheckConstraint(check=models.Q(_negated=True, from_drug=django.db.models.expressions.F('to_drug')), name='interactants_inequals'),
+            constraint=models.CheckConstraint(condition=models.Q(_negated=True, from_drug=django.db.models.expressions.F('to_drug')), name='interactants_inequals'),
         ),
     ]

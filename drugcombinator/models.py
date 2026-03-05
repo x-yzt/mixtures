@@ -330,7 +330,7 @@ class Interaction(LastModifiedModel):
     class Meta:
         constraints = (
             CheckConstraint(
-                check=~Q(from_drug=F('to_drug')),
+                condition=~Q(from_drug=F('to_drug')),
                 name='interactants_inequals'
             ),
             UniqueConstraint(

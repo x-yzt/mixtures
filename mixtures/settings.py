@@ -85,8 +85,6 @@ TEMPLATES = [
     },
 ]
 
-FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
-
 WSGI_APPLICATION = 'mixtures.wsgi.application'
 
 
@@ -188,7 +186,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 
 # Cache
