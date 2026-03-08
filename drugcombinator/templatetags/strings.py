@@ -22,7 +22,7 @@ def formatspaces(text):
     }
     text = text.strip()
     for pat, repl in replacements.items():
-        text = re.sub(pat, repl, text, flags=re.M)
+        text = re.sub(pat, repl, text, flags=re.MULTILINE)
 
     return text
 
@@ -38,7 +38,7 @@ def stripspaces(text):
     }
     text = text.strip()
     for pat, repl in replacements.items():
-        text = re.sub(pat, repl, text, flags=re.M)
+        text = re.sub(pat, repl, text, flags=re.MULTILINE)
 
     return text
 

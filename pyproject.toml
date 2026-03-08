@@ -4,7 +4,8 @@ build-backend = "pdm.backend"
 
 [project]
 name = "mixtures"
-requires-python = ">=3.10"
+version = "0.0.0"
+requires-python = ">=3.14"
 dependencies = [
     "django~=5.2",
     "dj-database-url~=3.1",
@@ -40,14 +41,14 @@ line-length = 79
 
 [tool.ruff.lint]
 select = [
-    "F", "E", "W", "I", "N", "UP", "B", "C4", "DJ", "INP", "PIE", "PYI",
-    "RSE", "RET", "SLOT", "SIM", "TID", "INT", "PTH", "PERF", "RUF"
+    'ASYNC', 'B', 'BLE', 'C4', 'DJ', 'E', 'F', 'FLY', 'FURB', 'I', 'INP',
+    'INT', 'LOG', 'N', 'PERF', 'PIE', 'PLE', 'PTH', 'PYI', 'RET', 'RSE', 'RUF',
+    'SIM', 'SLOT', 'TID', 'UP', 'W', 'YTT'
 ]
 ignore = [
-    "DJ003",  # TODO: Remove this!
-    "DJ012",
-    "PERF203",  # TODO: Remove this on py>=3.11
-    "RUF012",
+    "DJ003",  # `locals()` as context to `render` functions
+    "DJ012",  # Model definition order does not follow style guide
+    "RUF012",  # Mutable default value for class attribute
 ]
 
 [tool.ruff.lint.per-file-ignores]
