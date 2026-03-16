@@ -3,6 +3,7 @@ import unicodedata
 from hashlib import md5
 from time import time
 
+import mistune
 from django.core.exceptions import ValidationError
 from django.db import connection, reset_queries
 from django.utils.text import format_lazy
@@ -52,6 +53,29 @@ def count_queries(func):
         return result
 
     return inner_func
+
+
+def extract_links(document):
+    """Parse a markdown document and return an ordered list of its
+    links tokens."""
+    markdown = mistune.create_markdown(renderer="ast")
+    tokens = markdown(document)
+
+    def walk(tokens):
+        for token in tokens:
+            if token["type"] == "link":
+                yield token
+
+            if children := token.get("children"):
+                yield from walk(children)
+
+    return list(walk(tokens))
+
+
+def extract_anchors(document):
+    """Parse a markdown document and return a set of the anchors of its
+    links."""
+    return {anchor["link"] for anchor in extract_links(document)}
 
 
 def get_libravatar_url(email, https=False, size=80, default=None):

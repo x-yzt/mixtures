@@ -6,7 +6,7 @@ from django.test import TestCase
 from drugcombinator.forms import ContribForm
 from drugcombinator.modelfields import ListField
 from drugcombinator.models import Drug, Interaction
-from drugcombinator.utils import normalize
+from drugcombinator.utils import extract_anchors, normalize
 
 
 class UtilsTestCase(TestCase):
@@ -19,6 +19,76 @@ class UtilsTestCase(TestCase):
     def test_normalize_noop(self):
         data = "c'est vraiment pas de bol !"
         self.assertEqual(normalize(data), data)
+
+
+class AnchorExtractionTestCase(TestCase):
+    def test_extract_anchors(self):
+        text = (
+            "Hello, [this article][1] looks great.\n"
+            "And [this one](uri://hello) looks great too.\n"
+            "This has [empty target]().\n"
+            "\n"
+            "[1]: uri://hi\n"
+            "[2]: uri://other\n"
+            "[3]: uri://unused\n"
+        )
+        self.assertEqual(
+            extract_anchors(text),
+            {"uri://hi", "uri://hello", ""}
+        )
+
+    def test_extract_anchors_bad(self):
+        text = (
+            "Hello, [this article]   [article] looks great.\n"
+            "And [this one] (uri://hello) looks great too.\n"
+            "This has [empty reference][].\n"
+            "And [this one][not referenced] goes nowhere.\n"
+            "\n"
+            "   [article]:uri://hi"
+        )
+        self.assertEqual(extract_anchors(text), {"uri://hi"})
+
+    def test_extract_anchors_brakets(self):
+        text = (
+            "Hello, [something][1] (some more info).\n"
+            "Some [other stuff][2][hey].\n"
+            "\n"
+            "[1]: uri://hi\n"
+            "[2]: uri://hello\n"
+        )
+        self.assertEqual(extract_anchors(text), {"uri://hi", "uri://hello"})
+
+    def test_extract_anchors_crlf(self):
+        text = (
+            "Hello, [inline link][1], [inline link][2].\r\n"
+            "\r\n"
+            "[1]: uri://hi\r\n"
+            "[2]: uri://hello\r\n"
+        )
+        self.assertEqual(extract_anchors(text), {"uri://hi", "uri://hello"})
+
+    def extract_anchors_nested(self):
+        text = (
+            "A list:\n"
+            "- Some [link][1]\n"
+            "- And [more[nested][3]links][2]\n"
+            "\n"
+            "[1]: uri://hi\n"
+            "[2]: uri://hello\n"
+            "[3]: uri://other\n"
+        )
+        self.assertEqual(
+            extract_anchors(text),
+            {"uri://hi", "uri://hello", "uri://other"}
+        )
+
+    def test_extract_anchors_none(self):
+        text = (
+            "Hello, (no uris here) [I mean, really].\n"
+            "[A link][ref] to nothing.\n"
+            "And ![Some image](link)\n"
+        )
+        self.assertEqual(extract_anchors(text), set())
 
 
 class ListFieldTestCase(TestCase):

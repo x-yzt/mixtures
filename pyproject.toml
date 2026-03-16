@@ -14,7 +14,7 @@ dependencies = [
     "django-mistune~=0.3",
     "django-hosts~=7.0",
     "huey~=2.6",
-    "md-anchors~=0.2",  # TODO: Remove this
+    "mistune~=2.0",
     "whitenoise~=6.12",
     "gunicorn",
     "psycopg2-binary",
