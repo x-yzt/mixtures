@@ -316,7 +316,7 @@ class Interaction(LastModifiedModel):
             try:
                 validate(uri)
             except ValidationError:
-                log.debug(
+                log.info(
                     f"Encountered invalid URI {uri} in interaction {self}"
                 )
                 continue

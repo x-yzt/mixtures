@@ -2,16 +2,17 @@
     "files.associations": {
         "*.html": "django-html",
     },
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [],
     "editor.rulers": [72, 79],
+
     "[django-html]": {
         "editor.tabSize": 2,
         "editor.rulers": [100],
     },
-
     "[scss]": {
         "editor.tabSize": 2,
     },
-
     "[json]": {
         "editor.tabSize": 2,
     },
