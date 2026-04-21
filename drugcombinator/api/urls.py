@@ -1,10 +1,7 @@
-from django.urls import include, path, register_converter
+from django.urls import include, path
 
 from drugcombinator.api import views
-from drugcombinator.converters import SlugListConverter
 
-
-register_converter(SlugListConverter, 'slug_list')
 
 app_name = 'api'
 

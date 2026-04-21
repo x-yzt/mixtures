@@ -11,22 +11,24 @@ class TaskScheduler:
     def __init__(self, task, cooldown=timedelta(minutes=1)):
         self.task = task
         self.cooldown = cooldown
-        self.eta = datetime(1, 1, 1)
+        self.run_at = datetime.min
 
     def __call__(self, *args, **kwargs):
-        self.eta = max(self.eta + self.cooldown, datetime.now())
+        self.run_at = max(self.run_at + self.cooldown, datetime.now())
 
-        self.task.schedule(args, kwargs, self.eta)
+        self.task.schedule(args, kwargs, self.run_at)
 
 
 @db_task(retries=5, retry_delay=1, expires=3600)
-def get_snapshot(id, uri):
-    """Update the snapshot status of a given uri of the model instance
-    of given ID."""
+def get_snapshot(interaction_id, uri):
+    """Update the snapshot status of a given uri for the model instance
+    of given ID.
 
+    If a snapshot does not exist, a subsequent query is scheduled to
+    make one."""
     interaction = (
         apps.get_model('drugcombinator.interaction')
-        .objects.get(id=id)
+        .objects.get(id=interaction_id)
     )
 
     # Ensure the URI is still present in the model instance at the time
@@ -46,18 +48,17 @@ def get_snapshot(id, uri):
         }
         interaction.save(process_uris=False)
 
-    elif meta is None or meta.get('status', None) != 'REQUESTED':
-        schedule_capture(id, uri)
+    elif meta is None or meta['status'] != 'REQUESTED':
+        schedule_capture(interaction_id, uri)
 
 
 @db_task(retries=2, retry_delay=20, expires=3600)
-def capture(id, uri):
+def capture(interaction_id, uri):
     """Make a capture request for a given uri of the model instance of
     given ID."""
-
     interaction = (
         apps.get_model('drugcombinator.interaction')
-        .objects.get(id=id)
+        .objects.get(id=interaction_id)
     )
 
     # Ensure the URI is still present in the model instance at the time
@@ -84,10 +85,12 @@ def capture(id, uri):
 
 
 @task()
-def ping_webarchive(id, uris):
+def ping_webarchive(interaction_id, uris):
+    """Schedule a refresh query for every URI of a given interaction if
+    needed."""
     for uri, meta in uris.items():
         if meta is None or meta['status'] != 'ARCHIVED':
-            schedule_get_snapshot(id, uri)
+            schedule_get_snapshot(interaction_id, uri)
 
 
 schedule_get_snapshot = TaskScheduler(get_snapshot, timedelta(seconds=1))

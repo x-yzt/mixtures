@@ -1,12 +1,14 @@
 from operator import attrgetter
+from unittest.mock import patch
 
 from django.db.utils import IntegrityError
 from django.test import TestCase
+from huey.contrib.djhuey import HUEY
 
 from drugcombinator.forms import ContribForm
 from drugcombinator.modelfields import ListField
 from drugcombinator.models import Drug, Interaction
-from drugcombinator.utils import normalize
+from drugcombinator.utils import extract_anchors, normalize
 
 
 class UtilsTestCase(TestCase):
@@ -21,6 +23,61 @@ class UtilsTestCase(TestCase):
         self.assertEqual(normalize(data), data)
 
 
+class AnchorExtractionTestCase(TestCase):
+    def test_extract_anchors(self):
+        text = (
+            "Hello, [this article][1] looks great.\n"
+            "And [this one](uri://hello) looks great too.\n"
+            "This has [empty target]().\n"
+            "\n"
+            "[1]: uri://hi\n"
+            "[2]: uri://other\n"
+            "[3]: uri://unused\n"
+        )
+        self.assertSetEqual(
+            extract_anchors(text),
+            {"uri://hi", "uri://hello", ""}
+        )
+
+    def test_extract_anchors_bad(self):
+        text = (
+            "Hello, [this article]   [article] looks great.\n"
+            "And [this one] (uri://hello) looks great too.\n"
+            "This has [empty reference][].\n"
+            "And [this one][not referenced] goes nowhere.\n"
+            "\n"
+            "   [article]:uri://hi"
+        )
+        self.assertSetEqual(extract_anchors(text), {"uri://hi"})
+
+    def test_extract_anchors_brakets(self):
+        text = (
+            "Hello, [something][1] (some more info).\n"
+            "Some [other stuff][2][hey].\n"
+            "\n"
+            "[1]: uri://hi\n"
+            "[2]: uri://hello\n"
+        )
+        self.assertSetEqual(extract_anchors(text), {"uri://hi", "uri://hello"})
+
+    def test_extract_anchors_crlf(self):
+        text = (
+            "Hello, [inline link][1], [inline link][2].\r\n"
+            "\r\n"
+            "[1]: uri://hi\r\n"
+            "[2]: uri://hello\r\n"
+        )
+        self.assertSetEqual(extract_anchors(text), {"uri://hi", "uri://hello"})
+
+    def test_extract_anchors_none(self):
+        text = (
+            "Hello, (no uris here) [I mean, really].\n"
+            "[A link][ref] to nothing.\n"
+            "And ![Some image](link)\n"
+        )
+        self.assertSetEqual(extract_anchors(text), set())
+
+
 class ListFieldTestCase(TestCase):
     def test_list_field_deconstruct(self):
         list_field = ListField(sep=',', default=['a'], help_text="Foo")
@@ -32,26 +89,25 @@ class ListFieldTestCase(TestCase):
 
 
 class InteractionModelTestCase(TestCase):
-    drug_a = Drug(name="DrugA", slug='drug-a')
-    drug_b = Drug(name="DrugB", slug='drug-b')
-    drug_c = Drug(name="DrugC", slug='drug-c')
-
-    inter_a_b = Interaction(
-        from_drug=drug_a,
-        to_drug=drug_b,
-        names=["First name", "Second name"]
-    )
-    inter_b_c = Interaction(
-        from_drug=drug_b,
-        to_drug=drug_c
-    )
-
     def setUp(self):
-        self.drug_a.save()
-        self.drug_b.save()
-        self.drug_c.save()
-        self.inter_a_b.save()
-        self.inter_b_c.save()
+        self.drug_a = Drug.objects.create(name="DrugA", slug='drug-a')
+        self.drug_b = Drug.objects.create(name="DrugB", slug='drug-b')
+        self.drug_c = Drug.objects.create(name="DrugC", slug='drug-c')
+
+        self.inter_a_b = Interaction.objects.create(
+            from_drug=self.drug_a,
+            to_drug=self.drug_b,
+            names=["First name", "Second name"],
+            effect_description="Effects: [link](http://a.xx)",
+            risk_description="Risks: [link](http://b.xx), [invalid](file://c.xx)",
+        )
+        self.inter_b_c = Interaction.objects.create(
+            from_drug=self.drug_b,
+            to_drug=self.drug_c,
+        )
+
+    def tearDown(self):
+        HUEY.immediate = False
 
     def test_interactants_inequals(self):
         with self.assertRaises(IntegrityError):
@@ -104,23 +160,67 @@ class InteractionModelTestCase(TestCase):
             self.inter_a_b.other_interactant(self.drug_c)
 
     def test_interaction_names(self):
-        self.assertEqual(
+        self.assertListEqual(
             self.inter_a_b.names, ["First name", "Second name"]
         )
 
     def test_interaction_names_blank(self):
-        self.assertEqual(self.inter_b_c.names, [])
+        self.assertListEqual(self.inter_b_c.names, [])
+
+    def test_interaction_uri_extraction(self):
+        with self.assertLogs(level="INFO") as logs:
+            self.inter_a_b.save()
+
+        self.assertDictEqual(
+            self.inter_a_b.uris,
+            {"http://a.xx": None, "http://b.xx": None}
+        )
+        self.assertIn("Encountered invalid URI file://c.xx", logs.output[0])
+
+    @patch("drugcombinator.business.wayback.urlopen")
+    def test_interaction_uri_get_snapshot(self, urlopen_mock):
+        HUEY.immediate = True
+
+        urlopen_mock.return_value.__enter__.return_value.read.return_value = (
+            b"""{
+                "url": "http://a.xx",
+                "archived_snapshots": {
+                    "closest": {
+                        "status": "200",
+                        "available": true,
+                        "url": "http://a.yy",
+                        "timestamp": "20000101000000"
+                    }
+                }
+            }"""
+        )
+
+        self.inter_a_b.save()
+        self.inter_a_b.refresh_from_db()
+
+        self.assertDictEqual(
+            self.inter_a_b.uris["http://a.xx"],
+            {
+                'status': 'ARCHIVED',
+                'url': 'http://a.yy',
+                'date': 946681200.0,
+            }
+        )
 
 
 class DrugModelTestCase(TestCase):
-    drug_a = Drug(
-        pk=2, name="Drug A", slug="a", aliases=("Drug B", "Other"))
-    drug_b = Drug(
-        pk=1, name="Drug B", slug="b")
-
     def setUp(self):
-        self.drug_a.save()
-        self.drug_b.save()
+        self.drug_a = Drug.objects.create(
+            pk=2,
+            name="Drug A",
+            slug="a",
+            aliases=("Drug B", "Other"),
+        )
+        self.drug_b = Drug.objects.create(
+            pk=1,
+            name="Drug B",
+            slug="b",
+        )
 
     def test_get_by_name(self):
         for name, query, result in (
@@ -136,12 +236,9 @@ class DrugModelTestCase(TestCase):
 
 
 class ComboViewTestCase(TestCase):
-    drug_a = Drug(name="DrugA", slug='a')
-    drug_b = Drug(name="DrugB", slug='b')
-
     def setUp(self):
-        self.drug_a.save()
-        self.drug_b.save()
+        self.drug_a = Drug.objects.create(name="DrugA", slug='a')
+        self.drug_b = Drug.objects.create(name="DrugB", slug='b')
 
     def test_return_code(self):
         for url, code in (

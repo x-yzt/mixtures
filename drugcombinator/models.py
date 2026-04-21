@@ -1,6 +1,9 @@
+from logging import getLogger
 from operator import attrgetter
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -26,12 +29,18 @@ from django.urls import reverse
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
-from mdanchors import AnchorConverter
 
 from drugcombinator.managers import DrugManager, InteractionManager
 from drugcombinator.modelfields import ListField
 from drugcombinator.tasks import ping_webarchive
-from drugcombinator.utils import get_libravatar_url, markdown_allowed
+from drugcombinator.utils import (
+    extract_anchors,
+    get_libravatar_url,
+    markdown_allowed,
+)
+
+
+log = getLogger(__name__)
 
 
 class LastModifiedModel(Model):
@@ -287,23 +296,35 @@ class Interaction(LastModifiedModel):
     def extract_uris(self):
         """Extract URIs from this model `risk_description` and
         `effect_description` text fields."""
-
-        return set().union(*(
-            AnchorConverter(field).uris
-            for field in (self.risk_description, self.effect_description)
-        ))
+        return (
+            extract_anchors(self.risk_description)
+            | extract_anchors(self.effect_description)
+        )
 
     def update_uris(self):
         """Update stored URIs according to this model text fields.
 
-        If a URI was already extracted, it will not be modified.
-        Unused URIs will be removed.
-        New URIs will be added with a `None` value.
+        - Extracted URIs will be validated.
+        - If an URI was already extracted, its metadata will not be modified.
+        - Unused URIs will be removed.
+        - New URIs will be added with a `None` value.
         """
-        self.uris = {
-            uri: getattr(self.uris, uri, None)
-            for uri in self.extract_uris()
-        }
+        validate = URLValidator(schemes=("http", "https"))
+
+        uris = {}
+        for uri in self.extract_uris():
+            try:
+                validate(uri)
+            except ValidationError:
+                log.info(
+                    f"Encountered invalid URI {uri} in interaction {self}"
+                )
+                continue
+
+            uris[uri] = getattr(self.uris, uri, None)
+
+        self.uris = uris
+
 
     def schedule_webarchive_ping(self):
         ping_webarchive(self.id, self.uris)()
@@ -330,7 +351,7 @@ class Interaction(LastModifiedModel):
     class Meta:
         constraints = (
             CheckConstraint(
-                check=~Q(from_drug=F('to_drug')),
+                condition=~Q(from_drug=F('to_drug')),
                 name='interactants_inequals'
             ),
             UniqueConstraint(

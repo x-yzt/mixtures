@@ -256,7 +256,7 @@ def autocomplete(request):
             ):
                 entries.append(alias)
 
-    return JsonResponse({entry: None for entry in entries})
+    return JsonResponse(dict.fromkeys(entries))
 
 
 def send_contrib(request):

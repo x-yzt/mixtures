@@ -13,4 +13,11 @@
   <link rel="apple-touch-icon" type="image/png" href="{% static 'mixtures/img/touch-icon.png' %}"/>
 {% endblock %}
 
-{% block dark-mode-vars %}{% endblock %}
+{# Do not render dark mode CSS vars, and hide theme selector from admin header and login view. #}
+{% block dark-mode-vars %}
+  <style>
+    .theme-toggle {
+      display: none;
+    }
+  </style>
+{% endblock %}

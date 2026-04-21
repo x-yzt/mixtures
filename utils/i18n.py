@@ -1,9 +1,10 @@
 import unicodedata
+from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import translate_url
-from django.utils.http import _urlparse, is_same_domain
+from django.utils.http import MAX_URL_LENGTH, is_same_domain
 from django.utils.translation import check_for_language
 from django.views.decorators.csrf import csrf_exempt
 
@@ -86,7 +87,9 @@ def url_has_allowed_host_and_scheme(url, allowed_hosts, require_https=False):
 
     See original function for docs and comments.
     """
-    url = url.strip()
+    if url is not None:
+        url = url.strip()
+
     if not url:
         return False
 
@@ -103,10 +106,10 @@ def _url_has_allowed_host_and_scheme(url, allowed_hosts, require_https=False):
 
     See original function for docs and comments.
     """
-    if url.startswith("///"):
+    if url.startswith("///") or len(url) > MAX_URL_LENGTH:
         return False
     try:
-        url_info = _urlparse(url)
+        url_info = urlsplit(url)
     except ValueError:
         return False
 
@@ -123,10 +126,10 @@ def _url_has_allowed_host_and_scheme(url, allowed_hosts, require_https=False):
     valid_schemes = ["https"] if require_https else ["http", "https"]
 
     return (
-        not url_info.netloc or any(
+        not url_info.netloc or (any(
             is_same_domain(url_info.netloc, host)
             for host in allowed_hosts
         ) and (
             not scheme or scheme in valid_schemes
-        )
+        ))
     )
